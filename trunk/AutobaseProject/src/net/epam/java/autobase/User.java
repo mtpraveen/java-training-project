@@ -50,9 +50,7 @@ public class User implements IUser {
 
 	public void setSuspended(boolean value) {
 		suspended = value;		
-	}
-	
-	
+	}	
 	
 	/**
 	 * @return the suspended
