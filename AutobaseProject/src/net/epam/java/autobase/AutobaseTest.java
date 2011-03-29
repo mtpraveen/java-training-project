@@ -67,6 +67,8 @@ public class AutobaseTest {
 					System.in.skip(100);
 					password = input.nextLine();
 					admin.addUser(sid, username, password, UserType.DRIVER);
+					System.out.println("users: ");
+					printArray(admin.getUsersList(sid));
 					System.out.println("done!");
 					break;
 				case '2':
@@ -79,6 +81,8 @@ public class AutobaseTest {
 					System.in.skip(100);
 					password = input.nextLine();
 					admin.addUser(sid, username, password, UserType.DISPATCHER);
+					System.out.println("users: ");
+					printArray(admin.getUsersList(sid));
 					System.out.println("done!");
 					break;
 				case '3':
@@ -97,7 +101,16 @@ public class AutobaseTest {
 					printArray(admin.getUsersList(sid));
 					break;
 				case '5':
-					System.out.print("Not done yet. Can be used by syscalls");
+					System.out.println("users: ");
+					printArray(admin.getUsersList(sid));
+					System.out.print("Input user id: ");
+					System.in.skip(100);
+					user = admin.getUserById(sid, Integer.parseInt(input.nextLine()));
+					System.out.print("Input new password: ");
+					System.in.skip(100);
+					password = input.nextLine();
+					admin.setUserPassword(sid, user, password);
+					System.out.println("done!");
 					break;
 				case '6':
 					System.out.println("users: ");

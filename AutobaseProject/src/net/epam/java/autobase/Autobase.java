@@ -142,8 +142,7 @@ public class Autobase implements IDispatcher, IAdmin, IDriver, IUser {
 	@Override
 	public void setUserPassword(int sid, User user, String password) {
 		checkPermissions(sid, UserType.ADMIN);
-		user.changePassword(password);
-		
+		user.changePassword(password);	
 	}
 
 	@Override
