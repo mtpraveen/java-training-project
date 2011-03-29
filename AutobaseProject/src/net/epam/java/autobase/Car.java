@@ -6,7 +6,8 @@ public class Car {
     private String brand;
     
     /**
-	 * @param number
+	 * TODO javadoc
+    @param number
 	 * @param brand
 	 */
 	public Car(int id, String number, String brand) {
@@ -38,7 +39,7 @@ public class Car {
 	 */
 	@Override
 	public String toString() {
-		return "car " + id + "(" + brand + ", น " + number + ")";
+		return "car " + id + "(" + brand + ", ยน " + number + ")";
 	}    
 
 }
