@@ -48,12 +48,6 @@ public class Entrant implements IEntrant {
 	public void passExaminations() {
 		Examinations.isPassed=true;
 		if (Faculty.chFaculty == true){
-	//	Lecturer bes = new Lecturer();
-	//	bes.SetMark();
-	//	bes.averageMark();
-	//	bes.getMark();
-	//	bes.getAver();
-		
 		System.out.println("Ёкзамены сданы!");
 		}	
 	}
