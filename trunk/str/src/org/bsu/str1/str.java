@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 
 /**
  * @author Admin
- * 
+ * @version 1.0
  */
 public class str {
 	static String s = "asdf, asd5, drd, dr45d, drd sdr45ew,oro, frf";
