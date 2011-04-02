@@ -13,22 +13,60 @@ import java.util.Calendar;
  *
  */
 public class Train {
+	private double costKm;
 	private List<Stoping> stoping;
 	private int idName;
 	private boolean goDayOfWeek[]=new boolean[7];
 	private static int maxQuantityPlaces;
-	private int quantityPlaces;
+	private int occupiedPlaces;
+	
+	/**
+	 * @return the idName
+	 */
+	public int getIdName() {
+		return idName;
+	}
+	/**
+	 * @param idName the idName to set
+	 */
+	public void setIdName(int idName) {
+		this.idName = idName;
+	}
+	/**
+	 * @return the goDayOfWeek
+	 */
+	public boolean[] getGoDayOfWeek() {
+		return goDayOfWeek;
+	}
+	/**
+	 * @param goDayOfWeek the goDayOfWeek to set
+	 */
+	public void setGoDayOfWeek(boolean[] goDayOfWeek) {
+		this.goDayOfWeek = goDayOfWeek;
+	}
 	/**
 	 * @param args
 	 */
 	
 
-
+	
 	public Train() {
 		super();
 		stoping=new ArrayList<Stoping>();
 		//station=new ArrayList
 		// TODO Auto-generated constructor stub
+	}
+	/**
+	 * @return the costKm
+	 */
+	public double getCostKm() {
+		return costKm;
+	}
+	/**
+	 * @param costKm the costKm to set
+	 */
+	public void setCostKm(double costKm) {
+		this.costKm = costKm;
 	}
 	public Train(int name) {
 		this();
@@ -56,14 +94,18 @@ public class Train {
 	/**
 	 * @return the quantityPlaces
 	 */
-	public int getQuantityPlaces() {
-		return quantityPlaces;
+	public int getOccupiedPlaces() {
+		return occupiedPlaces;
+	}
+	public void addOccupiedPlaces()
+	{
+		occupiedPlaces++;
 	}
 	/**
 	 * @param quantityPlaces the quantityPlaces to set
 	 */
-	public void setQuantityPlaces(int quantityPlaces) {
-		this.quantityPlaces = quantityPlaces;
+	public void setOccupiedPlaces(int quantityPlaces) {
+		this.occupiedPlaces = quantityPlaces;
 	}
 	/**
 	 * @param station the station to set
@@ -87,7 +129,7 @@ public class Train {
 	/**
 	 * @return 
 	 */
-	 public int seachStation(String name){
+	 public int searchStation(String name){
 		//Stoping tempStation;
 		for(int i=0;i<stoping.size();i++)
 		{
@@ -147,11 +189,6 @@ public class Train {
 	public void setGoDayOfWeek(int numberDayOfWeek,boolean goTrainInDay) {
 		if (numberDayOfWeek<=7)
 		this.goDayOfWeek[numberDayOfWeek-1]=goTrainInDay;
-	}
-	
-	public int distanceStoping(int station1,int station2)
-	{
-		return (stoping.get(station2).getDistOfBegin()-stoping.get(station1).getDistOfBegin());
 	}
 
 }
