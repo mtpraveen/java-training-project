@@ -21,6 +21,8 @@ public class RV {
 	 */
 	public void setPassenger(Passenger passenger) {
 		this.passenger = passenger;
+		this.passenger.getReqestion().setListTrainReq(listTrain);
+		this.passenger.setReqestion();
 	}
 
 	/**
@@ -56,9 +58,32 @@ public class RV {
 		this.passenger = passenger;
 		this.administrator = administrator;
 		listTrain=administrator.getListTrainAdmin();
-		this.passenger.getReqestion().setListTrainReq(listTrain);
-		this.passenger.setReqestion();
-		System.out.println(this.passenger.getReqestion().getListTrainReq().size());
+		setPassenger(passenger);
+	}
+	public void getCheck()
+	{
+		TrainPassengerGo trainPasGo=getPassenger().getTrainGo();
+		if (passenger.getMoney()>trainPasGo.getMoneyFare())
+		{
+			if (trainPasGo.getOccupiedPlaces()<trainPasGo.getMaxQuantityPlaces())
+			{
+				trainPasGo.addOccupiedPlaces();
+				Calendar date=passenger.getGoDate();
+				System.out.println("Check\nFor: "+getPassenger().getFullNume()+"\nTrain "+trainPasGo.getStoping().get(0).getNameStation()+'-'+trainPasGo.getStoping().get(trainPasGo.getStoping().size()-1).getNameStation()
+						+"\nTrain nuber: "+trainPasGo.getName()
+						+" Place:"+trainPasGo.getOccupiedPlaces()
+						+" Trip date:"+date.get(Calendar.DAY_OF_MONTH)+'.'+date.get(Calendar.MONTH)+'.'+date.get(Calendar.YEAR)+"\nDeparture station->"+passenger.getStationIn()+" Arrival station->"+passenger.getStationOn()+
+						"\nDeparture time:"+trainPasGo.getStopingDeparture().getTimeOutput().get(Calendar.HOUR_OF_DAY)+':'+trainPasGo.getStopingDeparture().getTimeOutput().get(Calendar.MINUTE)
+						+"\tArrival time"+trainPasGo.getStopingArrival().getTimeInput().get(Calendar.HOUR_OF_DAY)+':'+trainPasGo.getStopingArrival().getTimeInput().get(Calendar.MINUTE)
+						+"\nCost->"+trainPasGo.getMoneyFare()
+						+"\nCashier:"+cashier.getIdNomber());
+				passenger.setMoney(passenger.getMoney()-trainPasGo.getMoneyFare());
+			}
+			else
+				System.out.println("No available spaces");
+		}
+		else
+			System.out.println("You don't have money");
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -68,6 +93,7 @@ public class RV {
 		Passenger petia=new Passenger("Petr","Vasil'evich",10000,"Kaluga","Minsk",date);
 		Cashier galia=new Cashier(5,"Galina","Sikorkina");
 		RV litleRv=new RV(galia,petia,vasia);
+		litleRv.getCheck();
 		//litleRv.administrator.setListTrain();
 		//System.out.println(litleRv.getListTrain().size());
 		//litleRv.passenger.setReqestion();

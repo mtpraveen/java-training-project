@@ -57,7 +57,7 @@ public class Stoping {
 	 * @param timeInput the timeInput to set
 	 */
 	public void setTimeInput(int hour,int minute) {
-		this.timeOutput=new GregorianCalendar(0, 0, 0, hour, minute);
+		this.timeInput=new GregorianCalendar(0, 0, 0, hour, minute);
 	}
 	/**
 	 * @return the timeOutput

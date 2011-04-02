@@ -13,7 +13,7 @@ public class Passenger {
 	private String name;
 	private String surName;
 	private int money;
-	private Train trainGo;
+	private TrainPassengerGo trainGo;
 	private Reqestion reqestion;
 	private boolean passengerGo;
 	private String stationOn;
@@ -59,7 +59,7 @@ public class Passenger {
 	/**
 	 * @return the trainGo
 	 */
-	public Train getTrainGo() {
+	public TrainPassengerGo getTrainGo() {
 		return trainGo;
 	}
 	/**
@@ -84,7 +84,7 @@ public class Passenger {
 	/**
 	 * @param trainGo the trainPassengerGo to set
 	 */
-	public void setTrainGo(Train trainGo) {
+	public void setTrainGo(TrainPassengerGo trainGo) {
 		if (trainGo!=null)
 			passengerGo=true; 
 		else

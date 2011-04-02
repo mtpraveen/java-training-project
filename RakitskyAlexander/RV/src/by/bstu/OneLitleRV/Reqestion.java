@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  */
 public class Reqestion {
-	private List<Integer> seachResultTrain=new ArrayList<Integer>();
+	private List<TrainPassengerGo> seachResultTrain=new ArrayList<TrainPassengerGo>();
 	private List<Train> listTrainReq;
 	private Passenger passenger;
 	/**
@@ -40,17 +40,28 @@ public class Reqestion {
 
 	private void seachTrain()
 	{
-		System.out.println(getListTrainReq().get(0).seachStation(passenger.getStationOn()));
-		System.out.println(getListTrainReq().get(0).seachStation(passenger.getStationIn()));
+	//	System.out.println(getListTrainReq().get(0).seachStation(passenger.getStationOn()));
+	//	System.out.println(getListTrainReq().get(0).seachStation(passenger.getStationIn()));
 		for (int i=0;i<getListTrainReq().size();i++)
-			if(getListTrainReq().get(i).seachStation(passenger.getStationOn())!=-1)
-				if(getListTrainReq().get(i).seachStation(passenger.getStationIn())!=-1)
+			if(getListTrainReq().get(i).searchStation(passenger.getStationOn())!=-1)
+				if(getListTrainReq().get(i).searchStation(passenger.getStationIn())!=-1)
 					if (getListTrainReq().get(i).getGoDayOfWeek(passenger.getGoDate().get(Calendar.DAY_OF_WEEK)))
 					{
-						seachResultTrain.add(i);
+						TrainPassengerGo addTrainGo= new TrainPassengerGo();
+						Train train=getListTrainReq().get(i);
+						addTrainGo.setCostKm(train.getCostKm());
+						addTrainGo.setGoDayOfWeek(train.getGoDayOfWeek());
+						addTrainGo.setIdName(train.getIdName());
+						addTrainGo.setName(train.getName());
+						addTrainGo.setOccupiedPlaces(train.getOccupiedPlaces());
+						addTrainGo.setStoping(train.getStoping());
+						addTrainGo.setMaxQuantityPlaces(train.getMaxQuantityPlaces());
+						addTrainGo.setStopingArrival(passenger.getStationIn());
+						addTrainGo.setStopingDeparture(passenger.getStationOn());
+						seachResultTrain.add(addTrainGo);
 					}
 }
-	public Train EnterResultSeach() 
+	public TrainPassengerGo EnterResultSeach() 
 	{
 		if (listTrainReq.size()==0)
 		{
@@ -58,18 +69,17 @@ public class Reqestion {
 			return null;
 		}
 		seachTrain();
-		Train chooseTrain;
-		Stoping stopingIn;
-		Stoping stopingOn;
+		TrainPassengerGo chooseTrain;
 		for(int i=0;i<seachResultTrain.size();i++)
 		{
-			chooseTrain=getListTrainReq().get(i);
-			stopingIn=chooseTrain.getStoping().get(chooseTrain.seachStation(passenger.getStationIn()));
-			stopingOn=chooseTrain.getStoping().get(chooseTrain.seachStation(passenger.getStationOn()));
+			chooseTrain=seachResultTrain.get(i);
+			Stoping stopingIn=chooseTrain.getStopingDeparture();
+			Stoping stopingOn=chooseTrain.getStopingArrival();
 			System.out.println("Namber ->"+(i+1));
 			System.out.println("Name ->"+chooseTrain.getName());
 			System.out.println("Time Output->"+stopingOn.getTimeOutput().get(Calendar.HOUR_OF_DAY)+"h "+stopingOn.getTimeOutput().get(Calendar.MINUTE)+"m");
 			System.out.println("Time Input->"+stopingIn.getTimeInput().get(Calendar.HOUR_OF_DAY)+"h "+stopingIn.getTimeInput().get(Calendar.MINUTE)+"m");
+			System.out.println("Cost->"+Math.round(chooseTrain.getMoneyFare())+"BYB");
 		}
 		if (seachResultTrain.size()!=0)
 		{
@@ -87,7 +97,7 @@ public class Reqestion {
 				e.printStackTrace();
 			}
 			if (choose<=getListTrainReq().size())
-				return getListTrainReq().get(seachResultTrain.get(choose));
+				return seachResultTrain.get(choose);
 			else 
 				return null;
 		}
