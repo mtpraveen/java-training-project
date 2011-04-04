@@ -8,10 +8,12 @@ import java.util.GregorianCalendar;
 
 /**
  * @author epam0003
- *
+ * @param nameStation Name of Station
+ * @param distOfBegin Distance of first stopping
+ * @param timeInput Train departure time
+ * @param timeOutput Train arrival time
  */
 public class Stoping {
-
 	private String nameStation;
 	private int distOfBegin;
 	private Calendar timeInput;

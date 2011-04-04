@@ -4,18 +4,19 @@
 package by.bstu.OneLitleRV;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
  * @author Администратор
  *
  */
+/**
+ * The adminstrarot establishes the list of trains
+ * @param name Name of administrator
+ * @param listTrainAdmin The list of trains established by the manager
+ */
 public class Administrator{
-	/**
-	 * @param listTrain the listTrain to set
-	 */
+	
 	private String name;
 	private List<Train> listTrainAdmin;
 	
@@ -32,8 +33,10 @@ public class Administrator{
 	public List<Train> getListTrainAdmin() {
 		return listTrainAdmin;
 	}
-
-	public void setListTrain() {
+	/**
+	 * The list of trains is established
+	 */
+	private void setListTrain() {
 		List<Train> ListTrainNew=new ArrayList<Train>();
 		Train tr1=new Train(5);
 		Train tr2=new Train(7);

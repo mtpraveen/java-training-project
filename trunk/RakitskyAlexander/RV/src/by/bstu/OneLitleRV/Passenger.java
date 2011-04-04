@@ -6,10 +6,23 @@ package by.bstu.OneLitleRV;
 import java.util.Calendar;
 
 /**
- * @author Администратор
+ * @author Rakitsky Alexaner
  *
  */
+/**
+ * 
+ * @param name Name of passenger
+ * @param surName surname of passenger
+ * @param money Money which is at the passenger
+ * @param trainGo The train on which will go the passenger
+ * @param reqestion  The reqestion which submits the passenger
+ * @param passengerGo Whether there will go the passenger - logic type
+ * @param stationOn name departure station 
+ * @param stationIn name arrival station
+ * @param geDate Date when the passenger is going to make a trip
+ */
 public class Passenger {
+
 	private String name;
 	private String surName;
 	private int money;
@@ -87,9 +100,10 @@ public class Passenger {
 	public void setTrainGo(TrainPassengerGo trainGo) {
 		if (trainGo!=null)
 			passengerGo=true; 
-		else
+		else{
 			passengerGo=false; 
-		this.trainGo = trainGo;
+			this.trainGo = trainGo;
+		}
 	}
 	/**
 	 * @return the passengerGo
@@ -135,20 +149,29 @@ public class Passenger {
 		this.money = money;
 	}
 	/**
+	 * Geting full name of passenger
 	 * @param name
-	 * @param fullName
 	 * @param money
 	 */
 	public String getFullNume()
 	{
 		return (name+" "+surName);
 	}
+	/**
+	 * 
+	 * @param name
+	 * @param serName
+	 * @param money
+	 */
 	public Passenger(String name, String serName, int money) {
 		super();
 		this.name = name;
 		this.surName = serName;
 		this.money = money;
 	}
+	/**
+	 * Application
+	 */
 	public void setReqestion(){
 		trainGo=reqestion.EnterResultSeach();
 		//trainGo=reqestion.getTrainGo();

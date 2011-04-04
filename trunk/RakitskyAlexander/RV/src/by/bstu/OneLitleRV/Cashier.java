@@ -1,5 +1,11 @@
 package by.bstu.OneLitleRV;
-
+/**
+ * 
+ * @author Rakitsky Alexander
+ * @param name - Name of cashier
+ * @param surName - Surname of cashier
+ * 
+ */
 public class Cashier {
   private int idNomber;
   private String name;
