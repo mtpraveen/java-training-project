@@ -1,10 +1,15 @@
 package by.bstu.OneLitleRV;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+/**
+ * @param cashier Cashier who serve cash desk
+ * @param passenger Passenger who wants buy the ticket
+ * @param administrator Meneger who setting schedule train
+ * @param listTrain array of train
+ */
 public class RV {
 	private Cashier cashier;
 	private Passenger passenger;
@@ -60,6 +65,9 @@ public class RV {
 		listTrain=administrator.getListTrainAdmin();
 		setPassenger(passenger);
 	}
+	/**
+	 * Enter in monitor check 
+	 */
 	public void getCheck()
 	{
 		TrainPassengerGo trainPasGo=getPassenger().getTrainGo();
@@ -85,6 +93,10 @@ public class RV {
 		else
 			System.out.println("You don't have money");
 	}
+	/**
+	 * main function
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Administrator vasia=new Administrator("Vasia");
@@ -94,8 +106,5 @@ public class RV {
 		Cashier galia=new Cashier(5,"Galina","Sikorkina");
 		RV litleRv=new RV(galia,petia,vasia);
 		litleRv.getCheck();
-		//litleRv.administrator.setListTrain();
-		//System.out.println(litleRv.getListTrain().size());
-		//litleRv.passenger.setReqestion();
 	}
 }

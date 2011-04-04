@@ -4,13 +4,16 @@
 package by.bstu.OneLitleRV;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Calendar;
 
 /**
- * @author epam0003
- *
+ * @author RakitskyAlexander
+ *@param costKm Kilometer cost
+ *@param stoping Array of stopping
+ *@param idName ID number train
+ *@param goDayOfWeek Days when there is a train
+ *@param maxQuantityPlaces - max quantity places
+ *@param occupiedPlaces - occupied places of train
  */
 public class Train {
 	private double costKm;
@@ -68,6 +71,10 @@ public class Train {
 	public void setCostKm(double costKm) {
 		this.costKm = costKm;
 	}
+	/**
+	 * 
+	 * @param name
+	 */
 	public Train(int name) {
 		this();
 		this.idName = name;
@@ -97,6 +104,9 @@ public class Train {
 	public int getOccupiedPlaces() {
 		return occupiedPlaces;
 	}
+	/**
+	 * add occupiedPlaces with one 
+	 */
 	public void addOccupiedPlaces()
 	{
 		occupiedPlaces++;
@@ -127,7 +137,8 @@ public class Train {
 		this.stoping.add(station);	
 	}
 	/**
-	 * @return 
+	 * @param name Name search station
+	 * @return Station number - if the station with such name isn't found returns-1
 	 */
 	 public int searchStation(String name){
 		//Stoping tempStation;
@@ -142,7 +153,7 @@ public class Train {
 		return -1;
 	}
 	/**
-	 * @return 
+	 * Sorts stations (at addition)
 	 */
 	private void sortStation(List<Stoping> station) 
 	{

@@ -7,13 +7,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ArrayList;
 
 /**
  * @author Администратор
  *
+ */
+/**
+ * @param seachResultTrain The array in which to be stored a search result of trains satisfying to the demand 
+ * @param listTainReq The array of train
+ * @param passenger Parameters of the passenger
  */
 public class Reqestion {
 	private List<TrainPassengerGo> seachResultTrain=new ArrayList<TrainPassengerGo>();
@@ -32,10 +36,7 @@ public class Reqestion {
 		this.listTrainReq = listTrainReq;
 	}
 	/**
-	 * @return the spisTrain
-	 */
-	/**
-	 * @param passengerStationIn the passengerStationIn to set
+	 * The list of trains satisfying to inquiry is formed
 	 */
 
 	private void seachTrain()
@@ -61,6 +62,10 @@ public class Reqestion {
 						seachResultTrain.add(addTrainGo);
 					}
 }
+	/**
+	 * Deduces the list of trains satisfying to inquiry and offers for a choice to the passenger of a train for movement
+	 * @return The train on which will go the passenger
+	 */
 	public TrainPassengerGo EnterResultSeach() 
 	{
 		if (listTrainReq.size()==0)

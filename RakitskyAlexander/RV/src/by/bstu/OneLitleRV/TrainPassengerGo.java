@@ -7,8 +7,13 @@ package by.bstu.OneLitleRV;
  * @author Администратор
  *
  */
+/**
+ * The train on which will go the passenger
+ * @param stopingDeparture 
+ * @param stopingArrival
+ * @param moneyFare Fare from station of departure to arrival station
+ */
 public class TrainPassengerGo extends Train {
-
 	private Stoping stopingDeparture;
 	private Stoping stopingArrival;
 	private int moneyFare;
@@ -42,7 +47,7 @@ public class TrainPassengerGo extends Train {
 	}
 
 	/**
-	 * @return the moneyFare
+	 * @return the moneyFare = dist*cosKm
 	 */
 	public int getMoneyFare() {
 		return (int) Math.round(distanceStoping()*getCostKm());
@@ -56,7 +61,7 @@ public class TrainPassengerGo extends Train {
 	}
 
 	/**
-	 * 
+	 * @return distance  which will pass a train from station of departure to arrival station
 	 */
 	
 	public int distanceStoping()
