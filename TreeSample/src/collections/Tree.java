@@ -29,6 +29,12 @@ public class Tree<E> implements Iterator<E>, Iterable<E> {
 		public abstract TraversalPosition[] getRule();
 	}
 
+	/**
+	 * Enumeration which encapsulates 3 possible direction during traversal
+	 * 
+	 * @author Pechko_E
+	 * 
+	 */
 	private enum TraversalPosition {
 		LEFT, RIGHT, ROOT;
 	}
@@ -115,6 +121,7 @@ public class Tree<E> implements Iterator<E>, Iterable<E> {
 	public void throwException() {
 		throw new NullPointerException();
 	}
+
 	public void throwCheckedException() throws Exception {
 		throw new Exception();
 	}
