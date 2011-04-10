@@ -60,23 +60,22 @@ public class GraphTest {
 	
 	@Test
 	public void shortestPathIteratorRemove() {
-//		Iterator<String> it = g.shortestPathIterator();
-//		
-//		while(it.hasNext()) {
-//			if (it.next() == "d") {
-//				it.remove();
-//			}
-//		}
-//		
-//		it = g.shortestPathIterator();
-//		
-//		assertFalse(it.hasNext());
+		Iterator<String> it = g.shortestPathIterator();
+		
+		while(it.hasNext()) {
+			if (it.next() == "d") {
+				it.remove();
+			}
+		}
+		
+		it = g.shortestPathIterator();
+		
+		assertFalse(it.hasNext());
 
 	}
 	
 	@Test
 	public void depthTraversalIteratorRemove() {
-		System.out.println("depthTraversalIteratorRemove");
 		Iterator<String> it = g.iterator();
 		
 		while(it.hasNext()) {
