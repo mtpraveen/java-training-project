@@ -2,6 +2,7 @@
  * 
  * @author Valery Ohrimchuk
  * April 2011
+ * test
  */
 public class Matrix {
 	private int row, col;
