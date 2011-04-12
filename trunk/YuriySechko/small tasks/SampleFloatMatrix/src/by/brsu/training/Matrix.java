@@ -8,7 +8,7 @@ package by.brsu.training;
  *
  */
 public class Matrix {
-	
+	//Pechko_E: package level fields
 	float[][] elements;
 	int height;
 	int width;
@@ -35,6 +35,7 @@ public class Matrix {
 		String result = "";
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
+				//Pechko_E: Concatenation in loop is not a good idea
 				result += elements[i][j] + "  ";
 			}
 			result += "\n";
