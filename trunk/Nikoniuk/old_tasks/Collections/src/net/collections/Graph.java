@@ -179,7 +179,7 @@ public class Graph<T> implements Iterable<T>{
 			removeLink(j, pos);	
 		int i = visitedNodes.indexOf(pos);
 		if (i != -1)
-			visitedNodes.remove(visitedNodes.indexOf(pos));
+			visitedNodes.remove(i);
 		setNodeData(pos, null);
 		size--;
 		
