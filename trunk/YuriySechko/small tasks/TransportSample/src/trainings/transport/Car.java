@@ -15,7 +15,7 @@ public class Car implements ITransport {
 		public final int MAX_SPEED = 360;
 		public final int MAX_RPM = 17000;
 		public static final int INC_RPM = 200;
-		
+		//Pechko_E: package level visibility of fields
 		boolean isPoweredOn = false;
 		int rpm = 0;
  
@@ -45,7 +45,7 @@ public class Car implements ITransport {
 	 * Speed increment
 	 */
 	public final static int INC_SPEED = 10;
-	
+	//Pechko_E: package level visibility of fields
 	Engine engine = new Engine();
 	GearBox gearBoxType;
 	int speed = 0;
@@ -198,7 +198,7 @@ public class Car implements ITransport {
 		zaz.stop();
 		System.out.println(zaz.toString());
 
-		
+		//Pechko_E: why do you catch Exception?
 		}
 		catch (Exception e){}
 		finally {}
