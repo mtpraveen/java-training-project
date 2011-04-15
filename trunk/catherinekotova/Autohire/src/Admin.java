@@ -1,28 +1,25 @@
+public class Admin{
 
-
-
-
-
-public class Admin
-{
-	private int number;
-	public Admin(int number) {
-		
+	public boolean desision() {
+		int n= (int) (Math.round(Math.random()))	;		
+		boolean y;
+		if(n==1 ){
+			y=true;
 	}
-	public int getNumber() {
-		return number;
-	}
-	public boolean desision(boolean y) {
+	else y=false;					
 		if(y==true ){
 				System.out.println("confirmed");
 		}
-		else System.out.println("refused for some reasons");		
-		
-
-		return y;
+		else System.out.println("refused for some reasons");
+		return y;						
 	}
-	public void notes() {
-		
+	public boolean desisionTest() {				
+		boolean y=true;
+				//System.out.println("confirmed");
+		return y;						
+	}
+	public void notes() {		
 		System.out.println("some notes");
 	}
+
 }
