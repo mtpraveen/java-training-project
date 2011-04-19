@@ -45,12 +45,7 @@ public class ParametrizedTest {
 	@Test
 	public void pushAndPop() {
 		s1.push(value);
-		try {
-			assertTrue(expected == s1.pop());
-		}
-		catch (Exception e) {
-			
-		}
+		assertTrue(expected == s1.pop());
 
 	}
 

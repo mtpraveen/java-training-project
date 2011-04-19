@@ -62,7 +62,7 @@ public class Stack<E> implements IStack<E> {
 		
 	}
 	
-	public static class NullPointer extends Exception
+	public static class NullPointer extends RuntimeException
 	{
 		public NullPointer(String message)
 		{
