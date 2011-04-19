@@ -121,7 +121,7 @@ public class User {
 		try {
 			User user = new User(data);
 			System.out.println(user);
-		} catch(Exception e) {
+		} catch(RuntimeException e) {
 			System.err.println("Parse error");
 		}
 	}
