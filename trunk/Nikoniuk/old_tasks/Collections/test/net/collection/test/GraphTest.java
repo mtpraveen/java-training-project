@@ -24,7 +24,7 @@ public class GraphTest {
 	 * @throws java.lang.Exception
 	 */
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		g = new Graph<String>(6);
 		int [][] links = new int[][]{{0, 1},{1, 3}, {0, 3}, {0, 2}, {2, 4}, {2, 5}};
 		String [] data = new String[]{"a", "b", "c", "d", "e", "f"};

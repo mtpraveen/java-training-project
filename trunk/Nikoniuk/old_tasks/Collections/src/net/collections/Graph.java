@@ -1,5 +1,6 @@
 package net.collections;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -93,6 +94,7 @@ public class Graph<T> implements Iterable<T>{
 				
 			}
 			
+			@SuppressWarnings("unchecked")
 			private void findShortestPath(int pos, int aim, int steps) {
 				visitedNodes.add(pos);
 				if (pos == aim && (steps < minPath.size() || minPath.size() == 0)) {
@@ -155,7 +157,7 @@ public class Graph<T> implements Iterable<T>{
 				if (canMove()) {
 					try {
 						curPos = visitedNodes.get(visitedNodes.indexOf(curPos) - 1);
-					} catch (Exception e) {
+					} catch (IndexOutOfBoundsException e) {
 						curPos = visitedNodes.get(visitedNodes.size() - 1);
 					}
 					return next();
@@ -207,7 +209,7 @@ public class Graph<T> implements Iterable<T>{
 			System.out.println("Input nodes data: ");
 			for (int i = 0; i < g.getSize(); i++) {
 				System.out.println(i + ": ");
-				System.in.skip(100);
+				System.in.skip(System.in.available());
 				g.setNodeData(i, input.next());
 			}
 			
@@ -222,7 +224,10 @@ public class Graph<T> implements Iterable<T>{
 				System.out.println(it.next());
 			}
 		}
-		catch(Exception e) {
+		catch(RuntimeException e) {
+			System.err.println("Error. " + e.getMessage());
+		}
+		catch(IOException e) {
 			System.err.println("Error. " + e.getMessage());
 		}
 	}
