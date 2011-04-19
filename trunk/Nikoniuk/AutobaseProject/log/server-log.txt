@@ -666,3 +666,110 @@
 2011-04-19 05:09:01,890 [main] INFO  Autobase - root: disp1234234 successfully deleted
 2011-04-19 05:09:01,890 [main] INFO  Autobase - deleting driv53257234
 2011-04-19 05:09:01,890 [main] INFO  Autobase - root: driv53257234 successfully deleted
+2011-04-19 05:54:40,718 [main] INFO  Autobase - STARTING SERVER
+2011-04-19 05:54:40,734 [main] INFO  Autobase - Loading data from database
+2011-04-19 05:54:40,890 [main] INFO  Autobase$DbEngine$1 - Loading users
+2011-04-19 05:54:40,937 [main] INFO  Autobase$DbEngine$1 - Loading requests
+2011-04-19 05:54:40,953 [main] INFO  Autobase$DbEngine$1 - Loading cars
+2011-04-19 05:54:40,953 [main] INFO  Autobase - Data successfully loaded
+2011-04-19 05:54:40,953 [main] INFO  Autobase - root tries to log in with password root
+2011-04-19 05:54:40,953 [main] INFO  Autobase - root successfully authorized in system as admin
+2011-04-19 05:54:40,953 [main] INFO  Autobase - adding new dispatcher with username=disp1234234
+2011-04-19 05:54:40,953 [main] INFO  Autobase - root: dispatcher with username=disp1234234 successfully added
+2011-04-19 05:54:40,953 [main] INFO  Autobase - adding new driver with username=driv53257234
+2011-04-19 05:54:40,968 [main] INFO  Autobase - root: driver with username=driv53257234 successfully added
+2011-04-19 05:54:40,968 [main] INFO  Autobase - deleting disp1234234
+2011-04-19 05:54:40,968 [main] INFO  Autobase - root: disp1234234 successfully deleted
+2011-04-19 05:54:40,968 [main] INFO  Autobase - deleting driv53257234
+2011-04-19 05:54:40,968 [main] INFO  Autobase - root: driv53257234 successfully deleted
+2011-04-19 05:54:40,968 [main] INFO  Autobase - deleting null
+2011-04-19 05:54:40,968 [main] ERROR Autobase - Admin can't be deleted
+2011-04-19 05:54:40,968 [main] INFO  Autobase - adding new dispatcher with username=disp1234234
+2011-04-19 05:54:40,968 [main] INFO  Autobase - root: dispatcher with username=disp1234234 successfully added
+2011-04-19 05:54:40,968 [main] INFO  Autobase - adding new driver with username=driv53257234
+2011-04-19 05:54:40,968 [main] INFO  Autobase - root: driver with username=driv53257234 successfully added
+2011-04-19 05:54:40,968 [main] INFO  Autobase - setting new password for driv53257234
+2011-04-19 05:54:40,968 [main] INFO  Autobase - root: password for driv53257234 successfully setted
+2011-04-19 05:54:40,968 [main] INFO  Autobase - driv53257234 tries to log in with password newPass
+2011-04-19 05:54:40,968 [main] INFO  Autobase - driv53257234 successfully authorized in system as driver
+2011-04-19 05:54:40,968 [main] INFO  Autobase - setting disp1234234 suspended=true
+2011-04-19 05:54:40,968 [main] INFO  Autobase - root: disp1234234 successfully suspended
+2011-04-19 05:54:40,968 [main] INFO  Autobase - setting disp1234234 suspended=false
+2011-04-19 05:54:40,968 [main] INFO  Autobase - root: disp1234234 successfully suspended
+2011-04-19 05:54:40,968 [main] INFO  Autobase - deleting disp1234234
+2011-04-19 05:54:40,968 [main] INFO  Autobase - root: disp1234234 successfully deleted
+2011-04-19 05:54:40,968 [main] INFO  Autobase - deleting driv53257234
+2011-04-19 05:54:40,968 [main] INFO  Autobase - root: driv53257234 successfully deleted
+2011-04-19 05:54:40,984 [main] INFO  Autobase - root tries to log in with password root
+2011-04-19 05:54:40,984 [main] INFO  Autobase - root successfully authorized in system as admin
+2011-04-19 05:54:40,984 [main] INFO  Autobase - adding new dispatcher with username=disp1234234
+2011-04-19 05:54:40,984 [main] INFO  Autobase - root: dispatcher with username=disp1234234 successfully added
+2011-04-19 05:54:40,984 [main] INFO  Autobase - adding new driver with username=driv53257234
+2011-04-19 05:54:40,984 [main] INFO  Autobase - root: driver with username=driv53257234 successfully added
+2011-04-19 05:54:40,984 [main] INFO  Autobase - disp1234234 tries to log in with password pass
+2011-04-19 05:54:40,984 [main] INFO  Autobase - disp1234234 successfully authorized in system as dispatcher
+2011-04-19 05:54:40,984 [main] INFO  Autobase - adding new car nissan ... ¹14354525445
+2011-04-19 05:54:40,984 [main] INFO  Autobase - disp1234234: new car nissan ... ¹14354525445 added successfully
+2011-04-19 05:54:40,984 [main] INFO  Autobase - adding new car audi ¹car80979687
+2011-04-19 05:54:40,984 [main] INFO  Autobase - disp1234234: new car audi ¹car80979687 added successfully
+2011-04-19 05:54:40,984 [main] INFO  Autobase - adding new car nissan ... ¹14354525445
+2011-04-19 05:54:40,984 [main] ERROR Autobase - car with number 14354525445 already exists
+2011-04-19 05:54:40,984 [main] INFO  Autobase - deleting audi ¹ car80979687
+2011-04-19 05:54:40,984 [main] INFO  Autobase - disp1234234: audi ¹ car80979687successfully deleted
+2011-04-19 05:54:40,984 [main] WARN  Autobase - disp1234234: using illegal car id
+2011-04-19 05:54:40,984 [main] INFO  Autobase - creating race request...
+2011-04-19 05:54:40,984 [main] INFO  Autobase - disp1234234: race request ¹ 4 successfully created
+2011-04-19 05:54:40,984 [main] INFO  Autobase - setting request status
+2011-04-19 05:54:40,984 [main] INFO  Autobase - disp1234234: status of request ¹1 successfully changed to COMPLETED
+2011-04-19 05:54:40,984 [main] INFO  Autobase - setting request status
+2011-04-19 05:54:40,984 [main] INFO  Autobase - disp1234234: status of request ¹1 successfully changed to ACTIVE
+2011-04-19 05:54:40,984 [main] INFO  Autobase - setting driver with username driv53257234 suspended
+2011-04-19 05:54:40,984 [main] INFO  Autobase - disp1234234: driver driv53257234 suspend status successfully changed to true
+2011-04-19 05:54:40,984 [main] INFO  Autobase - setting driver with username driv53257234 suspended
+2011-04-19 05:54:40,984 [main] INFO  Autobase - disp1234234: driver driv53257234 suspend status successfully changed to false
+2011-04-19 05:54:41,000 [main] INFO  Autobase - Creating races report
+2011-04-19 05:54:41,000 [main] INFO  Autobase - deleting disp1234234
+2011-04-19 05:54:41,000 [main] INFO  Autobase - root: disp1234234 successfully deleted
+2011-04-19 05:54:41,000 [main] INFO  Autobase - deleting driv53257234
+2011-04-19 05:54:41,000 [main] INFO  Autobase - root: driv53257234 successfully deleted
+2011-04-19 05:54:41,000 [main] INFO  Autobase - root tries to log in with password root
+2011-04-19 05:54:41,000 [main] INFO  Autobase - root successfully authorized in system as admin
+2011-04-19 05:54:41,000 [main] INFO  Autobase - adding new driver with username=driv53257234
+2011-04-19 05:54:41,000 [main] INFO  Autobase - root: driver with username=driv53257234 successfully added
+2011-04-19 05:54:41,000 [main] INFO  Autobase - adding new dispatcher with username=disp1234234
+2011-04-19 05:54:41,000 [main] INFO  Autobase - root: dispatcher with username=disp1234234 successfully added
+2011-04-19 05:54:41,000 [main] INFO  Autobase - driv53257234 tries to log in with password pass
+2011-04-19 05:54:41,000 [main] INFO  Autobase - driv53257234 successfully authorized in system as driver
+2011-04-19 05:54:41,000 [main] INFO  Autobase - disp1234234 tries to log in with password keyword
+2011-04-19 05:54:41,000 [main] INFO  Autobase - disp1234234 successfully authorized in system as dispatcher
+2011-04-19 05:54:41,000 [main] INFO  Autobase - adding new car mercedes ¹2343jojoijoi
+2011-04-19 05:54:41,000 [main] INFO  Autobase - disp1234234: new car mercedes ¹2343jojoijoi added successfully
+2011-04-19 05:54:41,000 [main] INFO  Autobase - creating repair request...
+2011-04-19 05:54:41,000 [main] INFO  Autobase - driv53257234: repair request ¹ 4 successfully created
+2011-04-19 05:54:41,000 [main] INFO  Autobase - deleting disp1234234
+2011-04-19 05:54:41,000 [main] INFO  Autobase - root: disp1234234 successfully deleted
+2011-04-19 05:54:41,000 [main] INFO  Autobase - deleting driv53257234
+2011-04-19 05:54:41,000 [main] INFO  Autobase - root: driv53257234 successfully deleted
+2011-04-19 05:54:41,000 [main] INFO  Autobase - root tries to log in with password root
+2011-04-19 05:54:41,000 [main] INFO  Autobase - root successfully authorized in system as admin
+2011-04-19 05:54:41,000 [main] INFO  Autobase - adding new driver with username=driv53257234
+2011-04-19 05:54:41,000 [main] INFO  Autobase - root: driver with username=driv53257234 successfully added
+2011-04-19 05:54:41,000 [main] INFO  Autobase - adding new dispatcher with username=disp1234234
+2011-04-19 05:54:41,000 [main] INFO  Autobase - root: dispatcher with username=disp1234234 successfully added
+2011-04-19 05:54:41,000 [main] INFO  Autobase - driv53257234 tries to log in with password pass
+2011-04-19 05:54:41,000 [main] INFO  Autobase - driv53257234 successfully authorized in system as driver
+2011-04-19 05:54:41,000 [main] INFO  Autobase - disp1234234 tries to log in with password keyword
+2011-04-19 05:54:41,000 [main] INFO  Autobase - disp1234234 successfully authorized in system as dispatcher
+2011-04-19 05:54:41,000 [main] INFO  Autobase - adding new car ziguli ¹1234gsdfgsawr
+2011-04-19 05:54:41,000 [main] INFO  Autobase - disp1234234: new car ziguli ¹1234gsdfgsawr added successfully
+2011-04-19 05:54:41,000 [main] ERROR Autobase - driv53257234(driver id=5, suspended=false) has no permissions for performing operation
+2011-04-19 05:54:41,000 [main] INFO  Autobase - creating repair request...
+2011-04-19 05:54:41,000 [main] ERROR Autobase - disp1234234(dispatcher id=6, suspended=false) has no permissions for performing operation
+2011-04-19 05:54:41,000 [main] INFO  Autobase - adding new car mazda ¹ag234234jsdfl
+2011-04-19 05:54:41,000 [main] ERROR Autobase - driv53257234(driver id=5, suspended=false) has no permissions for performing operation
+2011-04-19 05:54:41,000 [main] INFO  Autobase - creating repair request...
+2011-04-19 05:54:41,015 [main] INFO  Autobase - driv53257234: repair request ¹ 4 successfully created
+2011-04-19 05:54:41,015 [main] INFO  Autobase - deleting disp1234234
+2011-04-19 05:54:41,015 [main] INFO  Autobase - root: disp1234234 successfully deleted
+2011-04-19 05:54:41,015 [main] INFO  Autobase - deleting driv53257234
+2011-04-19 05:54:41,015 [main] INFO  Autobase - root: driv53257234 successfully deleted
