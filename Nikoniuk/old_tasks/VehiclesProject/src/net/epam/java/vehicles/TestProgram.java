@@ -49,7 +49,7 @@ public class TestProgram {
 				System.out.println(auto);
 			}
 		}
-		catch (Exception e) {
+		catch (VehicleException e) {
 			System.err.println(e.getMessage());
 			System.out.println(auto);
 		}
