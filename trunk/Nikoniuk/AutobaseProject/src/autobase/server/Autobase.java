@@ -390,7 +390,6 @@ public class Autobase implements IDispatcher, IAdmin, IDriver, IUser {
 							st.addBatch("INSERT INTO Users VALUES (1, 3, 'root', 'root', 0)");
 							st.executeBatch();
 						} catch (SQLException e) { 
-							System.out.println(e);
 							throw new IOException();
 						} finally{
 							try {
