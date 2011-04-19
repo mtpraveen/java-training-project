@@ -1,0 +1,7 @@
+109  [main] INFO  autobase.server.Autobase  Autobase.java Loading data from database.zip 51- Loading data from database.zip
+344  [main] INFO  autobase.server.Autobase  Autobase.java dispatch tries to log in with password pass 161- dispatch tries to log in with password pass
+344  [main] ERROR autobase.server.Autobase  Autobase.java dispatch successfully authorized in system 191- dispatch successfully authorized in system
+24031 [main] INFO  autobase.server.Autobase  Autobase.java Creating races report 63- Creating races report
+62   [main] INFO  autobase.server.Autobase  Autobase.java Loading data from database.zip 51- Loading data from database.zip
+297  [main] INFO  autobase.server.Autobase  Autobase.java root tries to log in with password pass 161- root tries to log in with password pass
+297  [main] ERROR autobase.server.Autobase  Autobase.java Authorization error: wrong authorization data 174- Authorization error: wrong authorization data

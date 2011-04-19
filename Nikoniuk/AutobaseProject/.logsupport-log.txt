@@ -1,0 +1,7 @@
+109  [main] INFO  autobase.server.Autobase  - Loading data from database.zip
+344  [main] INFO  autobase.server.Autobase  - dispatch tries to log in with password pass
+344  [main] ERROR autobase.server.Autobase  - dispatch successfully authorized in system
+24031 [main] INFO  autobase.server.Autobase  - Creating races report
+62   [main] INFO  autobase.server.Autobase  - Loading data from database.zip
+297  [main] INFO  autobase.server.Autobase  - root tries to log in with password pass
+297  [main] ERROR autobase.server.Autobase  - Authorization error: wrong authorization data
