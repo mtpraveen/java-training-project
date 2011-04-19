@@ -4,6 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * @author Alexander Nikoniuk
+ * <p>Database connector class</p>
+ * @see ConfigurationManager
+ */
 public class DBConnector {
 	private static DBConnector instance;
 	private static final ConfigurationManager cfg = ConfigurationManager.getInstance();

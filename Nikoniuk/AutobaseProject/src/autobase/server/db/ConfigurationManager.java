@@ -12,7 +12,8 @@ import java.util.ResourceBundle;
 
 /**
  * @author Alexander Nikoniuk
- *
+ *<p>Database configuration manager </p>
+ * @see DBConnector
  */
 public class ConfigurationManager {
 	private static ConfigurationManager instance;
