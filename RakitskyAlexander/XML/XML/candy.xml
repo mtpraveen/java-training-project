@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<candies>
+	<candy>
+		<name>raffaello</name>
+		<energy>615</energy>
+		<type>CHOCOLATE_WHITH_STUFFING</type>
+		<ingredients>
+			<water>yes</water>
+			<suger>10</suger>
+			<fructose>16</fructose>
+			<chocolateType>dense</chocolateType>
+			<vanillin>5</vanillin></ingredients>
+		<value>
+			<proteins>9</proteins>
+			<fats>48</fats>
+			<carbohydrates>37</carbohydrates></value>
+		<production>Ferrero SpA</production></candy>
+	<candy>
+		<name>Gold key</name>
+		<energy>25</energy>
+		<type>IRIS</type>
+		<ingredients>
+			<water>yes</water>
+			<suger>10</suger>
+			<fructose>19</fructose>
+			<chocolateType>dense</chocolateType>
+			<vanillin>5</vanillin></ingredients>
+		<value>
+			<proteins>10</proteins>
+			<fats>30</fats>
+			<carbohydrates>28</carbohydrates></value>
+		<production>Red October</production></candy></candies>
+		
