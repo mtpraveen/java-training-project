@@ -16,7 +16,6 @@ import java.util.List;
  * @param listTrainAdmin The list of trains established by the manager
  */
 public class Administrator{
-	
 	private String name;
 	private List<Train> listTrainAdmin;
 	
@@ -38,17 +37,13 @@ public class Administrator{
 	 */
 	private void setListTrain() {
 		List<Train> ListTrainNew=new ArrayList<Train>();
-		Train tr1=new Train(5);
-		Train tr2=new Train(7);
-		Train tr3=new Train(5);
-		Stoping kaluga=new Stoping("Kaluga",1200,14,00,14,15);;
-		Stoping brest=new Stoping("Brest",1,17,00,17,15);	
-		Stoping minsk=new Stoping("Minsk",1300,19,00,19,15);	
-		Stoping grodno=new Stoping("Grodno",1700,21,00,21,15);		
-		Stoping pinsk=new Stoping("Pinsk",1500,23,00,23,15);	
-		tr1.addStation(kaluga);
-		tr1.addStation(brest);
-		tr1.addStation(minsk);
+		Train tr1=new Train(1);
+		Train tr2=new Train(2);
+		Train tr3=new Train(3);
+		tr1.addStation(new Stoping("Grodno",0,14,00,14,15));
+		tr1.addStation(new Stoping("Minsk",400,17,00,17,15));
+		tr1.addStation(new Stoping("Pinsk",500,20,00,20,15));
+		tr1.addStation(new Stoping("Brest",800,23,00,19,15));
 		tr1.setGoDayOfWeek(1, true);
 		tr1.setGoDayOfWeek(2, false);
 		tr1.setGoDayOfWeek(3, true);
@@ -59,9 +54,9 @@ public class Administrator{
 		tr1.setCostKm(25);
 		tr1.setMaxQuantityPlaces(150);
 		ListTrainNew.add(tr1);
-		tr2.addStation(kaluga);
-		tr2.addStation(minsk);
-		tr2.addStation(pinsk);
+		tr2.addStation(new Stoping("Grodno",0,14,00,14,15));
+		tr2.addStation(new Stoping("Minsk",400,19,00,19,15));
+		tr2.addStation(new Stoping("Brest",800,23,00,23,15));
 		tr2.setGoDayOfWeek(1, false);
 		tr2.setGoDayOfWeek(2, false);
 		tr2.setGoDayOfWeek(3, false);
@@ -72,23 +67,30 @@ public class Administrator{
 		tr2.setCostKm(30);
 		tr2.setMaxQuantityPlaces(170);
 		ListTrainNew.add(tr2);
-		tr3.addStation(kaluga);
-		tr3.addStation(minsk);
-		tr3.addStation(brest);
-		tr3.addStation(grodno);
-		tr3.addStation(pinsk);
+		tr3.addStation(new Stoping("Grodno",0,21,00,21,15));
+		tr3.addStation(new Stoping("Minsk",400,19,00,19,15));
+		tr3.addStation(new Stoping("Pinsk",500,23,00,23,15));
+		tr3.addStation(new Stoping("Brest",800,17,00,17,15));
+		tr3.addStation(new Stoping("Varshava",1000,17,00,17,15));
 		tr3.setGoDayOfWeek(1, true);
 		tr3.setGoDayOfWeek(2, false);
 		tr3.setGoDayOfWeek(3, false);
 		tr3.setGoDayOfWeek(4, false);
 		tr3.setGoDayOfWeek(5, false);
-		tr3.setGoDayOfWeek(6, false);
+		tr3.setGoDayOfWeek(6, true);
 		tr3.setGoDayOfWeek(7, false);
 		tr3.setCostKm(50);
 		tr3.setMaxQuantityPlaces(100);
 		ListTrainNew.add(tr3);
 
 		listTrainAdmin=ListTrainNew;
+	}
+
+	/**
+	 * @param listTrainAdmin the listTrainAdmin to set
+	 */
+	public void setListTrainAdmin(List<Train> listTrainAdmin) {
+		this.listTrainAdmin = listTrainAdmin;
 	}
 
 	/**

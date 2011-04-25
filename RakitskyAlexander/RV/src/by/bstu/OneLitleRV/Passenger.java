@@ -15,10 +15,10 @@ import java.util.Calendar;
  * @param surName surname of passenger
  * @param money Money which is at the passenger
  * @param trainGo The train on which will go the passenger
- * @param reqestion  The reqestion which submits the passenger
+ * @param reqestion  The requisition which submits the passenger
  * @param passengerGo Whether there will go the passenger - logic type
- * @param stationOn name departure station 
- * @param stationIn name arrival station
+ * @param stopingDeparture name departure station 
+ * @param stopingArrival name arrival station
  * @param geDate Date when the passenger is going to make a trip
  */
 public class Passenger {
@@ -27,35 +27,35 @@ public class Passenger {
 	private String surName;
 	private int money;
 	private TrainPassengerGo trainGo;
-	private Reqestion reqestion;
+	private Requisition requisition;
 	private boolean passengerGo;
-	private String stationOn;
-	private String stationIn;
+	private String stopingDeparture;
+	private String stopingArrival;
 	private Calendar goDate;
 	
 	/**
-	 * @return the stationOn
+	 * @return the stopingDeparture
 	 */
-	public String getStationOn() {
-		return stationOn;
+	public String getStopingDeparture() {
+		return stopingDeparture;
 	}
 	/**
-	 * @param stationOn the stationOn to set
+	 * @param stopingDeparture the stationOn to set
 	 */
-	public void setStationOn(String stationOn) {
-		this.stationOn = stationOn;
+	public void setStopingDeparture(String stopingDeparture) {
+		this.stopingDeparture = stopingDeparture;
 	}
 	/**
-	 * @return the stationIn
+	 * @return the stopingArrival
 	 */
-	public String getStationIn() {
-		return stationIn;
+	public String getStopingArrival() {
+		return stopingArrival;
 	}
 	/**
-	 * @param stationIn the stationIn to set
+	 * @param stopingArrival the stationIn to set
 	 */
-	public void setStationIn(String stationIn) {
-		this.stationIn = stationIn;
+	public void setStopingArrival(String stopingArrival) {
+		this.stopingArrival = stopingArrival;
 	}
 	/**
 	 * @return the goDate
@@ -149,7 +149,7 @@ public class Passenger {
 		this.money = money;
 	}
 	/**
-	 * Geting full name of passenger
+	 * Getting full name of passenger
 	 * @param name
 	 * @param money
 	 */
@@ -173,34 +173,34 @@ public class Passenger {
 	 * Application
 	 */
 	public void setReqestion(){
-		trainGo=reqestion.EnterResultSeach();
+		trainGo=requisition.EnterResultSeach();
 		//trainGo=reqestion.getTrainGo();
 	}
 	
 	/**
-	 * @return the reqestion
+	 * @return the requisition
 	 */
-	public Reqestion getReqestion() {
-		return reqestion;
+	public Requisition getRequisition() {
+		return requisition;
 	}
 	/**
 	 * @param name
 	 * @param surName
 	 * @param money
-	 * @param stationOn
-	 * @param stationIn
+	 * @param stopingDeparture
+	 * @param stopingArrival
 	 * @param goDate
 	 */
-	public Passenger(String name, String surName, int money, String stationOn,
-			String stationIn, Calendar goDate) {
+	public Passenger(String name, String surName, int money, String stopingDeparture,
+			String stopingArrival, Calendar goDate) {
 		super();
 		this.name = name;
 		this.surName = surName;
 		this.money = money;
-		this.stationOn = stationOn;
-		this.stationIn = stationIn;
+		this.stopingDeparture = stopingDeparture;
+		this.stopingArrival = stopingArrival;
 		this.goDate = goDate;
-		reqestion=new Reqestion(this);
+		requisition=new Requisition(this);
 	}
 	
 	}

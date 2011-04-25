@@ -50,14 +50,14 @@ public class TrainPassengerGo extends Train {
 	 * @return the moneyFare = dist*cosKm
 	 */
 	public int getMoneyFare() {
-		return (int) Math.round(distanceStoping()*getCostKm());
+		return moneyFare;
 	}
 
 	/**
-	 * @param moneyFare the moneyFare to set
+	 *  the moneyFare to set
 	 */
-	public void setMoneyFare(int moneyFare) {
-		this.moneyFare = moneyFare;
+	public void setMoneyFare() {
+		moneyFare=(int) Math.round(distanceStoping()*getCostKm());
 	}
 
 	/**
@@ -85,6 +85,25 @@ public class TrainPassengerGo extends Train {
 		super();
 		setStopingDeparture(stopingDeparture);
 		setStopingArrival(stopingArrival);
+	}
+
+	/**
+	 * @param nameStopingDeparture 
+	 * @param nameStopinArrival 
+	 * @param stopingDeparture
+	 * @param stopingArrival
+	 * @param moneyFare
+	 */
+	public TrainPassengerGo(Train train, String nameStopingDeparture, String nameStopinArrival) {
+		super();
+		stopingDeparture = train.getStoping().get(train.searchStation(nameStopingDeparture));
+		stopingArrival=train.getStoping().get(train.searchStation(nameStopinArrival));;
+		setCostKm(train.getCostKm());
+		setStoping(train.getStoping());
+		setIdName(train.getIdName());
+		setGoDayOfWeek(train.getGoDayOfWeek());
+		setOccupiedPlaces(train.getOccupiedPlaces());
+		setMoneyFare();
 	}
 	
 }
