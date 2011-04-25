@@ -6,9 +6,10 @@ package by.bstu.OneLitleRV;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Calendar;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Formatter;
+import java.util.List;
 
 /**
  * @author Администратор
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  * @param listTainReq The array of train
  * @param passenger Parameters of the passenger
  */
-public class Reqestion {
+public class Requisition {
 	private List<TrainPassengerGo> seachResultTrain=new ArrayList<TrainPassengerGo>();
 	private List<Train> listTrainReq;
 	private Passenger passenger;
@@ -39,29 +40,28 @@ public class Reqestion {
 	 * The list of trains satisfying to inquiry is formed
 	 */
 
-	private void seachTrain()
+	public void seachTrain()
 	{
-	//	System.out.println(getListTrainReq().get(0).seachStation(passenger.getStationOn()));
-	//	System.out.println(getListTrainReq().get(0).seachStation(passenger.getStationIn()));
 		for (int i=0;i<getListTrainReq().size();i++)
-			if(getListTrainReq().get(i).searchStation(passenger.getStationOn())!=-1)
-				if(getListTrainReq().get(i).searchStation(passenger.getStationIn())!=-1)
-					if (getListTrainReq().get(i).getGoDayOfWeek(passenger.getGoDate().get(Calendar.DAY_OF_WEEK)))
+		{
+			Train train=getListTrainReq().get(i);
+			int numberStationDeparture=train.searchStation(passenger.getStopingDeparture());
+			int numberStationArrival=train.searchStation(passenger.getStopingArrival());
+			if(numberStationDeparture!=-1)
+				if(numberStationArrival!=-1)
+					if (train.getGoDayOfWeek(passenger.getGoDate().get(Calendar.DAY_OF_WEEK)) && numberStationDeparture<numberStationArrival)
 					{
-						TrainPassengerGo addTrainGo= new TrainPassengerGo();
-						Train train=getListTrainReq().get(i);
-						addTrainGo.setCostKm(train.getCostKm());
-						addTrainGo.setGoDayOfWeek(train.getGoDayOfWeek());
-						addTrainGo.setIdName(train.getIdName());
-						addTrainGo.setName(train.getName());
-						addTrainGo.setOccupiedPlaces(train.getOccupiedPlaces());
-						addTrainGo.setStoping(train.getStoping());
-						addTrainGo.setMaxQuantityPlaces(train.getMaxQuantityPlaces());
-						addTrainGo.setStopingArrival(passenger.getStationIn());
-						addTrainGo.setStopingDeparture(passenger.getStationOn());
+						TrainPassengerGo addTrainGo= new TrainPassengerGo(train,passenger.getStopingDeparture(),passenger.getStopingArrival());
 						seachResultTrain.add(addTrainGo);
-					}
+					}		
+		}
 }
+	/**
+	 * @return the seachResultTrain
+	 */
+	public List<TrainPassengerGo> getSeachResultTrain() {
+		return seachResultTrain;
+	}
 	/**
 	 * Deduces the list of trains satisfying to inquiry and offers for a choice to the passenger of a train for movement
 	 * @return The train on which will go the passenger
@@ -77,13 +77,15 @@ public class Reqestion {
 		TrainPassengerGo chooseTrain;
 		for(int i=0;i<seachResultTrain.size();i++)
 		{
-			chooseTrain=seachResultTrain.get(i);
-			Stoping stopingIn=chooseTrain.getStopingDeparture();
-			Stoping stopingOn=chooseTrain.getStopingArrival();
+			Formatter formArrival=new Formatter();
+			Formatter formDeparture=new Formatter();
+			chooseTrain=seachResultTrain.get(i);;
+			formDeparture.format("%tR", chooseTrain.getStopingDeparture().getTimeArrival());
+			formArrival.format("%tR",chooseTrain.getStopingArrival().getTimeDeparture() );
 			System.out.println("Namber ->"+(i+1));
 			System.out.println("Name ->"+chooseTrain.getName());
-			System.out.println("Time Output->"+stopingOn.getTimeOutput().get(Calendar.HOUR_OF_DAY)+"h "+stopingOn.getTimeOutput().get(Calendar.MINUTE)+"m");
-			System.out.println("Time Input->"+stopingIn.getTimeInput().get(Calendar.HOUR_OF_DAY)+"h "+stopingIn.getTimeInput().get(Calendar.MINUTE)+"m");
+			System.out.println("Time Output->"+formDeparture);
+			System.out.println("Time Input->"+formArrival);
 			System.out.println("Cost->"+Math.round(chooseTrain.getMoneyFare())+"BYB");
 		}
 		if (seachResultTrain.size()!=0)
@@ -116,7 +118,7 @@ public class Reqestion {
 	/**
 	 * @param passenger
 	 */
-	public Reqestion(Passenger passenger) {
+	public Requisition(Passenger passenger) {
 		super();
 		this.passenger = passenger;
 	}

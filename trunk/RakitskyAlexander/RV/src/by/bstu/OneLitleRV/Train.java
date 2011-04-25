@@ -9,19 +9,21 @@ import java.util.List;
 /**
  * @author RakitskyAlexander
  *@param costKm Kilometer cost
- *@param stoping Array of stopping
+ *@param stopings Array of stopping
  *@param idName ID number train
  *@param goDayOfWeek Days when there is a train
  *@param maxQuantityPlaces - max quantity places
  *@param occupiedPlaces - occupied places of train
+ *@param speed - speed in km/h
  */
 public class Train {
 	private double costKm;
-	private List<Stoping> stoping;
+	private List<Stoping> stopings;
 	private int idName;
 	private boolean goDayOfWeek[]=new boolean[7];
 	private static int maxQuantityPlaces;
 	private int occupiedPlaces;
+	private int speed;
 	
 	/**
 	 * @return the idName
@@ -55,7 +57,7 @@ public class Train {
 	
 	public Train() {
 		super();
-		stoping=new ArrayList<Stoping>();
+		stopings=new ArrayList<Stoping>();
 		//station=new ArrayList
 		// TODO Auto-generated constructor stub
 	}
@@ -83,7 +85,7 @@ public class Train {
 	 * @return the station
 	 */
 	public List<Stoping> getStoping() {
-		return stoping;
+		return stopings;
 	}
 	
 	/**
@@ -121,20 +123,22 @@ public class Train {
 	 * @param station the station to set
 	 */
 	public void setStoping(List<Stoping> station) {
-		this.stoping = station;
+		this.stopings = station;
 	}
+	
 	/**
-	 * @param station the station to add
+	 * @param stoping the station to add
 	 */
-	public void addStation(Stoping station) {
-		if (this.stoping.size()!=0)
-		for (int i=0;i<this.stoping.size();i++)
-			if (this.stoping.get(i).getDistOfBegin()>station.getDistOfBegin())
+	public void addStation(Stoping stoping) {
+		if (this.stopings.size()!=0)
+		for (int i=0;i<this.stopings.size();i++)
+			if (this.stopings.get(i).getDistOfBegin()>stoping.getDistOfBegin())
 			{
-				this.stoping.add(i,station);
+				this.stopings.add(i,stoping);
+				
 				return;
 			}
-		this.stoping.add(station);	
+		this.stopings.add(stoping);	
 	}
 	/**
 	 * @param name Name search station
@@ -142,10 +146,10 @@ public class Train {
 	 */
 	 public int searchStation(String name){
 		//Stoping tempStation;
-		for(int i=0;i<stoping.size();i++)
+		for(int i=0;i<stopings.size();i++)
 		{
 			//tempStation=station.get(i);
-			if ((stoping.get(i).getNameStation())==name)
+			if ((stopings.get(i).getNameStation())==name)
 			{
 				return i;
 			}
@@ -177,8 +181,8 @@ public class Train {
 	/**
 	 * @return the name
 	 */
-	public int getName() {
-		return idName;
+	public String getName() {
+		return ""+stopings.get(0).getNameStation()+'-'+stopings.get(stopings.size()-1).getNameStation();
 	}
 	/**
 	 * @param name the name to set
@@ -201,5 +205,21 @@ public class Train {
 		if (numberDayOfWeek<=7)
 		this.goDayOfWeek[numberDayOfWeek-1]=goTrainInDay;
 	}
-
+	/**
+	 * @param costKm
+	 * @param stoping
+	 * @param idName
+	 * @param goDayOfWeek
+	 * @param occupiedPlaces
+	 */
+	public Train(double costKm, List<Stoping> stoping, int idName,
+			boolean[] goDayOfWeek, int occupiedPlaces) {
+		super();
+		this.costKm = costKm;
+		this.stopings = stoping;
+		this.idName = idName;
+		this.goDayOfWeek = goDayOfWeek;
+		this.occupiedPlaces = occupiedPlaces;
+	}
+	
 }

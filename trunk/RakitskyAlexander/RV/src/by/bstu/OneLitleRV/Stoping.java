@@ -11,19 +11,41 @@ import java.util.GregorianCalendar;
  * @param nameStation Name of Station
  * @param distOfBegin Distance of first stopping
  * @param timeInput Train departure time
- * @param timeOutput Train arrival time
+ * @param timeDeparture Train arrival time
+ * @param quantityOccupiedPlaces Quantity of the occupied places
  */
 public class Stoping {
 	private String nameStation;
 	private int distOfBegin;
-	private Calendar timeInput;
-	private Calendar timeOutput;
+	private Calendar timeArrival;
+	private Calendar timeDeparture;
+	private int quantityOccupiedPlaces;
 	/**
 	 * 
 	 */
 	
 	public Stoping() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	/**
+	 * @return the quantityOccupiedPlaces
+	 */
+	public int getQuantityOccupiedPlaces() {
+		return quantityOccupiedPlaces;
+	}
+
+	/**
+	 * Addition of quantity of empty seats on unit
+	 */
+	public void addQuantityOccupiedPlaces() {
+		quantityOccupiedPlaces++;
+	}
+	/**
+	 * Reduction of quantity of empty seats by unit
+	 */
+	public void decQuantityOccupiedPlaces() {
+		quantityOccupiedPlaces--;
 	}
 	/**
 	 * @return the nameStation
@@ -50,36 +72,36 @@ public class Stoping {
 		this.distOfBegin = distOfBegin;
 	}
 	/**
-	 * @return the timeInput
+	 * @return the timeArrival
 	 */
-	public Calendar getTimeInput() {
-		return timeInput;
+	public Calendar getTimeArrival() {
+		return timeArrival;
 	}
 	/**
 	 * @param timeInput the timeInput to set
 	 */
-	public void setTimeInput(int hour,int minute) {
-		this.timeInput=new GregorianCalendar(0, 0, 0, hour, minute);
+	public void setTimeArrival(int hour,int minute) {
+		this.timeArrival=new GregorianCalendar(0, 0, 0, hour, minute);
 	}
 	/**
 	 * @return the timeOutput
 	 */
-	public Calendar getTimeOutput() {
-		return timeOutput;
+	public Calendar getTimeDeparture() {
+		return timeDeparture;
 	}
 	/**
-	 * @param timeOutput the timeOutput to set
+	 * @param timeDeparture the timeOutput to set
 	 */
-	public void setTimeOutput(int hour,int minute) {
-		this.timeOutput=new GregorianCalendar(0, 0, 0, hour, minute);
+	public void setTimeDeparture(int hour,int minute) {
+		this.timeDeparture=new GregorianCalendar(0, 0, 0, hour, minute);
 	}
 
-	public Stoping(String nameStation, int distOfBegin, int hourOutput,int minuteOutput,int hourInput,int minuteInput) {
+	public Stoping(String nameStation, int distOfBegin, int hourDeparture,int minuteDeparture,int hourArrival,int minuteArrival) {
 		super();
 		this.nameStation = nameStation;
 		this.distOfBegin = distOfBegin;
-		setTimeOutput(hourOutput,minuteOutput);
-		setTimeInput(hourInput,minuteInput);
+		setTimeDeparture(hourDeparture,minuteDeparture);
+		setTimeArrival(hourArrival,minuteArrival);
 	}
 	/**
 	 * @param nameStation
@@ -92,8 +114,8 @@ public class Stoping {
 		super();
 		this.nameStation = nameStation;
 		this.distOfBegin = distOfBegin;
-		this.timeInput = timeInput;
-		this.timeOutput = timeOutput;
+		this.timeArrival = timeInput;
+		this.timeDeparture = timeOutput;
 	}
 
 	

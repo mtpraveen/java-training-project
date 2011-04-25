@@ -7,20 +7,20 @@ package by.bstu.OneLitleRV;
  * 
  */
 public class Cashier {
-  private int idNomber;
+  private int idNumber;
   private String name;
-  private String surName;
+  private String surname;
 /**
- * @return the idNomber
+ * @return the idNumber
  */
-public int getIdNomber() {
-	return idNomber;
+public int getIdNumber() {
+	return idNumber;
 }
 /**
  * @param idNomber the idNomber to set
  */
-public void setIdNomber(int idNomber) {
-	this.idNomber = idNomber;
+public void setIdNumber(int idNomber) {
+	this.idNumber = idNomber;
 }
 /**
  * @return the name
@@ -37,25 +37,25 @@ public void setName(String name) {
 /**
  * @return the surName
  */
-public String getSurName() {
-	return surName;
+public String getSurname() {
+	return surname;
 }
 /**
- * @param surName the surName to set
+ * @param surname the surName to set
  */
-public void setSurName(String surName) {
-	this.surName = surName;
+public void setSurname(String surname) {
+	this.surname = surname;
 }
 /**
- * @param idNomber
+ * @param idNumber
  * @param name
- * @param surName
+ * @param surname
  */
-public Cashier(int idNomber, String name, String surName) {
+public Cashier(int idNumber, String name, String surname) {
 	super();
-	this.idNomber = idNomber;
+	this.idNumber = idNumber;
 	this.name = name;
-	this.surName = surName;
+	this.surname = surname;
 }
   
 }
