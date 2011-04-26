@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="Devices">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Device" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+
+	<xs:element name="Device">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Name" type="xs:string" />
+				<xs:element name="Origin" type="xs:string" />
+				<xs:element name="Price" type="xs:string" />
+				<xs:element ref="Type" />
+			</xs:sequence>
+			<xs:attribute name="Critical" type="xs:string" />
+		</xs:complexType>
+	</xs:element>
+
+
+	<xs:element name="Type">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="group" type="xs:string" />
+				<xs:element name="ports" type="xs:string" />
+				<xs:element name="Energy" type="xs:string" />
+			</xs:sequence>
+			<xs:attribute name="Cooler" type="xs:string" />
+			<xs:attribute name="Perifiry" type="xs:string" />
+		</xs:complexType>
+	</xs:element>
+
+
+
+</xs:schema>
+   
