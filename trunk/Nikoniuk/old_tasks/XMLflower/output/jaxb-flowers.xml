@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowers>
+    <flower soil="podzol" name="rose">
+        <visual_parameters>
+            <stem_colour>green</stem_colour>
+            <leafs_colour>green</leafs_colour>
+            <ave_size>0.5</ave_size>
+        </visual_parameters>
+        <growing_tips>
+            <temperature>20</temperature>
+            <lighting>photophilous</lighting>
+            <watering>1000</watering>
+        </growing_tips>
+        <multiplying>seeds</multiplying>
+    </flower>
+    <flower soil="podzol" name="rose">
+        <visual_parameters>
+            <stem_colour>green</stem_colour>
+            <leafs_colour>green</leafs_colour>
+            <ave_size>0.5</ave_size>
+        </visual_parameters>
+        <growing_tips>
+            <temperature>20</temperature>
+            <lighting>photophilous</lighting>
+            <watering>1000</watering>
+        </growing_tips>
+        <multiplying>seeds</multiplying>
+    </flower>
+    <flower soil="podzol" name="rose">
+        <visual_parameters>
+            <stem_colour>green</stem_colour>
+            <leafs_colour>green</leafs_colour>
+            <ave_size>0.5</ave_size>
+        </visual_parameters>
+        <growing_tips>
+            <temperature>20</temperature>
+            <lighting>photophilous</lighting>
+            <watering>1000</watering>
+        </growing_tips>
+        <multiplying>seeds</multiplying>
+    </flower>
+</flowers>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="flowers">
+<xs:complexType>
+<xs:sequence>
+
+<xs:element name="flower" minOccurs="0" maxOccurs="unbounded">
+<xs:complexType>
+<xs:sequence>
+	<xs:element name="visual_parameters">
+	<xs:complexType>
+	<xs:sequence>
+		<xs:element name="stem_colour" type="xs:string"/>
+		<xs:element name="leafs_colour" type="xs:string"/>
+		<xs:element name="ave_size" type="xs:double"/>
+	</xs:sequence>
+	</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="growing_tips">
+	<xs:complexType>
+	<xs:sequence>
+		<xs:element name="temperature" type="xs:int"/>
+		<xs:element name="lighting">
+			<xs:simpleType>
+				<xs:restriction  base="xs:string">
+					<xs:enumeration value="photophilous"/>    
+					<xs:enumeration value="non photophilous"/>    
+				</xs:restriction>
+			</xs:simpleType>
+</xs:element>
+		<xs:element name="watering" type="xs:int"/>	
+	</xs:sequence>
+	</xs:complexType>
+	</xs:element>
+<xs:element name="multiplying">
+	<xs:simpleType>
+		<xs:restriction  base="xs:string">
+			<xs:enumeration value="leafs"/>    
+			<xs:enumeration value="seeds"/>    
+			<xs:enumeration value="cuttings"/>  
+		</xs:restriction>
+	</xs:simpleType>
+</xs:element>
+</xs:sequence>
+<xs:attribute name="name" type="xs:string"/>
+<xs:attribute name="soil">
+	<xs:simpleType>
+		<xs:restriction  base="xs:string">
+			<xs:enumeration value="grount"/>    
+			<xs:enumeration value="sod-podzol"/>    
+			<xs:enumeration value="podzol"/>  
+		</xs:restriction>
+	</xs:simpleType>
+</xs:attribute>
+<xs:attribute name="origin" type="xs:string"/>
+</xs:complexType>
+</xs:element>
+
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+
+</xs:schema>
