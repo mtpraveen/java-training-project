@@ -16,7 +16,7 @@ public class Car implements ITransport {
 		public final int MAX_RPM = 17000;
 		public static final int INC_RPM = 200;
 		//Pechko_E: package level visibility of fields
-		boolean isPoweredOn = false;
+		private boolean isPoweredOn = false;
 		int rpm = 0;
  
 		public void powerOn() {
@@ -46,11 +46,11 @@ public class Car implements ITransport {
 	 */
 	public final static int INC_SPEED = 10;
 	//Pechko_E: package level visibility of fields
-	Engine engine = new Engine();
-	GearBox gearBoxType;
-	int speed = 0;
-	double startTime = 0;
-	long distance = 0;
+	private Engine engine = new Engine();
+	private GearBox gearBoxType;
+	private int speed = 0;
+	private double startTime = 0;
+	private long distance = 0;
 	
 	/**
 	 * @param gearBoxType - specified gear box type 
@@ -141,9 +141,6 @@ public class Car implements ITransport {
 	public String toString() {
 		return "Car [gearBoxType=" + gearBoxType + ", speed=" + speed
 				+ ", distance=" + String.format("%.20f", distance() )+ "]";
-		//return "Car [gearBoxType=" + gearBoxType + ", speed=" + speed
-		//+ ", distance=" + distance() + "]";
-
 	}
 
 	public static void main(String[] args) {
@@ -199,8 +196,9 @@ public class Car implements ITransport {
 		System.out.println(zaz.toString());
 
 		//Pechko_E: why do you catch Exception?
+		//YuriySechko: InterruptedException instead Exception. 
 		}
-		catch (Exception e){}
+		catch (InterruptedException e){}
 		finally {}
 		
 	}
