@@ -67,7 +67,6 @@ public class Pair<T> {
 		Pair pair2 = new Pair<String>("100", "555");
 		pair2.setSecond(666);
 		System.out.println(pair2);
-		
 	}
 
 }
