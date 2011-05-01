@@ -6,7 +6,6 @@ package trainings.stack;
 import java.util.Arrays;
 
 import trainings.pair.IStack;
-import java.lang.reflect.*;
 /**
  * @author epam0006
  *
