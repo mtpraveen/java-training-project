@@ -9,9 +9,9 @@ package by.brsu.training;
  */
 public class Matrix {
 	//Pechko_E: package level fields
-	float[][] elements;
-	int height;
-	int width;
+	private float[][] elements;
+	private int height;
+	private int width;
 
 	
 	/**
@@ -32,15 +32,15 @@ public class Matrix {
 	
 	@Override
 	public String toString() {
-		String result = "";
+		StringBuffer result = new StringBuffer();
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
 				//Pechko_E: Concatenation in loop is not a good idea
-				result += elements[i][j] + "  ";
+				result.append(elements[i][j]).append("  ");
 			}
-			result += "\n";
+			result.append("\n");
 		}
-		return result;
+		return result.toString();
 	}
 	
 	
