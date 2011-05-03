@@ -5,6 +5,8 @@ package org.training.samples.generics;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author epam0001
@@ -71,7 +73,7 @@ public class Stack<E> implements IStack<E> {
 	}
 
 	@Override
-	public void push(E element) {
+	public synchronized void push(E element) {
 		Element<E> newElement = new Element<E>(element, top);
 		size++;
 		top = newElement;
@@ -80,7 +82,7 @@ public class Stack<E> implements IStack<E> {
 	
 	
 	@Override
-	public E pop() throws Stack.NullPointer {
+	public synchronized  E pop() throws Stack.NullPointer {
 		if (top == null)
 			throw new Stack.NullPointer("Empty stack: exception in pop() method");
 		E result =  top.getValue();
@@ -112,28 +114,30 @@ public class Stack<E> implements IStack<E> {
 		return result.toArray(input);
 	}
 	
-	public static void main(String [] args) {
-		Stack<Integer> s1 = new Stack<Integer>();
-		s1.push(10);
-		s1.push(20);
-		try
-		{
-			System.out.println("popped value" + s1.pop());
-			System.out.println("popped value" + s1.pop());
-			System.out.println("popped value" + s1.pop());
+	public static void main(String[] args) {		
+		final Stack<Integer> s1 = new Stack<Integer>();
+		ExecutorService threads = Executors.newFixedThreadPool(10);
+		for (int i=0;i<5;i++){
+			final String executorName="Executor#"+i;
+			threads.execute(new Runnable(){
+
+				@Override
+				public void run() {
+					System.out.println(executorName+" is running...");
+					try {
+						s1.push(10);
+						s1.push(20);
+						s1.pop();
+						s1.pop();
+						System.out.println(executorName+" finished...");
+					} catch (NullPointer e) {
+						System.out.println(e);
+					}
+					
+				}});
 		}
-		catch (Stack.NullPointer e)
-		{
-			System.err.println(e.getMessage());
-		}
-		s1.push(10);
-		s1.push(30);
-		
-		System.out.println(Arrays.toString(s1.asArray(new Integer[]{})));
-		System.out.println("size =" + s1.getSize());
-		System.out.println(s1.top());
-		Integer el1 = new Integer(1);
-		System.out.println("size =" + s1.getSize());
+		threads.shutdown();
 	}
+
 
 }
