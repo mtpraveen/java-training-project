@@ -1,5 +1,7 @@
 package by.brsu.java.training;
 
+import java.util.ArrayList;
+
 
 /**
  * Class for modeling administrator in automatic phone system
@@ -41,7 +43,7 @@ public class Administrator {
     	
     	// check new phone number
     	if ( !phoneSystem.isPhoneNumberAvailable(newPhoneNumber) )
-    		return true;
+    		return false;
     	// set new phone number
     	phoneSystem.setUserPhoneNumber(userId, newPhoneNumber);
     	return true;
@@ -61,13 +63,26 @@ public class Administrator {
     	if ( user == null ) 
     		return false;
     	
-    	PhoneSystem.getInstance().deleteUserServices(userId);
+    	phoneSystem.setUserServices(userId, null);
     	return true;
     }
     
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
+    
+    public boolean requestChangeServices(int userId, ArrayList<Service> services) {
+    	// get instance of phone system
+    	PhoneSystem phoneSystem = PhoneSystem.getInstance(); 
+    	// get user with specified id
+    	User user = phoneSystem.getUser(userId);
+    	
+    	if ( user == null ) 
+    		return false;
+    	
+    	phoneSystem.setUserServices(userId, services);
+    	return true;
+    }
 	@Override
 	public String toString() {
 		return "Administrator []";

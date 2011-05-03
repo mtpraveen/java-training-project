@@ -8,5 +8,5 @@ package by.brsu.java.training;
  * Contains all possible statuses for users in phone system
  */
 public enum UserStatus {
-	NORMAL, BANNED;
+	BANNED, NORMAL;
 }
