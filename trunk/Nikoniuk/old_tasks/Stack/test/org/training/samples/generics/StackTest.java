@@ -3,13 +3,12 @@
  */
 package org.training.samples.generics;
 
-import java.util.Arrays;
-
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.training.samples.generics.Stack.NullPointer;
 
 /**
  * @author epam0001

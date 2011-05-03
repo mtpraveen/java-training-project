@@ -3,7 +3,6 @@
  */
 package org.training.samples.generics;
 
-import org.training.samples.generics.Stack.NullPointer;
 
 /**
  * @author epam0001
