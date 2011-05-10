@@ -1,0 +1,49 @@
+0    [main] INFO  transports.TransportSystem  TransportSystem.java 589     -     Reading from "message.properties" is finished well! The path is d:\Politech\hobby\__JAVA\workspace\TransportSystem\data\
+5    [main] ERROR transports.TransportSystem  TransportSystem.java 554     -     Problems with unpacking transport.zip!
+5    [main] INFO  transports.TransportSystem  TransportSystem.java 557     -     Unpacking is finished!
+5    [main] ERROR transports.TransportSystem  TransportSystem.java 103     -     Could not find the file Ways.txt! or wrong types in file!
+8    [main] ERROR transports.TransportSystem  TransportSystem.java 132     -     Could not find the file Transport.txt!
+8    [main] ERROR transports.TransportSystem  TransportSystem.java 175     -     Could not find the file Breakage.txt!
+8    [main] DEBUG transports.TransportSystem  TransportSystem.java 352     -     how much transports do we have  in park: 	buses 0 	trolleybuses 0 	trams 0
+8    [main] DEBUG transports.TransportSystem  TransportSystem.java 354     -     how much transports do we need for a day: buses 0 	trolleybuses 0 	trams 0
+8    [main] DEBUG transports.TransportSystem  TransportSystem.java 356     -     how much transports is broken: 		buses 0 	trolleybuses 0 	trams 0
+8    [main] DEBUG transports.TransportSystem  TransportSystem.java 370     -     how much is not enough: 			buses 0 	trolleybuses 0 		trams 0
+
+8    [main] INFO  transports.TransportSystem  TransportSystem.java 506     -     Verification is finished!
+20   [main] ERROR transports.TransportSystem  TransportSystem.java 300     -     Problems with writing into an "Assignment.txt" file...
+20   [main] INFO  transports.TransportSystem  TransportSystem.java 571     -     Deleting files is finished!
+20   [main] DEBUG transports.TransportSystem  TransportSystem.java 606     -     Finished
+0    [main] INFO  transports.TransportSystem  TransportSystem.java 588     -     Reading from "message.properties" is finished well! The path is c:\Users\epam0020\workspace\TransportSystem\data\
+3    [main] DEBUG transports.TransportSystem  TransportSystem.java 530     -     Extracting: ways2.txt
+5    [main] DEBUG transports.TransportSystem  TransportSystem.java 530     -     Extracting: Transport.txt
+8    [main] DEBUG transports.TransportSystem  TransportSystem.java 530     -     Extracting: Breakage.txt
+20   [main] INFO  transports.TransportSystem  TransportSystem.java 556     -     Unpacking is finished!
+58   [main] INFO  transports.TransportSystem  TransportSystem.java 100     -     Reading from "Ways.txt" file is finished well!
+85   [main] INFO  transports.TransportSystem  TransportSystem.java 129     -     Reading from "Transport.txt" file is finished well!
+93   [main] INFO  transports.TransportSystem  TransportSystem.java 172     -     Reading from "Breakage.txt" file is finished well!
+93   [main] DEBUG transports.TransportSystem  TransportSystem.java 352     -     how much transports do we have  in park: 	buses 154 	trolleybuses 59 	trams 47
+93   [main] DEBUG transports.TransportSystem  TransportSystem.java 354     -     how much transports do we need for a day: buses 136 	trolleybuses 49 	trams 47
+93   [main] DEBUG transports.TransportSystem  TransportSystem.java 356     -     how much transports is broken: 		buses 20 	trolleybuses 11 	trams 2
+93   [main] DEBUG transports.TransportSystem  TransportSystem.java 370     -     how much is not enough: 			buses 2 	trolleybuses 1 		trams 2
+
+93   [main] INFO  transports.TransportSystem  TransportSystem.java 506     -     Verification is finished!
+113  [main] INFO  transports.TransportSystem  TransportSystem.java 297     -     Writing into an "Assignment.txt" file is finished well!
+115  [main] INFO  transports.TransportSystem  TransportSystem.java 570     -     Deleting files is finished!
+115  [main] DEBUG transports.TransportSystem  TransportSystem.java 605     -     Finished
+0    [main] INFO  transports.TransportSystem  TransportSystem.java 588     -     Reading from "message.properties" is finished well! The path is d:\Politech\hobby\__JAVA\workspace\TransportSystem\data\
+17   [main] DEBUG transports.TransportSystem  TransportSystem.java 530     -     Extracting: ways2.txt
+37   [main] DEBUG transports.TransportSystem  TransportSystem.java 530     -     Extracting: Transport.txt
+39   [main] DEBUG transports.TransportSystem  TransportSystem.java 530     -     Extracting: Breakage.txt
+45   [main] INFO  transports.TransportSystem  TransportSystem.java 556     -     Unpacking is finished!
+105  [main] INFO  transports.TransportSystem  TransportSystem.java 100     -     Reading from "Ways.txt" file is finished well!
+181  [main] INFO  transports.TransportSystem  TransportSystem.java 129     -     Reading from "Transport.txt" file is finished well!
+205  [main] INFO  transports.TransportSystem  TransportSystem.java 172     -     Reading from "Breakage.txt" file is finished well!
+208  [main] DEBUG transports.TransportSystem  TransportSystem.java 352     -     how much transports do we have  in park: 	buses 154 	trolleybuses 59 	trams 47
+208  [main] DEBUG transports.TransportSystem  TransportSystem.java 354     -     how much transports do we need for a day: buses 136 	trolleybuses 49 	trams 47
+209  [main] DEBUG transports.TransportSystem  TransportSystem.java 356     -     how much transports is broken: 		buses 20 	trolleybuses 11 	trams 2
+209  [main] DEBUG transports.TransportSystem  TransportSystem.java 370     -     how much is not enough: 			buses 2 	trolleybuses 1 		trams 2
+
+210  [main] INFO  transports.TransportSystem  TransportSystem.java 506     -     Verification is finished!
+267  [main] INFO  transports.TransportSystem  TransportSystem.java 297     -     Writing into an "Assignment.txt" file is finished well!
+270  [main] INFO  transports.TransportSystem  TransportSystem.java 570     -     Deleting files is finished!
+270  [main] DEBUG transports.TransportSystem  TransportSystem.java 605     -     Finished
