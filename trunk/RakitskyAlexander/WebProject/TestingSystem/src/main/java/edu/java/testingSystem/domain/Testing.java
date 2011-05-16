@@ -25,8 +25,11 @@ public class Testing {
 	@Column(name="USER")
 	private String user;
 	
-	@Column(name="LANGUAGES")
-	private String languages;
+	@Column(name="LANGUAGE")
+	private String language;
+	
+	@Column(name="LEVEL")
+	private String level;
 	/**
 	 * @return the id
 	 */
@@ -52,17 +55,30 @@ public class Testing {
 		this.user = user;
 	}
 	/**
-	 * @return the languages
+	 * @return the language
 	 */
-	public String getLanguages() {
-		return languages;
+	public String getLanguage() {
+		return language;
 	}
 	/**
-	 * @param languages the languages to set
+	 * @param language the language to set
 	 */
-	public void setLanguages(String languages) {
-		this.languages = languages;
+	public void setLanguage(String language) {
+		this.language = language;
 	}
+	/**
+	 * @return the level
+	 */
+	public String getLevel() {
+		return level;
+	}
+	/**
+	 * @param level the level to set
+	 */
+	public void setLevel(String level) {
+		this.level = level;
+	}
+	
 	
 	
 }

@@ -27,10 +27,16 @@
 			<td><form:input path="user" /></td>
 		</tr>
 		<tr>
-			<td><form:label path="languages">
+			<td><form:label path="language">
 				<spring:message code="label.tesitngLanguage" />
 			</form:label></td>
-			<td><form:select path="languages">
+			<td><form:input path="language" /></td>
+		</tr>
+		<tr>
+			<td><form:label path="level">
+				<spring:message code="label.testingLevel" />
+			</form:label></td>
+			<td><form:select path="level">
 			<form:option value=" "></form:option>
 			<form:option value="Novice"></form:option>
 			<form:option value="Intermediate"></form:option>
@@ -51,13 +57,15 @@
 	<table class="data">
 		<tr>
 			<th><spring:message code="label.tesitngUser"/></th>
+			<th><spring:message code="label.testingLevel"/></th>
 			<th><spring:message code="label.tesitngLanguage" /></th>
 			<th>&nbsp;</th> 
 		</tr>
 		<c:forEach items="${testingList}" var="test">
 			<tr>
 				<td>${test.user}</td>
-				<td>${test.languages}</td>
+				<td>${test.level}</td>
+				<td>${test.language}</td>
 			 	<td><a href="deleteTest/${test.id}"><spring:message code="label.deleteTest" /></a></td> 
 			</tr>
 		</c:forEach>

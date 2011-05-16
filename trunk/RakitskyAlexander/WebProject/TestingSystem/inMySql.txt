@@ -13,7 +13,8 @@ CREATE TABLE TESTING
   (
      id        INT PRIMARY KEY AUTO_INCREMENT,
      user  		VARCHAR(30),
-     languages  VARCHAR(30),
+     language  VARCHAR(30),
+     level 	   VARCHAR(30),
      created   TIMESTAMP DEFAULT NOW()
   );
   
