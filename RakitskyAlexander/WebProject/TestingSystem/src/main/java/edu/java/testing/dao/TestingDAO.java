@@ -15,5 +15,4 @@ public interface TestingDAO {
 	public void addTesting(Testing tesitng);
 	public void removeTesting(Integer id);
 	public List<Testing> listTesting();
-	
 }
