@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="by.brsu.java.training.logic">
+	<class name="Comment" table="comments">
+		<id name="id" column="comment_id" type="java.lang.Long">
+			<generator class="increment" />
+		</id>
+
+		<property name="date" column="date" type="java.util.Date" />
+		<property name="author" column="author" type="java.lang.String" />
+		<property name="text" column="text" type="java.lang.String" />
+		<property name="published" column="published" type="java.lng.Boolean" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="by.brsu.java.training.entity">
+	<class name="Article" table="articles">
+		<id name="id" column="article_id" type="java.lang.Long">
+			<generator class="increment" />
+		</id>
+
+		<property name="title" column="title" type="java.lang.String" />
+		<property name="author" column="author" type="java.lang.String" />
+		<property name="date" column="date" type="java.util.Date" />
+		<property name="text" column="text" type="java.lang.String" />
+		<property name="published" column="published" type="java.lang.Boolean" />
+
+		<set name="tags" table="tags" lazy="false">
+			<key column="tag_id" />
+			<many-to-many class="Tag" column="tag_id"></many-to-many>
+		</set>
+
+		<set name="comments" table="comments" lazy="false">
+			<key column="comment_id" />
+			<many-to-many class="Comment" column="comment_id"></many-to-many>
+		</set>
+
+	</class>
+</hibernate-mapping>

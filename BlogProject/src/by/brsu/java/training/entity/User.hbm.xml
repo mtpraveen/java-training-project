@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="by.brsu.java.training.entity">
+	<class name="User" table="users">
+		<id name="id" column="user_id">
+			<generator class="increment" />
+		</id>
+		
+		<property name="name" column="name" type="java.lang.String" />
+		<property name="password" column="password" type="java.lang.String"/>
+		<property name="date" column="date" type="java.util.Date"/>
+		<property name="about" column="about" type="java.lang.String"/>
+		<property name="moderator" column="moderator" type="java.lang.Boolean"/>
+
+		<set name="blogs" table="blogs" lazy="false">
+		<key column="user_id"/>
+		<many-to-many class="Blog" column="blog_id"/></set>		
+	</class>
+	
+</hibernate-mapping>
