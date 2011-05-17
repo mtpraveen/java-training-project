@@ -22,7 +22,7 @@ public interface QuestionDAO {
 	 * reads the questions from the database
 	 * @return list of questions
 	 */
-	public List<Question> listQustion();
+	public List<Question> listQuestion();
 	/**
 	 * removes the question from the database
 	 * @param id number question

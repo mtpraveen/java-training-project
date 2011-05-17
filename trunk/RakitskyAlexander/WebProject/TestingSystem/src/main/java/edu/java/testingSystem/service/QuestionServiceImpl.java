@@ -32,8 +32,8 @@ public class QuestionServiceImpl implements QuestionService {
 	 * @see edu.java.testingSystem.service.QuestionService#listQustion()
 	 */
 	@Transactional
-	public List<Question> listQustion() {
-		return questionDAO.listQustion();
+	public List<Question> listQuestion() {
+		return questionDAO.listQuestion();
 	}
 
 	/**

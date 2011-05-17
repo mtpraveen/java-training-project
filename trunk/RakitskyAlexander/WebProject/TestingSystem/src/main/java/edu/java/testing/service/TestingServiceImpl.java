@@ -43,5 +43,5 @@ public class TestingServiceImpl implements TestingService {
 	public List<Testing> listTesting() {
 		return testingDAO.listTesting();
 	}
-
+	
 }

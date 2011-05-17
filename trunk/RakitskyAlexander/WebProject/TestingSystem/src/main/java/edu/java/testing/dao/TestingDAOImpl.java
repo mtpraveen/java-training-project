@@ -19,7 +19,6 @@ import edu.java.testingSystem.domain.Testing;
 public class TestingDAOImpl implements TestingDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
-
 	/**
 	 * @see edu.java.testing.dao.TestingDAO#addTesting(edu.java.testingSystem.domain.Testing)
 	 */
@@ -46,5 +45,6 @@ public class TestingDAOImpl implements TestingDAO {
 	public List<Testing> listTesting() {
 		return sessionFactory.getCurrentSession().createQuery("from Testing").list();
 	}
-
+	
+	
 }

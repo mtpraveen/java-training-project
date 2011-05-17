@@ -25,7 +25,7 @@ public class QuestionDAOImpl implements QuestionDAO {
 	 * @see edu.java.testingSystem.dao.QuestionDAO#listQustion()
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Question> listQustion() {
+	public List<Question> listQuestion() {
 		return sessionFactory.getCurrentSession().createQuery("from Question").list();
 	}
 
