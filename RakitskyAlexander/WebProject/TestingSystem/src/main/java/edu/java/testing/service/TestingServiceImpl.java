@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.java.testing.dao.TestingDAO;
 import edu.java.testingSystem.domain.Testing;
+import edu.java.testingSystem.domain.User;
 
 /**
  * @author Администратор
@@ -42,6 +43,11 @@ public class TestingServiceImpl implements TestingService {
 	@Transactional
 	public List<Testing> listTesting() {
 		return testingDAO.listTesting();
+	}
+	@Transactional
+	public List<Testing> listTestingForUser(User user)
+	{
+		return testingDAO.listTestingForUser(user);
 	}
 	
 }

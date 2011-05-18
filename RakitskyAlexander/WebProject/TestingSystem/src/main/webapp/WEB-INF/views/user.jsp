@@ -18,7 +18,6 @@
 <h2> <spring:message code="label.testingShow"/></h2>
 
 <form:form method="post" action="addtest" commandName="testing">
-
 	<table>
 		<tr>
 			<td><form:label path="user">

@@ -33,20 +33,67 @@
 		</tr>
 </form:form>
 
+
+<table class="data">
+<tr>
+			<th><spring:message code="label.tesitngLanguage" /></th>
+			<th><spring:message code="label.testingLevel"/></th>
+			<th>&nbsp;</th> 
+</tr>
+<c:forEach items="${questions}" var="question">
+<c:set var="test1" value="${test}"></c:set>
+	<form:form method="post" action="addtest" commandName="testing">
+<tr>
+			<form:hidden path="language" value="${question.language}"/>
+			<td>${question.language}</td>
+			<td><form:select path="level">
+			<form:option value=" "></form:option>
+			<form:option value="Novice"></form:option>
+			<form:option value="Intermediate"></form:option>
+			<form:option value="Advanced"></form:option>
+			<form:option value="Expert"></form:option>	
+			</form:select>
+			</td>
+			
+			<td colspan="1"><input type="submit"
+				value="<spring:message code="label.addTest"/>" /></td>
+		
+</tr>
+</form:form>
+</c:forEach>
+<form:form method="post" action="addtest" commandName="testing">
+<tr>
+			<td><form:input onclick="this.value='' " type="text" path="language" value="Ваш язык"/></td>
+			<td><form:select path="level">
+			<form:option value=" "></form:option>
+			<form:option value="Novice"></form:option>
+			<form:option value="Intermediate"></form:option>
+			<form:option value="Advanced"></form:option>
+			<form:option value="Expert"></form:option>	
+			</form:select>
+			</td>
+			<td colspan="1"><input type="submit"
+				value="<spring:message code="label.addTest"/>" /></td>
+</tr>
+</form:form>
+</table>
+
+
+
 <h3><spring:message code="label.tests" /></h3>
  <c:if test="${!empty testingList}">
 	<table class="data">
 		<tr>
 			<th><spring:message code="label.tesitngUser"/></th>
-			<th><spring:message code="label.testingLevel"/></th>
 			<th><spring:message code="label.tesitngLanguage" /></th>
+			<th><spring:message code="label.testingLevel"/></th>
 			<th>&nbsp;</th> 
 		</tr>
 		<c:forEach items="${testingList}" var="test">
-			<tr>
-				<td>${test.user}</td>
-				<td>${test.level}</td>
+		<tr>
+				<td>${test.user}</td> 
 				<td>${test.language}</td>
+				<td>${test.level}</td> 		
 			 	<td><a href="deleteTest/${test.id}"><spring:message code="label.deleteTest" /></a></td> 
 			</tr>
 		</c:forEach>

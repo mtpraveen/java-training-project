@@ -83,19 +83,14 @@ public class QuestionController {
 	@RequestMapping("/addUserView")
 	public String addUserView(Map<String, Object> map)
 	{
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails)principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
+		
 		userNow = new User();
-		userNow.setName(username);
+		userNow.setName(userNow.getUserNowName());
 		map.put("userNow", userNow);
+		map.put("questions", questionService.listQuestion());
 		map.put("testing", new Testing());
 		map.put("user",userNow);
-		map.put("testingList", testingService.listTesting());
+		map.put("testingList", testingService.listTestingForUser(userNow));
 		return "addUser";
 	}
 	@RequestMapping("/addUser")
