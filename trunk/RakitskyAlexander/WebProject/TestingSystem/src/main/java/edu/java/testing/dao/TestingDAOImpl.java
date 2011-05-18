@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.java.testingSystem.domain.Testing;
+import edu.java.testingSystem.domain.User;
 
 /**
  * @author Администратор
@@ -45,6 +46,10 @@ public class TestingDAOImpl implements TestingDAO {
 	public List<Testing> listTesting() {
 		return sessionFactory.getCurrentSession().createQuery("from Testing").list();
 	}
-	
+	@SuppressWarnings("unchecked")
+	public List<Testing> listTestingForUser(User user)
+	{
+		return sessionFactory.getCurrentSession().createQuery("from Testing where user = '"+user.getName()+"'").list();
+	}
 	
 }

@@ -3,6 +3,9 @@
  */
 package edu.java.testingSystem.domain;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
 /**
  * @author Rakitsky Alexander
  *
@@ -23,5 +26,15 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	public String getUserNowName()
+	{
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username;
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		return username;
+	}
 }
