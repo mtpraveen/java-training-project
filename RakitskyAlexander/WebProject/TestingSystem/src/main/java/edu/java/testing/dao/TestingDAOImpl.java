@@ -47,9 +47,10 @@ public class TestingDAOImpl implements TestingDAO {
 		return sessionFactory.getCurrentSession().createQuery("from Testing").list();
 	}
 	@SuppressWarnings("unchecked")
-	public List<Testing> listTestingForUser(User user)
+	public List<Testing> listTestingForUser()
 	{
-		return sessionFactory.getCurrentSession().createQuery("from Testing where user = '"+user.getName()+"'").list();
+		User user = new User();
+		return sessionFactory.getCurrentSession().createQuery("from Testing where user = '"+user.getUserNowName()+"'").list();
 	}
 	
 }

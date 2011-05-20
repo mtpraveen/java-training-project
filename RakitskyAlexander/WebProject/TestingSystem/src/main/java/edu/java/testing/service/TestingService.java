@@ -16,5 +16,5 @@ public interface TestingService {
 	public void addTesting(Testing tesitng);
 	public void removeTesting(Integer id);
 	public List<Testing> listTesting();
-	public List<Testing> listTestingForUser(User user);
+	public List<Testing> listTestingForUser();
 }
