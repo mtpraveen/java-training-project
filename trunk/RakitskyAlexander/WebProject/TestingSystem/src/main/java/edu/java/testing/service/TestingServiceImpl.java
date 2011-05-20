@@ -45,9 +45,9 @@ public class TestingServiceImpl implements TestingService {
 		return testingDAO.listTesting();
 	}
 	@Transactional
-	public List<Testing> listTestingForUser(User user)
+	public List<Testing> listTestingForUser()
 	{
-		return testingDAO.listTestingForUser(user);
+		return testingDAO.listTestingForUser();
 	}
 	
 }

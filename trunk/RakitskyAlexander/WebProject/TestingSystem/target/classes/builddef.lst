@@ -8,6 +8,7 @@ C:\Documents and Settings\Администратор\.m2\repository\antlr\antlr\2.7.6\antlr-2
 -d
 E:\Workspace\Spring\TestingSystem\target\classes
 E:\Workspace\Spring\TestingSystem\src\main\java\edu\java\testing\dao\TestingDAO.java
+E:\Workspace\Spring\TestingSystem\src\main\java\edu\java\testingSystem\domain\User.java
 E:\Workspace\Spring\TestingSystem\src\main\java\edu\java\testingSystem\domain\Testing.java
 E:\Workspace\Spring\TestingSystem\src\main\java\edu\java\testing\service\TestingServiceImpl.java
 E:\Workspace\Spring\TestingSystem\src\main\java\edu\java\testing\dao\TestingDAOImpl.java
