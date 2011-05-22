@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_voting_domain_Vote" items="${votes}" z="QPuiHFoMdgvV763b05x7pwJ7C6c=">
+        <table:table data="${votes}" id="l_voting_domain_Vote" path="/votes" z="bZiRw9yUl3+pAIE5j+4HF7nFIck=">
+            <table:column date="true" dateTimePattern="${vote_votedate_date_format}" id="c_voting_domain_Vote_voteDate" property="voteDate" z="haAqDcEbynQdjuZTnXfwRbM2knk="/>
+            <table:column id="c_voting_domain_Vote_account" property="account" z="U2NEbqWIm92BTybOgs11LCSOdNA="/>
+            <table:column id="c_voting_domain_Vote_question" property="question" z="JauwYFRaVQBX1zixs6L8qYHulx8="/>
+            <table:column id="c_voting_domain_Vote_answers" property="answers" z="yaxYgBrBB0T1A29GyXTEYGaUuc4="/>
+        </table:table>
+    </page:list>
+</div>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_voting_domain_Account" items="${accounts}" z="0vFYUkJjl3uduPZe41cP+ind7pY=">
+        <table:table data="${accounts}" id="l_voting_domain_Account" path="/accounts" z="rL7SWQkHdwpmtM4C+z6rQcF8nN4=">
+            <table:column id="c_voting_domain_Account_name" property="name" z="OZZeIC9+fwkofCvQcrJ/w0RUfho="/>
+            <table:column id="c_voting_domain_Account_email" property="email" z="fSB7yQjFkWOKHnA6h7RN7fuO2xY="/>
+            <table:column id="c_voting_domain_Account_systemRole" property="systemRole" z="bz3mpOo/8n+CeI67+geAfcMZIqg="/>
+            <table:column id="c_voting_domain_Account_banned" property="banned" z="w1N3MR8fAX19m8PPkLhijcHoxlc="/>
+        </table:table>
+    </page:list>
+</div>

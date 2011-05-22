@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" id="menu" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<menu:menu id="_menu">
+		<menu:category id="c_category">
+			<c:forEach var="category" items="${categories}">
+				<menu:item label="${category.name}" id="${category.id}"
+					url="/categorys/${category.id}" />
+			</c:forEach>
+		</menu:category>
+		<util:panel title="Admin menu" id="c_category">
+			<menu:menu id="_menu1">
+				<menu:category id="c_category">
+					<menu:item id="i_category_new" messageCode="global_menu_new"
+						url="/categorys?form" />
+					<menu:item id="i_category_list" messageCode="global_menu_list"
+						url="/categorys?page=1&amp;size=${empty param.size ? 10 : param.size}" />
+				</menu:category>
+				<menu:category id="c_account">
+					<menu:item id="i_account_new" messageCode="global_menu_new"
+						url="/accounts?form" />
+					<menu:item id="i_account_list" messageCode="global_menu_list"
+						url="/accounts?page=1&amp;size=${empty param.size ? 10 : param.size}" />
+					<menu:item id="fi_account_name" messageCode="global_menu_find"
+						url="/accounts?find=ByName&amp;form" />
+				</menu:category>
+				<menu:category id="c_question">
+					<menu:item id="i_question_new" messageCode="global_menu_new"
+						url="/questions?form" />
+					<menu:item id="i_question_list" messageCode="global_menu_list"
+						url="/questions?page=1&amp;size=${empty param.size ? 10 : param.size}" />
+					<menu:item id="fi_question_category" messageCode="global_menu_find"
+						url="/questions?find=ByCategory&amp;form" />
+					<menu:item id="fi_question_account" messageCode="global_menu_find"
+						url="/questions?find=ByAccount&amp;form" />
+				</menu:category>
+			</menu:menu>
+		</util:panel>
+	</menu:menu>
+</div>

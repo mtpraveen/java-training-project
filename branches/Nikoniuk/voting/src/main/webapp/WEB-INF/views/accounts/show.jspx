@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_voting_domain_Account" object="${account}" path="/accounts" z="GV7c+/1fOzzoprMOhisFLMs9780=">
+        <field:display field="name" id="s_voting_domain_Account_name" object="${account}" z="0uc1Gmhfo4nx36dX6iSoqvL8X1c="/>
+        <field:display field="password" id="s_voting_domain_Account_password" object="${account}" z="5Y8oGtCXnOu9iy71+biijNgZcPk="/>
+        <field:display field="email" id="s_voting_domain_Account_email" object="${account}" z="vkgeSF6wRekpTMQKFZbUscbZPW8="/>
+        <field:display field="systemRole" id="s_voting_domain_Account_systemRole" object="${account}" z="d7l0n4EBSzydK5/m8edmmrSR3uc="/>
+        <field:display field="banned" id="s_voting_domain_Account_banned" object="${account}" z="du9IGoPj4Tt2YvufmiGUVOKc5Jw="/>
+    <field:display field="confirmPassword" id="s_voting_domain_Account_confirmPassword" object="${account}" z="//7g9ugd+DWbirS3b7OLu+on6C8="/>
+    <field:display date="true" dateTimePattern="${account_dateofbirth_date_format}" field="dateOfBirth" id="s_voting_domain_Account_dateOfBirth" object="${account}" z="26v9lEEBFNU8L6Xhkd0gTr9zA1U="/>
+    <field:display field="gender" id="s_voting_domain_Account_gender" object="${account}" z="Z1Ash3EtdfIrEoJrrtNCSivXqZE="/>
+    </page:show>
+</div>
