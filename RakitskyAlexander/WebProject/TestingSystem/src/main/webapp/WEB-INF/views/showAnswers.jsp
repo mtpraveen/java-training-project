@@ -7,7 +7,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8">
-	<title>label.titleShow</title>
+	<title><spring:message code="label.titleShow"/></title>
 </head>
 <a href="<c:url value="/addAnswers"></c:url>">
 <spring:message code="label.add"></spring:message> </a>
