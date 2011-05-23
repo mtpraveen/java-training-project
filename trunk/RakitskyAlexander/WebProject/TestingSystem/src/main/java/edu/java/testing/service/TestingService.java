@@ -17,4 +17,5 @@ public interface TestingService {
 	public void removeTesting(Integer id);
 	public List<Testing> listTesting();
 	public List<Testing> listTestingForUser();
+	public List<Testing> listFindLanguage(String language,String level);
 }

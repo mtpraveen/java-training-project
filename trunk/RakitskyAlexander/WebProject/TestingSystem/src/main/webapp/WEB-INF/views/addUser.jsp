@@ -32,7 +32,7 @@
 			<form:hidden path="language" value="${question.language}"/>
 			<td>${question.language}</td>
 			<td><form:select path="level">
-			<form:option value=" "></form:option>
+			
 			<form:option value="Novice"></form:option>
 			<form:option value="Intermediate"></form:option>
 			<form:option value="Advanced"></form:option>

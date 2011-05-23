@@ -26,7 +26,7 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getUserNowName()
+	public static String getUserNowName()
 	{
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username;

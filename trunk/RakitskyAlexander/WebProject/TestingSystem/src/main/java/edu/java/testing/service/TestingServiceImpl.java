@@ -49,5 +49,9 @@ public class TestingServiceImpl implements TestingService {
 	{
 		return testingDAO.listTestingForUser();
 	}
-	
+	@Transactional
+	public List<Testing> listFindLanguage(String language,String level)
+	{
+		return testingDAO.listFindLanguage(language, level);
+	}
 }

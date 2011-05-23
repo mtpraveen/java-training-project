@@ -26,11 +26,12 @@ import edu.java.testingSystem.service.QuestionService;
 @Controller
 public class QuestionController {
 	private User userNow;
+	private Testing testing;
 	@Autowired
 	private QuestionService questionService;
 	@Autowired
 	private TestingService testingService;
-	
+
 	@RequestMapping("/index")
 	public String listQuestion(Map<String, Object> map) {
 		map.put("question", new Question());
@@ -47,8 +48,8 @@ public class QuestionController {
 
 	@RequestMapping("/")
 	public String home() {
-		//setting userNow
-		
+		// setting userNow
+
 		return "redirect:/addAnswers";
 	}
 
@@ -66,53 +67,83 @@ public class QuestionController {
 
 		return "redirect:/index";
 	}
-	@RequestMapping(value="/addtest",method=RequestMethod.POST)
-	public String addTest(@ModelAttribute("test") Testing testing, BindingResult result)
-	{
+
+	@RequestMapping(value = "/addtest", method = RequestMethod.POST)
+	public String addTest(@ModelAttribute("test") Testing testing,
+			BindingResult result) {
+		testing.setUser(User.getUserNowName());
 		testingService.addTesting(testing);
 		return "redirect:/user";
 	}
+
 	@RequestMapping("/deleteTest/{testId}")
-	public String deleteTest(@PathVariable("testId") Integer testId){
+	public String deleteTest(@PathVariable("testId") Integer testId) {
 		testingService.removeTesting(testId);
 		return "redirect:/showAnswers";
 	}
+
 	@RequestMapping("/addAnswers")
-	public String addUserView(Map<String, Object> map)
-	{
-		userNow = new User();
-		userNow.setName(userNow.getUserNowName());
-		map.put("userNow", userNow);
+	public String addUserView(Map<String, Object> map) {
+		User user = new User();
+		user.setName(User.getUserNowName());
+		map.put("userNow", user);
 		map.put("questions", questionService.listQuestion());
 		map.put("testing", new Testing());
-		map.put("user",userNow);
+		map.put("user", userNow);
 		map.put("testingList", testingService.listTestingForUser());
 		return "addUser";
 	}
-//	@RequestMapping("/addUser")
-//	public String addUser(@ModelAttribute("user") User user,
-//			BindingResult result)
-//	{
-//		List<Question> listQuestion = questionService.listQuestion();
-//		Testing test = new Testing();
-//		test.setUser(user.getName());
-//		for(Question list:listQuestion)
-//		{
-//			test.setLanguage(list.getLanguage());
-//			testingService.addTesting(test);
-//		}
-//		return "redirect:/addUserView";
-//	}
+
+	// @RequestMapping("/addUser")
+	// public String addUser(@ModelAttribute("user") User user,
+	// BindingResult result)
+	// {
+	// List<Question> listQuestion = questionService.listQuestion();
+	// Testing test = new Testing();
+	// test.setUser(user.getName());
+	// for(Question list:listQuestion)
+	// {
+	// test.setLanguage(list.getLanguage());
+	// testingService.addTesting(test);
+	// }
+	// return "redirect:/addUserView";
+	// }
 	@RequestMapping("/showAnswers")
-	public String showAnswers(Map<String, Object> map)
-	{
-		map.put("testList",testingService.listTestingForUser());
+	public String showAnswers(Map<String, Object> map) {
+		map.put("testList", testingService.listTestingForUser());
 		map.put("testing", new Testing());
 		return "showAnswers";
 	}
-//	@RequestMapping("/logout")
-//	public String showAnswers()
-//	{
-//		return "login";
-//	}
+
+	@RequestMapping("/manager")
+	public String manager(Map<String, Object> map) {
+		Testing test = new Testing();
+		map.put("testing", test);
+		if (testing != null) {
+			String language = testing.getLanguage();
+			String level = testing.getLevel();
+			if (language != null && level != null) {
+				map.put("answersLang",testingService.listFindLanguage(language, level));
+			}
+			testing=null;
+		}
+		// map.put("listLang",
+		// testingService.listFindLanguage(test.getLanguage(),
+		// test.getLevel()));
+		// else
+		// map.put("listLang",null);
+		return "manager";
+	}
+
+	@RequestMapping(value = "/setAnswers", method = RequestMethod.POST)
+	public String setAnswers(@ModelAttribute("testing") Testing test,
+			BindingResult result) {
+		testing = test;
+		return ("redirect:/manager");
+	}
+	// @RequestMapping("/logout")
+	// public String showAnswers()
+	// {
+	// return "login";
+	// }
 }

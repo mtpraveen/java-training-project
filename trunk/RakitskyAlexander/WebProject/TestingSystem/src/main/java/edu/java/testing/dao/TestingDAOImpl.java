@@ -49,8 +49,11 @@ public class TestingDAOImpl implements TestingDAO {
 	@SuppressWarnings("unchecked")
 	public List<Testing> listTestingForUser()
 	{
-		User user = new User();
-		return sessionFactory.getCurrentSession().createQuery("from Testing where user = '"+user.getUserNowName()+"'").list();
+		return sessionFactory.getCurrentSession().createQuery("from Testing where user = '"+User.getUserNowName()+"'").list();
 	}
-	
+	@SuppressWarnings("unchecked")
+	public List<Testing> listFindLanguage(String language,String level)
+	{
+		return sessionFactory.getCurrentSession().createQuery("from Testing where language = '" + language+"'"+" AND level = '"+level+"'").list();
+	}
 }
