@@ -1,0 +1,20 @@
+CREATE USER question@localhost identified BY '1234';
+GRANT usage ON *.* TO question@localhost identified BY '1234';
+CREATE DATABASE IF NOT EXISTS question;
+GRANT ALL privileges ON question.* TO question@localhost;
+USE question;
+CREATE TABLE QUESTION
+  (
+     id        INT PRIMARY KEY AUTO_INCREMENT,
+     language  VARCHAR(30),
+     created   TIMESTAMP DEFAULT NOW()
+  ); 
+CREATE TABLE TESTING
+  (
+     id        INT PRIMARY KEY AUTO_INCREMENT,
+     user  		VARCHAR(30),
+     language  VARCHAR(30),
+     level 	   VARCHAR(30),
+     created   TIMESTAMP DEFAULT NOW()
+  );
+  
