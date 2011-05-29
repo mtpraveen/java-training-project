@@ -12,7 +12,7 @@ import edu.java.answers.dao.AnswersDAO;
 import edu.java.testingSystems.domain.Answer;
 
 /**
- * @author Администратор
+ * @author Rakitsky Alexander
  *
  */
 @Service
@@ -42,11 +42,17 @@ public class AnswersServiceImpl implements AnswersService {
 	public List<Answer> listAnswers() {
 		return testingDAO.listAnswers();
 	}
+	/**
+	 * @see edu.java.answers.service.AnswersService#listAnswerUserNow()
+	 */
 	@Transactional
 	public List<Answer> listAnswerUserNow()
 	{
 		return testingDAO.listAnswerUserNow();
 	}
+	/**
+	 * @see edu.java.answers.service.AnswersService#listFindLanguage(String, String)
+	 */
 	@Transactional
 	public List<Answer> listFindLanguage(String language,String level)
 	{

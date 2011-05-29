@@ -27,7 +27,7 @@
 			<tr>
 				<td>${test.language}</td>
 				<td>${test.level}</td> 		
-				<td><a href="deleteAnswer/${test.id}"><spring:message code="label.delete" /></a></td> 
+				<td><a href="deleteMyAnswer/${test.id}"><spring:message code="label.delete" /></a></td> 
 			</tr>
 		</c:forEach>
 	</table> 

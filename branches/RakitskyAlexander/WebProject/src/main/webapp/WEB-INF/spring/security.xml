@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-        xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.springframework.org/schema/beans
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
 
-        <http access-denied-page="/error.jsp">
-                <intercept-url pattern="/user*" access="ROLE_ADMIN,ROLE_USER,ROLE_ANONYMOUS"/>
-                <intercept-url pattern="/admin*" access="ROLE_ADMIN,ROLE_USER,ROLE_ANONYMOUS" />
-                <intercept-url pattern="/add*" access="ROLE_ADMIN" />
-                <intercept-url pattern="/addtest*" access="ROLE_ADMIN,ROLE_USER,ROLE_ANONYMOUS" />
-                <intercept-url pattern="/delete/*" access="ROLE_ADMIN" />
-                <form-login login-page="/login" default-target-url="/"
-                        authentication-failure-url="/login.jsp?error=true" />
-                <logout logout-url="/logout"  logout-success-url="/" />
-                <anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
-                <remember-me />
-        </http>
+	<http access-denied-page="/error">
+		<intercept-url pattern="/home*"
+			access="ROLE_ADMIN,ROLE_USER,ROLE_ANONYMOUS,ROLE_MANAGER" />
+		<intercept-url pattern="/addAnswers*" access="ROLE_USER" />
+		<intercept-url pattern="/showAnswers*" access="ROLE_USER" />
+		<intercept-url pattern="/deleteMyAnswer/*" access="ROLE_USER" />
+		<intercept-url pattern="/addAnswer*" access="ROLE_USER" />
+		<intercept-url pattern="/manager*" access="ROLE_MANAGER" />
+		<intercept-url pattern="/setAnswers*" access="ROLE_MANAGER" />
+		<intercept-url pattern="/allAnswers*" access="ROLE_MANAGER" />
+		<intercept-url pattern="/deleteAnswer/" access="ROLE_MANAGER" />
+		<intercept-url pattern="/admin*" access="ROLE_ADMIN" />
+		<intercept-url pattern="/deleteQuestion/*" access="ROLE_ADMIN" />
+		<intercept-url pattern="/addQuestion*" access="ROLE_ADMIN" />
+		<form-login login-page="/login" default-target-url="/home"
+			authentication-failure-url="/login.jsp?error=true" />
+		<logout logout-url="/logout" logout-success-url="/" />
+		<anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
+		<remember-me />
+	</http>
 
 
-        <authentication-manager>
-                <authentication-provider>
-                        <user-service>
-                                <user name="admin" password="pass" authorities="ROLE_ADMIN,ROLE_USER" />
-                                <user name="user1" password="1111" authorities="ROLE_USER" />
-                                <user name="user2" password="2222" disabled="true" authorities="ROLE_USER" />
-                        </user-service>
-                </authentication-provider>
-        </authentication-manager>
+	<authentication-manager>
+		<authentication-provider>
+			<user-service>
+				<user name="admin" password="pass" authorities="ROLE_ADMIN,ROLE_USER,ROLE_MANAGER" />
+				<user name="manager" password="manager" authorities="ROLE_MANAGER" />
+				<user name="user" password="user"  authorities="ROLE_USER" />
+				<user name="user2" password="user" disabled="true" authorities="ROLE_USER" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
 </beans:beans>

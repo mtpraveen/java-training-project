@@ -23,6 +23,10 @@ public class AnswersDAOImpl implements AnswersDAO {
 	 * @see edu.java.answers.dao.AnswersDAO#addAnswer(edu.java.TestingSystem.domain.Answer)
 	 */
 	public void addAnswer(Answer answer) {
+		if (answer.getLanguage().length()>30)
+			answer.setLanguage(answer.getLanguage().substring(0, 29));
+		if (answer.getLevel().length()>30)
+			answer.setLevel(answer.getLanguage().substring(0, 29));
 		sessionFactory.getCurrentSession().save(answer);
 	}
 
