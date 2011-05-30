@@ -1,0 +1,219 @@
+@CHARSET "UTF-8";
+
+BODY {
+	font-family: arial;
+	color: black;
+}
+
+DIV {
+	background-color: #D3E2F0;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	border-radius: 7px;
+}
+
+DIV.searchPanel {
+	position: absolute;
+	margin-top: 10;
+	margin-left: 10;
+	width: 260;
+	height: 100px;
+	overflow: hidden;
+}
+
+DIV.greetingPanel {
+	position: absolute;
+	margin-top: 10;
+	margin-left: 290;
+	width: 900;
+	height: 100;
+}
+
+DIV.greetingMessage {
+	position: absolute;
+	margin-left: 35%;
+}
+
+DIV.loginPanel {
+	text-align: right;
+	margin-left: 630px;
+	height: 100px;
+}
+
+DIV.navigationPanel {
+	position: absolute;
+	text-align: center; 
+	position : absolute;
+	margin-top: 130px;
+	margin-left: 10px;
+	width: 260px;
+}
+
+DIV.contentPanel {
+	position: absolute;
+	margin-top: 130px;
+	margin-left: 290px;
+	width: 900px;
+	background-color: white;
+}
+
+DIV.footerPanel {
+	border-color: blue;
+	border-style: outset;
+	border-width: 5;
+}
+
+DIV.logo {
+	position: absolute;
+	margin-left: 20px;
+	margin-top: 1px;
+	border: none; 
+}
+
+
+P.buttons {
+	
+}
+
+H2.title {
+	font-family: calibri;
+}
+
+P.author {
+	font-family: calibri;
+	font-size: 12pt;
+	color: gray;
+}
+
+FONT.date {
+	font-family: calibri;
+	font-size: 12pt;
+	color: gray;
+}
+
+P.tags {
+	font-family: calibri;
+	font-size: 12pt;
+	color: gray;
+}
+
+FONT.tags {
+	font-weight: bold;		
+}
+
+FONT.authorLink {
+	font-weight: bold;
+}
+
+FONT.articleText {
+	font-family: calibri;
+	font-size: 12pt;
+	color: black;
+}
+
+FONT.commentText {
+	font-family: calibri;
+	font-size: 12pt;
+	color: black;
+}
+
+H2.comments {
+	font-family: calibri;
+	color: gray;
+}
+
+H2.bloggers {
+	font-family: calibri;
+	font-color: black;
+}
+
+
+FONT.delim {
+	font-size: 4pt;
+}
+
+P.addCommentPrompt {
+	font-family: arial;
+	font-size: 12pt;
+	color: black;
+}
+
+DIV.articleButtons {
+	position: absolute;
+	background-color: white;
+	margin-left: 755px;
+	margin-top: 0px; 
+}
+
+DIV.blogButtons {
+	position: absolute;
+	background-color: white;
+	margin-left: 785px;
+	margin-top: 0px; 
+}
+
+H2.userName {
+	font-family: calibri;
+	color: black;
+}
+
+P.userInfoBlock {
+	font-family: calibri;
+	font-weight: bold;
+	font-size: 12pt;
+}
+
+FONT.userText {
+	font-weight: normal;
+	color: black;
+}
+
+P.blog {
+	font-family: calibri;
+	color: gray;
+	font-size: 12pt;
+	font-weight: normal;
+}
+
+P.article {
+	font-family: calibri;
+	color: gray;
+	font-size: 12pt;
+	font-weight: normal;
+}
+
+FONT.articleTitle {
+	font-weight: bold;
+	color: black;
+	}
+
+FONT.blogLink {
+	font-weight: bold;
+}
+
+H2.blogTitle {
+	font-family: calibri;
+	color: black;
+}
+
+FONT.warning {
+	font-size: 14pt;
+	color: red;
+}
+
+FONT.greeting {
+	font-size: 14pt;
+	font-family: calibri;
+	color: blue;
+}
+
+DIV.registerPanel {
+	position: absolute;
+	margin-top: 55px;
+	margin-left: 635px;
+}
+
+IMG.logo {
+	border: none;
+}
+
