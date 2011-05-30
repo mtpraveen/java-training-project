@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
-    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
-    <jsp:output omit-xml-declaration="yes"/>
-    <form:find finderName="ByCategory" id="ff_voting_domain_Question" path="/questions" z="yqrpkFwj2dGhnHLT8caW5SEuIF4=">
-        <field:select disableFormBinding="true" field="category" id="f_voting_domain_Question_category" itemValue="id" items="${categorys}" path="/categorys" required="true" z="xJAXrmZ5gDyhr346SDEFU/aTtNU="/>
-    </form:find>
-</div>
