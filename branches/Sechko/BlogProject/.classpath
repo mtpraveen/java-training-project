@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="D:/ECLIPSE PROJECTS/BlogProject/WebContent/WEB-INF/lib/hibernate-3.2.6.ga.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ECLIPSE PROJECTS/BlogProject/WebContent/WEB-INF/lib/cglib-nodep-2.1_3.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ECLIPSE PROJECTS/BlogProject/WebContent/WEB-INF/lib/commons-collections-3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ECLIPSE PROJECTS/BlogProject/WebContent/WEB-INF/lib/commons-logging-1.0.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ECLIPSE PROJECTS/BlogProject/WebContent/WEB-INF/lib/dom4j-1.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ECLIPSE PROJECTS/BlogProject/WebContent/WEB-INF/lib/icu4j-2.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ECLIPSE PROJECTS/BlogProject/WebContent/WEB-INF/lib/jta-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ECLIPSE PROJECTS/BlogProject/WebContent/WEB-INF/lib/log4j-1.2.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ECLIPSE PROJECTS/BlogProject/WebContent/WEB-INF/lib/mysql-connector-java-5.1.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ECLIPSE PROJECTS/BlogProject/WebContent/WEB-INF/lib/slf4j-api-1.5.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ECLIPSE PROJECTS/BlogProject/WebContent/WEB-INF/lib/slf4j-simple-1.5.2.jar"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre6">
+	<classpathentry kind="src" path="resources"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre6">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v6.0">
+	<classpathentry exported="true" kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v6.0">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="D:/ECLIPSE PROJECTS/BlogProject/WebContent/WEB-INF/lib/hibernate3.jar"/>
-	<classpathentry kind="lib" path="D:/ECLIPSE PROJECTS/BlogProject/WebContent/WEB-INF/lib/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="D:/ECLIPSE PROJECTS/BlogProject/WebContent/WEB-INF/lib/slf4j-api-1.6.1.jar"/>
-	<classpathentry kind="lib" path="D:/ECLIPSE PROJECTS/BlogProject/WebContent/WEB-INF/lib/slf4j-nop-1.6.1.jar"/>
-	<classpathentry kind="lib" path="D:/ECLIPSE PROJECTS/BlogProject/WebContent/WEB-INF/lib/hibernate-jpa-2.0-api-1.0.0.Final.jar"/>
-	<classpathentry kind="lib" path="D:/ECLIPSE PROJECTS/BlogProject/WebContent/WEB-INF/lib/jta-1.1.jar"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
