@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<div>${category.text}</div>
+
+	<c:forEach var="question" items="${questions}">
+		<table id="question">
+			<tr>
+				<td colspan="2">${question.name}</td>
+			</tr>
+			<tr>
+				<td align="left">
+					<i><fmt:formatDate type="date" value="${question.creationDate}" /></i>
+				</td>
+				<td align="right">
+					<sec:authorize ifAllGranted="ROLE_ADMIN">
+
+						<a href="${pageContext.request.contextPath}/vote/${question.id}"><spring:message
+									code="label_vote" /> </a> |
+						<a href="${pageContext.request.contextPath}/results/${question.id}"><spring:message
+									code="label_results" /> </a>
+					</sec:authorize>
+					
+					<sec:authorize ifAllGranted="ROLE_USER" ifNotGranted="ROLE_ADMIN">
+						<c:if test="${question.visible}">
+							<a href="${pageContext.request.contextPath}/vote/${question.id}"><spring:message
+										code="label_vote" /> </a>
+						</c:if>
+						<c:if test="${!question.visible}">
+							<a href="${pageContext.request.contextPath}/results/${question.id}"><spring:message
+										code="label_results" /> </a>
+						</c:if>
+					</sec:authorize>
+				</td>
+			</tr>
+		</table>
+	</c:forEach>
+	<c:if test="${not empty maxPages}">
+	<util:pagination maxPages="${maxPages}" page="${param.page}"
+		size="${param.size}" />
+	</c:if>
+
+</div>
