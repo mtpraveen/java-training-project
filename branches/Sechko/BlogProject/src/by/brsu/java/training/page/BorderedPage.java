@@ -27,9 +27,9 @@ public class BorderedPage extends Page {
 	public static final UserRole MODERATOR_ROLE = UserRole.MODERATOR;
 	public static final UserRole GUEST_ROLE = UserRole.GUEST;
 	public static final String LOGIN_MESSAGE_ATTRIBUTE = "loginMessage";
-	public static final String SEARCH_FIELD_WIDTH = "205";
-	public static final String SEARCH_BUTTON_WIDTH = "122";
-	public static final String LOGIN_FIELD_WIDTH = "170";
+	public static final String SEARCH_FIELD_WIDTH = "200";
+	public static final String SEARCH_BUTTON_WIDTH = "120";
+	public static final String LOGIN_FIELD_WIDTH = "166";
 	
 
 	private Form loginForm;
