@@ -18,7 +18,7 @@
   "-//Apache Software Foundation//DTD Click Configuration 2.2//EN"
   "http://click.apache.org/dtds/click-2.3.dtd">
 
-<click-app charset="UTF-8">
+<click-app charset="UTF-8"  locale="en">
 
 	<pages package="by.brsu.java.training.page" autobinding="none">
 

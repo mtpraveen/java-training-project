@@ -1,15 +1,10 @@
 package by.brsu.java.training.service;
 
-import java.util.List;
+import java.util.Set;
 
 import by.brsu.java.training.entity.Tag;
 
 public interface ITagService {
-	boolean addTag(Tag tag);
-
-	Tag getTagById(long tagId);
-
-	List<Tag> getTags();
-
-	boolean deleteTag(long tagId);
+	Set<Tag> getTags();
+	Tag getTagById(long id);
 }
