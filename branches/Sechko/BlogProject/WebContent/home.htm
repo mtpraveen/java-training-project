@@ -1,15 +1,30 @@
 #parse("/border.htm")
-<h4>Home Page Begin</h4>
-This is a home page
-$bloggersButton
-$allArticlesButton
+<div class="navigationPanel">
+<P class="buttons">$bloggersButton</P>
+<P class="buttons">$allArticlesButton</P>
+
 #if ($myBlogsButton)
-	$myBlogsButton
-#end
+<P class="buttons">$myBlogsButton</P>
+#end 
+
 #if ($createBlogButton)
-	$createBlogButton
+<P class="buttons">$createBlogButton</P>
+#end 
+
+#if ($createArticleButton)
+<P class="buttons">$createArticleButton</P>
+#end 
+
+#if ($latestArticlesButton)
+<P class="buttons">$latestArticlesButton</P>
+#end 
+
+#if ($latestCommentsButton)
+<P class="buttons">$latestCommentsButton</P>
 #end
 
-<h4>Home Page End</h4>
+#if($logoutButton)
+<P class="buttons">$logoutButton</P>
+#end
 
 

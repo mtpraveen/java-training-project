@@ -1,3 +1,16 @@
-<h3>Bloggers Page Begin</h3>
-This is a bloggers page
-<h3>Bloggers Page End</h3>
+<div class="contentPanel">
+<h2 class="bloggers">Bloggers on site:</h2>
+#foreach($blogger in $bloggersList)
+  <p>
+  <font class="authorLink">
+  	${blogger.fields.bloggerName}
+  </font>
+  <br>
+  <font class="date">
+  	on site since:&nbsp;&nbsp; 
+  	${blogger.fields.date}
+  </font>
+  </p>
+#end
+$bloggersMessage
+</div>

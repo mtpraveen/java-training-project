@@ -1,27 +1,34 @@
 <html>
 <head>
-<title>Insert title here</title>
+<LINK rel="stylesheet" href="styles/blogstyle.css" />
+<META content="text/html; charset=windows-1251" />
+<title>Sky blog</title>
 $headElements
 </head>
 <body>
+<div class="searchPanel">
+	$searchForm
+</div>
 
-<h4>Search Form Begin</h4>
-$searchForm
-<h4>Search Form End</h4>
+<DIV class="greetingPanel">
+	<DIV class="logo"><a href="index.htm"><img class="logo" src="images/sky_blog_logo.PNG"></a></DIV>
+	<DIV class="greetingMessage">
+		<p>
+		#if($warningMessage)
+			<font class="warning">$warningMessage</font>
+		#end
+		#if($loginMessage)
+			<font class="greeting">$loginMessage</font>
+		#end 
+		</p>
+	</DIV>
+	
+	<DIV class="loginPanel">
+		$loginForm 
+	</DIV>
+</DIV>
 
-<h4>Register Button Begin</h4>
-$registerButton
-<h4>Register Button End</h4>
 
-
-<h4>Login Form Begin</h4>
-$loginForm
-<h4>Login Form End</h4>
-
-
-<h4>Login Message Begin</h4>
-$loginMessage
-<h4>Login Message End</h4>
 
 
 #parse($path) $jsElements
