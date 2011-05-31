@@ -23,21 +23,24 @@ DIV.searchPanel {
 
 DIV.greetingPanel {
 	position: absolute;
-	margin-top: 10;
-	margin-left: 290;
-	width: 900;
-	height: 100;
+	margin-top: 10px;
+	margin-left: 290px;
+	width: 900px;
+	height: 100px;
 }
 
 DIV.greetingMessage {
 	position: absolute;
-	margin-left: 35%;
+	margin-top: 30px;
+	margin-left: 620px;
 }
 
 DIV.loginPanel {
-	text-align: right;
-	margin-left: 630px;
+	position: absolute;
+	margin-left: 930px;
+	margin-top: 10px;
 	height: 100px;
+	overflow: hidden;
 }
 
 DIV.navigationPanel {
@@ -47,6 +50,9 @@ DIV.navigationPanel {
 	margin-top: 130px;
 	margin-left: 10px;
 	width: 260px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+
 }
 
 DIV.contentPanel {
@@ -64,10 +70,11 @@ DIV.footerPanel {
 }
 
 DIV.logo {
-	position: absolute;
-	margin-left: 20px;
+	position: relative;
+	width: 305px;
+	padding-left: 4px;
 	margin-top: 1px;
-	border: none; 
+	border: none;
 }
 
 
@@ -139,17 +146,13 @@ P.addCommentPrompt {
 }
 
 DIV.articleButtons {
-	position: absolute;
+	text-align: right;
 	background-color: white;
-	margin-left: 755px;
-	margin-top: 0px; 
 }
 
 DIV.blogButtons {
-	position: absolute;
-	background-color: white;
-	margin-left: 785px;
-	margin-top: 0px; 
+	text-align: right;
+	background-color: white;	
 }
 
 H2.userName {
@@ -216,4 +219,5 @@ DIV.registerPanel {
 IMG.logo {
 	border: none;
 }
+
 

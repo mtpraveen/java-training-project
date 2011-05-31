@@ -1,0 +1,61 @@
+<div class="contentPanel">
+<div class="articleButtons">
+#if($editArticleButton)&nbsp;&nbsp;&nbsp;&nbsp;
+$editArticleButton
+#end
+&nbsp;&nbsp;&nbsp;&nbsp;
+#if($deleteArticleButton)
+$deleteArticleButton
+#end
+
+</div>
+
+<h2 class="title">$title</h2>
+
+<p class="author">
+Author:&nbsp;&nbsp;<font class="authorLink">$authorLink</font>
+</p>
+<p>
+<font class="date">
+Date:&nbsp;&nbsp;$date
+</font>
+</p>
+<p class="tags">
+Tags:&nbsp;&nbsp;<font class="tags">$tags</font>
+</p>
+<br>
+<font class="articleText">$text</font>
+<br>
+<br>
+<h2 class="comments">
+Comments ($commentsCount) 
+</h2>
+
+#foreach($comment in $commentsList)
+<p class="comment">
+ <font class="authorLink">${comment.fields.author}</font>
+ &nbsp;&nbsp;
+ <font class="date">${comment.fields.date}</font>
+ <p>
+ <font class="commentText">${comment.fields.text}</font>
+ </p>
+ <font class="delim">&nbsp;</font>
+</p>
+#end
+
+
+#if ($addCommentForm)
+<p class="addCommentPrompt">Your comment:</p>
+${addCommentForm.startTag()}
+${addCommentForm.fields.textField}
+<br>
+<br>
+${addCommentForm.fields.add}
+<br>
+${addCommentForm.endTag()}
+#end
+
+
+
+
+</div>

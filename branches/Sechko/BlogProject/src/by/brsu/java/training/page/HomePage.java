@@ -136,7 +136,7 @@ public class HomePage extends BorderedPage {
 
 	private ActionButton createLatestCommentsButton() {
 		latestCommentsButton = new ActionButton("latestCommentsButton");
-		latestCommentsButton.setLabel("LatestComments");
+		latestCommentsButton.setLabel("Latest comments");
 		latestCommentsButton.setWidth(BUTTON_WIDTH);
 		latestCommentsButton.setActionListener(new ActionListener() {
 

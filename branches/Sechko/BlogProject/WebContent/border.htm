@@ -7,30 +7,21 @@ $headElements
 </head>
 <body>
 
-
-
-<div class="searchPanel">
-	$searchForm
-</div>
+<div class="searchPanel">$searchForm</div>
 
 <DIV class="greetingPanel">
-
-	<DIV class="logo"><a href="index.htm"><img class="logo" src="images/sky_blog_logo.PNG"></a></DIV>
-	<DIV class="greetingMessage">
-		<p>
-		#if($warningMessage)
-			<font class="warning">$warningMessage</font>
-		#end
-		#if($loginMessage)
-			<font class="greeting">$loginMessage</font>
-		#end 
-		</p>
-	</DIV>
-	
-	<DIV class="loginPanel">
-		$loginForm 
+	<DIV class="logo">
+		<a href="index.htm"> <img class="logo"
+		src="images/sky_blog_logo.PNG"> </a>
 	</DIV>
 </DIV>
+
+<DIV class="greetingMessage">
+	<p>#if($warningMessage) <font class="warning">$warningMessage</font>
+	#end #if($loginMessage) <font class="greeting">$loginMessage</font> #end</p>
+</DIV>
+
+<DIV class="loginPanel">$loginForm</DIV>
 
 
 #parse($path) $jsElements

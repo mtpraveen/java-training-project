@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="by.brsu.java.training.entity">
+	<class name="Article" table="articles">
+		<id name="id" column="article_id" type="long">
+			<generator class="increment" />
+		</id>
+
+		<property name="title" column="title" type="string" />
+		<property name="author" column="author" type="string" />
+		<property name="date" column="date" type="timestamp" />
+		<property name="text" column="text" type="text" />
+		<property name="published" column="published" type="boolean" />
+
+
+		<set name="tags" table="ArticlesTags">
+			<key column="article_id" />
+			<many-to-many column="tag_id" class="Tag" />
+		</set>
+
+		<set name="comments" cascade="all" lazy="true">
+			<key column="article_id" not-null="true" />
+			<one-to-many class="Comment" />
+		</set>
+
+
+
+	</class>
+</hibernate-mapping>

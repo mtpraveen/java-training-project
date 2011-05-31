@@ -25,6 +25,7 @@ import by.brsu.java.training.util.DateUtil;
 public class BlogPage extends HomePage {
 
 	public static final int SHORT_ARTICLE_LENGTH = 350;
+	public static final String DELETE_BUTTON_WIDTH = "140";
 	
 	private static final long serialVersionUID = -3621970253569943920L;
 	private Blog blog;
@@ -127,6 +128,7 @@ public class BlogPage extends HomePage {
 		if (isUserAutorized() && isUserHasBlog(blog)) {
 			deleteBlogButton = new ActionButton("deleteBlogButton");
 			deleteBlogButton.setLabel("Delete this blog");
+			deleteBlogButton.setWidth(DELETE_BUTTON_WIDTH);
 			deleteBlogButton.setActionListener(new ActionListener() {
 				private static final long serialVersionUID = -7194396338279431137L;
 
