@@ -58,15 +58,15 @@ public class CreateBlogPage extends HomePage {
 					if (UserService.getInstance().isBlogExists(userId,
 							blogTitle)) {
 						getContext().setRequestAttribute("blogMessage",
-								"Блог с таким названием уже существует");
-						setForward("/user/create-blog-page.htm");
+								"Blog with this title already exists");
+						setForward("/create-blog-page.htm");
 						return false;
 					}
 					Blog blog = new Blog(0, blogTitle, userName, new Date(),
 							null, null);
 					if (!UserService.getInstance().addBlog(userId, blog)) {
 						getContext().setRequestAttribute("blogMessage",
-								"Ошибка при создании блога");
+								"Error during creation blog");
 						setForward("/create-blog-page.htm");
 						return false;
 					}

@@ -1,0 +1,37 @@
+<div class="contentPanel">
+$bloggerMessage
+<h2 class="userName">
+	$nameString
+</h2>
+
+<p class="userInfoBlock">
+	On site since:&nbsp;&nbsp;
+	<font class="userText">
+		$dateString
+	</font>
+</p>
+
+<p class="userInfoBlock"> 
+About me:&nbsp;&nbsp;<br>
+	<font class="userText">$aboutString</font>
+</p>
+
+
+<br>
+<p class="userInfoBlock">
+My blogs ($blogsCount):&nbsp;&nbsp;<br>
+<font class="userText">$blogsMessage</font><br>
+#foreach($blog in $blogsList)
+<p class="blog">
+	<font class="blogLink">${blog.fields.blogLink}</font>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	Created:&nbsp;&nbsp; 
+	<font class="date">${blog.fields.date}</font>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	Articles:&nbsp;&nbsp; 
+	${blog.fields.articlesCount}
+</p>
+#end
+</p>
+
+</div>

@@ -1,0 +1,36 @@
+<DIV class="contentPanel">
+
+	
+	<DIV class="blogButtons">
+		#if ($deleteBlogButton)
+		&nbsp;&nbsp;&nbsp;&nbsp;$deleteBlogButton
+		#end
+	</DIV>
+	
+
+	<h2 class="blogTitle">${blogSummary.fields.blogTitle}</h2>
+	<p>
+		<font class="date">Created:&nbsp;&nbsp;${blogSummary.fields.blogDate}</font>
+	</p>
+	<br>
+	<p class="userInfoBlock">Articles in blog:&nbsp;&nbsp;<br>
+		<font class="userText">$articlesMessage</font> 
+		#foreach($article in $articlesList)
+			<p class="article">
+				<font class="articleTitle">${article.fields.title}</font>
+				<br>
+				Author:&nbsp;&nbsp;
+				<font class="authorLink">${article.fields.author}</font>
+				&nbsp;&nbsp; 
+				<font class="date">${article.fields.date}</font>
+			<p>
+				<font class="commentText">${article.fields.text}</font>
+			</p>
+			<font class="delim">&nbsp;</font>
+			</p>
+		#end
+	</p>	
+</DIV>
+
+
+
