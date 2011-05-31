@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>adminTest</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">adminTest</td></tr>
+</thead><tbody>
+<!--log out-->
+<tr>
+	<td>open</td>
+	<td>resources/j_spring_security_logout</td>
+	<td></td>
+</tr>
+<!--go to log in page and set language to english-->
+<tr>
+	<td>open</td>
+	<td>login?lang=en</td>
+	<td></td>
+</tr>
+<!--log in-->
+<tr>
+	<td>assertTextPresent</td>
+	<td>You have tried to access a protected area of this application.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>j_username</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>j_password</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>proceed</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Admin menu</td>
+	<td></td>
+</tr>
+<!--test working with categories-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Create new Category</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Create new Category</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_name_id</td>
+	<td>selenium test category</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_text_id</td>
+	<td>simple text</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>proceed</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>simple text</td>
+	<td></td>
+</tr>
+<!--try to create category with duplicate name-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Create new Category</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_name_id</td>
+	<td>selenium test category</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>proceed</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Category with such name already exists</td>
+	<td></td>
+</tr>
+<!--test working with questions-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Create new Question</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Create new Question</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_category_id</td>
+	<td>selenium test category</td>
+</tr>
+<tr>
+	<td>typeKeys</td>
+	<td>_category_id</td>
+	<td>selenium test category</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_category_id</td>
+	<td>selenium test category</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_name_id</td>
+	<td>selenium test question</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>proceed</td>
+	<td></td>
+</tr>
+<!--create answers-->
+<tr>
+	<td>assertTextPresent</td>
+	<td>Create new Answer</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_text_id</td>
+	<td>first answer</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>proceed</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_text_id</td>
+	<td>second answer</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>proceed</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>second answer</td>
+	<td></td>
+</tr>
+<!--delete second answer-->
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[td[text()='second answer']]/td[2]/form/input[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertConfirmation</td>
+	<td>Are you sure want to delete this item?</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>second answer</td>
+	<td></td>
+</tr>
+<!--test account validation messages-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Create new Account</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Create new Account</td>
+	<td></td>
+</tr>
+<!--Input wrong data-->
+<tr>
+	<td>type</td>
+	<td>_name_id</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_password_id</td>
+	<td>password1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_confirmPassword_id</td>
+	<td>password2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_email_id</td>
+	<td>admin@voting.ru</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_captchaText_id</td>
+	<td>captcha</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>proceed</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>User with such name already exists</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Passwords should be equal</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>User with such email already exists</td>
+	<td></td>
+</tr>
+<!--Correct wrong data-->
+<tr>
+	<td>type</td>
+	<td>_name_id</td>
+	<td>selenium_user</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_password_id</td>
+	<td>password</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_confirmPassword_id</td>
+	<td>password</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>_email_id</td>
+	<td>selenium_user@vote.ru</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>proceed</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>User with such name already exists</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>Passwords should be equal</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>User with such email already exists</td>
+	<td></td>
+</tr>
+<!--watch category content-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=selenium test category (1)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>selenium test question</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>link=vote</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>link=results</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
