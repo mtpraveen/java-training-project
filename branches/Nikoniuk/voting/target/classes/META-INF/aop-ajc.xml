@@ -1,0 +1,31 @@
+<aspectj>
+<aspects>
+<aspect name="voting.domain.Answer_Roo_Finder"/>
+<aspect name="voting.domain.Answer_Roo_ToString"/>
+<aspect name="voting.domain.Category_Roo_Finder"/>
+<aspect name="voting.domain.Vote_Roo_Configurable"/>
+<aspect name="voting.domain.Question_Roo_Configurable"/>
+<aspect name="voting.domain.Answer_Roo_Configurable"/>
+<aspect name="voting.web.ApplicationConversionServiceFactoryBean_Roo_ConversionService"/>
+<aspect name="voting.domain.Account_Roo_Finder"/>
+<aspect name="voting.domain.Account_Roo_Configurable"/>
+<aspect name="voting.domain.Category_Roo_Entity"/>
+<aspect name="voting.domain.Answer_Roo_JavaBean"/>
+<aspect name="voting.domain.Question_Roo_Entity"/>
+<aspect name="voting.domain.Question_Roo_JavaBean"/>
+<aspect name="voting.domain.Category_Roo_ToString"/>
+<aspect name="voting.domain.Account_Roo_JavaBean"/>
+<aspect name="voting.domain.Vote_Roo_JavaBean"/>
+<aspect name="voting.domain.Question_Roo_Finder"/>
+<aspect name="voting.domain.Category_Roo_JavaBean"/>
+<aspect name="voting.domain.Vote_Roo_Finder"/>
+<aspect name="voting.domain.Account_Roo_Entity"/>
+<aspect name="voting.domain.Question_Roo_ToString"/>
+<aspect name="voting.domain.Category_Roo_Configurable"/>
+<aspect name="voting.domain.Account_Roo_ToString"/>
+<aspect name="voting.domain.Vote_Roo_ToString"/>
+<aspect name="voting.domain.Answer_Roo_Entity"/>
+<aspect name="voting.domain.Vote_Roo_Entity"/>
+</aspects>
+</aspectj>
+

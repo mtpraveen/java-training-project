@@ -1,0 +1,25 @@
+<aspectj>
+<aspects>
+<aspect name="voting.domain.VoteIntegrationTest_Roo_Configurable"/>
+<aspect name="voting.domain.CategoryIntegrationTest_Roo_Configurable"/>
+<aspect name="voting.domain.AnswerDataOnDemand_Roo_Configurable"/>
+<aspect name="voting.domain.QuestionIntegrationTest_Roo_Configurable"/>
+<aspect name="voting.domain.CategoryDataOnDemand_Roo_Configurable"/>
+<aspect name="voting.domain.VoteDataOnDemand_Roo_Configurable"/>
+<aspect name="voting.domain.QuestionIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="voting.domain.AccountDataOnDemand_Roo_Configurable"/>
+<aspect name="voting.domain.AnswerIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="voting.domain.AnswerIntegrationTest_Roo_Configurable"/>
+<aspect name="voting.domain.AccountDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="voting.domain.CategoryDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="voting.domain.QuestionDataOnDemand_Roo_Configurable"/>
+<aspect name="voting.domain.AccountIntegrationTest_Roo_Configurable"/>
+<aspect name="voting.domain.CategoryIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="voting.domain.VoteDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="voting.domain.AccountIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="voting.domain.AnswerDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="voting.domain.VoteIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="voting.domain.QuestionDataOnDemand_Roo_DataOnDemand"/>
+</aspects>
+</aspectj>
+
