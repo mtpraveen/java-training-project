@@ -1,0 +1,273 @@
+@CHARSET "UTF-8";
+
+html,body {
+	margin: 0;
+	padding: 0;
+	background: #ffffff;
+	width: 100%;
+	height: 100%;
+}
+
+* html #wrap {
+	height: 100%;
+}
+
+p,td {
+	font-family: Arial, Helvetica, sans-serif;
+	margin-top: 0px;
+}
+
+a img {
+	border: 0;
+}
+
+a {
+	color: #277505;
+	text-decoration: underline;
+}
+
+a:hover {
+	color: #133C02;
+	text-decoration: underline;
+}
+
+a.hidden {
+	text-decoration: none;
+	color: #000000;
+	cursor: default;
+}
+
+form {
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	margin-left: 20px;
+	margin-top: 0px;
+	padding: 1px;
+	list-style-type: square;
+	line-height: 16px;
+}
+
+h1 {
+	font-size: 18px;
+	font-weight: normal;
+	color: #242424;
+	margin: 0px;
+	font-family: Tahoma, Arial;
+	padding-bottom: 9px;
+}
+
+.bottom_addr {
+	font-size: 10px;
+	color: #999999;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	font-family: Tahoma, Arial;
+}
+
+.bottom_addr a {
+	text-decoration: none;
+}
+
+.bottom_addr a:hover {
+	text-decoration: underline;
+}
+
+.bottom_menu {
+	color: #333333;
+	text-align: right;
+	padding-top: 12px;
+	padding-bottom: 10px;
+	font-size: 11px;
+	font-family: Tahoma, Arial;
+	padding-right: 20px;
+}
+
+.bottom_menu a {
+	color: #000000;
+	text-decoration: underline;
+}
+
+.bottom_menu a:hover {
+	color: #255009;
+	text-decoration: underline;
+}
+
+.menu {
+	color: #FFFFFF;
+	background-image: url(btn_bg.gif);
+	background-repeat: repeat-x;
+	font-weight: bold;
+	padding-right: 10px;
+	padding-left: 10px;
+	white-space: nowrap;
+}
+
+.menu a {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+.menu a:hover {
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+
+.body_txt {
+	color: #30322f;
+	text-align: justify;
+	padding: 10px;
+	vertical-align: top;
+	font-size: 12px;
+	font-family: Tahoma, Arial;
+}
+
+.company_name {
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: none;
+	color: #FFFFFF;
+}
+
+.login_form {
+	height: 18px;
+	width: 130px;
+	font-size: 12px;
+	padding-top: 3px;
+	padding-left: 2px;
+	border: 1px solid #999999;
+	color: #333333;
+}
+
+#wrap {
+	position: relative;
+	min-height: 100%;
+	margin: 0 auto;
+	width: 800px;
+}
+
+#conteiner {
+	width: 800px;
+	padding-bottom: 50px;
+}
+
+#footer {
+	width: 800px;
+	height: 50px;
+	position: relative;
+	margin-top: -50px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #FFFFFF;
+	background-repeat: no-repeat;
+	background-position: top;
+}
+
+#header {
+	
+}
+
+.lnews {
+	font-family: Tahoma, Arial;
+	font-size: 12px;
+	color: #30322f;
+	text-align: justify;
+	margin: 10px 11px 2px 8px;
+}
+
+.lnews_data {
+	color: #666666;
+}
+
+.lnews p {
+	margin: 3px 0 0 0;
+}
+
+.lheader {
+	font-family: Tahoma, Arial;
+	font-size: 15px;
+	font-weight: normal;
+	color: #30322f;
+	font-style: italic;
+	text-align: right;
+	margin-right: 9px;
+	margin-top: 7px;
+	margin-bottom: 9px;
+}
+
+#lmenu {
+	background-image: url(lmenu-bg.gif);
+	background-repeat: repeat-y;
+	background-position: center;
+}
+
+#lmenu_items {
+	background: url(lmenu-bg-top.gif) no-repeat center top;
+	padding-top: 14px;
+}
+
+#lmenu_items a {
+	display: block;
+	color: #FFFFFF;
+	text-decoration: none;
+	font-size: 12px;
+	font-style: italic;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: right;
+	padding-top: 2px;
+	padding-right: 50px;
+	padding-bottom: 11px;
+	background-image: url(lbullet.gif);
+	background-repeat: no-repeat;
+	background-position: 30px 7px;
+}
+
+#lmenu_items a:hover {
+	color: #9CC58D;
+}
+
+#logo {
+	position: absolute;
+	font-size: 26px;
+	color: #277505;
+	margin-top: 27px;
+	margin-left: 14px;
+	font-family: Tahoma, Arial;
+	font-weight: normal;
+	background-image: url(logobg.gif);
+	background-repeat: repeat-x;
+	height: 51px;
+	padding-top: 8px;
+}
+
+#search {
+	margin-right: 20px;
+	margin-top: 28px;
+}
+
+#welcome-text {
+	font-family: Tahoma, Arial;
+	font-size: 11px;
+	color: #595b59;
+	text-align: left;
+	margin-right: 11px;
+	margin-top: 50px;
+}
+
+#welcome-text h2 {
+	color: #33531d;
+	font-family: Tahoma, Arial;
+	font-size: 20px;
+	font-style: italic;
+	font-weight: normal;
+	margin-bottom: 5px;
+}
+
+#welcome-text p {
+	margin: 3px 5px 0 0;
+}
