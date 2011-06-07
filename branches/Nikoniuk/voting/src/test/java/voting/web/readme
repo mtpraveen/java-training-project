@@ -1,0 +1,9 @@
+Before running selenium tests you should download Selenium Server:
+http://code.google.com/p/selenium/downloads/detail?name=selenium-server-standalone-2.0b3.jar&can=2&q= 
+
+Server can be started by the command:
+$ java -jar selenium-server.jar
+
+At first, change userName, password and email constants in AdminTest, UserTest to values according to the existing admin and user account
+After than you can run SeleniumAllTests.java
+Try to run TearDown.java before test if you have some problems.
