@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:form="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<form:update id="fu_voting_domain_Question" modelAttribute="question"
+		path="/questions" versionField="Version">
+		<field:input field="name" id="c_voting_domain_Question_name"
+			required="true" min="10" />
+		<field:checkbox field="multipleChoice"
+			id="c_voting_domain_Question_multipleChoice" />
+		<field:checkbox field="visible" id="c_voting_domain_Question_visible" />
+		<field:select field="category" id="c_voting_domain_Question_category"
+			itemValue="id" items="${categories}" path="/categories" />
+		<field:datetime dateTimePattern="${date_format}"
+			field="creationDate" id="c_voting_domain_Question_creationDate" />
+	</form:update>
+</div>

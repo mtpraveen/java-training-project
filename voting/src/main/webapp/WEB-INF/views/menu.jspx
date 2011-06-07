@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" id="menu" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<menu:menu id="menu">
+		<menu:category id="c_categories">
+			<c:forEach var="category" items="${categories_menu}">
+				<menu:item label="${category.key.name} (${category.value})"
+					id="${category.key.id}"
+					url="/category/${category.key.id}?page=1&amp;size=${empty param.size ? 5 : param.size}" />
+			</c:forEach>
+		</menu:category>
+		<spring:message code="label_admin_menu" var="panelTitle" />
+		<sec:authorize ifAllGranted="ROLE_ADMIN">
+			<util:panel title="${panelTitle}"
+				id="c_categories">
+				<menu:menu id="admin_menu">
+					<menu:category id="c_accounts">
+						<menu:item id="i_account_new" messageCode="global_menu_new"
+							url="/register" />
+						<menu:item id="i_account_list" messageCode="global_menu_list"
+							url="/accounts?page=1&amp;size=${empty param.size ? 10 : param.size}" />
+					</menu:category>
+					<menu:category id="c_categories">
+						<menu:item id="i_category_new" messageCode="global_menu_new"
+							url="/categories?form" />
+						<menu:item id="i_category_list" messageCode="global_menu_list"
+							url="/categories?page=1&amp;size=${empty param.size ? 10 : param.size}" />
+					</menu:category>
+					<menu:category id="c_questions">
+						<menu:item id="i_question_new" messageCode="global_menu_new"
+							url="/questions?form" />
+						<menu:item id="i_question_list" messageCode="global_menu_list"
+							url="/questions?page=1&amp;size=${empty param.size ? 10 : param.size}" />
+					</menu:category>
+				</menu:menu>
+			</util:panel>
+		</sec:authorize>
+	</menu:menu>
+</div>
