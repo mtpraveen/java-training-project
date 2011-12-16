@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="F:/dev/java/jars/antlr-2.7.6.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/asm-3.1.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/aspectjrt-1.6.9.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/cglib-2.2.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/commons-cli-1.0.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/commons-dbcp-1.2.2.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/commons-lang-2.1.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/commons-pool-1.3.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/doxia-sink-api-1.0-alpha-7.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/h2-1.3.156.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/hibernate-commons-annotations-3.2.0.Final.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/hibernate-core-3.6.0.Final.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/hibernate-entitymanager-3.6.0.Final.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/hibernate-jpa-2.0-api-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/hibernate-jpa-2.0-api-1.0.0.Final-sources.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/hibernate-validator-4.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/javassist-3.12.0.GA.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/javax.inject-1.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/jcl-over-slf4j-1.5.10.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/jsp-api-2.1.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/jta-1.1.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/junit-3.8.1.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/junit-4.7.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/maven-archiver-2.4.1.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/maven-compiler-plugin-2.3.2.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/maven-filtering-1.0.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/maven-filtering-1.0-beta-2.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/maven-filtering-1.0-beta-4.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/maven-jar-plugin-2.3.1.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/maven-reporting-api-2.0.6.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/maven-resources-plugin-2.4.3.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/maven-resources-plugin-2.5.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/maven-surefire-plugin-2.7.1.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/maven-war-plugin-2.1.1.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/mysql-connector-java-5.1.6.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/plexus-archiver-1.0.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/plexus-archiver-1.2.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/plexus-build-api-0.0.4.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/plexus-compiler-api-1.8.1.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/plexus-compiler-javac-1.8.1.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/plexus-compiler-manager-1.8.1.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/plexus-interactivity-api-1.0-alpha-4.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/plexus-interpolation-1.13.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/plexus-io-1.0.1.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/plexus-io-1.0.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/plexus-utils-2.0.5.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/servlet-api-2.5.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/slf4j-api-1.5.10.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/slf4j-log4j12-1.5.10.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/spring-aop-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/spring-asm-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/spring-beans-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/spring-context-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/spring-context-support-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/spring-core-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/spring-expression-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/spring-jdbc-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/spring-orm-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/spring-test-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/spring-tx-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/spring-web-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/spring-webmvc-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/validation-api-1.0.0.GA.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/xpp3_min-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="F:/dev/java/jars/xstream-1.3.1.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
