@@ -39,7 +39,9 @@ public class HomeController {
 		SimpleNotificationRepository s = new SimpleNotificationRepository();
 		s.init();
 		
-		model.addAttribute("notifications", s.getAllNotifications());
+		
+		
+		model.addAttribute("notification", s.getNotificationById(100));
 		
 		return "home";
 	}
