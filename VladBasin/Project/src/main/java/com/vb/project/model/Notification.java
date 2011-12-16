@@ -1,50 +1,50 @@
 package com.vb.project.model;
 
+
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
 
-public class Notification implements Serializable{
 
-	private static final long serialVersionUID = 88761639173L;
-	
+/**
+ * The persistent class for the notifications database table.
+ * 
+ */
+@Entity
+@Table(name="notifications")
+public class Notification implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
 	private int id;
-	
-	private int forUserId;
-	
-	private String title;
+
 	private String content;
-	
+
+    @Temporal( TemporalType.TIMESTAMP)
 	private Date creationDate;
+
+	private int forUserId;
+
+	private byte isNotificated;
+
+    @Temporal( TemporalType.TIMESTAMP)
 	private Date notificatedDate;
-	
-	private boolean isNotificated;
+
+	private String title;
+
+    public Notification() {
+    }
 
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public int getForUserId() {
-		return forUserId;
-	}
-
-	public void setForUserId(int forUserId) {
-		this.forUserId = forUserId;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	public String getContent() {
-		return content;
+		return this.content;
 	}
 
 	public void setContent(String content) {
@@ -52,27 +52,43 @@ public class Notification implements Serializable{
 	}
 
 	public Date getCreationDate() {
-		return creationDate;
+		return this.creationDate;
 	}
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
 
+	public int getForUserId() {
+		return this.forUserId;
+	}
+
+	public void setForUserId(int forUserId) {
+		this.forUserId = forUserId;
+	}
+
+	public byte getIsNotificated() {
+		return this.isNotificated;
+	}
+
+	public void setIsNotificated(byte isNotificated) {
+		this.isNotificated = isNotificated;
+	}
+
 	public Date getNotificatedDate() {
-		return notificatedDate;
+		return this.notificatedDate;
 	}
 
 	public void setNotificatedDate(Date notificatedDate) {
 		this.notificatedDate = notificatedDate;
 	}
 
-	public boolean isNotificated() {
-		return isNotificated;
+	public String getTitle() {
+		return this.title;
 	}
 
-	public void setNotificated(boolean isNotificated) {
-		this.isNotificated = isNotificated;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	
+
 }
