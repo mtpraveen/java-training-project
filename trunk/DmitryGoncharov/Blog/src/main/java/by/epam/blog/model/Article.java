@@ -7,7 +7,7 @@ package by.epam.blog.model;
 import java.util.List;
 
 /**
- * @author Admin
+ * @author DmitryGoncharov
  *
  */
 
