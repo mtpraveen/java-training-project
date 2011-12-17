@@ -11,7 +11,7 @@ import java.util.List;
  *
  */
 
-public class Article {
+public class Topic {
 	private String caption;
 	private String text;
 	private List<String> tags;
