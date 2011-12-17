@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import by.epam.blog.dao.GoBlogsRepository;
+
 /**
  * Handles requests for the application home page.
  */
@@ -19,6 +21,7 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+	private GoBlogsRepository goBlogsRepository = new GoBlogsRepository();
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -32,6 +35,7 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
+		model.addAttribute("blog",goBlogsRepository.findAllBlogs());
 		
 		return "home";
 	}
