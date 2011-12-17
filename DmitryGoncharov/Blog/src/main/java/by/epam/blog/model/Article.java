@@ -10,6 +10,7 @@ import java.util.List;
  * @author Admin
  *
  */
+
 public class Article {
 	private String caption;
 	private String text;
