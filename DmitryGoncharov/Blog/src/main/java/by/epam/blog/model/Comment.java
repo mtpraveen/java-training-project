@@ -7,7 +7,7 @@ package by.epam.blog.model;
 import java.util.Date;
 
 /**
- * @author Admin
+ * @author DmitryGoncharov
  *
  */
 public class Comment {
