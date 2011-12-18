@@ -1,5 +1,6 @@
 package by.epam.blog.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  */
 public class Blog {
 	private User author;
-	private List<Topic> topics;
+	private List<Topic> topics = new ArrayList<Topic>();
 	
 	public User getAuthor() {
 		return author;

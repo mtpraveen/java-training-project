@@ -16,6 +16,11 @@ public class Topic {
 	private String text;
 	private List<String> tags;
 	private List<Comment> comments;
+	
+	public Topic(String caption) {
+		super();
+		this.caption = caption;
+	}
 	public String getCaption() {
 		return caption;
 	}

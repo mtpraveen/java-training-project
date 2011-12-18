@@ -3,30 +3,35 @@
 <%@ page pageEncoding="UTF-8" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>BlogHost</title>
 </head>
 <body>
 <h1>
-	List blogs:  
+	Список блогов:  
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
-<table>
+<table BORDER="1" CELLPADDING="3" CELLSPACING="1" align="center">
 <tr>
 	<th>#</th>
-	<th>Name</th>
-	<th></th>
+	<th>Создатель блога</th>
+	<th>Список статей</th>
 </tr>
-
 	<c:forEach var="blog" items="${blog}" varStatus="status">
 		<tr>
 			<td>${status.index}</td>
 			<td>${blog.author.name}</td>
-			<c:forEach var="topic" items="${blog.topics}" varStatus="status">
-				<td>${topc.caption}</td>
+			<td>
+			<c:forEach var="topic" items="${blog.topics}" varStatus="status2">
+			
+				${topic.caption}<br>
+			
 			</c:forEach>
+			</td>
 		</tr>
 	</c:forEach>
+
 </table>
+<hr>
+<P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>
