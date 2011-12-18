@@ -1,10 +1,7 @@
-/**
- * Trainig Sample project
- * Admin
- */
 package by.epam.blog.model;
 
 import java.util.List;
+import javax.persistence.*;
 
 /**
  * @author Dmitry_Goncharov
