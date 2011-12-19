@@ -7,6 +7,9 @@ import java.util.List;
  * @author Dmitry_Goncharov
  *
  */
+
+//test
+
 public class Blog {
 	private User author;
 	private List<Topic> topics = new ArrayList<Topic>();
