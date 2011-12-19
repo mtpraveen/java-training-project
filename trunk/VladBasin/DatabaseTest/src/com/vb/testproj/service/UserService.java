@@ -1,10 +1,8 @@
 package com.vb.testproj.service;
 
 import java.util.Date;
-import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.Query;
 
 import com.vb.testproj.helpers.CryptoHelper;
 import com.vb.testproj.model.User;
@@ -89,51 +87,24 @@ public class UserService extends PersistenceBase implements IUser {
 		logoutUser(u);
 	}
 
-	private User getUser(Query query) {
-		beginTransmition();
-
-		List<User> allResults = query.getResultList();
-
-		User res = null;
-		
-		if (allResults.size() != 0)
-			res = allResults.get(0);
-		endTransmition();
-
-		return res;
-	}
-
 	@Override
 	public User getUser(int id) {
-		Query query = entityManager
-				.createQuery("SELECT n FROM User n WHERE n.id = :id");
-		query.setParameter("id", id);
-
-		return getUser(query);
+		return (User)getSingleObject("SELECT n FROM User n WHERE n.id = ?", id);
 	}
 
 	@Override
 	public User getUser(String userName) {
-		Query query = entityManager
-				.createQuery("SELECT n FROM User n WHERE n.userName = :userName");
-		query.setParameter("userName", userName);
-
-		return getUser(query);
+		return (User)getSingleObject("SELECT n FROM User n WHERE n.userName = ?", userName);
 	}
 
 	@Override
-	public Collection<User> getOnlineUsers(int skipCount, int takeCount) {
-		beginTransmition();
-
-		Query query = entityManager.createQuery("SELECT n FROM User n WHERE n.userStatus = :userStatus");
-		query.setParameter("userStatus", UserStatus.ONLINE.ordinal());
-
-		List<User> res = query.setFirstResult(skipCount)
-				.setMaxResults(takeCount).getResultList();
-
-		endTransmition();
-
-		return res;
+	public List<User> getUsers(int skipCount, int takeCount, UserStatus status) {
+		return (List)getManyObjects(skipCount, takeCount, "SELECT n FROM User n WHERE n.userStatus = ?", status.ordinal());
+	}
+	
+	@Override
+	public List<User> getUsers(int skipCount, int takeCount, UserRole role) {
+		return (List)getManyObjects(skipCount, takeCount, "SELECT n FROM User n WHERE n.userRole = ?", role.ordinal());
 	}
 
 	private boolean isUserOnline(User u) {

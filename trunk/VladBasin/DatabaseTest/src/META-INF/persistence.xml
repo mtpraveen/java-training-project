@@ -5,6 +5,7 @@
 	<persistence-unit name="DatabaseTest">
 		<class>com.vb.testproj.model.Notification</class>
 		<class>com.vb.testproj.model.User</class>
+		<class>com.vb.testproj.model.Task</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/factory" />

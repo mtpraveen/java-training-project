@@ -1,11 +1,10 @@
 package com.vb.testproj.persistence;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 
 import com.vb.testproj.model.User;
 import com.vb.testproj.model.UserRole;
+import com.vb.testproj.model.UserStatus;
 
 public interface IUser {
 	boolean hasUser(int id);
@@ -26,8 +25,10 @@ public interface IUser {
 	boolean isUserOnline(int id);
 	boolean isUserOnline(String userName);
 	
-	Collection<?> getOnlineUsers(int skipCount, int takeCount);
+	Collection<User> getUsers(int skipCount, int takeCount, UserStatus status);
+	Collection<User> getUsers(int skipCount, int takeCount, UserRole role);
 
 	boolean changePassword(int userId, String currentPassword, String newPassword);
 	boolean changePassword(String userName, String currentPassword, String newPassword);
+	
 }
