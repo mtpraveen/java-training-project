@@ -5,47 +5,41 @@ import static java.lang.System.out;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import com.vb.testproj.helpers.CryptoHelper;
 import com.vb.testproj.model.Notification;
+import com.vb.testproj.model.Task;
+import com.vb.testproj.model.TaskStatus;
 import com.vb.testproj.model.User;
 import com.vb.testproj.model.UserRole;
 import com.vb.testproj.service.NotificationService;
+import com.vb.testproj.service.TaskService;
 import com.vb.testproj.service.UserService;
 
 public class Main {
 
-	public static NotificationService service;
-	
-	public static void getNewNotificationsTest() {
-		Collection<Notification> all = service.getNewNotifications(1, 10, 10);
-
-		for (Notification n : all) {
-			out.println(n);
-		}
-	}
 
 	public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		UserService service = new UserService();
+		TaskService service = new TaskService();
 		
-		//out.println(service.hasUser("vb"));
-		//service.addUser("vb", "qwertyui", "Vlad", "Basin", UserRole.MANAGER);
-		//out.println(service.hasUser("vb"));
-		
-		//User u = service.getUser("vb");
-		
-		//out.println(u);
+		//service.addTask("title 1", "content 1", "description 1", 1, 0, new Date());
 	
+		//service.beginTask(1);
 		
-		service.addUser("bevb", "qwertyui", "Nevlad", "Nebasin", UserRole.USER);
+		//service.updateTask(2, 10);
 		
-		service.logoutUser("bevb");
+		//service.deleteTask(1);
 		
-		for (User t : service.getOnlineUsers(0, 1000)){
+		for (Task t : service.getTasks(1, 0, 10, TaskStatus.CREATED)){
 			out.println(t);
 		}
-		
+		out.println("-----");
+		for (Task t : service.getUncompletedTasks(1, 0, 10)){
+			out.println(t);
+		}
+		//out.println(service.getTask(1));
 	}
 
 }
