@@ -3,7 +3,7 @@ package by.epam.blog.model;
 import java.util.Date;
 
 /**
- * @author DmitryGoncharov
+ * @author Dmitry_Goncharov
  *
  */
 public class Comment {
