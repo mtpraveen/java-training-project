@@ -13,6 +13,10 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jstl-api-1.2.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jstl-impl-1.2.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/hibernate-jpa-2.0-api-1.0.0.Final.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/classes"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
