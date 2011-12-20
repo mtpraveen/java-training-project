@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author DmitryGoncharov
+ * @author Dmitry_Goncharov
  *
  */
 
