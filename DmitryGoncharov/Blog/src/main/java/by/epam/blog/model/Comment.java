@@ -1,7 +1,3 @@
-/**
- * Trainig Sample project
- * Admin
- */
 package by.epam.blog.model;
 
 import java.util.Date;

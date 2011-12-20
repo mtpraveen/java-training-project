@@ -21,7 +21,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="by.epam.blog" />
+	<context:component-scan base-package="by.epam.blog.web" />
 	
 	
 	

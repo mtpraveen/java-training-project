@@ -1,9 +1,6 @@
-/**
- * Trainig Sample project
- * Admin
- */
 package by.epam.blog.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,12 +11,17 @@ import java.util.List;
 public class Topic {
 	private String caption;
 	private String text;
-	private List<String> tags;
-	private List<Comment> comments;
+	private List<String> tags = new ArrayList<String>();
+	private List<Comment> comments = new ArrayList<Comment>();
 	
 	public Topic(String caption) {
 		super();
 		this.caption = caption;
+	}
+	public Topic(String caption,String text) {
+		super();
+		this.caption = caption;
+		this.text = text;
 	}
 	public String getCaption() {
 		return caption;

@@ -6,13 +6,16 @@
 	<title>BlogHost</title>
 </head>
 <body>
+<a href="/Blog/">Назад к списку блогов</a>
 <h1>
-	Тест:  
+	Автор: ${author}
 </h1>
-
 <hr>
-${test}
+	<c:forEach var="topic" items="${topics}" varStatus="status">
+				<b>${topic.caption}</b><br>
+				${topic.text}
+				<hr>
+	</c:forEach>
 <br>
-<a href="/Blog/">Назад</a>
 </body>
 </html>

@@ -18,8 +18,10 @@
 </tr>
 	<c:forEach var="blog" items="${blog}" varStatus="status">
 		<tr>
-			<td>${status.index}</td>
-			<td>${blog.author.name}</td>
+			<td>${status.index+1}</td>
+			<td>
+			<a href="blog/${blog.id}">${blog.author.name}</a>
+			</td>
 			<td>
 			<c:forEach var="topic" items="${blog.topics}" varStatus="status2">
 			
@@ -31,7 +33,8 @@
 	</c:forEach>
 
 </table>
+<a href="/Blog/test">Тест</a>
 <hr>
-<P>  The time on the server is ${serverTime}. </P>
+<P >  The time on the server is ${serverTime}. </P>
 </body>
 </html>

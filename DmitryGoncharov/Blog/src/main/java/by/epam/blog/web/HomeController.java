@@ -1,4 +1,4 @@
-package by.epam.blog;
+package by.epam.blog.web;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -10,8 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import by.epam.blog.dao.GoBlogsRepository;
+import by.epam.blog.model.Blog;
 
 /**
  * Handles requests for the application home page.
@@ -36,13 +37,22 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		model.addAttribute("blog",goBlogsRepository.findAllBlogs());
-		
 		return "home";
 	}
 	
 	@RequestMapping(value = "/test")
-	public void test() {
-		//return 1;
+	public String test(Model model) {
+		int test = 10;
+		model.addAttribute("test", test);
+		return "test";
+	}
+	
+	@RequestMapping(value = "/blog/{blogId}")
+	public String blog(@PathVariable("blogId") long blogId, Model model) {
+		Blog blog = goBlogsRepository.findBlogById(blogId);
+		model.addAttribute("author", blog.getAuthor().getName());
+		model.addAttribute("topics",blog.getTopics());
+		return "blog";
 	}
 	
 }

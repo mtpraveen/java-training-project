@@ -8,9 +8,16 @@ import java.util.List;
  *
  */
 public class Blog {
+	private long id;
 	private User author;
 	private List<Topic> topics = new ArrayList<Topic>();
 	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public User getAuthor() {
 		return author;
 	}

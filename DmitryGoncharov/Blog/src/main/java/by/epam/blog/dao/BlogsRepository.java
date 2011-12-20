@@ -1,7 +1,3 @@
-/**
- * Trainig Sample project
- * Admin
- */
 package by.epam.blog.dao;
 
 import java.util.Collection;
@@ -15,7 +11,7 @@ import by.epam.blog.model.User;
  */
 public interface BlogsRepository {
 	Blog createBlog(String subject, User user);
-	Blog findBlogById(int id);
+	Blog findBlogById(long id);
 	Collection<Blog> findAllBlogs();
-	void deleteBlog(int id);
+	void deleteBlog(long id);
 }
