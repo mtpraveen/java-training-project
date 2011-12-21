@@ -13,5 +13,8 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/hibernate-jpa-2.0-api-1.0.0.Final.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jstl-api-1.2.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jstl-impl-1.2.jar"/>
+	<classpathentry kind="lib" path="D:/Dropbox/spring/springsource/sts-2.9.0.M1/plugins/org.springframework.beans_3.1.0.RC2.jar"/>
+	<classpathentry kind="lib" path="D:/Dropbox/spring/springsource/sts-2.9.0.M1/plugins/org.springframework.core_3.1.0.RC2.jar"/>
+	<classpathentry kind="lib" path="D:/Dropbox/spring/springsource/sts-2.9.0.M1/plugins/org.apache.commons.logging_1.1.1.v201101211721.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
