@@ -1,17 +1,32 @@
 package by.epam.blog.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * @author Dmitry_Goncharov
  *
  */
-
-public class Topic {
+@Entity
+@Table(name = "TOPIC")
+public class Topic implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Column(name = "TOPIC_CAPTION")
 	private String caption;
+	@Column(name = "TOPIC_TEXT")
 	private String text;
+	
 	private List<String> tags = new ArrayList<String>();
+	
 	private List<Comment> comments = new ArrayList<Comment>();
 	
 	public Topic(String caption) {
