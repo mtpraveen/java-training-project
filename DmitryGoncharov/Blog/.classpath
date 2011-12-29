@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/hibernate-jpa-2.0-api-1.0.0.Final.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jstl-api-1.2.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jstl-impl-1.2.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/ant-commons-logging.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
