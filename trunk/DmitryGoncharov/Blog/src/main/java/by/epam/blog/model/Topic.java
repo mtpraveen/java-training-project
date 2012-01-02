@@ -12,17 +12,17 @@ import javax.persistence.Table;
  * @author Dmitry_Goncharov
  *
  */
-@Entity
-@Table(name = "TOPIC")
+//@Entity
+//@Table(name = "TOPIC")
 public class Topic implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Column(name = "TOPIC_CAPTION")
+	//@Column(name = "TOPIC_CAPTION")
 	private String caption;
-	@Column(name = "TOPIC_TEXT")
+	//@Column(name = "TOPIC_TEXT")
 	private String text;
 	
 	private List<String> tags = new ArrayList<String>();

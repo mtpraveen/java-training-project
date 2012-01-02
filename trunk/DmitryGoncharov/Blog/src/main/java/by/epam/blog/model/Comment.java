@@ -11,18 +11,18 @@ import javax.persistence.Table;
  * @author Dmitry_Goncharov
  *
  */
-@Entity
-@Table(name = "COMMENT")
+//@Entity
+//@Table(name = "COMMENT")
 public class Comment implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Column(name = "COMMENT_NAME")
+//	@Column(name = "COMMENT_NAME")
 	private String name;
-	@Column(name = "COMMENT_TEXT")
+//	@Column(name = "COMMENT_TEXT")
 	private String text;
-	@Column(name = "COMMENT_DATE")
+//	@Column(name = "COMMENT_DATE")
 	private Date date;
 	
 	public String getName() {

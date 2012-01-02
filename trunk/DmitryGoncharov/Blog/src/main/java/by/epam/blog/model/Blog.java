@@ -4,10 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Id;
 /**
@@ -25,7 +26,8 @@ public class Blog implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@Column(name = "BLOG_AUTHOR")
+	@ManyToOne
+	@JoinColumn(name="USER_ID")
 	private User author;
 	
 	private List<Topic> topics = new ArrayList<Topic>();
