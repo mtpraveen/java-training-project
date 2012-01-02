@@ -30,6 +30,9 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="by.epam.blog.web" />
+	<context:component-scan base-package="by.epam.blog.dao" />
+	<context:component-scan base-package="by.epam.blog.service" />
+	
 	
 	
 		<!-- JPA -->
@@ -78,5 +81,5 @@
 		<beans:property name="entityManagerFactory" ref="myEmf"></beans:property>
 	</beans:bean>
 	<tx:annotation-driven transaction-manager="transactionManager" />
-	<jpa:repositories base-package="by.epam.blog.repository"/>
+	<jpa:repositories base-package="by.epam.blog.dao"/>
 </beans:beans>

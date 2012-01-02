@@ -9,6 +9,7 @@
 <h1>
 	Список блогов:  
 </h1>
+<a href="/Blog/user">Список пользователей</a>
 
 <table BORDER="1" CELLPADDING="3" CELLSPACING="1" align="center">
 <tr>
