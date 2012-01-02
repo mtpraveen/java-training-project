@@ -13,9 +13,14 @@
 <hr>
 
 <br>
-<c:forEach var="order" items="${users}">
-	<li>${order.login}/${order.name} [${order.id}]</li>
+<table>
+<c:forEach var="user" items="${users}">
+	<tr>
+		<td><li>${user.login}/${user.name} [${user.id}]</li></td>
+		<td><a href="showuser/${user.id}">Информация о пользователе</a></td>
+	</tr>
 </c:forEach>
+</table>
 <br>
 <a href="/Blog/">Назад</a>
 </body>

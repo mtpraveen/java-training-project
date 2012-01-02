@@ -10,6 +10,11 @@
 	Список блогов:  
 </h1>
 <a href="/Blog/user">Список пользователей</a>
+<br>
+<a href="/Blog/showuser/1">Инфо о юзвере</a>
+<br>
+<a href="/Blog/new">Зарегистрировать пользователя</a>
+
 
 <table BORDER="1" CELLPADDING="3" CELLSPACING="1" align="center">
 <tr>

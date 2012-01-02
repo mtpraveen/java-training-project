@@ -26,10 +26,6 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	private GoBlogsRepository goBlogsRepository = new GoBlogsRepository();
-	@Autowired
-	private UserServiceImpl service;
-	
-	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -52,11 +48,6 @@ public class HomeController {
 		int test = 10;
 		model.addAttribute("test", test);
 		return "test";
-	}
-	@RequestMapping(value = "/user")
-	public String user(Model model) {
-		model.addAttribute("users", service.findAllUsers());
-		return "user";
 	}
 
 	@RequestMapping(value = "/blog/{blogId}")

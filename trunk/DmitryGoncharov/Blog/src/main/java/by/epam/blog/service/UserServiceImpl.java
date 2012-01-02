@@ -17,8 +17,18 @@ public class UserServiceImpl{
 	
     @Autowired
     private UserRepository userRepository;
-   
-	public Iterable<User> findAllUsers(){
-		return userRepository.findAll();
+
+	public Iterable<User> findAllUsers() {
+		return 	userRepository.findAll();
+		}
+	public User findOrderById(Long user) {
+		return userRepository.findOne(user);
+	}
+	public int addUser(String login,String pass,String name){
+		//userRepository.save(arg0);
+		return 1;
+	}
+	public Long saveUser(User user) {
+		return userRepository.save(user).getId();
 	}
 }
