@@ -1,7 +1,10 @@
-package by.epam.blog.dao;
+package by.epam.blog.repository;
 
 import java.util.Collection;
 import java.util.HashMap;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import by.epam.blog.model.Blog;
 import by.epam.blog.model.Topic;
 import by.epam.blog.model.User;

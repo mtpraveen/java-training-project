@@ -11,8 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
-import by.epam.blog.dao.GoBlogsRepository;
 import by.epam.blog.model.Blog;
+import by.epam.blog.repository.GoBlogsRepository;
 
 /**
  * Handles requests for the application home page.
