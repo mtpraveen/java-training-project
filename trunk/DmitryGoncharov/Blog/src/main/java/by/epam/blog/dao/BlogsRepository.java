@@ -1,4 +1,4 @@
-package by.epam.blog.repository;
+package by.epam.blog.dao;
 
 import java.util.Collection;
 

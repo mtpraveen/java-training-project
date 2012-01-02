@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import by.epam.blog.repository.UserRepository;
+import by.epam.blog.dao.UserRepository;
+import by.epam.blog.model.User;
 
 /**
  * @author Dmitry_Goncharov
@@ -12,8 +13,12 @@ import by.epam.blog.repository.UserRepository;
  */
 @Service
 @Transactional
-public class UserService {
-	@Autowired
-	private UserRepository userRepository;
+public class UserServiceImpl{
 	
+    @Autowired
+    private UserRepository userRepository;
+   
+	public Iterable<User> findAllUsers(){
+		return userRepository.findAll();
+	}
 }

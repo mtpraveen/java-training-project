@@ -1,4 +1,4 @@
-package by.epam.blog.repository;
+package by.epam.blog.dao;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -20,6 +20,7 @@ public class GoBlogsRepository implements BlogsRepository {
 		init();
 	}
 	private void init(){
+		
 		User user1 = new User();
 		User user2 = new User();
 		User user3 = new User();

@@ -6,13 +6,16 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import by.epam.blog.dao.GoBlogsRepository;
 import by.epam.blog.model.Blog;
-import by.epam.blog.repository.GoBlogsRepository;
+import by.epam.blog.service.UserServiceImpl;
 
 /**
  * Handles requests for the application home page.
@@ -23,6 +26,10 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	private GoBlogsRepository goBlogsRepository = new GoBlogsRepository();
+	@Autowired
+	private UserServiceImpl service;
+	
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -46,7 +53,12 @@ public class HomeController {
 		model.addAttribute("test", test);
 		return "test";
 	}
-	
+	@RequestMapping(value = "/user")
+	public String user(Model model) {
+		model.addAttribute("users", service.findAllUsers());
+		return "user";
+	}
+
 	@RequestMapping(value = "/blog/{blogId}")
 	public String blog(@PathVariable("blogId") long blogId, Model model) {
 		Blog blog = goBlogsRepository.findBlogById(blogId);

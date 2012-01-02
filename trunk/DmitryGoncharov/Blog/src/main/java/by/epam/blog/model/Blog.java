@@ -15,8 +15,8 @@ import javax.persistence.Id;
  * @author Dmitry_Goncharov
  *
  */
-@Entity
-@Table(name = "BLOG")
+//@Entity
+//@Table(name = "BLOG")
 public class Blog implements Serializable{
 	/**
 	 * 
