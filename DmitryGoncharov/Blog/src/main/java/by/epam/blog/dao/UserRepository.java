@@ -11,3 +11,4 @@ import by.epam.blog.model.User;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 }
+
