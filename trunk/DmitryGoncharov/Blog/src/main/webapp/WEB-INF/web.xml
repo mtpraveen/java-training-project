@@ -30,4 +30,12 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	<!-- Чтобы работала forma.jsp -->
+	<jsp-config>
+		<taglib>
+			<taglib-uri>http://www.springframework.org/tags/form</taglib-uri>
+			<taglib-location>spring-form.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+
 </web-app>
