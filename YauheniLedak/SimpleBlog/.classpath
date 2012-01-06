@@ -26,19 +26,11 @@
 			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Documents and Settings/Yauheni_Ledak/.m2/repository/org/springframework/spring-orm/3.0.6.RELEASE/spring-orm-3.0.6.RELEASE.jar" sourcepath="C:/Documents and Settings/Yauheni_Ledak/.m2/repository/org/springframework/spring-orm/3.0.6.RELEASE/spring-orm-3.0.6.RELEASE-sources.jar">
+	<classpathentry kind="lib" path="C:/Documents and Settings/Yauheni_Ledak/.m2/repository/org/springframework/data/spring-data-commons-core/1.1.0.RELEASE/spring-data-commons-core-1.1.0.RELEASE.jar">
 		<attributes>
-			<attribute name="maven.groupId" value="org.springframework"/>
-			<attribute name="maven.artifactId" value="spring-orm"/>
-			<attribute name="maven.version" value="3.0.6.RELEASE"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Documents and Settings/Yauheni_Ledak/.m2/repository/org/springframework/spring-tx/3.0.6.RELEASE/spring-tx-3.0.6.RELEASE.jar" sourcepath="C:/Documents and Settings/Yauheni_Ledak/.m2/repository/org/springframework/spring-tx/3.0.6.RELEASE/spring-tx-3.0.6.RELEASE-sources.jar">
-		<attributes>
-			<attribute name="maven.groupId" value="org.springframework"/>
-			<attribute name="maven.artifactId" value="spring-tx"/>
-			<attribute name="maven.version" value="3.0.6.RELEASE"/>
+			<attribute name="maven.groupId" value="org.springframework.data"/>
+			<attribute name="maven.artifactId" value="spring-data-commons-core"/>
+			<attribute name="maven.version" value="1.1.0.RELEASE"/>
 			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
