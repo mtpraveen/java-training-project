@@ -6,16 +6,17 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
 
+/*
 import by.epam.blog.dao.GoBlogsRepositoryOld;
 import by.epam.blog.model.Blog;
 import by.epam.blog.service.UserServiceImpl;
+*/
 
 /**
  * Handles requests for the application home page.
@@ -39,17 +40,10 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		//model.addAttribute("blog",goBlogsRepository.findAllBlogs());
+		//model.addAttribute("blog",goBlogsRepositoryOld.findAllBlogs());
 		return "home";
 	}
-	
-	@RequestMapping(value = "/test")
-	public String test(Model model) {
-		int test = 10;
-		model.addAttribute("test", test);
-		return "test";
-	}
-
+/*
 	@RequestMapping(value = "/blog/{blogId}")
 	public String blog(@PathVariable("blogId") long blogId, Model model) {
 		//Blog blog = goBlogsRepository.findBlogById(blogId);
@@ -57,5 +51,5 @@ public class HomeController {
 //		model.addAttribute("topics",blog.getTopics());
 		return "blog";
 	}
-	
+	*/
 }

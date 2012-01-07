@@ -37,19 +37,13 @@ public class UserController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String createOrder(@ModelAttribute User user, BindingResult result, Model model) {
 		System.out.println(user.getLogin() + "/" + user.getPass()+"/"+user.getName());
-		/*
-		validate(order, result);
-		if (result.hasErrors()){
-			model.addAttribute("command", order);
-			return "order";
-		}
-		*/
 		return "redirect:showuser/"+service.saveUser(user);
 	}
 		
 	@RequestMapping(value = "/showuser/{userId}")
 	public String createOrder(@PathVariable(value="userId") Long user, Model model){
-		model.addAttribute("user", service.findOrderById(user));
+		model.addAttribute("user", service.findUserById(user));
+		model.addAttribute("blog_name", service.findUserById(user).getBlog().getName());
 		return "showuser";
 	}
 }

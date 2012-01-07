@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import by.epam.blog.model.Blog;
-import by.epam.blog.model.Topic;
+//import by.epam.blog.model.Topic;
 import by.epam.blog.model.User;
 
 /**

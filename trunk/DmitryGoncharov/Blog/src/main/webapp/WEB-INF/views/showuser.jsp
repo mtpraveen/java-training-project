@@ -14,10 +14,10 @@
 
 <br>
 <p>User details:<br>
+Название блога: ${blog_name}<br>
 User login: ${user.login}<br>
 User name: ${user.name}<br>
 User pass: ${user.pass}<br>
-User pass: ${user.blog}<br>
 <a href="/Blog/">Назад</a>
 </body>
 </html>
