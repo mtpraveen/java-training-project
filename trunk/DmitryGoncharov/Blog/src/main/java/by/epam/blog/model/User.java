@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -22,12 +24,16 @@ public class User implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	@Column(name = "USER_LOGIN")
+	@Column(name = "user_login")
 	private String login;
-	@Column(name = "USER_PASS")
+	@Column(name = "user_pass")
 	private String pass;
-	@Column(name = "USER_NAME")
+	@Column(name = "user_name")
 	private String name;
+	@OneToOne
+	@JoinColumn(name="blog_id")
+	private Blog blog;
+	
 /*
 	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
 	private Collection<Blog> blogs = new LinkedHashSet<Blog>();
@@ -60,4 +66,11 @@ public class User implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
+	public Blog getBlog() {
+		return blog;
+	}
+	public void setBlog(Blog blog) {
+		this.blog = blog;
+	}
+	
 }

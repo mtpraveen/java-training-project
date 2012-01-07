@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import by.epam.blog.dao.GoBlogsRepository;
+import by.epam.blog.dao.GoBlogsRepositoryOld;
 import by.epam.blog.model.Blog;
 import by.epam.blog.service.UserServiceImpl;
 
@@ -25,7 +25,7 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	private GoBlogsRepository goBlogsRepository = new GoBlogsRepository();
+	//private GoBlogsRepositoryOld goBlogsRepository = new GoBlogsRepositoryOld();
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -39,7 +39,7 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		model.addAttribute("blog",goBlogsRepository.findAllBlogs());
+		//model.addAttribute("blog",goBlogsRepository.findAllBlogs());
 		return "home";
 	}
 	
@@ -52,9 +52,9 @@ public class HomeController {
 
 	@RequestMapping(value = "/blog/{blogId}")
 	public String blog(@PathVariable("blogId") long blogId, Model model) {
-		Blog blog = goBlogsRepository.findBlogById(blogId);
-		model.addAttribute("author", blog.getAuthor().getName());
-		model.addAttribute("topics",blog.getTopics());
+		//Blog blog = goBlogsRepository.findBlogById(blogId);
+	//	model.addAttribute("author", blog.getAuthor().getName());
+//		model.addAttribute("topics",blog.getTopics());
 		return "blog";
 	}
 	
