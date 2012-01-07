@@ -21,13 +21,10 @@ public class UserServiceImpl{
 	public Iterable<User> findAllUsers() {
 		return 	userRepository.findAll();
 		}
-	public User findOrderById(Long user) {
+	public User findUserById(Long user) {
 		return userRepository.findOne(user);
 	}
-	public int addUser(String login,String pass,String name){
-		//userRepository.save(arg0);
-		return 1;
-	}
+
 	public Long saveUser(User user) {
 		return userRepository.save(user).getId();
 	}

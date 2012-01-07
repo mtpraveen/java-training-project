@@ -38,7 +38,7 @@ public class Topic implements Serializable{
 	@Column(name = "topic_text")
 	private String text;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="blog_id")
 	private Blog blog;
 	
@@ -94,6 +94,9 @@ public class Topic implements Serializable{
 	}
 	public void setBlog(Blog blog) {
 		this.blog = blog;
+	}
+	public Topic() {
+		super();
 	}
 	
 }

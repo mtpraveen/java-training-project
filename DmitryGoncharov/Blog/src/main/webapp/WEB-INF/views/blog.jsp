@@ -6,9 +6,9 @@
 	<title>BlogHost</title>
 </head>
 <body>
-<a href="/Blog/">Назад к списку блогов</a>
+<a href="/Blog/">Домой</a>
 <h1>
-	Автор: ${author}
+	Автор:
 </h1>
 <hr>
 	<c:forEach var="topic" items="${topics}" varStatus="status">
@@ -17,5 +17,6 @@
 				<hr>
 	</c:forEach>
 <br>
+${t.name}
 </body>
 </html>

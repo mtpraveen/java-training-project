@@ -24,24 +24,20 @@ public class User implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
 	@Column(name = "user_login")
 	private String login;
+	
 	@Column(name = "user_pass")
 	private String pass;
+	
 	@Column(name = "user_name")
 	private String name;
+	
 	@OneToOne
 	@JoinColumn(name="blog_id")
 	private Blog blog;
 	
-/*
-	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-	private Collection<Blog> blogs = new LinkedHashSet<Blog>();
-	
-	public Collection<Blog> getBlogs() {
-		return blogs;
-	}
-*/
 	public String getLogin() {
 		return login;
 	}
@@ -72,5 +68,4 @@ public class User implements Serializable{
 	public void setBlog(Blog blog) {
 		this.blog = blog;
 	}
-	
 }

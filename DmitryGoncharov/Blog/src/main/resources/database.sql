@@ -3,7 +3,8 @@ CREATE DATABASE epam;
 USE epam;
 
 CREATE TABLE blog(
-    id int NOT NULL AUTO_INCREMENT PRIMARY KEY
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    blog_name varchar(45)
 );
 CREATE TABLE user(
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -49,8 +50,8 @@ VALUES (NULL,
         'test',
         '2');
 INSERT INTO blog
-VALUES (1);
+VALUES (1,'blog1');
 INSERT INTO blog
-VALUES (2);
+VALUES (2,'blog2');
 INSERT INTO `epam`.`topic` (`id`, `topic_caption`, `topic_text`, `blog_id`) VALUES (1, 'topic_caption', 'topic_text', 1);
 

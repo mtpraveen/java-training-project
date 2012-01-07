@@ -1,17 +1,17 @@
 package by.epam.blog.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Id;
+
 /**
  * @author Dmitry_Goncharov
  *
@@ -26,29 +26,29 @@ public class Blog implements Serializable{
 	@Column(name = "id")
 	private long id;
 	
-//	private User author;
+	@Column(name = "blog_name")
+	private String name;
 	
-	@OneToMany(mappedBy = "blog", cascade = CascadeType.ALL)
-	private List<Topic> topics = new ArrayList<Topic>();
 	
+	@OneToMany(mappedBy = "blog",fetch=FetchType.EAGER)
+	private Set <Topic> topics;
+
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
 	}
-	public List<Topic> getTopics() {
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Set<Topic> getTopics() {
 		return topics;
 	}
-	public void setTopics(List<Topic> topics) {
+	public void setTopics(Set<Topic> topics) {
 		this.topics = topics;
 	}
-	/*
-	public User getAuthor() {
-		return author;
-	}
-	public void setAuthor(User author) {
-		this.author = author;
-	}
-	*/	
 }
