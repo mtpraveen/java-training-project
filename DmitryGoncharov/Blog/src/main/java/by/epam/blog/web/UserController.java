@@ -52,8 +52,4 @@ public class UserController {
 		model.addAttribute("user", service.findOrderById(user));
 		return "showuser";
 	}
-	
-	
-	
-	
 }

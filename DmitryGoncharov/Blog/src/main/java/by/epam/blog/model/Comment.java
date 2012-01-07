@@ -5,25 +5,39 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
  * @author Dmitry_Goncharov
  *
  */
-//@Entity
-//@Table(name = "COMMENT")
+@Entity
+@Table(name = "comment")
 public class Comment implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-//	@Column(name = "COMMENT_NAME")
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	private Long id;
+	
+	@Column(name = "comment_name")
 	private String name;
-//	@Column(name = "COMMENT_TEXT")
+	@Column(name = "comment_text")
 	private String text;
-//	@Column(name = "COMMENT_DATE")
+	@Column(name = "comment_date")
 	private Date date;
+	
+	@ManyToOne
+	@JoinColumn(name="blog_id")
+	private Topic topic;
 	
 	public String getName() {
 		return name;
@@ -43,4 +57,17 @@ public class Comment implements Serializable{
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Topic getTopic() {
+		return topic;
+	}
+	public void setTopic(Topic topic) {
+		this.topic = topic;
+	}
+	
 }

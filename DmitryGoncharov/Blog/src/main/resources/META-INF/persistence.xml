@@ -5,11 +5,9 @@
 	version="1.0">
 
 	<persistence-unit name="application" transaction-type="RESOURCE_LOCAL">
-<!-- 
-		<class>by.epam.blog.model.Blog</class>
 		<class>by.epam.blog.model.Comment</class>
 		<class>by.epam.blog.model.Topic</class>
-		-->
+		<class>by.epam.blog.model.Blog</class>
 		<class>by.epam.blog.model.User</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
