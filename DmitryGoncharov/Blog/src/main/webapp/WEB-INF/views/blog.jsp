@@ -12,8 +12,16 @@
 </h1>
 <hr>
 	<c:forEach var="topic" items="${topics}" varStatus="status">
-				<b>${topic.caption}</b><br>
-				${topic.text}
+				<b>Заголовок статьи : ${topic.caption}</b><br>
+				Текст статьи:<br>
+				${topic.text}<br>
+				<hr width = "10%" align=left>
+				Коментарии:<br>
+				<c:forEach var="comment" items="${topic.comments}" varStatus="status2">
+					<li>${comment.id} ) ${comment.name} - ${comment.text}</li>
+				</c:forEach>
+				<br>
+				<a href="/Blog/addcomment">Добавить коммент</a>
 				<hr>
 	</c:forEach>
 <br>

@@ -28,6 +28,7 @@ public class BlogController {
 	public String blog(@PathVariable("blogId") long blogId, Model model) {
 		model.addAttribute("topics", blogService.findBlogById(blogId).getTopics());
 		model.addAttribute("user", blogService.findBlogById(blogId).getUser().getName());
+		
 		return "blog";
 	}
 }
