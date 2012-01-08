@@ -38,6 +38,9 @@ public class User implements Serializable{
 	@JoinColumn(name="blog_id")
 	private Blog blog;
 	
+	public User(){
+		super();
+	}
 	public String getLogin() {
 		return login;
 	}

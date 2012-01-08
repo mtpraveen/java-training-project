@@ -23,4 +23,7 @@ public class BlogServiceImpl {
 	public Blog findBlogById(Long blog) {
 			return blogRepository.findOne(blog);
 	}
+	public Long saveBlog(Blog blog) {
+		return blogRepository.save(blog).getId();
+	}
 }
