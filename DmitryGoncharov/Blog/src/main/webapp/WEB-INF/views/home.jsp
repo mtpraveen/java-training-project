@@ -14,7 +14,7 @@
 <br>
 <a href="/Blog/user">Список пользователей</a>
 <br>
-<a href="/Blog/new">Зарегистрировать пользователя</a>
+<a href="/Blog/reguser">Зарегистрировать пользователя</a>
 <hr>
 <P >  The time on the server is ${serverTime}. </P>
 </body>

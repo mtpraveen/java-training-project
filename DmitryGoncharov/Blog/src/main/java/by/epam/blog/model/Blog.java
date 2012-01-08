@@ -36,6 +36,12 @@ public class Blog implements Serializable{
 	@OneToMany(mappedBy = "blog",fetch=FetchType.EAGER)
 	private Set <Topic> topics;
 
+	public Blog(){
+		super();
+	}
+	public Blog(String name){
+		this.name=name;
+	}
 	public long getId() {
 		return id;
 	}

@@ -47,6 +47,10 @@ public class Topic implements Serializable{
 	@OneToMany(mappedBy = "topic", cascade = CascadeType.ALL)
 	private List<Comment> comments = new ArrayList<Comment>();
 	
+	public Topic() {
+		super();
+	}
+	
 	public Topic(String caption) {
 		super();
 		this.caption = caption;
@@ -95,8 +99,4 @@ public class Topic implements Serializable{
 	public void setBlog(Blog blog) {
 		this.blog = blog;
 	}
-	public Topic() {
-		super();
-	}
-	
 }

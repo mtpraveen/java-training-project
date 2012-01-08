@@ -16,18 +16,18 @@ import by.epam.blog.service.BlogServiceImpl;
 @Controller
 public class BlogController {
 	@Autowired
-	private BlogServiceImpl blog_service;
+	private BlogServiceImpl blogService;
 	
 	@RequestMapping(value = "/spisok")
 	public String user(Model model) {
-		model.addAttribute("blog", blog_service.findAllBlogs());
+		model.addAttribute("blog", blogService.findAllBlogs());
 		return "spisok";
 	}
 	
 	@RequestMapping(value = "/blog/{blogId}")
 	public String blog(@PathVariable("blogId") long blogId, Model model) {
-		model.addAttribute("topics", blog_service.findBlogById(blogId).getTopics());
-		model.addAttribute("user", blog_service.findBlogById(blogId).getUser().getName());
+		model.addAttribute("topics", blogService.findBlogById(blogId).getTopics());
+		model.addAttribute("user", blogService.findBlogById(blogId).getUser().getName());
 		return "blog";
 	}
 }
