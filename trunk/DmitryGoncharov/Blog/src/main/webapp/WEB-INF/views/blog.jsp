@@ -18,10 +18,10 @@
 				<hr width = "10%" align=left>
 				Коментарии:<br>
 				<c:forEach var="comment" items="${topic.comments}" varStatus="status2">
-					<li>${comment.id} ) ${comment.name} - ${comment.text}</li>
+					<li>${comment.id} ) ${comment.name} - ${comment.text} -${comment.date}</li>
 				</c:forEach>
 				<br>
-				<a href="/Blog/addcomment">Добавить коммент</a>
+				<a href="/Blog/addcomment/${topic.id}">Добавить коммент</a>
 				<hr>
 	</c:forEach>
 <br>

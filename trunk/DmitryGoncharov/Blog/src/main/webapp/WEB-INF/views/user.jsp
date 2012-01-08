@@ -18,13 +18,11 @@
 	<th>#</th>
 	<th>Логин</th>
 	<th>Имя</th>
-	<th>Инфо</th>
 </tr>
 <c:forEach var="user" items="${users}">
 	<tr>	<td>	${user.id} </td>
 				<td>${user.login}</td>
-				<td>${user.name}</td>
-		<td><a href="showuser/${user.id}">Информация о пользователе</a></td>
+				<td><a href="showuser/${user.id}">${user.name}</a></td>
 	</tr>
 </c:forEach>
 </table>
