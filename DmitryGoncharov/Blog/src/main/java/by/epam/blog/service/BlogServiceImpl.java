@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import by.epam.blog.dao.BlogRepository;
 import by.epam.blog.model.Blog;
-import by.epam.blog.model.Topic;
 
 /**
  * @author Dmitry_Goncharov
@@ -23,8 +22,5 @@ public class BlogServiceImpl {
 	}
 	public Blog findBlogById(Long blog) {
 			return blogRepository.findOne(blog);
-	}
-	public Iterable<Topic> listTopicBlogById(Long blog) {
-		return blogRepository.findOne(blog).getTopics();
 	}
 }

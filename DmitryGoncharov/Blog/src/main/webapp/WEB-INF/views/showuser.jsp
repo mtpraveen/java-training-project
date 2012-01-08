@@ -9,15 +9,14 @@
 <h1>
 	Пользователь "${user.name}":  
 </h1>
-
 <hr>
-
 <br>
 <p>User details:<br>
 Название блога: ${blog_name}<br>
 User login: ${user.login}<br>
 User name: ${user.name}<br>
 User pass: ${user.pass}<br>
+<hr>
 <a href="/Blog/">Назад</a>
 </body>
 </html>

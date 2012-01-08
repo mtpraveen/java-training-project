@@ -7,39 +7,14 @@
 </head>
 <body>
 <h1>
-	Привет:  
+	БлогХост:  
 </h1>
+<hr>
 <a href="/Blog/spisok">Список блогов</a>
 <br>
 <a href="/Blog/user">Список пользователей</a>
 <br>
-<a href="/Blog/showuser/1">Инфо о юзвере</a>
-<br>
 <a href="/Blog/new">Зарегистрировать пользователя</a>
-
-
-<table BORDER="1" CELLPADDING="3" CELLSPACING="1" align="center">
-<tr>
-	<th>#</th>
-	<th>Создатель блога</th>
-	<th>Список статей</th>
-</tr>
-	<c:forEach var="blog" items="${blog}" varStatus="status">
-		<tr>
-			<td>${status.index+1}</td>
-			<td>
-			<a href="blog/${blog.id}">${blog.author.name}</a>
-			</td>
-			<td>
-			<c:forEach var="topic" items="${blog.topics}" varStatus="status2">
-			
-				${topic.caption}<br>
-			
-			</c:forEach>
-			</td>
-		</tr>
-	</c:forEach>
-</table>
 <hr>
 <P >  The time on the server is ${serverTime}. </P>
 </body>
