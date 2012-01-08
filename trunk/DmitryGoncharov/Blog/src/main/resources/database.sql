@@ -41,17 +41,18 @@ INSERT INTO blog
 VALUES (2,'blog2');
 INSERT INTO user
 VALUES (NULL,
-        'pret',
-        '123456',
+        'test',
+        'test',
         'Dima',
         '1');
 
 INSERT INTO user
 VALUES (NULL,
-        'test',
-        'test',
-        'test',
+        'pret',
+        'pret',
+        'Pretender',
         '2');
 
 INSERT INTO `epam`.`topic` (`id`, `topic_caption`, `topic_text`, `blog_id`) VALUES (1, 'topic_caption', 'topic_text', 1);
+INSERT INTO `epam`.`topic` (`id`, `topic_caption`, `topic_text`, `blog_id`) VALUES (2, 'topic_caption2', 'topic_text2', 2);
 

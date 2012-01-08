@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import by.epam.blog.service.BlogServiceImpl;
 
@@ -31,4 +33,21 @@ public class BlogController {
 		
 		return "blog";
 	}
+	
+	@RequestMapping(value = "/rename",method=RequestMethod.POST)
+	public String rename(@RequestParam("login") String login,@RequestParam("pass") String pass,@RequestParam("blogname") String blogname, Model model) {
+		System.out.println(login+" "+pass);
+		model.addAttribute("blognameold", blogService.findBlogByLogin(login, pass).getName());
+		blogService.rename(blogService.findBlogByLogin(login, pass), blogname);
+		model.addAttribute("blogname", blogname);
+		return "rename";
+	}
+	
+	@RequestMapping(value = "/login")
+	public String login(Model model) {
+		
+		//model.addAttribute("users", userService.findAllUsers());
+		return "login";
+	}
+	
 }

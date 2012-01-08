@@ -24,8 +24,8 @@ public class UserServiceImpl{
 	public User findUserById(Long user) {
 		return userRepository.findOne(user);
 	}
-
 	public Long saveUser(User user) {
 		return userRepository.save(user).getId();
 	}
+	
 }

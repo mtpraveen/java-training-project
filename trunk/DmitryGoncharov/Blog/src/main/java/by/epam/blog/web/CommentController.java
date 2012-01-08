@@ -38,8 +38,6 @@ public class CommentController {
 		comment.setTopic(topicService.findTopicById(topicId));
 		comment.setDate(new Date());
 		commentService.saveComment(comment);
-		return "redirect:/";
+		return "redirect:/blog/"+topicId;
 	}
-	
-	
 }
