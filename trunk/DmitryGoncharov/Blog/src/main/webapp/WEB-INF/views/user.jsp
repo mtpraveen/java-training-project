@@ -13,15 +13,23 @@
 <hr>
 
 <br>
-<table>
+<table BORDER="1" CELLPADDING="3" CELLSPACING="1" align="center">
+<tr>
+	<th>#</th>
+	<th>Логин</th>
+	<th>Имя</th>
+	<th>Инфо</th>
+</tr>
 <c:forEach var="user" items="${users}">
-	<tr>
-		<td><li>${user.login}/${user.name} [${user.id}]</li></td>
+	<tr>	<td>	${user.id} </td>
+				<td>${user.login}</td>
+				<td>${user.name}</td>
 		<td><a href="showuser/${user.id}">Информация о пользователе</a></td>
 	</tr>
 </c:forEach>
 </table>
 <br>
+<hr>
 <a href="/Blog/">Назад</a>
 </body>
 </html>

@@ -10,13 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.PathVariable;
-
-/*
-import by.epam.blog.dao.GoBlogsRepositoryOld;
-import by.epam.blog.model.Blog;
-import by.epam.blog.service.UserServiceImpl;
-*/
 
 /**
  * Handles requests for the application home page.
@@ -25,8 +18,6 @@ import by.epam.blog.service.UserServiceImpl;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	//private GoBlogsRepositoryOld goBlogsRepository = new GoBlogsRepositoryOld();
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -40,16 +31,6 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		//model.addAttribute("blog",goBlogsRepositoryOld.findAllBlogs());
 		return "home";
 	}
-/*
-	@RequestMapping(value = "/blog/{blogId}")
-	public String blog(@PathVariable("blogId") long blogId, Model model) {
-		//Blog blog = goBlogsRepository.findBlogById(blogId);
-	//	model.addAttribute("author", blog.getAuthor().getName());
-//		model.addAttribute("topics",blog.getTopics());
-		return "blog";
-	}
-	*/
 }

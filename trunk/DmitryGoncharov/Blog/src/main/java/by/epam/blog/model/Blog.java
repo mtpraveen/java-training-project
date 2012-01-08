@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Id;
 
@@ -29,6 +30,8 @@ public class Blog implements Serializable{
 	@Column(name = "blog_name")
 	private String name;
 	
+	@OneToOne(mappedBy = "blog")
+	private User user;
 	
 	@OneToMany(mappedBy = "blog",fetch=FetchType.EAGER)
 	private Set <Topic> topics;
@@ -51,4 +54,11 @@ public class Blog implements Serializable{
 	public void setTopics(Set<Topic> topics) {
 		this.topics = topics;
 	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 }

@@ -6,14 +6,16 @@
 	<title>BlogHost</title>
 </head>
 <body>
+
 <h1>
 	Список блогов:  
 </h1>
-
+<hr>
 <table BORDER="1" CELLPADDING="3" CELLSPACING="1" align="center">
 <tr>
 	<th>#</th>
-	<th>Создатель блога</th>
+	<th>Название</th>
+	<th>Автор</th>
 	<th>Список статей</th>
 </tr>
 	<c:forEach var="blog" items="${blog}" varStatus="status">
@@ -22,12 +24,18 @@
 			<td>
 			<a href="blog/${blog.id}">${blog.name}</a>
 			</td>
+			<td>${blog.user.name}</td>
+			<td>
+			<c:forEach var="topic" items="${blog.topics}" varStatus="status2">
+			
+				${topic.caption}<br>
+			
+			</c:forEach>
+			</td>
 		</tr>
 	</c:forEach>
-
 </table>
-<a href="/Blog/test">Тест</a>
 <hr>
-<P >  The time on the server is ${serverTime}. </P>
+<a href="/Blog/">Назад</a>
 </body>
 </html>

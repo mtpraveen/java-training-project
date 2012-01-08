@@ -12,7 +12,6 @@
 <h1>
 	Регистрация пользователя:  
 </h1>
-
 <hr>
 	<form:form method="post" action="create">
 		<table>
@@ -32,6 +31,7 @@
 		<input type="submit" value="Create" />
 	</form:form>
 <br>
+<hr>
 <a href="/Blog/">Назад</a>
 </body>
 </html>

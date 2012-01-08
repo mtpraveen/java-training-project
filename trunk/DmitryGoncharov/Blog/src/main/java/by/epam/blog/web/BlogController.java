@@ -26,11 +26,8 @@ public class BlogController {
 	
 	@RequestMapping(value = "/blog/{blogId}")
 	public String blog(@PathVariable("blogId") long blogId, Model model) {
-		//model.addAttribute("topics", blog_service.listTopicBlogById(blogId));
 		model.addAttribute("topics", blog_service.findBlogById(blogId).getTopics());
-		
-		model.addAttribute("t", blog_service.findBlogById(blogId));
-		
+		model.addAttribute("user", blog_service.findBlogById(blogId).getUser().getName());
 		return "blog";
 	}
 }
