@@ -42,8 +42,7 @@ public class UserController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String createOrder(@ModelAttribute User user, BindingResult result, Model model) {
 		user.setBlog(blogService.findBlogById(blogService.saveBlog(new Blog("MyBlog"))));
-		System.out.println(user.getLogin() + "/" + user.getPass() + "/"
-				+ user.getName());
+		System.out.println(user.getLogin() + "/" + user.getPass() + "/"+ user.getName());
 		return "redirect:showuser/" + userService.saveUser(user);
 	}
 
