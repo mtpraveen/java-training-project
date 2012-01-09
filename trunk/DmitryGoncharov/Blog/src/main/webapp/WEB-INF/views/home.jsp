@@ -17,7 +17,8 @@
 <a href="/Blog/reguser">Зарегистрировать пользователя</a>
 <br>
 <a href="/Blog/login">Переименовать блог</a>
-
+<br>
+<a href="/Blog/addtopic">Добавить топик</a>
 <hr>
 <P >  The time on the server is ${serverTime}. </P>
 </body>

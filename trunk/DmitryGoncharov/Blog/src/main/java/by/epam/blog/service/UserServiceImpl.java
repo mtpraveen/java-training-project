@@ -24,6 +24,17 @@ public class UserServiceImpl{
 	public User findUserById(Long user) {
 		return userRepository.findOne(user);
 	}
+	public User findUserByLogin(String login){
+		User user = new User();
+		Iterable<User> test = userRepository.findAll();
+		for (User s : test) {
+			if (s.getLogin().equalsIgnoreCase(login)) {
+				user = s;
+			}
+		}
+		return user;
+	}
+	
 	public Long saveUser(User user) {
 		return userRepository.save(user).getId();
 	}

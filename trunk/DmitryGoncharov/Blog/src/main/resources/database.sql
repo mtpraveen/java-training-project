@@ -8,7 +8,7 @@ CREATE TABLE blog(
 );
 CREATE TABLE user(
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_login varchar(45) NOT NULL,
+    user_login varchar(45) NOT NULL UNIQUE,
     user_pass varchar(45),
     user_name varchar(45),
     blog_id int NOT NULL,
