@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import by.epam.blog.service.BlogServiceImpl;
 
+
 /**
  * @author Dmitry_Goncharov
  *
@@ -19,7 +20,7 @@ import by.epam.blog.service.BlogServiceImpl;
 public class BlogController {
 	@Autowired
 	private BlogServiceImpl blogService;
-	
+
 	@RequestMapping(value = "/spisok")
 	public String user(Model model) {
 		model.addAttribute("blog", blogService.findAllBlogs());
@@ -28,9 +29,9 @@ public class BlogController {
 	
 	@RequestMapping(value = "/blog/{blogId}")
 	public String blog(@PathVariable("blogId") long blogId, Model model) {
+		
 		model.addAttribute("topics", blogService.findBlogById(blogId).getTopics());
 		model.addAttribute("user", blogService.findBlogById(blogId).getUser().getName());
-		
 		return "blog";
 	}
 	
