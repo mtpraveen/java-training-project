@@ -24,7 +24,7 @@
 				<td><form:input path="text" /><form:errors path="text" cssClass="errors"/></td>
 			</tr>	
 		</table>
-		<input type="submit" value="Создать" />
+		<input type="submit" value="Создать комментарий" />
 	</form:form>
 <br>
 <hr>

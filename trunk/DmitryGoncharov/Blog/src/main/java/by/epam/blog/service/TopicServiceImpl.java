@@ -20,4 +20,7 @@ public class TopicServiceImpl {
 	public Topic findTopicById(Long topic) {
 		return topicRepository.findOne(topic);
 	}
+	public Long saveTopic(Topic topic) {
+		return topicRepository.save(topic).getId();
+	}
 }

@@ -18,6 +18,7 @@ import by.epam.blog.model.User;
 public class BlogServiceImpl {
 	@Autowired
 	private BlogRepository blogRepository;
+	
 	@Autowired
 	private UserRepository userRepository;
 
