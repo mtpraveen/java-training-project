@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import by.epam.blog.model.Comment;
+import by.epam.blog.service.BlogServiceImpl;
 import by.epam.blog.service.CommentServiceImpl;
 import by.epam.blog.service.TopicServiceImpl;
 
@@ -26,7 +27,7 @@ public class CommentController {
 	
 	@Autowired
 	private TopicServiceImpl topicService;
-	
+
 	@RequestMapping(value = "/addcomment/{topicId}")
 	public ModelAndView showForm(@PathVariable("topicId") long topicId, Model model) {
 		model.addAttribute("topicid", topicId);
@@ -38,6 +39,7 @@ public class CommentController {
 		comment.setTopic(topicService.findTopicById(topicId));
 		comment.setDate(new Date());
 		commentService.saveComment(comment);
-		return "redirect:/blog/"+topicId;
+		//return "redirect:/blog/"+topicId;
+		return "redirect:/spisok";
 	}
 }

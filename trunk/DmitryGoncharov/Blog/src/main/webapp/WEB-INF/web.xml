@@ -41,9 +41,16 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
 
 
+<!-- 
+	<jsp-config>
+	 <taglib>
+	  <taglib-uri>http://java.sun.com/jstl/fmt</taglib-uri>
+	  <taglib-location>/WEB-INF/fmt.tld</taglib-location>
+	 </taglib>
+	</jsp-config>
+	 -->
 	<!-- Чтобы работала forma.jsp
 	<jsp-config>
 		<taglib>
@@ -52,4 +59,45 @@
 		</taglib>
 	</jsp-config>
  -->
-</web-app>
+		<jsp-config>
+<taglib>
+<taglib-uri>http://java.sun.com/jstl/fmt</taglib-uri>
+<taglib-location>/WEB-INF/tld/fmt.tld</taglib-location>
+</taglib>
+
+<taglib>
+<taglib-uri>http://java.sun.com/jstl/fmt-rt</taglib-uri>
+<taglib-location>/WEB-INF/tld/fmt-rt.tld</taglib-location>
+</taglib>
+
+<taglib>
+<taglib-uri>http://java.sun.com/jstl/core</taglib-uri>
+<taglib-location>/WEB-INF/tld/c.tld</taglib-location>
+</taglib>
+
+<taglib>
+<taglib-uri>http://java.sun.com/jstl/core-rt</taglib-uri>
+<taglib-location>/WEB-INF/tld/c-rt.tld</taglib-location>
+</taglib>
+
+<taglib>
+<taglib-uri>http://java.sun.com/jstl/sql</taglib-uri>
+<taglib-location>/WEB-INF/tld/sql.tld</taglib-location>
+</taglib>
+
+<taglib>
+<taglib-uri>http://java.sun.com/jstl/sql-rt</taglib-uri>
+<taglib-location>/WEB-INF/tld/sql-rt.tld</taglib-location>
+</taglib>
+
+<taglib>
+<taglib-uri>http://java.sun.com/jstl/x</taglib-uri>
+<taglib-location>/WEB-INF/tld/x.tld</taglib-location>
+</taglib>
+
+<taglib>
+<taglib-uri>http://java.sun.com/jstl/x-rt</taglib-uri>
+<taglib-location>/WEB-INF/tld/x-rt.tld</taglib-location>
+</taglib>
+		</jsp-config>
+ </web-app>
