@@ -31,6 +31,7 @@
 				${topic.caption}<br>
 			
 			</c:forEach>
+			<a href="addtopic/${blog.id}">Добавить статью</a>
 			</td>
 		</tr>
 	</c:forEach>
