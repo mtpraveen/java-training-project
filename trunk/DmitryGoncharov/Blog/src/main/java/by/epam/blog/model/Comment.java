@@ -36,7 +36,7 @@ public class Comment implements Serializable{
 	@Column(name = "comment_date")
 	private Date date;
 	
-	@ManyToOne()
+	@ManyToOne
 	@JoinColumn(name="topic_id")
 	private Topic topic;
 	
