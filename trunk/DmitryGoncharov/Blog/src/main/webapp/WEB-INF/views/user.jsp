@@ -13,7 +13,7 @@
 <hr>
 
 <br>
-<table BORDER="1" CELLPADDING="3" CELLSPACING="1" align="center">
+<table border="1" CELLPADDING="3" CELLSPACING="1" align="center">
 <tr>
 	<th>#</th>
 	<th>Логин</th>

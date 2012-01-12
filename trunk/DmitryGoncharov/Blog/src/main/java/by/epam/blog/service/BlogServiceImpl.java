@@ -45,9 +45,10 @@ public class BlogServiceImpl {
 	public Blog findBlogByLogin(String login, String pass) {
 		Iterable<User> test = userRepository.findAll();
 		Blog blog = new Blog();
+		blog.setId(0L);
 		for (User s : test) {
 			// System.out.println(s.getLogin());
-			if (s.getLogin().equalsIgnoreCase(login)) {
+			if (s.getLogin().equalsIgnoreCase(login)&&s.getPass().equalsIgnoreCase(pass)) {
 				blog = s.getBlog();
 				// System.out.println("if"+s.getLogin());
 			}

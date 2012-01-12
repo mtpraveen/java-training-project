@@ -8,8 +8,9 @@
 </head>
 <body>
 <h1>
-	Login:  
+	Переименование блога:  
 </h1>
+${error}
 	<form method="post" action="rename">
 		<table>
 			<tr>

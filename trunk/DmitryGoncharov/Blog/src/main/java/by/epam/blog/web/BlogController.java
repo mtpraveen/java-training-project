@@ -26,14 +26,22 @@ public class BlogController {
 		model.addAttribute("blog", blogService.findAllBlogs());
 		return "spisok";
 	}
+	
 	@RequestMapping(value = "/killblog")
 	public String deleteBlog(@RequestParam("login") String login,@RequestParam("pass") String pass,Model model) {
-		blogService.deleteBlog(blogService.findBlogByLogin(login, pass).getId());
-		return "redirect:/";
+		if (blogService.findBlogByLogin(login, pass).getId()==0){
+			return "redirect:/deleteblog?error=1";
+		}else{
+			blogService.deleteBlog(blogService.findBlogByLogin(login, pass).getId());
+			return "redirect:/";
+		}
 	}
-	@RequestMapping(value = "/deleteblog")
 	
-	public String deleteBlog(Model model) {
+	@RequestMapping(value = "/deleteblog")
+	public String deleteBlog(@RequestParam("error") long errorId,Model model) {
+		if (errorId>0){
+			model.addAttribute("error", "Неверный логин или пароль, попробуйте снова");
+		}
 		return "deleteblog";
 	}
 	
@@ -46,18 +54,21 @@ public class BlogController {
 	
 	@RequestMapping(value = "/rename",method=RequestMethod.POST)
 	public String rename(@RequestParam("login") String login,@RequestParam("pass") String pass,@RequestParam("blogname") String blogname, Model model) {
-		System.out.println(login+" "+pass);
-		model.addAttribute("blognameold", blogService.findBlogByLogin(login, pass).getName());
-		blogService.rename(blogService.findBlogByLogin(login, pass), blogname);
-		model.addAttribute("blogname", blogname);
-		return "rename";
+		if (blogService.findBlogByLogin(login, pass).getId()==0){
+			return "redirect:/login?error=1";
+		}else{
+			model.addAttribute("blognameold", blogService.findBlogByLogin(login, pass).getName());
+			blogService.rename(blogService.findBlogByLogin(login, pass), blogname);
+			model.addAttribute("blogname", blogname);
+			return "rename";
+			}
 	}
 	
 	@RequestMapping(value = "/login")
-	public String login(Model model) {
-		
-		//model.addAttribute("users", userService.findAllUsers());
+	public String login(@RequestParam("error") long errorId,Model model) {
+		if (errorId>0){
+			model.addAttribute("error", "Неверный логин или пароль, попробуйте снова");
+		}
 		return "login";
 	}
-	
 }

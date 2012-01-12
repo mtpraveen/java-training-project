@@ -14,11 +14,11 @@
 <br>
 <a href="/Blog/user">Список пользователей</a>
 <br>
-<a href="/Blog/reguser">Зарегистрировать пользователя</a>
+<a href="/Blog/reguser?error=0">Зарегистрировать пользователя</a>
 <br>
-<a href="/Blog/login">Переименовать блог</a>
+<a href="/Blog/login?error=0">Переименовать блог</a>
 <br>
-<a href="/Blog/deleteblog">Удалить блог</a>
+<a href="/Blog/deleteblog?error=0">Удалить блог</a>
 <hr>
 <P >  The time on the server is ${serverTime}. </P>
 </body>

@@ -13,6 +13,7 @@
 	Регистрация пользователя:  
 </h1>
 <hr>
+${error}
 	<form:form method="post" action="create">
 		<table>
 			<tr>
@@ -21,7 +22,7 @@
 			</tr>
 			<tr>
 				<td><form:label path="pass">Пароль: </form:label></td>
-				<td><form:input path="pass" /><form:errors path="pass" cssClass="errors"/></td>
+				<td><form:input type="password" path="pass" /><form:errors path="pass" cssClass="errors"/></td>
 			</tr>	
 			<tr>
 				<td><form:label path="name">Имя: </form:label></td>
