@@ -39,7 +39,7 @@ public class UserController {
 		System.out.println(user.getLogin() + "/" + user.getPass() + "/"+ user.getName());
 		User u = userService.findUserByLogin(user.getLogin());
 		if (u.getId()==0){
-		return "redirect:showuser/" + userService.saveUserBlog(user);
+			return "redirect:showuser/" + userService.saveUserBlog(user);
 		}
 		else{
 			return "redirect:reguser";

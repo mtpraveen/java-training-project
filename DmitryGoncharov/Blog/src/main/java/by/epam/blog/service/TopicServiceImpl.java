@@ -24,6 +24,10 @@ public class TopicServiceImpl {
 		return topicRepository.save(topic).getId();
 	}
 	
+	public Iterable<Topic> findAllTopics() {
+		return topicRepository.findAll();
+	}
+	
 	public void deleteTopic(Long topic){
 		topicRepository.delete(topic);
 		return;

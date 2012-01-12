@@ -2,6 +2,7 @@ package by.epam.blog.model;
 
 import java.io.Serializable;
 import java.util.Set;
+import java.util.SortedSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Id;
 
@@ -34,6 +36,8 @@ public class Blog implements Serializable{
 	private User user;
 	
 	@OneToMany(mappedBy = "blog",fetch=FetchType.EAGER, orphanRemoval=true)
+	@OrderBy("id")
+	//@javax.persistence.OrderBy("caption, text")
 	private Set <Topic> topics;
 
 	public Blog(){
@@ -57,7 +61,7 @@ public class Blog implements Serializable{
 	public Set<Topic> getTopics() {
 		return topics;
 	}
-	public void setTopics(Set<Topic> topics) {
+	public void setTopics(SortedSet<Topic> topics) {
 		this.topics = topics;
 	}
 	public User getUser() {
