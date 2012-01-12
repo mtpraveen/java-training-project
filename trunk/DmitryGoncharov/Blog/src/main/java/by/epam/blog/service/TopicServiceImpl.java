@@ -23,4 +23,10 @@ public class TopicServiceImpl {
 	public Long saveTopic(Topic topic) {
 		return topicRepository.save(topic).getId();
 	}
+	
+	public void deleteTopic(Long topic){
+		topicRepository.delete(topic);
+		return;
+	}
+	
 }

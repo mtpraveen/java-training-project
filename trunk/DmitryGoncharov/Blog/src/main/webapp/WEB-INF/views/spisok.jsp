@@ -28,9 +28,10 @@
 			<td>
 			<c:forEach var="topic" items="${blog.topics}" varStatus="status2">
 			
-				${topic.caption}<br>
+				${topic.caption} -- <a href="deletetopic/${topic.id}">Удалить статью</a><br>
 			
 			</c:forEach>
+			<hr>
 			<a href="addtopic/${blog.id}">Добавить статью</a>
 			</td>
 		</tr>
