@@ -10,5 +10,5 @@ import com.epam.mvc3.model.Topic;
 @Repository
 public interface TopicRepository extends CrudRepository<Topic, Long>
 {
-	List<Topic> findAllByCustomer(Tag currentTag);
+	List<Topic> findAllByTopicTag(Tag currentTag);
 }

@@ -1,11 +1,14 @@
 package com.epam.mvc3.model;
 
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +29,7 @@ public class Topic {
 	@JoinColumn(name="USER_ID")
 	private User author;
 	
-	//@ManyToOne	
+	@Enumerated(EnumType.STRING)	
 	private Tag topicTag;
 	
 	private String name;
@@ -47,7 +50,14 @@ public class Topic {
         commentsCount = 0;
         topicTag = Tag.world;
        // timeLastUpdated = DateTime.Now
-
+       Calendar calendarInstance = Calendar.getInstance();
+       /*
+       // deprecated
+       timeLastUpdated = new Date(calendarInstance.get(Calendar.YEAR),
+    		   						calendarInstance.get(Calendar.MONTH),
+    		   						calendarInstance.get(Calendar.DAY_OF_MONTH) );
+    	*/
+       timeLastUpdated = new java.sql.Date(calendarInstance.getTimeInMillis() );
     }
 	public String getName() {
 		return name;
