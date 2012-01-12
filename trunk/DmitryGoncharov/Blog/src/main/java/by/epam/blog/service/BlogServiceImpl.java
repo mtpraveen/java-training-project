@@ -29,7 +29,12 @@ public class BlogServiceImpl {
 	public Blog findBlogById(Long blog) {
 		return blogRepository.findOne(blog);
 	}
-
+	
+	public void deleteBlog(Long blog) {
+		blogRepository.delete(blog);
+		return;
+	}
+	
 	public Long saveBlog(Blog blog) {
 		return blogRepository.save(blog).getId();
 	}
@@ -50,4 +55,5 @@ public class BlogServiceImpl {
 		// System.out.println(blog.getName());
 		return blog;
 	}
+	
 }
