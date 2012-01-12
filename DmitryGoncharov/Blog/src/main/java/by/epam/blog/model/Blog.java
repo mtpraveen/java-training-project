@@ -30,10 +30,10 @@ public class Blog implements Serializable{
 	@Column(name = "blog_name")
 	private String name;
 	
-	@OneToOne(mappedBy = "blog")
+	@OneToOne(mappedBy = "blog",orphanRemoval=true)
 	private User user;
 	
-	@OneToMany(mappedBy = "blog",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "blog",fetch=FetchType.EAGER, orphanRemoval=true)
 	private Set <Topic> topics;
 
 	public Blog(){

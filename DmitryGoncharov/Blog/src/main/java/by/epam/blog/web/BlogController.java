@@ -26,6 +26,16 @@ public class BlogController {
 		model.addAttribute("blog", blogService.findAllBlogs());
 		return "spisok";
 	}
+	@RequestMapping(value = "/killblog")
+	public String deleteBlog(@RequestParam("login") String login,@RequestParam("pass") String pass,Model model) {
+		blogService.deleteBlog(blogService.findBlogByLogin(login, pass).getId());
+		return "redirect:/";
+	}
+	@RequestMapping(value = "/deleteblog")
+	
+	public String deleteBlog(Model model) {
+		return "deleteblog";
+	}
 	
 	@RequestMapping(value = "/blog/{blogId}")
 	public String blog(@PathVariable("blogId") long blogId, Model model) {
