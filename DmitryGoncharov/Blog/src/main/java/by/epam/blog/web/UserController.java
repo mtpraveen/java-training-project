@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import by.epam.blog.model.Blog;
 import by.epam.blog.model.User;
-import by.epam.blog.service.BlogServiceImpl;
 import by.epam.blog.service.UserServiceImpl;
 
 /**
@@ -24,9 +22,6 @@ import by.epam.blog.service.UserServiceImpl;
 public class UserController {
 	@Autowired
 	private UserServiceImpl userService;
-
-	@Autowired
-	private BlogServiceImpl blogService;
 
 	@RequestMapping(value = "/user")
 	public String user(Model model) {
@@ -41,9 +36,14 @@ public class UserController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String createOrder(@ModelAttribute User user, BindingResult result, Model model) {
-		user.setBlog(blogService.findBlogById(blogService.saveBlog(new Blog("MyBlog"))));
 		System.out.println(user.getLogin() + "/" + user.getPass() + "/"+ user.getName());
-		return "redirect:showuser/" + userService.saveUser(user);
+		User u = userService.findUserByLogin(user.getLogin());
+		if (u.getId()==0){
+		return "redirect:showuser/" + userService.saveUserBlog(user);
+		}
+		else{
+			return "redirect:reguser";
+		}
 	}
 
 	@RequestMapping(value = "/showuser/{userId}")

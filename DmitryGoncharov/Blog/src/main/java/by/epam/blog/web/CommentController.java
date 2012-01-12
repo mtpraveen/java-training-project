@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import by.epam.blog.model.Comment;
-import by.epam.blog.service.BlogServiceImpl;
 import by.epam.blog.service.CommentServiceImpl;
 import by.epam.blog.service.TopicServiceImpl;
 
