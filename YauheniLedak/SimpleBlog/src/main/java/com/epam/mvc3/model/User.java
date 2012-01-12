@@ -3,6 +3,8 @@ package com.epam.mvc3.model;
 import java.lang.String;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +18,7 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
+	@Enumerated(EnumType.STRING)
 	private UserRole role;
 	
 	private String login;
@@ -78,6 +81,10 @@ public class User {
 		this.password = password;
 	}
 	
-	
+	// Checks, if the user is moderator 
+	public boolean isModerator()
+	{
+		return (role == UserRole.moderator);
+	}
 	
 }

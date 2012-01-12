@@ -1,6 +1,7 @@
 package com.epam.mvc3.model;
 
 import java.sql.Date;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,8 +33,8 @@ public class Comment
     // Constructor by default
     public Comment()
     {
-    	// creationDate = DsteTime.Now;
-    	
+    	Calendar calendarInstance = Calendar.getInstance();
+    	creationDate = new java.sql.Date(calendarInstance.getTimeInMillis() );
     }
     
 	/**
