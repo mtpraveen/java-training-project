@@ -38,13 +38,13 @@ public class Topic implements Serializable{
 	@Column(name = "topic_text")
 	private String text;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="blog_id")
 	private Blog blog;
 	
 	//private List<String> tags = new ArrayList<String>();
 	
-	@OneToMany(mappedBy = "topic", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "topic", cascade = CascadeType.ALL,fetch=FetchType.EAGER,orphanRemoval=true)
 	private Set<Comment> comments;
 	
 	public Topic() {

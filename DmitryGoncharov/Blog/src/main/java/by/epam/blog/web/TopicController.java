@@ -32,7 +32,21 @@ public class TopicController {
 		model.addAttribute("blogid", blogId);
 		return new ModelAndView("addtopic", "command", new Topic());
 	}
-
+	
+	@RequestMapping(value = "/deletetopic/{topicId}")
+	public String deleteTopic(@PathVariable("topicId") long topicId,
+			Model model) {
+		model.addAttribute("topicid", topicId);
+		return "deletetopic";
+	}
+	
+	@RequestMapping(value = "/killtopic")
+	public String deleteBlog(@RequestParam("login") String login,@RequestParam("pass") String pass, @RequestParam("topicid") Long topicId,Model model) {
+		if (topicService.findTopicById(topicId).getBlog().getUser().getLogin().equalsIgnoreCase(login) && topicService.findTopicById(topicId).getBlog().getUser().getPass().equalsIgnoreCase(pass))
+			topicService.deleteTopic(topicId);
+		return "redirect:/spisok";
+	}
+	
 	@RequestMapping(value = "/createtopic/{blogId}")
 	public String createComment(@PathVariable("blogId") long blogId,
 			@RequestParam("login") String login,
