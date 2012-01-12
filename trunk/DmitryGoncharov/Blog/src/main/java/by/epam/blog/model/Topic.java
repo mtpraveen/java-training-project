@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 /**
@@ -45,6 +46,7 @@ public class Topic implements Serializable{
 	//private List<String> tags = new ArrayList<String>();
 	
 	@OneToMany(mappedBy = "topic", cascade = CascadeType.ALL,fetch=FetchType.EAGER,orphanRemoval=true)
+	@OrderBy("id")
 	private Set<Comment> comments;
 	
 	public Topic() {
