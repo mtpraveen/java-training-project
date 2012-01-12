@@ -27,7 +27,7 @@
 			</tr>
 			<tr>
 				<td>Текст топика:</td>
-				<td><input name=topic_text /></td>
+				<td><textarea cols="80" rows="10"  name=topic_text /></textarea></td>
 			</tr>
 		</table>
 		<input type="submit" value="Создать топик" />

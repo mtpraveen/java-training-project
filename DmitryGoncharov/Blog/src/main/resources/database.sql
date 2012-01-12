@@ -18,8 +18,8 @@ CREATE TABLE user(
 
 CREATE TABLE topic(
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    topic_caption varchar(20) DEFAULT NULL,
-    topic_text varchar(255),
+    topic_caption varchar(255) DEFAULT NULL,
+    topic_text text,
     blog_id int NOT NULL,
     FOREIGN KEY (blog_id)
         REFERENCES blog (id)
@@ -27,8 +27,8 @@ CREATE TABLE topic(
 
 CREATE TABLE comment(
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    comment_name varchar(20) DEFAULT NULL,
-    comment_text varchar(255),
+    comment_name varchar(255) DEFAULT NULL,
+    comment_text text,
     comment_date date NOT NULL,
     topic_id int NOT NULL,
     FOREIGN KEY (topic_id)

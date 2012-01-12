@@ -10,6 +10,7 @@
 <h1>
 	Login:  
 </h1>
+${error}
 	<form method="post" action="killblog">
 		<table>
 			<tr>

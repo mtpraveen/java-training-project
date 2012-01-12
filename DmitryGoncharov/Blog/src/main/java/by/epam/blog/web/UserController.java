@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import by.epam.blog.model.User;
@@ -30,7 +31,10 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/reguser")
-	public ModelAndView showForm() {
+	public ModelAndView showForm(@RequestParam("error") long errorId,Model model) {
+		if (errorId>0){
+			model.addAttribute("error", "Ошибка регистрации, попробуйте снова");
+		}
 		return new ModelAndView("reguser", "command", new User());
 	}
 
@@ -38,11 +42,11 @@ public class UserController {
 	public String createOrder(@ModelAttribute User user, BindingResult result, Model model) {
 		System.out.println(user.getLogin() + "/" + user.getPass() + "/"+ user.getName());
 		User u = userService.findUserByLogin(user.getLogin());
-		if (u.getId()==0){
+		if (u.getId()==0 && !user.getLogin().isEmpty() && !user.getPass().isEmpty()){
 			return "redirect:showuser/" + userService.saveUserBlog(user);
 		}
 		else{
-			return "redirect:reguser";
+			return "redirect:reguser?error=1";
 		}
 	}
 

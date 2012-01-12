@@ -21,7 +21,7 @@
 			</tr>
 			<tr>
 				<td><form:label path="text">Текст: </form:label></td>
-				<td><form:input path="text" /><form:errors path="text" cssClass="errors"/></td>
+				<td><form:textarea cols="40" rows="3" path="text" /><form:errors path="text" cssClass="errors"/></td>
 			</tr>	
 		</table>
 		<input type="submit" value="Создать комментарий" />
