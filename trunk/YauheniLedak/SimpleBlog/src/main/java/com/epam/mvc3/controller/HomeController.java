@@ -1,5 +1,6 @@
 package com.epam.mvc3.controller;
 
+import java.io.Console;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -90,7 +91,11 @@ public class HomeController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView Create(Locale locale, Model model)
 	{
-		return new ModelAndView("create");
+		Topic newTopic = new Topic();
+		
+		logger.info("HomeControlller: Create");
+		return new ModelAndView("create", "topic", newTopic);
+		
 	}
 	
 	/*
