@@ -1,40 +1,44 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ page session="false"%>
 <html>
 <head>
-	<title>Home</title>
+<title>Home</title>
 </head>
 <body>
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>Новая тема</legend>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Title)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Title)
-            @Html.ValidationMessageFor(model => model.Title)
-        </div>
+	<form:form method="post" commandName="topic">
+		<fieldset>
+			<legend>Новая тема</legend>
+			<div class="editor-label">
+				<td><form:label path="name">Название темы</form:label></td>
+				<td><form:input path="name" /></td>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Body)
-        </div>
-        <div class="textarea">
-            @Html.TextAreaFor(model => model.Body)
-            @Html.ValidationMessageFor(model => model.Body)
-        </div>
+			</div>
 
-        <p>
-            <input type="submit" value="Опубликовать" />
-        </p>
-    </fieldset>
-}
+			<div class="editor-label">
+				<td><form:label path="text">Содержание</form:label></td>
+			</div>
 
-<div>
-    @Html.ActionLink("Вернуться к списку тем", "Index")
-</div>
+			<div class="textarea">
+				<form:textarea path="text" />
+
+			</div>
+
+			<p>
+				<input type="submit" value="Опубликовать" />
+			</p>
+			
+		</fieldset>
+	</form:form>
+
+	<div>
+		<p>
+			<a href="/SimpleBlog/">Вернуться к списку тем</a>
+		</p>
+	</div>
 
 
 </body>

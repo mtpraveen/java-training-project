@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <html>
@@ -6,7 +9,7 @@
 </head>
 <body>
 
-<p><a href = "/create">Создать новую тему</a></p>
+<p><a href = "/SimpleBlog/create">Создать новую тему</a></p>
 
 <table width="95%" border="0">
   <tr>
