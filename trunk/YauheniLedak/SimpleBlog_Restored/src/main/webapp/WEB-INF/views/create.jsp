@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<form:form method="post" commandName="topic">
+	<form:form method="post" commandName="newTopic">
 		<fieldset>
 			<legend>Новая тема</legend>
 			<div class="editor-label">
@@ -18,6 +18,7 @@
 			</div>
 			
 			<div class="select-field">
+				<td><form:label path="topicTag">Метка</form:label></td>
 				<td><form:select path="topicTag" items="${tagList}"/></td>
 			</div>
 

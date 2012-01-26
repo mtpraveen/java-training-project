@@ -13,9 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.epam.mvc3.model.Tag;
@@ -101,13 +104,22 @@ public class HomeController {
 		List<Tag> tagList = newTopic.getTagLict();
 		
 		Hashtable modelData = new Hashtable();
-		modelData.put("topic", newTopic);
+		modelData.put("newTopic", newTopic);
 		modelData.put("tagList", tagList);
 		
 		return new ModelAndView("create", modelData);
 		
 	}
 	
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	public String saveNewTopic(@ModelAttribute("newTopic")Topic topic, BindingResult result, SessionStatus status){
+		
+		entityManager.merge(topic);
+		entityManager.flush();
+		
+		 status.setComplete();
+		 return "redirect:home.do";		
+	}
 	
 	/*
         [HttpPost]
