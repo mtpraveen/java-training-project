@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<p><a href = "/SimpleBlog/create">Создать новую тему</a></p>
+<p><a href = "/simpleblog/create">Создать новую тему</a></p>
 
 <table width="95%" border="0">
   <tr>
