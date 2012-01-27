@@ -6,23 +6,24 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Locale;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.epam.mvc3.model.Tag;
 import com.epam.mvc3.model.Topic;
+import com.epam.mvc3.model.User;
+import com.epam.mvc3.model.UserRole;
+import com.epam.mvc3.service.TopicService;
 
 /**
  * Handles requests for the application home page.
@@ -30,8 +31,8 @@ import com.epam.mvc3.model.Topic;
 @Controller
 public class HomeController {
 	
-	@PersistenceContext
-	private EntityManager entityManager;
+	@Autowired
+	private TopicService service;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -49,10 +50,7 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);		
 		model.addAttribute("serverTime", formattedDate );
 		
-		// Check for compatibility
-		List listTopic = entityManager.createQuery("select o from Topic o").getResultList(); // delete the last 'o' if an error occurs 
-			
-		//model.addAttribute("Topics", listTopic);
+		Iterable<Topic> listTopic = service.findAllTopics();
 		
 		return new ModelAndView("home", "model", listTopic);
 	}
@@ -72,9 +70,12 @@ public class HomeController {
 	@RequestMapping(value = "/details/(topicId)")
 	public ModelAndView Details(@PathVariable(value="topicId") int id)
 	{
+		/*
 		Topic topicById = (Topic) entityManager.createQuery("select o from Topic o where o.id =: myId")
 												.setParameter("myId", id)
 												.getSingleResult();
+		*/
+		Topic topicById = service.findTopicByID((long) id);
 			
 		return new ModelAndView("/topic/", "model", topicById);
 	}
@@ -112,13 +113,44 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String saveNewTopic(@ModelAttribute("newTopic")Topic topic, BindingResult result, SessionStatus status){
-		
-		entityManager.merge(topic);
-		entityManager.flush();
-		
-		 status.setComplete();
-		 return "redirect:home.do";		
+	public String saveNewTopic(@ModelAttribute("newTopic")Topic topic, BindingResult result, Model model){
+		//System.out.println(order.getCustomer() + "/" + order.getOrderName());
+		validate(topic, result);
+		if (result.hasErrors()){
+			//model.addAttribute("command", topic);
+			// Back to the create order page
+
+//			List<Tag> tagList = newTopic.getTagLict();
+//			
+//			Hashtable modelData = new Hashtable();
+			//model.put("newTopic", topic);
+//			modelData.put("tagList", tagList);
+			
+			// TODO: Replace this user creation when authentification will be ready
+			User guest = new User();
+			guest.setRole(UserRole.guest);
+			guest.setLogin("guest");
+			
+			topic.setAuthor(guest);
+			
+			model.addAttribute("newTopic", topic);
+			
+			return "create";
+		}
+		// Go to the "Show topic@ page
+		return "redirect:show/"+service.saveTopic(topic);		
+	}
+	
+	private void validate(Topic topic, Errors result) {
+		// TODO: Add validation code here
+		/*
+		if (order.getCustomer()==null) {
+			result.rejectValue("customer", "validation.required");
+		}
+		if (order.getOrderName()==null) {
+			result.rejectValue("orderName", "validation.required");
+		}
+		*/
 	}
 	
 	/*
