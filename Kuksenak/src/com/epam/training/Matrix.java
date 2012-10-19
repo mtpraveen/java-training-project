@@ -42,7 +42,7 @@ public class Matrix {
 		String inputStr;
 		int choice;
 		
-		System.out.println("Выберите операцию над матрицей:\n 0-создать новую матрицу\n 1-сортировка\n 2-сдвиг вправо\n 3-поиск возрастаний и убываний\n 4-выход");
+		System.out.println("Выберите операцию над матрицей:\n 0-создать новую матрицу\n 1-сортировка\n 2-сдвиг вправо\n 3-поиск возрастаний и убываний\n 5-транспонировать матрицу\n 6-выход");
 		inputStr = Reader.readLine();
 		choice = Integer.parseInt(inputStr);
 			switch(choice){
@@ -50,7 +50,8 @@ public class Matrix {
 			case 1:{sort(myMatrix,size);break;}
 			case 2:{shiftRight(myMatrix,size);break;}
 			case 3:{maxInc(myMatrix,size);break;}
-			case 4:{System.exit(0);break;}
+			case 5:{transp(myMatrix,size);break;}
+			case 6:{System.exit(0);break;}
 			}
 	}
 	//Output matrix
@@ -148,6 +149,26 @@ public class Matrix {
 		System.out.println("Макс.кол-во убывающих по верт: "+(b_min+1));
 		outMenu(myMatrix,size);
 	}
-	
+	//5.Transponirovanie
+	 void transp(int myMatrix[][],int size) throws IOException
+		{
+			int buffer[][] = new int [size][size];
+			for (int i=0; i<size; i++)
+			{
+				for (int j=0; j<myMatrix[i].length; j++)
+				{
+					buffer[j][i]=myMatrix[i][j];
+				}
+			}
+			for (int i=0; i<size; i++)
+			{
+				for (int j=0; j<myMatrix[i].length; j++)
+				{
+					myMatrix[i][j]=buffer[i][j];
+				}
+			}
+			output(myMatrix,size);
+			outMenu(myMatrix,size);
+		} 
 	
 }
