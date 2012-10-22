@@ -7,7 +7,7 @@ package com.finance.insuranceLiability;
  */
 public class HealthInsurance extends Insurance {
 
-	/** Hold the first name */
+	/** Hold first name */
 	private String firstName;
 
 	/** Hold the middle name */

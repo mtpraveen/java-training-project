@@ -11,27 +11,26 @@ import com.finance.insuranceLiability.VehicleInsurance;
 public class DerivateTest {
 
 	Derivative derivative = new Derivative();
-	List<Insurance> insurance = derivative.getInsurance();
+	List<Insurance> insurances = derivative.getInsurances();
 
 	@Before
 	public void init() {
-		for (Insurance i : derivative.getInsurance()) {
-			if (i instanceof HealthInsurance) {
-				i.setTitle("Health Insurance");
-				i.setPrice(999.99);
-				i.setRisk(10);
-			}
-			if (i instanceof VehicleInsurance) {
-				i.setTitle("Vehicle Insurance");
-				i.setPrice(99.99);
-				i.setRisk(30);
-			}
-		}
+		HealthInsurance h = new HealthInsurance();
+		h.setTitle("Health Insurance");
+		h.setPrice(999.99);
+		h.setRisk(10);
+		derivative.addInsurance(h);
+
+		VehicleInsurance v = new VehicleInsurance();
+		v.setTitle("Vehicle Insurance");
+		v.setPrice(99.99);
+		v.setRisk(30);
+		derivative.addInsurance(v);
 	}
 
 	@Test
 	public void testCreateInsurance() {
-		for (Insurance i : insurance) {
+		for (Insurance i : insurances) {
 			if (i instanceof HealthInsurance) {
 				assertEquals("Health Insurance", i.getTitle());
 				assertTrue(i.getPrice() == 999.99);
@@ -67,11 +66,11 @@ public class DerivateTest {
 		assertTrue(derivative.search(10) instanceof HealthInsurance);
 		assertTrue(derivative.search(30) instanceof VehicleInsurance);
 	}
-	
+
 	@Test
 	public void testSearchByTitleAndPrice() {
-		assertTrue(derivative.search("Health Insurance",999.99) instanceof HealthInsurance);
-		assertTrue(derivative.search("Vehicle Insurance",99.99) instanceof VehicleInsurance);
+		assertTrue(derivative.search("Health Insurance", 999.99) instanceof HealthInsurance);
+		assertTrue(derivative.search("Vehicle Insurance", 99.99) instanceof VehicleInsurance);
 	}
 
 	@Test
@@ -79,7 +78,7 @@ public class DerivateTest {
 		List<Insurance> list = derivative.sortInsurance();
 		assertEquals(list.get(0).getRisk(), 30);
 		assertEquals(list.get(1).getRisk(), 10);
-		assertEquals(insurance.get(0).getRisk(), 10);
-		assertEquals(insurance.get(1).getRisk(), 30);
+		assertEquals(insurances.get(0).getRisk(), 10);
+		assertEquals(insurances.get(1).getRisk(), 30);
 	}
 }

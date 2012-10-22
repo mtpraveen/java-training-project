@@ -7,10 +7,10 @@ package com.finance.insuranceLiability;
  */
 public class VehicleInsurance extends Insurance {
 
-	/** Hold the vehicle model name */
+	/** Hold model name */
 	private String modelName;
 
-	/** Hold the vehicle year manufactured */
+	/** Hold year manufactured */
 	private int yearManufactured;
 
 	/**
