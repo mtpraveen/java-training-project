@@ -5,7 +5,8 @@ package com.finance.insuranceLiability;
  * @author Andrei Pauliukevich
  * 
  */
-abstract public class Insurance {
+abstract public class Insurance implements Cloneable {
+
 	/** Hold title */
 	private String title;
 	/** Hold price */
@@ -58,4 +59,14 @@ abstract public class Insurance {
 		this.risk = risk;
 	}
 
+	/**
+	 * @param title
+	 * @param price
+	 * @param risk
+	 * @throws CloneNotSupportedException 
+	 */
+
+	public Insurance clone() throws CloneNotSupportedException {
+		return (Insurance) super.clone();
+	}
 }
