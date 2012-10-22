@@ -6,11 +6,11 @@ package com.finance.insuranceLiability;
  * 
  */
 abstract public class Insurance {
-	/** Hold the name insurance. */
+	/** Hold title */
 	private String title;
-	/** Hold the price insurance. */
+	/** Hold price */
 	private double price;
-	/** Hold the risk insurance. */
+	/** Hold risk */
 	private int risk;
 
 	/**
