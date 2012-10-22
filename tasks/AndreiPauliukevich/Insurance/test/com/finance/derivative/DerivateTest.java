@@ -11,7 +11,6 @@ import com.finance.insuranceLiability.VehicleInsurance;
 public class DerivateTest {
 
 	Derivative derivative = new Derivative();
-	List<Insurance> insurances = derivative.getInsurances();
 
 	@Before
 	public void init() {
@@ -29,8 +28,8 @@ public class DerivateTest {
 	}
 
 	@Test
-	public void testCreateInsurance() {
-		for (Insurance i : insurances) {
+	public void testCreateInsurance() throws CloneNotSupportedException {
+		for (Insurance i : derivative.getInsurances()) {
 			if (i instanceof HealthInsurance) {
 				assertEquals("Health Insurance", i.getTitle());
 				assertTrue(i.getPrice() == 999.99);
@@ -74,11 +73,19 @@ public class DerivateTest {
 	}
 
 	@Test
-	public void testSortInshuranceByRisk() {
-		List<Insurance> list = derivative.sortInsurance();
+	public void testSortInshuranceByRisk() throws CloneNotSupportedException {
+		List<Insurance> list = derivative.sortInsurances();
 		assertEquals(list.get(0).getRisk(), 30);
 		assertEquals(list.get(1).getRisk(), 10);
+		List<Insurance> insurances = derivative.getInsurances();
 		assertEquals(insurances.get(0).getRisk(), 10);
 		assertEquals(insurances.get(1).getRisk(), 30);
+	}
+	
+	@Test
+	public void removeInsurance() throws CloneNotSupportedException {
+		assertTrue(derivative.getInsurances().size() == 2);
+		derivative.removeInsurance(0);
+		assertTrue(derivative.getInsurances().size() == 1);
 	}
 }

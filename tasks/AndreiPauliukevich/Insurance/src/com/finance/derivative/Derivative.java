@@ -32,7 +32,7 @@ public class Derivative {
 	 * 
 	 * @return list of insurance
 	 */
-	public List<Insurance> sortInsurance() {
+	public List<Insurance> sortInsurances() {
 		List<Insurance> list = new ArrayList<Insurance>(insurances);
 		Collections.sort(list, new DerivativeComparator());
 		return list;
@@ -105,13 +105,32 @@ public class Derivative {
 
 	/**
 	 * @return the insurances
+	 * @throws CloneNotSupportedException 
 	 */
-	public List<Insurance> getInsurances() {
-		return insurances;
+	public List<Insurance> getInsurances() throws CloneNotSupportedException {
+		List<Insurance> list = new ArrayList<Insurance>(insurances.size());
+		for(Insurance i : insurances) {
+			list.add(i.clone());
+		}
+		return list;
 	}
+	
+	/**
+	 * Add new insurance
+	 * 
+	 * @param insurance
+	 */
+    public void addInsurance(Insurance insurance) {
+        this.insurances.add(insurance);
+    }
+    
+    /**
+     * Remove insurance
+     * @param index
+     */
+    public void removeInsurance(int index) {
+    	this.insurances.remove(index);
+    }
 
-	public void addInsurance(Insurance insurance) {
-		insurances.add(insurance);
-	}
-
+	
 }
