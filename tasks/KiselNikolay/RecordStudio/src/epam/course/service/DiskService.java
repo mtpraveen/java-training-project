@@ -153,14 +153,7 @@ public class DiskService {
 		System.out.printf("Disk's name: \"%s\" Total length: %d:%d \n",
 				disk.getName(), totalMinutes, totalSec);
 		printRecords(disk.getRecords());
-		/*for (Record record : disk.getRecords()) {
-			int minutes = record.getLength() / 60;
-			int seconds = record.getLength() % 60;
-			System.out
-					.printf("Name: \"%s\", Author: \"%s\"  Genre: \"%s\"  Minutes: %d:%d \n",
-							record.getName(), record.getAuthor().getSurname(),
-							record.getGenre(), minutes, seconds);
-		}*/
+
 	}
 
 }
