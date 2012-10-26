@@ -14,6 +14,29 @@ public class VehicleInsurance extends Insurance {
 	private int yearManufactured;
 
 	/**
+	 * Default constructor
+	 */
+	public VehicleInsurance() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param title
+	 * @param price
+	 * @param risk
+	 * @param modelName
+	 * @param yearManufactured
+	 */
+	public VehicleInsurance(String title, double price, int risk,
+			String modelName, int yearManufactured) {
+
+		super(title, price, risk);
+		this.modelName = modelName;
+		this.yearManufactured = yearManufactured;
+	}
+
+	/**
 	 * @return the modelName
 	 */
 	public String getModelName() {

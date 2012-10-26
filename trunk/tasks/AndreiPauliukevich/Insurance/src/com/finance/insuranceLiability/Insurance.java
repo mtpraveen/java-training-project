@@ -15,6 +15,25 @@ abstract public class Insurance implements Cloneable {
 	private int risk;
 
 	/**
+	 * Default constructor
+	 */
+	public Insurance() {
+
+	}
+
+	/**
+	 * @param title
+	 * @param price
+	 * @param risk
+	 */
+	public Insurance(String title, double price, int risk) {
+		super();
+		this.title = title;
+		this.price = price;
+		this.risk = risk;
+	}
+
+	/**
 	 * @return the title
 	 */
 	public String getTitle() {
@@ -63,7 +82,7 @@ abstract public class Insurance implements Cloneable {
 	 * @param title
 	 * @param price
 	 * @param risk
-	 * @throws CloneNotSupportedException 
+	 * @throws CloneNotSupportedException
 	 */
 
 	public Insurance clone() throws CloneNotSupportedException {
