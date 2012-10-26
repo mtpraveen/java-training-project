@@ -66,7 +66,7 @@ public class SaladBuilder extends AbstractBaseBuilder {
 			}
 			
 			// Read information about oil that will add to salad.
-			Oil oil = readOilInfo(consoleInputOutput);
+			Oil oil = createOil(consoleInputOutput);
 			
 			// Print all info about salad.
 			ViewInfo.printInfo(new Salad(oil, collectionOfVegetables));
@@ -82,7 +82,7 @@ public class SaladBuilder extends AbstractBaseBuilder {
 	 * @param consoleInputOutput
 	 * @return - Oil
 	 */
-	private Oil readOilInfo(ConsoleInputOutput consoleInputOutput) {
+	private Oil createOil(ConsoleInputOutput consoleInputOutput) {
 		System.out.println(SaladBuilderConstants.CHOOSE_OIL); // type the oil
 		String kindOfOil = consoleInputOutput.readString().toUpperCase();
 		
