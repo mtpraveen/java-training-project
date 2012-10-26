@@ -14,16 +14,11 @@ public class DerivateTest {
 
 	@Before
 	public void init() {
-		HealthInsurance h = new HealthInsurance();
-		h.setTitle("Health Insurance");
-		h.setPrice(999.99);
-		h.setRisk(10);
+		HealthInsurance h = new HealthInsurance("Health Insurance", 999.99, 10,
+				"Ivan", "Ivanovich", "Ivanov");
 		derivative.addInsurance(h);
-
-		VehicleInsurance v = new VehicleInsurance();
-		v.setTitle("Vehicle Insurance");
-		v.setPrice(99.99);
-		v.setRisk(30);
+		VehicleInsurance v = new VehicleInsurance("Vehicle Insurance", 99.99,
+				30, "modelCar", 2005);
 		derivative.addInsurance(v);
 	}
 
@@ -50,26 +45,31 @@ public class DerivateTest {
 
 	@Test
 	public void testSearchByTitle() {
-		assertTrue(derivative.search("Health Insurance") instanceof HealthInsurance);
-		assertTrue(derivative.search("Vehicle Insurance") instanceof VehicleInsurance);
+		assertTrue(derivative.searchByTitle("Health Insurance") instanceof HealthInsurance);
+		assertTrue(derivative.searchByTitle("Vehicle Insurance") instanceof VehicleInsurance);
 	}
 
 	@Test
 	public void testSearchByPrice() {
-		assertTrue(derivative.search(99.99) instanceof VehicleInsurance);
-		assertTrue(derivative.search(999.99) instanceof HealthInsurance);
+		assertTrue(derivative.searchByPrice(99.99) instanceof VehicleInsurance);
+		assertTrue(derivative.searchByPrice(999.99) instanceof HealthInsurance);
 	}
 
 	@Test
 	public void testSearchByRisk() {
-		assertTrue(derivative.search(10) instanceof HealthInsurance);
-		assertTrue(derivative.search(30) instanceof VehicleInsurance);
+		assertTrue(derivative.searchByRisk(10) instanceof HealthInsurance);
+		assertTrue(derivative.searchByRisk(30) instanceof VehicleInsurance);
+	}
+
+	@Test
+	public void testSearchByFirstName() {
+		assertEquals(derivative.searchByFirstName("Ivan").getFirstName(), "Ivan");
 	}
 
 	@Test
 	public void testSearchByTitleAndPrice() {
-		assertTrue(derivative.search("Health Insurance", 999.99) instanceof HealthInsurance);
-		assertTrue(derivative.search("Vehicle Insurance", 99.99) instanceof VehicleInsurance);
+		assertTrue(derivative.searchByTitleAndPrice("Health Insurance", 999.99) instanceof HealthInsurance);
+		assertTrue(derivative.searchByTitleAndPrice("Vehicle Insurance", 99.99) instanceof VehicleInsurance);
 	}
 
 	@Test
@@ -81,11 +81,11 @@ public class DerivateTest {
 		assertEquals(insurances.get(0).getRisk(), 10);
 		assertEquals(insurances.get(1).getRisk(), 30);
 	}
-	
+
 	@Test
-	public void removeInsurance() throws CloneNotSupportedException {
+	public void removeInsuranceByTitle() throws CloneNotSupportedException {
 		assertTrue(derivative.getInsurances().size() == 2);
-		derivative.removeInsurance(0);
+		derivative.removeInsuranceByTitle("Health Insurance");
 		assertTrue(derivative.getInsurances().size() == 1);
 	}
 }

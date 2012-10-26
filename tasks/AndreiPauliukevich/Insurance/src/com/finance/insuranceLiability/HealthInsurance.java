@@ -17,6 +17,29 @@ public class HealthInsurance extends Insurance {
 	private String lastName;
 
 	/**
+	 * Default constructor
+	 */
+	public HealthInsurance() {
+
+	}
+
+	/**
+	 * @param title
+	 * @param price
+	 * @param risk
+	 * @param firstName
+	 * @param middleName
+	 * @param lastName
+	 */
+	public HealthInsurance(String title, double price, int risk,
+			String firstName, String middleName, String lastName) {
+		super(title, price, risk);
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+	}
+
+	/**
 	 * @return the firstName
 	 */
 	public String getFirstName() {
