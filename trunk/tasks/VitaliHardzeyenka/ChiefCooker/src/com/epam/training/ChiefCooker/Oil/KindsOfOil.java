@@ -19,6 +19,23 @@ public enum KindsOfOil {
 	}
 	
 	/**
+	 * Compare all values from the current enumeration with 
+	 * string as enumeration value, return the result of the comparation.
+	 * @param kindOfOil
+	 * @return
+	 */
+	public static boolean contains(String kindOfOil) {
+		boolean isContains = false;
+		
+		for (KindsOfOil element : KindsOfOil.values()) {
+			if (element == KindsOfOil.valueOf(kindOfOil)) {
+				isContains = true;
+			}
+		}
+		return isContains;
+	}
+	
+	/**
 	 * Get the value of appropriate oil.
 	 * @return
 	 */

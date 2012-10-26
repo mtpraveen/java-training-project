@@ -4,13 +4,12 @@ package com.epam.training.ChiefCooker.Builder;
 import java.util.ArrayList;
 
 import com.epam.training.ChiefCooker.Constants.SaladBuilderConstants;
-import com.epam.training.ChiefCooker.Cucurbitaceae.Squash;
+import com.epam.training.ChiefCooker.Factory.CucurbitaceaeFactory;
+import com.epam.training.ChiefCooker.Factory.SolanaceaeFactory;
 import com.epam.training.ChiefCooker.InputOutput.ConsoleInputOutput;
 import com.epam.training.ChiefCooker.Oil.KindsOfOil;
 import com.epam.training.ChiefCooker.Oil.Oil;
-import com.epam.training.ChiefCooker.Solanaceae.Pepper;
 import com.epam.training.ChiefCooker.Solanaceae.RipenessOfSolanaceae;
-import com.epam.training.ChiefCooker.Solanaceae.Tomato;
 import com.epam.training.ChiefCooker.Vegetable.AbstractVegetable;
 import com.epam.training.ChiefCooker.Vegetable.Salad;
 import com.epam.training.ChiefCooker.ViewInfo.ViewInfo;
@@ -27,13 +26,11 @@ public class SaladBuilder extends AbstractBaseBuilder {
 	 * Main method in class. Read information from keyboard and build the salad.
 	 */
 	public void buildSalad() {
-		ConsoleInputOutput consoleInputOutput = ConsoleInputOutput.getInstanse();
-		
+		ConsoleInputOutput consoleInputOutput = ConsoleInputOutput.getInstanse();		
 		// start initialization of local variables
-		String[] enumerationVegetablesInSalad; // vegetables is salad as string
+		String enumerationVegetablesInSalad; // vegetables is salad as string
 		boolean endOfBuilding = false; // true - exit, false - next salad
 		ArrayList<AbstractVegetable> collectionOfVegetables = new ArrayList<AbstractVegetable>(); // collection of vegetables in the salad
-		KindsOfOil kindOfOil = KindsOfOil.OLIVE; // oil
 		
 		do { // while don`t need to build salads any more
 			
@@ -42,149 +39,166 @@ public class SaladBuilder extends AbstractBaseBuilder {
 			System.out.println(SaladBuilderConstants.BEGIN_BUILD_SALAD); // lets begin to build salad
 			System.out.println(SaladBuilderConstants.TYPE_VEGETABLE); // type the vegetable u want to add			
 						
-			enumerationVegetablesInSalad = consoleInputOutput.readString().split(" "); // read numbers of vegetables from console			
+			enumerationVegetablesInSalad = consoleInputOutput.readString(); // read numbers of vegetables from console			
 			
-			for (int i = 0; i < enumerationVegetablesInSalad.length; i++) {
-				switch (enumerationVegetablesInSalad[i]) {
-					case "1": // pepper
+			for (int i = 0; i < enumerationVegetablesInSalad.length(); i++) {
+				switch (enumerationVegetablesInSalad.charAt(i)) {
+					case SaladBuilderConstants.PEPPER_NUMBER: // pepper
 						
 						// Add new vegetable in the salad.
-						collectionOfVegetables.add(readSolanaceaeInfo("Pepper", consoleInputOutput));					
+						collectionOfVegetables.add(createSolanaceae(SaladBuilderConstants.PEPPER, consoleInputOutput));				
 						
 						break;
-					case "2": // tomato
+					case SaladBuilderConstants.TOMATO_NUMBER: // tomato
 						
-						collectionOfVegetables.add(readSolanaceaeInfo("Tomato", consoleInputOutput));
+						collectionOfVegetables.add(createSolanaceae(SaladBuilderConstants.TOMATO, consoleInputOutput));
 						
 						break;
-					case "3": // squash						
+					case SaladBuilderConstants.SQUASH_NUMBER: // squash						
 						
-						collectionOfVegetables.add(readCucurbitaceaeInfo("Squash", consoleInputOutput));
+						collectionOfVegetables.add(createCucurbitaceae(SaladBuilderConstants.SQUASH, consoleInputOutput));
 						
 						break;
 					default:
-						break;
-							
+						System.out.println(String.format("%s: %c", SaladBuilderConstants.NO_SUCH_VEGETABLE_MESSAGE, enumerationVegetablesInSalad.charAt(i)));	
+						break;							
 				}
 			}
 			
-			System.out.println(SaladBuilderConstants.CHOOSE_OIL); // type the oil			
-			kindOfOil = readKindOfOil(consoleInputOutput);						
-			Oil oil = new Oil(kindOfOil); // add oil in the salad			
+			// Read information about oil that will add to salad.
+			Oil oil = readOilInfo(consoleInputOutput);
 			
 			// Print all info about salad.
 			ViewInfo.printInfo(new Salad(oil, collectionOfVegetables));
 			
 			System.out.println(SaladBuilderConstants.BUILD_ONE_MORE_SALAD); // do u want to build one more salad?			
-			if (consoleInputOutput.readChar() == 'n') {
-				endOfBuilding = true;
-			}			
+			endOfBuilding = (consoleInputOutput.readChar() == SaladBuilderConstants.NO_CHAR) ? true : false; 
 			
 		} while (endOfBuilding == false);
 	}
 	
-	private AbstractVegetable readSolanaceaeInfo(String vegetableName, ConsoleInputOutput consoleInputOutput) {
+	/**
+	 * Read information about oil that will add to salad.
+	 * @param consoleInputOutput
+	 * @return - Oil
+	 */
+	private Oil readOilInfo(ConsoleInputOutput consoleInputOutput) {
+		System.out.println(SaladBuilderConstants.CHOOSE_OIL); // type the oil
+		String kindOfOil = consoleInputOutput.readString().toUpperCase();
+		
+		return KindsOfOil.contains(kindOfOil) ? (new Oil(KindsOfOil.valueOf(kindOfOil))) : null;
+	}
+	
+	/**
+	 * Read information form console that needed to create the solanaceae object.
+	 * @param vegetableName - name of the vegetable: tomato or pepper
+	 * @param consoleInputOutput - object of console input class
+	 * @return
+	 */
+	private AbstractVegetable createSolanaceae(String vegetableName, ConsoleInputOutput consoleInputOutput) {
+		
 		System.out.println(String.format("\t%s: ", vegetableName));
+		
+		// Read the major parameters of vegetables.
+		ArrayList<Object> majorParameters = readMajorParameters(consoleInputOutput);
+		
 		System.out.println(SaladBuilderConstants.TYPE_RIPENESS);
 		RipenessOfSolanaceae ripeness = readRipenessOfSolanaceae(consoleInputOutput);
-		
-		System.out.println(SaladBuilderConstants.TYPE_WEIGHT_OF_VEGETABLE);
-		double weightOfVegetable = readWeight(consoleInputOutput);
-		
-		System.out.println(SaladBuilderConstants.TYPE_CALORIES_ONE_HUNDRED_GRAMS);
-		double calorieInOneHundredGramms = readCalorie(consoleInputOutput);
 		
 		System.out.println(SaladBuilderConstants.TYPE_ABILITY_OF_PULP);
 		boolean availabilityOfPulp = readAbilityOfPulp(consoleInputOutput);
 		
-		AbstractVegetable vegetable;
-		if (vegetableName == "Pepper") {
-			vegetable = new Pepper(weightOfVegetable, 
-												     calorieInOneHundredGramms,
-												     ripeness, 
-												     availabilityOfPulp);
-		} else if (vegetableName == "Tomato") {
-			vegetable = new Tomato(weightOfVegetable, 
-												     calorieInOneHundredGramms,
-												     ripeness, 
-												     availabilityOfPulp);
-		} else {
-			vegetable = null;
-		}
-		
-		return vegetable;
+		return SolanaceaeFactory.createSolanaceae(vegetableName, (double) majorParameters.get(0), (double) majorParameters.get(1), ripeness, availabilityOfPulp);
 	}
 	
-	private AbstractVegetable readCucurbitaceaeInfo(String vegetableName, ConsoleInputOutput consoleInputOutput) {
+	/**
+	 * 
+	 * @param vegetableName
+	 * @param consoleInputOutput
+	 * @return
+	 */
+	private AbstractVegetable createCucurbitaceae(String vegetableName, ConsoleInputOutput consoleInputOutput) {
 	
 		System.out.println(String.format("\t%s: ", vegetableName));
 		
+		// Read the major parameters of vegetables.
+		ArrayList<Object> majorParameters = readMajorParameters(consoleInputOutput);
+		
+		return CucurbitaceaeFactory.createCucurbitaceae(vegetableName, (double) majorParameters.get(0), (double) majorParameters.get(1));
+	}
+	
+	/**
+	 * 
+	 * @param consoleInputOutput
+	 * @return
+	 */
+	private boolean readAbilityOfPulp(ConsoleInputOutput consoleInputOutput) {		
+		char ability;
+		do {
+			ability = consoleInputOutput.readChar();
+		} while (!((ability == SaladBuilderConstants.NO_CHAR) || (ability == SaladBuilderConstants.YES_CHAR)));
+		
+		return (ability == SaladBuilderConstants.YES_CHAR) ? true : false;
+	}
+	
+	/**
+	 * Read from console major parameters (inherent in each vegetable).
+	 * First parameter (0) - weight of vegetable.
+	 * Second parameter (1) - calories in 100 grams of vegetable. 
+	 * @param consoleInputOutput
+	 * @return set of the major parameters
+	 */
+	private ArrayList<Object> readMajorParameters(ConsoleInputOutput consoleInputOutput) {
+		
+		ArrayList<Object> majorParameters = new ArrayList<>();
 		System.out.println(SaladBuilderConstants.TYPE_WEIGHT_OF_VEGETABLE);
-		double weightOfVegetable = readWeight(consoleInputOutput);
+		majorParameters.add(readWeight(consoleInputOutput)); // weight
 		
 		System.out.println(SaladBuilderConstants.TYPE_CALORIES_ONE_HUNDRED_GRAMS);
-		double calorieInOneHundredGramms = readCalorie(consoleInputOutput);
+		majorParameters.add(readCalorie(consoleInputOutput)); // calories
 		
-		AbstractVegetable vegetable = new Squash(weightOfVegetable, calorieInOneHundredGramms);
-		
-		return vegetable;
+		return majorParameters;
 	}
 	
-	private boolean readAbilityOfPulp(ConsoleInputOutput consoleInputOutput) {		
-		
-		char ability = consoleInputOutput.readChar();
-		
-		if (ability == 'y') {
-			return true;
-		} else if (ability == 'n') {
-			return false;
-		} else {
-			return true;
-		}		
-	}
-	
-	private KindsOfOil readKindOfOil(ConsoleInputOutput consoleInputOutput) {
-		
-		String kindOfOil = consoleInputOutput.readString();
-		kindOfOil =  kindOfOil.toUpperCase();
-		
-		if (kindOfOil.equals("SUNFLOWER")) {
-			return KindsOfOil.SUNFLOWER;
-		} else if (kindOfOil.equals("OLIVE")) {
-			return KindsOfOil.OLIVE;
-		} else {
-			return KindsOfOil.SUNFLOWER;
-		}
-	}
-	
+	/**
+	 * 
+	 * @param consoleInputOutput
+	 * @return
+	 */
 	private RipenessOfSolanaceae readRipenessOfSolanaceae(ConsoleInputOutput consoleInputOutput) {
-		
-		String ripeness = consoleInputOutput.readString();
-		
-		if (ripeness.equals("BAD")) {
-			return RipenessOfSolanaceae.BAD;
-		} else if (ripeness.equals("NORMAL")) {
-			return RipenessOfSolanaceae.NORMAL;			
-		} else if (ripeness.equals("GOOD")) {
-			return RipenessOfSolanaceae.GOOD;		
-		} else {
-			return RipenessOfSolanaceae.BAD;
-		}
+		String ripeness = consoleInputOutput.readString().toUpperCase();
+		return RipenessOfSolanaceae.contains(ripeness) ? RipenessOfSolanaceae.valueOf(ripeness) : RipenessOfSolanaceae.BAD ;
 	}
 	
+	/**
+	 * 
+	 * @param consoleInputOutput
+	 * @return
+	 */
 	private double readWeight(ConsoleInputOutput consoleInputOutput) {
-		try {
-			return consoleInputOutput.readDouble();
-		} catch(Exception exception) {
-			return 0;
-		}
+		return readDouble(consoleInputOutput);
 	}
 	
+	/**
+	 * 
+	 * @param consoleInputOutput
+	 * @return
+	 */
 	private double readCalorie(ConsoleInputOutput consoleInputOutput) {
+		return readDouble(consoleInputOutput);
+	}
+	
+	/**
+	 * 
+	 * @param consoleInputOutput
+	 * @return
+	 */
+	private double readDouble(ConsoleInputOutput consoleInputOutput) {
 		try {
-			return consoleInputOutput.readDouble();		
-		} catch(Exception exception) {
+			return Math.abs(consoleInputOutput.readDouble()); // weight and calorie must be a positive numbers
+		} catch (Exception exception) {
+			System.out.println("The input value is not double.");
 			return 0;
-		}		
-	}	
+		}	
+	}
 }

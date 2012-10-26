@@ -8,7 +8,7 @@ package com.epam.training.ChiefCooker.Vegetable;
  */
 abstract public class AbstractVegetable {
 	private double weightOfVegetable; // weight of vegetable count that will use for salad
-	private double calorieInOneHundredGramms; // calorie of vegetable in 100 grams for calculate salad calorie content
+	private double calorieInOneHundredGramms; // calorie of vegetable in 100 grams for calculate salad calorie content	
 	
 	// Constructor.
 	public AbstractVegetable() { }
