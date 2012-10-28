@@ -20,6 +20,17 @@ public class Client
 	 */
 	private AbstractTariff tariff;
 	/**
+	 * hold id of client
+	 */
+	private int id;
+	/**
+	 * @return the id
+	 */
+	public int getId()
+	{
+		return id;
+	}
+	/**
 	 * @return the name
 	 */
 	public String getName()
@@ -51,8 +62,9 @@ public class Client
 	 * @param name - name for client
 	 * @param tariff - tariff for client
 	 */
-	public Client(String name, AbstractTariff tariff) {
+	public Client(int id, String name, AbstractTariff tariff) {
 		this.name = name;
 		this.tariff = tariff;
+		this.id = id;
 	}
 }
