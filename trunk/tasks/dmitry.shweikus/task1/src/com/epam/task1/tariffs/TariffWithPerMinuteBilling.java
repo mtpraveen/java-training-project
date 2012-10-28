@@ -37,11 +37,7 @@ public class TariffWithPerMinuteBilling extends TariffWithFee
 	@Override
 	public double getConversationPrice(int secondsCount)
 	{
-		double totalMinutes = secondsCount / 60;
-		if (secondsCount % 60 > 0)
-		{
-			totalMinutes++;
-		}
+		int totalMinutes = (int) Math.ceil(secondsCount / 60.0);
 		return totalMinutes * Math.max(pricePerMinute,1);
 	}
 

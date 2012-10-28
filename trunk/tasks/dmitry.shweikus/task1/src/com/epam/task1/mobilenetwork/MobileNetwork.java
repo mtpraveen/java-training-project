@@ -76,8 +76,36 @@ public class MobileNetwork
 	 */
 	public void addClient(String name, AbstractTariff tariff)
 	{
-		Client client = new Client(name, tariff);
+		Client client = new Client(clients.size(), name, tariff);
 		clients.add(client);
+	}
+	/**
+	 * 
+	 * @param name - name to search 
+	 * @return founded client, or null if client not found
+	 */
+	public Client findClientByName(String name)
+	{
+		for (Client client : clients)
+		{
+			if (client.getName().equals(name))
+				return client;
+		}
+		return null;
+	}
+	/**
+	 * 
+	 * @param name - name to search
+	 * @return founded tariff, or null if tariff not found
+	 */
+	public AbstractTariff findTariffByName(String name)
+	{
+		for (AbstractTariff tariff : tariffs)
+		{
+			if (tariff.getTariffName().equals(name))
+				return tariff;
+		}
+		return null;
 	}
 	/**
 	 * 
@@ -86,9 +114,13 @@ public class MobileNetwork
 	public ArrayList<AbstractTariff> getTariffsSortedByFee()
 	{
 		ArrayList<AbstractTariff> res = (ArrayList<AbstractTariff>)tariffs.clone();
-		Collections.sort(res,new TariffByFeeComparer());
+		Collections.sort(res, new TariffByFeeComparer());
 		return res;
 	}
+	/**
+	 * 
+	 * @return all tariff where monthly fee <= maxFee and minimum call rice <= maxCallPrice
+	 */
 	public ArrayList<AbstractTariff> findAllTariffsMathesRange(double maxFee, double maxCallPrice)
 	{
 		ArrayList<AbstractTariff> res = new ArrayList<AbstractTariff>();
