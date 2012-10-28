@@ -60,4 +60,20 @@ abstract public class AbstractVegetable {
 	public double getCalorieInOneHundredGramms() {
 		return this.calorieInOneHundredGramms;
 	}
+	
+	@Override
+	public boolean equals(Object object) {
+		
+//		if (!object.equals(null)) {
+			if (this.getCalorieInOneHundredGramms() == ((AbstractVegetable) object).getCalorieInOneHundredGramms() && 
+					this.getWeightOfVegetable() == ((AbstractVegetable) object).getWeightOfVegetable() &&
+					this.getClass().getName() == ((AbstractVegetable) object).getClass().getName()) {
+				return true;
+			} else {
+				return false;
+			}
+//		} else {
+//			return false;
+//		}
+	}
 }
