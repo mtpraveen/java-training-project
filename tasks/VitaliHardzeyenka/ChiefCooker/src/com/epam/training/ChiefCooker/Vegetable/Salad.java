@@ -27,6 +27,15 @@ final public class Salad {
 		setOil(oil);
 	}
 	
+	public Salad(Oil oil, AbstractVegetable ... vegetables) {
+		for (AbstractVegetable vegetable : vegetables) {
+			getVegetablesSalad().add(vegetable);
+		}
+		
+		setOil(oil);
+	}
+	
+	
 	/**
 	 * Set the private field.
 	 * @param vegetables saladOfVegetables

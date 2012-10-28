@@ -60,7 +60,7 @@ public class SaladBuilder extends AbstractBaseBuilder {
 						
 						break;
 					default:
-						System.out.println(String.format("%s: %c", SaladBuilderConstants.NO_SUCH_VEGETABLE_MESSAGE, enumerationVegetablesInSalad.charAt(i)));	
+//						System.out.println(String.format("%s: %c", SaladBuilderConstants.NO_SUCH_VEGETABLE_MESSAGE, enumerationVegetablesInSalad.charAt(i)));	
 						break;							
 				}
 			}
@@ -96,7 +96,7 @@ public class SaladBuilder extends AbstractBaseBuilder {
 	 * @return
 	 */
 	private AbstractVegetable createSolanaceae(String vegetableName, ConsoleInputOutput consoleInputOutput) {
-		
+		 
 		System.out.println(String.format("\t%s: ", vegetableName));
 		
 		// Read the major parameters of vegetables.
