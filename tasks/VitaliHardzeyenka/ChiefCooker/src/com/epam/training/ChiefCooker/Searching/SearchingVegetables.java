@@ -27,11 +27,14 @@ public class SearchingVegetables {
 		Matcher numberMatcher;
 		Matcher compatationMatcher;
 
-		Double value = 0.0; // value was found in the condition string.
+		Double value = 0.0; // value found in the condition string
+		int conditionsNumber = 0; // flag for checking is need to find vegetables by one condition or two one
 
 		while (weightCalorieMatcher.find()) { // find conditions for comparison. For example: weight > 100 or calorie = 50
+			
+			conditionsNumber++; // count number of conditions
 			numberMatcher = numberPattern.matcher(weightCalorieMatcher.group()); // find all entry number in the string
-
+			
 			// Convert number from string to double
 			while (numberMatcher.find()) {
 				if (!numberMatcher.group().isEmpty()) {
@@ -56,21 +59,19 @@ public class SearchingVegetables {
 			}
 		}
 		
-		
-//		for (AbstractVegetable vegetable : vegetablesFitToOneCondition) {
-//			System.out.println(vegetable.getClass().getName());
-//		}
-		
-		// find vegetables in vegetablesFitToOneCondition that fit to both conditions.
-		for (int i = 0; i < vegetablesFitToOneCondition.size(); i++) {
-			for (int j = i; j < vegetablesFitToOneCondition.size(); j++) {
-				if (i != j) {
-					if (vegetablesFitToOneCondition.get(i).equals(vegetablesFitToOneCondition.get(j))) {
-						vegetableList.add(vegetablesFitToOneCondition.get(i));
+		if (conditionsNumber == 1) { // searching by one condition
+			vegetableList.addAll(vegetablesFitToOneCondition);
+		} else { // find vegetables in vegetablesFitToOneCondition that fit to both conditions
+			for (int i = 0; i < vegetablesFitToOneCondition.size(); i++) {
+				for (int j = i; j < vegetablesFitToOneCondition.size(); j++) {
+					if (i != j) {
+						if (vegetablesFitToOneCondition.get(i).equals(vegetablesFitToOneCondition.get(j))) {
+							vegetableList.add(vegetablesFitToOneCondition.get(i));
+						}
 					}
 				}
 			}
-		}	
+		}		
 
 		return vegetableList;
 	}

@@ -1,7 +1,5 @@
 package com.epam.training.ChiefCooker.test;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 
 import org.junit.Test;
@@ -30,23 +28,19 @@ public class SearchingVegetablesTest {
 		
 		ArrayList<AbstractVegetable> foundVegetables = new ArrayList<>();
 		
-//		foundVegetables = SearchingVegetables.searchVegetablesInSalad(firstSalad, "weight > 80, calorie < 100");
-//		print(foundVegetables, "weight > 80, calorie < 100");
-		
 		foundVegetables = SearchingVegetables.searchVegetablesInSalad(firstSalad, "weight > 100, calorie < 130");
 		print(foundVegetables, "weight > 100, calorie < 130");
 		
 		
-//		foundVegetables = SearchingVegetables.searchVegetablesInSalad(firstSalad, "weight > 150");
-//		print(foundVegetables, "weight > 300");
-//		
-//		foundVegetables = SearchingVegetables.searchVegetablesInSalad(firstSalad, "calorie = 78");
-//		print(foundVegetables, "calorie = 78");
-		
-		
+		foundVegetables = SearchingVegetables.searchVegetablesInSalad(firstSalad, "weight > 200");
+		print(foundVegetables, "weight > 300");
+
+		foundVegetables = SearchingVegetables.searchVegetablesInSalad(firstSalad, "calorie = 78");
+		print(foundVegetables, "calorie = 78");		
 	}
 	
 	private void print(ArrayList<AbstractVegetable> vegetables, String condition) {
+		System.out.println(String.format("\t%s", condition));
 		for (AbstractVegetable vegetable : vegetables) {
 			System.out.println(vegetable.getClass().getName());
 		}
