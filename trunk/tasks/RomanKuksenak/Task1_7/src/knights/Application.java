@@ -13,7 +13,7 @@ public class Application {
 	public static void main(String[] args) {
 		Knights knights = new Knights();
 		knights.addCash();
-
+		System.out.println("Knights have:"+Math.rint(100.0 * knights.getCash()) / 100.0+"$");
 		Sword sword = new Sword(45);
 		Shield shield = new Shield(25);
 		Armor armor = new Armor(55);
