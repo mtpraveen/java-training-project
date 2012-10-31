@@ -1,0 +1,76 @@
+Wed Oct 31 22:32:33 AST 2012 : ERROR : Low battery voltage : 10.35Wed Oct 31 22:33:54 AST 2012 : DESCRIPTION : Wed Oct 31 22:33:54 AST 2012 : DESCRIPTION : Creating car with gearbox : AUTOMATICWed Oct 31 22:33:54 AST 2012 : EVENT : Engine startedWed Oct 31 22:33:54 AST 2012 : EVENT : Engine stoppedWed Oct 31 22:33:54 AST 2012 : ERROR : Engine errorWed Oct 31 22:33:54 AST 2012 : EVENT : Speed upWed Oct 31 22:33:54 AST 2012 : EVENT : Speed downWed Oct 31 22:33:54 AST 2012 : EVENT : Drive mode is set to DRIVEWed Oct 31 22:33:54 AST 2012 : EVENT : Drive mode is set to LOWWed Oct 31 22:33:54 AST 2012 : EVENT : BreakWed Oct 31 22:33:54 AST 2012 : ERROR : Low fuel : 4Wed Oct 31 22:33:54 AST 2012 : ERROR : Low battery voltage : 10.35Wed Oct 31 22:33:54 AST 2012 : DESCRIPTION : Wed Oct 31 22:33:54 AST 2012 : DESCRIPTION : Creating car with gearbox : MANUALWed Oct 31 22:33:54 AST 2012 : EVENT : Engine startedWed Oct 31 22:33:54 AST 2012 : EVENT : Engine stoppedWed Oct 31 22:33:54 AST 2012 : ERROR : Engine errorWed Oct 31 22:33:54 AST 2012 : EVENT : Speed upWed Oct 31 22:33:54 AST 2012 : EVENT : Speed downWed Oct 31 22:33:54 AST 2012 : EVENT : Manual gear changed : 1Wed Oct 31 22:33:54 AST 2012 : EVENT : Manual gear changed : 2Wed Oct 31 22:33:54 AST 2012 : EVENT : BreakWed Oct 31 22:33:54 AST 2012 : ERROR : Low fuel : 4Wed Oct 31 22:33:54 AST 2012 : ERROR : Low battery voltage : 10.35Wed Oct 31 22:34:27 AST 2012 : DESCRIPTION : 
+Wed Oct 31 22:34:27 AST 2012 : DESCRIPTION : Creating car with gearbox : AUTOMATIC
+Wed Oct 31 22:34:27 AST 2012 : EVENT : Engine started
+Wed Oct 31 22:34:27 AST 2012 : EVENT : Engine stopped
+Wed Oct 31 22:34:27 AST 2012 : ERROR : Engine error
+Wed Oct 31 22:34:27 AST 2012 : EVENT : Speed up
+Wed Oct 31 22:34:27 AST 2012 : EVENT : Speed down
+Wed Oct 31 22:34:27 AST 2012 : EVENT : Drive mode is set to DRIVE
+Wed Oct 31 22:34:27 AST 2012 : EVENT : Drive mode is set to LOW
+Wed Oct 31 22:34:27 AST 2012 : EVENT : Break
+Wed Oct 31 22:34:27 AST 2012 : ERROR : Low fuel : 4
+Wed Oct 31 22:34:27 AST 2012 : ERROR : Low battery voltage : 10.35
+Wed Oct 31 22:34:27 AST 2012 : DESCRIPTION : 
+Wed Oct 31 22:34:27 AST 2012 : DESCRIPTION : Creating car with gearbox : MANUAL
+Wed Oct 31 22:34:27 AST 2012 : EVENT : Engine started
+Wed Oct 31 22:34:27 AST 2012 : EVENT : Engine stopped
+Wed Oct 31 22:34:27 AST 2012 : ERROR : Engine error
+Wed Oct 31 22:34:27 AST 2012 : EVENT : Speed up
+Wed Oct 31 22:34:27 AST 2012 : EVENT : Speed down
+Wed Oct 31 22:34:27 AST 2012 : EVENT : Manual gear changed : 1
+Wed Oct 31 22:34:27 AST 2012 : EVENT : Manual gear changed : 2
+Wed Oct 31 22:34:27 AST 2012 : EVENT : Break
+Wed Oct 31 22:34:27 AST 2012 : ERROR : Low fuel : 4
+Wed Oct 31 22:34:27 AST 2012 : ERROR : Low battery voltage : 10.35
+Wed Oct 31 22:37:29 AST 2012 : DESCRIPTION : 
+Wed Oct 31 22:37:29 AST 2012 : DESCRIPTION : 
+Wed Oct 31 22:37:29 AST 2012 : DESCRIPTION : Creating car with gearbox : AUTOMATIC
+Wed Oct 31 22:37:29 AST 2012 : EVENT : Engine started
+Wed Oct 31 22:37:29 AST 2012 : EVENT : Speed up
+Wed Oct 31 22:37:29 AST 2012 : EVENT : Speed down
+Wed Oct 31 22:37:29 AST 2012 : EVENT : Drive mode is set to DRIVE
+Wed Oct 31 22:37:29 AST 2012 : EVENT : Drive mode is set to LOW
+Wed Oct 31 22:37:29 AST 2012 : EVENT : Break
+Wed Oct 31 22:37:29 AST 2012 : EVENT : Engine stopped
+Wed Oct 31 22:37:29 AST 2012 : ERROR : Low fuel : 4
+Wed Oct 31 22:37:29 AST 2012 : ERROR : Engine error
+Wed Oct 31 22:37:29 AST 2012 : ERROR : Low battery voltage : 10.35
+Wed Oct 31 22:37:29 AST 2012 : DESCRIPTION : 
+Wed Oct 31 22:37:29 AST 2012 : DESCRIPTION : 
+Wed Oct 31 22:37:29 AST 2012 : DESCRIPTION : Creating car with gearbox : MANUAL
+Wed Oct 31 22:37:29 AST 2012 : EVENT : Engine started
+Wed Oct 31 22:37:29 AST 2012 : EVENT : Speed up
+Wed Oct 31 22:37:29 AST 2012 : EVENT : Speed down
+Wed Oct 31 22:37:29 AST 2012 : EVENT : Manual gear changed : 1
+Wed Oct 31 22:37:29 AST 2012 : EVENT : Manual gear changed : 2
+Wed Oct 31 22:37:29 AST 2012 : EVENT : Break
+Wed Oct 31 22:37:29 AST 2012 : EVENT : Engine stopped
+Wed Oct 31 22:37:29 AST 2012 : ERROR : Low fuel : 4
+Wed Oct 31 22:37:29 AST 2012 : ERROR : Engine error
+Wed Oct 31 22:37:29 AST 2012 : ERROR : Low battery voltage : 10.35
+Wed Oct 31 22:51:08 AST 2012 : DESCRIPTION : 
+Wed Oct 31 22:51:08 AST 2012 : DESCRIPTION : 
+Wed Oct 31 22:51:08 AST 2012 : DESCRIPTION : Creating car with gearbox : AUTOMATIC
+Wed Oct 31 22:51:08 AST 2012 : EVENT : Engine started
+Wed Oct 31 22:51:08 AST 2012 : EVENT : Speed up
+Wed Oct 31 22:51:08 AST 2012 : EVENT : Speed down
+Wed Oct 31 22:51:08 AST 2012 : EVENT : Drive mode is set to DRIVE
+Wed Oct 31 22:51:08 AST 2012 : EVENT : Drive mode is set to LOW
+Wed Oct 31 22:51:08 AST 2012 : EVENT : Break
+Wed Oct 31 22:51:08 AST 2012 : EVENT : Engine stopped
+Wed Oct 31 22:51:08 AST 2012 : ERROR : Low fuel : 4
+Wed Oct 31 22:51:08 AST 2012 : ERROR : Engine error
+Wed Oct 31 22:51:08 AST 2012 : ERROR : Low battery voltage : 10.35
+Wed Oct 31 22:51:08 AST 2012 : DESCRIPTION : 
+Wed Oct 31 22:51:08 AST 2012 : DESCRIPTION : 
+Wed Oct 31 22:51:08 AST 2012 : DESCRIPTION : Creating car with gearbox : MANUAL
+Wed Oct 31 22:51:08 AST 2012 : EVENT : Engine started
+Wed Oct 31 22:51:08 AST 2012 : EVENT : Speed up
+Wed Oct 31 22:51:08 AST 2012 : EVENT : Speed down
+Wed Oct 31 22:51:08 AST 2012 : EVENT : Manual gear changed : 1
+Wed Oct 31 22:51:08 AST 2012 : EVENT : Manual gear changed : 2
+Wed Oct 31 22:51:08 AST 2012 : EVENT : Break
+Wed Oct 31 22:51:08 AST 2012 : EVENT : Engine stopped
+Wed Oct 31 22:51:08 AST 2012 : ERROR : Low fuel : 4
+Wed Oct 31 22:51:08 AST 2012 : ERROR : Engine error
+Wed Oct 31 22:51:08 AST 2012 : ERROR : Low battery voltage : 10.35
