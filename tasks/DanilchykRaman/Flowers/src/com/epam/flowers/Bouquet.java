@@ -1,63 +1,41 @@
 package com.epam.flowers;
 
-import java.util.Random;
-
-import com.epam.flowers.Flower.typeOfFlower;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bouquet {
-	private Flower[] bouquet;
+	private List<Flower> bouquet;
 	private int numberOfFlowers;
 	
-	public Bouquet(int numberOfFlowers) {
-		this.numberOfFlowers = numberOfFlowers;
-		bouquet = new Flower[numberOfFlowers];
+	public Bouquet() {
+		bouquet = new ArrayList<Flower>();
+		numberOfFlowers = 0;
 	}
 	
 	public int getPrice() {
 		int price = 0;
+		
 		for (int i = 0; i < numberOfFlowers; i++) {
-			price += bouquet[i].getPrice();
+			price += bouquet.get(i).getPrice();
 		}
 		
 		return price;		
 	}
-	/** Gather random composition of flowers */
-	public void gatherComposition () {
-		Random rand = new Random();
-		
-		for (int i = 0; i < numberOfFlowers; i++) {
-			int f = rand.nextInt(3);
-			switch (f) {
-			case 0:
-				bouquet[i] = new Flower(typeOfFlower.ROSE);
-				break;
-			case 1:
-				bouquet[i] = new Flower(typeOfFlower.TULIP);
-				break;
-			case 2:
-				bouquet[i] = new Flower(typeOfFlower.LILIE);
-				break;
-			default:
-				return;
-			}
-		}
+	
+	public void addFlower(Flower flower) {
+		bouquet.add(flower);
+		numberOfFlowers++;
 	}
 	
-	public void printComposition() {
-		System.out.println("Composition includes:");
+	public int getNumberOfFlowers() {
+		return numberOfFlowers;
+	}
+	
+	public void print() {
+		System.out.println("Bouquet consists of: ");
 		
-		for (int i = 0; i < numberOfFlowers; i++) {
-			switch (bouquet[i].getType()) {
-			case ROSE:
-				System.out.println("Rose: " + bouquet[i].getPrice());
-				break;
-			case TULIP:
-				System.out.println("Tulip: " + bouquet[i].getPrice());
-				break;
-			case LILIE:
-				System.out.println("Lilie: " + bouquet[i].getPrice());
-				break;
-			}
+		for (int i = 0; i < bouquet.size(); i++) {
+			System.out.println(bouquet.get(i).getName() + " - " + bouquet.get(i).getPrice());
 		}
 	}
 }
