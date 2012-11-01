@@ -2,6 +2,11 @@ package com.epam.training.command;
 
 import com.epam.training.factoryMethod.AbstractTransmission;
 
+/**
+ * Describe gear decreasing. 
+ * @author Gordeenko
+ *
+ */
 public class DecreaseVelocity extends AbstractCommand {
 	
 	private AbstractTransmission transmission;

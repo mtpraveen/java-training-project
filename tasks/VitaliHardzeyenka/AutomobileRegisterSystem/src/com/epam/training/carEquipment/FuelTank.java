@@ -1,5 +1,10 @@
 package com.epam.training.carEquipment;
 
+/**
+ * Describe fuel tank.
+ * @author Gordeenko
+ *
+ */
 public class FuelTank extends Equipmment {
 	private byte fullnessPercents;
 

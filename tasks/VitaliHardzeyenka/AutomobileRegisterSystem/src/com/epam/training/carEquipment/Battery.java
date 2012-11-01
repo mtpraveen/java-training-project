@@ -1,5 +1,9 @@
 package com.epam.training.carEquipment;
 
+/**
+ * Desctibe car battery.
+ * @author Gordeenko *
+ */
 public class Battery extends Equipmment {
 	private boolean charged;
 	private boolean isLaunched;
@@ -22,15 +26,22 @@ public class Battery extends Equipmment {
 		return isLaunched;
 	}
 
+	/**
+	 * If battery is charged, run it, then run engine.
+	 */	
 	public void run() {
 		isLaunched = charged ? true : false;		
 		if (isLaunched) {
 			Engine engine = Engine.getInstance();
-			engine.run();			
+			engine.run();
+			notifyObserver(engine);
 		}
 		notifyObserver();
 	}
 	
+	/**
+	 * Stop battery.
+	 */
 	public void stop() {
 		isLaunched = false;
 		notifyObserver();
