@@ -7,6 +7,11 @@ import com.epam.training.factoryMethod.AbstractTransmission;
 import com.epam.training.observer.BaseObserver;
 import com.epam.training.observer.RegistrationSystemObserver;
 
+/**
+ * Singleton
+ * Describe automobile and contains all inner equipment.
+ * @author Gordeenko
+ */
 public class Car {
 	private static Car INSTANCE = null; 
 	private Battery battery;
@@ -15,10 +20,10 @@ public class Car {
 	private AbstractTransmission transmission;
 	private RegistrationSystemObserver registrationSystemObserver;
 	private boolean isRun;
-	private ArrayList<BaseObserver> observersList = new ArrayList<>();	
+	private ArrayList<BaseObserver> observersList = new ArrayList<>(); // observers for this class.
 	
 	/**
-	 * 
+	 * Constructor.
 	 * @param battery
 	 * @param fuelTank
 	 * @param engine
@@ -49,6 +54,9 @@ public class Car {
 		notifyObserver();
 	}
 
+	/**
+	 * Stop car by the foot brake.
+	 */
 	public void stop() {
 		if (isRun) {
 			setIsRun(false);
@@ -60,6 +68,9 @@ public class Car {
 		observersList.add(observer);
 	}
 	
+	/**
+	 * Notify observer about inner change in class.
+	 */
 	protected void notifyObserver() {
 		Iterator iterator = observersList.iterator();
 		while (iterator.hasNext()) {

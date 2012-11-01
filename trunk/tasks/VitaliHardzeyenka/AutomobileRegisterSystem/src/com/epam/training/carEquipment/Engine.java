@@ -1,11 +1,20 @@
 package com.epam.training.carEquipment;
 
+/**
+ * Singleton
+ * Describe engine.
+ * @author Gordeenko
+ */
 public class Engine extends Equipmment {
 	private boolean isWindUp;
 	
 	private static Engine INSTANCE = null;
 	
 	private Engine() {}
+	
+	private Engine(boolean isWindUp) {
+		this.isWindUp = isWindUp;
+	}
 	
 	public static Engine getInstance(boolean isWindUp) {
 		if (INSTANCE == null) {
@@ -21,18 +30,16 @@ public class Engine extends Equipmment {
 		return INSTANCE;
 	}
 	
-	private Engine(boolean isWindUp) {
-		this.isWindUp = isWindUp;
-	}
-	
 	public boolean getIsWindUp() {
 		return isWindUp;
 	}
 	
+	/**
+	 * Run engine.
+	 */
 	public void run() {
 		isWindUp = true;
 		notifyObserver();
-		System.out.println("The engine status is: " + isWindUp);
 	}
 
 	public void setIsWindUp(boolean isWindUp) {

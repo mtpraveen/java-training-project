@@ -22,6 +22,14 @@ import com.epam.training.factoryMethod.TransmissionFactory;
 import com.epam.training.observer.BaseObserver;
 import com.epam.training.observer.RegistrationSystemObserver;
 
+/**
+ * Obsere system test.
+ * @author Gordeenko
+ * There are some patterns used in this project as: Command, Observer, Singleton, FactoryMethod.
+ * First car created, then driver get a car and send a commands to different car equipment.
+ * All changes reflects in console by RegistrationSystemObserver.
+ * 
+ */
 public class ObserverTest {
 
 	@Test
@@ -35,6 +43,7 @@ public class ObserverTest {
 		AbstractTransmission transmission = transmissionFactory.getTransmission("Manual"); // manual transmission
 		RegistrationSystemObserver registrationSystemObserver = new RegistrationSystemObserver();		
 		Car car = Car.getInstance(battery, fuelTank, engine, transmission, registrationSystemObserver); // create car
+		
 		
 		// create commands
 		AbstractCommand startCommand = new Start(battery); // start battery
@@ -52,8 +61,6 @@ public class ObserverTest {
 		transmission.addObserver(observer);
 		car.addObserver(observer);
 		
-		System.out.println(engine.toString());
-		
 		Driver driver = new Driver(); // create driver
 		driver.setCar(car); // driver get car
 		
@@ -64,6 +71,9 @@ public class ObserverTest {
 		driver.setCommand(startCommand);
 		driver.execute(); // start battery
 		System.out.println(battery.toString()); // battery status
+		engine.run();
+		System.out.println(engine.toString()); // engine status
+		car.setIsRun(true);
 
 		// gear increase command
 		driver.setCommand(increaseVelocityCommand);
@@ -74,7 +84,7 @@ public class ObserverTest {
 		driver.setCommand(increaseVelocityCommand);
 		driver.execute(); // increase gear
 		System.out.println(transmission.toString()); // gear status
-		
+
 		// gear decrease command
 		driver.setCommand(decreaseVelocityCommand);
 		driver.execute(); // decrease gear
