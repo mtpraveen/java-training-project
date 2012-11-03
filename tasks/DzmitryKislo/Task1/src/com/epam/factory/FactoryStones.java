@@ -1,6 +1,10 @@
-package com.epam;
+package com.epam.factory;
 
 import java.util.Random;
+
+import com.epam.entity.PreciousStone;
+import com.epam.entity.SemiPreciousStone;
+import com.epam.entity.Stone;
 
 public class FactoryStones {
 
