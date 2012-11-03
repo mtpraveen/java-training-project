@@ -29,12 +29,18 @@ public class DiskService {
 		return totalLength;
 	}
 
+	/**
+	 * sort by Surname
+	 */
 	public static void sortByAuthor(Disk disk) {
 		typeOfSort = 0;
 		List<Record> records = disk.getRecords();
 		Collections.sort(records, new AuthorComp());
 	}
 
+	/**
+	 * sort by nationality
+	 */
 	public static void sortByAuthor(Disk disk, int type) {
 		if (type == 1)
 			typeOfSort = type;
