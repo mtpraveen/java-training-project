@@ -4,7 +4,9 @@ import epam.course.domain.Author;
 import epam.course.domain.Disk;
 import epam.course.domain.Genre;
 import epam.course.domain.Record;
-import epam.course.service.DiskService;
+//import epam.course.service.DiskService;
+
+import static epam.course.service.DiskService.*;
 
 public class Application {
 
@@ -24,34 +26,30 @@ public class Application {
 		d.addRecord(r2);
 		d.addRecord(r3);
 		d.addRecord(r4);
-		DiskService.printDisk(d);
+		printDisk(d);
 		System.out.println("Sort records by Author: ");
-		DiskService.sortByAuthor(d);
-		DiskService.printDisk(d);
+		sortByAuthor(d);
+		printDisk(d);
 		System.out.println("Sort records by Genre: ");
-		DiskService.sortByGenre(d);
-		DiskService.printDisk(d);
+		sortByGenre(d);
+		printDisk(d);
 		System.out.println("Sort records by Name: ");
-		DiskService.sortByName(d);
-		DiskService.printDisk(d);
+		sortByName(d);
+		printDisk(d);
 		System.out.println("Sort records by Length: ");
-		DiskService.sortByLength(d);
-		DiskService.printDisk(d);
+		sortByLength(d);
+		printDisk(d);
 		System.out.println("Sort by author's nationality: ");
-		DiskService.sortByAuthor(d, 1);
-		DiskService.printDisk(d);
+		sortByAuthor(d, 1);
+		printDisk(d);
 		System.out.println("Find by genres: ");
-		DiskService.printRecords(DiskService.findRecordByGenre(d, "ROCK",
-				"POP", "BLUES"));
+		printRecords(findRecordByGenre(d, "ROCK", "POP", "BLUES"));
 		System.out.println("Find by Author: ");
-		DiskService.printRecords(DiskService.findRecordByAuthor(d, "Ivanov",
-				"Abramov"));
+		printRecords(findRecordByAuthor(d, "Ivanov", "Abramov"));
 		System.out.println("Find by name: ");
-		DiskService.printRecords(DiskService.findRecordByName(d, "September",
-				"Alt"));
+		printRecords(findRecordByName(d, "September", "Alt"));
 		System.out.println("Find by Author and Genre: ");
-		DiskService.printRecords(DiskService.findRecordByAuthorAndGenre(d,
-				"Abramov", "ROCK"));
+		printRecords(findRecordByAuthorAndGenre(d, "Abramov", "ROCK"));
 
 	}
 }
