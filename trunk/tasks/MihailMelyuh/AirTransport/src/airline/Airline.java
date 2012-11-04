@@ -42,7 +42,7 @@ public class Airline implements Serializable, Cloneable {
 		plane.remove(plane1);
 	}
 
-	public double totalCapacity() {
+	public double totalFreighterCapacity() {
 		double result = 0;
 		for (int i = 0; i < (this.plane.size()); i++) {
 			if (plane.get(i) instanceof Freighter) {
@@ -160,13 +160,48 @@ public class Airline implements Serializable, Cloneable {
 	}
 
 	public Airplane getPlane(int index) {
-		if (index > this.plane.size()) {
-			return null;
+		if ((index > this.plane.size()) && (index < 0)) {
+			throw new ArrayIndexOutOfBoundsException();
 		}
 		return this.plane.get(index);
 	}
 
 	public int getSize() {
 		return this.plane.size();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((plane == null) ? 0 : plane.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Airline other = (Airline) obj;
+		if (plane == null) {
+			if (other.plane != null)
+				return false;
+		} else if (!plane.equals(other.plane))
+			return false;
+		return true;
 	}
 }
