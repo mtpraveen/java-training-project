@@ -8,6 +8,7 @@ import java.util.List;
 import epam.course.comparators.AuthorComp;
 import epam.course.comparators.GenreComp;
 import epam.course.domain.Disk;
+import epam.course.domain.Genre;
 import epam.course.domain.Record;
 
 public class DiskService {
@@ -89,7 +90,8 @@ public class DiskService {
 		List<Record> newRecords = new ArrayList<Record>();
 		for (Record record : records) {
 			for (String genre : genres) {
-				if (record.getGenre().toString().equals(genre)) {
+				Genre g = Genre.valueOf(genre.toUpperCase());
+				if (record.getGenre().equals(g)) {
 					newRecords.add(record);
 					break;
 				}
