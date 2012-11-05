@@ -10,11 +10,9 @@ public abstract class Car implements Comparable<Object> {
 	
 
 	public Car(){
-		this.name="No Name";
-		this.cost=0;
-		this.consumption=0.0F;
+		this("No Name",0,0.0F);
 	}
-	Car(String name,int cost,float consumption){
+	public Car(String name,int cost,float consumption){
 		this.name=name;
 		this.cost=cost;
 		this.consumption=consumption;
@@ -22,27 +20,6 @@ public abstract class Car implements Comparable<Object> {
 
 	
 	public abstract String getType();
-/*	
-	public boolean equals(Car obj){
-		if(this == obj){
-			return true;
-		}
-		else if(obj==null){
-			return false;
-		}
-		else if(getClass() == obj.getClass()){
-			if((this.consumption - obj.getConsumption())>=0.1){
-				return true;
-			}
-			else{
-				return false;
-			}
-		}
-		else {
-			return false;
-		}
-	}
-	*/
 	
 	public int compareTo(Object obj) {
 		Car tmp = (Car) obj;
