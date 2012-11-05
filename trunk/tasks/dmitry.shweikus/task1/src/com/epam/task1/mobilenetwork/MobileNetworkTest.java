@@ -11,6 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.epam.task1.clients.Client;
+import com.epam.task1.exceptions.NegativeFeeException;
 import com.epam.task1.tariffs.AbstractTariff;
 import com.epam.task1.tariffs.TariffWithPerMinuteBilling;
 import com.epam.task1.tariffs.TariffWithPerSecondBilling;
@@ -130,17 +131,34 @@ public class MobileNetworkTest
 	 * Test method for {@link com.epam.task1.mobilenetwork.MobileNetwork#findAllTariffsMathesRange(double, double)}.
 	 */
 	@Test
-	public void testFindAllTariffsMathesRange()
+	public void testFindAllTariffsMathesRange1()
 	{
 		ArrayList<AbstractTariff> tariffs = network.findAllTariffsMathesRange(8000, 100);
 		assertEquals(1, tariffs.size());
 		assertEquals(PRACTICAL, tariffs.get(0).getTariffName());
-		
-		tariffs = network.findAllTariffsMathesRange(1000, 1000);
+	}
+	
+	/**
+	 * Test method for {@link com.epam.task1.mobilenetwork.MobileNetwork#findAllTariffsMathesRange(double, double)}.
+	 */
+	@Test
+	public void testFindAllTariffsMathesRange2()
+	{
+		ArrayList<AbstractTariff> tariffs = network.findAllTariffsMathesRange(1000, 1000);
 		assertEquals(1, tariffs.size());
 		assertEquals(ULTRA_CHEAP, tariffs.get(0).getTariffName());
 	}
-	
+
+	/**
+	 * Test method for {@link com.epam.task1.mobilenetwork.MobileNetwork#findAllTariffsMathesRange(double, double)}.
+	 */
+	@Test
+	public void testFindAllTariffsMathesRangeWhereTariffNotFound()
+	{
+		ArrayList<AbstractTariff> tariffs = network.findAllTariffsMathesRange(100, 100);
+		assertEquals(0, tariffs.size());
+	}
+
 	/**
 	 * Test method for {@link com.epam.task1.mobilenetwork.MobileNetwork#findClientByName(String)}.
 	 */
@@ -150,8 +168,15 @@ public class MobileNetworkTest
 		Client client = network.findClientByName(CLIENT_2);
 		assertNotNull(client);
 		assertEquals(client.getName(), CLIENT_2);
+	}
 
-		client = network.findClientByName("this_is_non_existing_client_name");
+	/**
+	 * Test method for {@link com.epam.task1.mobilenetwork.MobileNetwork#findClientByName(String)}.
+	 */
+	@Test
+	public void testFindClientByNameWhenNameNotFound()
+	{
+		Client client = network.findClientByName("this_is_non_existing_client_name");
 		assertNull(client);
 	}
 	
@@ -164,10 +189,46 @@ public class MobileNetworkTest
 		AbstractTariff tariff = network.findTariffByName(PRACTICAL);
 		assertNotNull(tariff);
 		assertEquals(tariff.getTariffName(), PRACTICAL);
+	}
+	/**
+	 * Test method for {@link com.epam.task1.mobilenetwork.MobileNetwork#findTariffByName(String)}.
+	 */
 
-		tariff = network.findTariffByName("this_is_non_existing_tariff_name");
+	@Test
+	public void testFindTariffByNameWhenNameNotFound()
+	{
+		AbstractTariff tariff = network.findTariffByName("this_is_non_existing_tariff_name");
 		assertNull(tariff);
 	}
+
+	@Test
+	public void testClientEquals()
+	{
+		Client client1 = new Client(1, CLIENT_1, network.getTariff(0));
+		Client client2 = new Client(1, CLIENT_1, network.getTariff(0));
+		assertEquals(client1, client2);
+	}
+
+	@Test
+	public void testClientNotEqualsByTariff()
+	{
+		Client client1 = new Client(1, CLIENT_1, network.getTariff(0));
+		Client client2 = new Client(1, CLIENT_1, network.getTariff(1));
+		assertNotSame(client1, client2);
+	}
 	
+	@Test
+	public void testClientNotEqualsByName()
+	{
+		Client client1 = new Client(1, CLIENT_1, network.getTariff(0));
+		Client client2 = new Client(1, CLIENT_2, network.getTariff(0));
+		assertNotSame(client1, client2);
+	}
+	
+	@Test(expected=NegativeFeeException.class)
+	public void testExceptionByCreatingTariff()
+	{
+		AbstractTariff tariff = new TariffWithPerMinuteBilling(ULTRA_CHEAP, -5, 10);
+	}
 
 }

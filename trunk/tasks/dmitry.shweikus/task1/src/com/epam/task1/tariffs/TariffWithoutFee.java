@@ -30,6 +30,37 @@ public class TariffWithoutFee extends AbstractTariff
 		return 0;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		long temp;
+		temp = Double.doubleToLongBits(pricePerMinute);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof TariffWithoutFee))
+			return false;
+		TariffWithoutFee other = (TariffWithoutFee) obj;
+		if (Double.doubleToLongBits(pricePerMinute) != Double
+				.doubleToLongBits(other.pricePerMinute))
+			return false;
+		return true;
+	}
+
 	/**
 	 * @param secondsCount - length of conversation
 	 * @return price for presented conversation
