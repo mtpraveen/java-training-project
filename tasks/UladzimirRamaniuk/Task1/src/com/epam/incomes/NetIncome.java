@@ -7,7 +7,7 @@ public class NetIncome extends AbstractIncome {
 	}
 
 	@Override
-	double getIncome() {
+	public double getIncome() {
 		income = profit;
 		return income;
 	}
