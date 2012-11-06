@@ -4,37 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bouquet {
-	private List<Flower> bouquet;
-	
+	private List<Flower> flowers;
+
 	public Bouquet() {
-		bouquet = new ArrayList<Flower>();
+		flowers = new ArrayList<Flower>();
 	}
-	
+
 	public int getPrice() {
 		int price = 0;
-		
-		for (int i = 0; i < bouquet.size(); i++) {
-			price += bouquet.get(i).getPrice();
+
+		for (int i = 0; i < flowers.size(); i++) {
+			price += flowers.get(i).getPrice();
 		}
-		
-		return price;		
+
+		return price;
 	}
-	
+
 	public void addFlower(Flower flower) {
-		bouquet.add(flower);
+		flowers.add(flower);
 	}
-	
+
 	public int getNumberOfFlowers() {
-		return bouquet.size();
+		return flowers.size();
 	}
-	
+
 	public String toString() {
-		String string = new String("Bouquet consists of:\n");
-		
-		for (int i = 0; i < bouquet.size(); i++) {
-			string = string.concat(bouquet.get(i).getName()).concat(" - ").concat(Integer.toString(bouquet.get(i).getPrice()).concat("\n"));
+		StringBuilder string = new StringBuilder("Bouquet consists of:\n");
+
+		for (int i = 0; i < flowers.size(); i++) {
+			string = string.append(flowers.get(i).getName()).append(" - ")
+					.append(Integer.toString(flowers.get(i).getPrice()))
+					.append("\n");
 		}
-		
-		return string;
+
+		return string.toString();
 	}
 }
