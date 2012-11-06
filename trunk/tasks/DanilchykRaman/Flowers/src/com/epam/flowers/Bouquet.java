@@ -5,17 +5,15 @@ import java.util.List;
 
 public class Bouquet {
 	private List<Flower> bouquet;
-	private int numberOfFlowers;
 	
 	public Bouquet() {
 		bouquet = new ArrayList<Flower>();
-		numberOfFlowers = 0;
 	}
 	
 	public int getPrice() {
 		int price = 0;
 		
-		for (int i = 0; i < numberOfFlowers; i++) {
+		for (int i = 0; i < bouquet.size(); i++) {
 			price += bouquet.get(i).getPrice();
 		}
 		
@@ -24,18 +22,19 @@ public class Bouquet {
 	
 	public void addFlower(Flower flower) {
 		bouquet.add(flower);
-		numberOfFlowers++;
 	}
 	
 	public int getNumberOfFlowers() {
-		return numberOfFlowers;
+		return bouquet.size();
 	}
 	
-	public void print() {
-		System.out.println("Bouquet consists of: ");
+	public String toString() {
+		String string = new String("Bouquet consists of:\n");
 		
 		for (int i = 0; i < bouquet.size(); i++) {
-			System.out.println(bouquet.get(i).getName() + " - " + bouquet.get(i).getPrice());
+			string = string.concat(bouquet.get(i).getName()).concat(" - ").concat(Integer.toString(bouquet.get(i).getPrice()).concat("\n"));
 		}
+		
+		return string;
 	}
 }
