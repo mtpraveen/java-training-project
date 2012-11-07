@@ -21,11 +21,11 @@ public class Pepper extends AbstractSolanaceous {
 	 * @param weightOfVegetable - weight of vegetable. Field from parent class AbstractVegetable.
 	 * @param calorieInOneHundredGramms - calories in 100 grams. Field from parent class AbstractVegetable.
 	 * @param ripenness - ripeness of vegetable. Field from parent class AbstractSolanaceous.
-	 * @param availabilityOfPulp - pulp of vegetable. Field from parent class AbstractSolanaceous.
+	 * @param isPulp - pulp of vegetable. Field from parent class AbstractSolanaceous.
 	 */
-	public Pepper(double weightOfVegetable, double calorieInOneHundredGramms, RipenessOfSolanaceae ripenness, boolean availabilityOfPulp) {
+	public Pepper(double weightOfVegetable, double calorieInOneHundredGramms, RipenessOfSolanaceae ripenness, boolean isPulp) {
 		super(weightOfVegetable, calorieInOneHundredGramms, ripenness);
-		super.setAvailabilityOfPulp(availabilityOfPulp);
+		super.setAvailabilityOfPulp(isPulp);
 		cleanOfSeeds(ripenness); // clean seeds subject to ripeness of vegetable
 	}	
 	
@@ -34,7 +34,7 @@ public class Pepper extends AbstractSolanaceous {
 	 * @param ripenness - ripeness of vegetable, value of RipenessOfSolanaceae enumeration. 
 	 */
 	private void cleanOfSeeds(RipenessOfSolanaceae ripenness) {
-		if (super.getAvailabilityOfPulp() == true){
+		if (super.isPulp() == true){
 			setWeightOfSeeds(ripenness); // set weight of seed subject to ripeness
 			super.setWeightOfVegetable((double)(super.getWeightOfVegetable() - getWeightOfSoads())); // calculate mass of vegetable without seeds
 			super.setAvailabilityOfPulp(false); // there is no pulp (seeds) after cleaningS
@@ -45,10 +45,10 @@ public class Pepper extends AbstractSolanaceous {
 	
 	/**
 	 * Calculate the coefficient of seeds subject to ripeness
-	 * @param ripenness
+	 * @param ripeness
 	 */
-	public void setWeightOfSeeds(RipenessOfSolanaceae ripenness) {
-		if (ripenness instanceof RipenessOfSolanaceae) {
+	public void setWeightOfSeeds(RipenessOfSolanaceae ripeness) {
+		if ((ripeness == RipenessOfSolanaceae.NORMAL) || (ripeness == RipenessOfSolanaceae.GOOD)) {
 			this.weightOfSeeds = (super.getWeightOfVegetable()) * SolenaceaeConstants.COEFFICIENT_WEIGHT_SEEDS_NORMAL_GOOD;			
 		} else {
 			this.weightOfSeeds = (super.getWeightOfVegetable()) * SolenaceaeConstants.COEFFICIENT_WEIGHT_SEEDS_BAD;

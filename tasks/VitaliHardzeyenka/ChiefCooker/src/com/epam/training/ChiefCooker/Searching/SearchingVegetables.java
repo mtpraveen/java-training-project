@@ -13,14 +13,14 @@ public class SearchingVegetables {
 	 * @param condition - for example: "weight > 100, calorie < 50"
 	 * @return
 	 */
-	public static ArrayList<AbstractVegetable> searchVegetablesInSalad(Salad salad, String condition) {
+	public static ArrayList<AbstractVegetable> searchVegetablesInSalad(ArrayList<AbstractVegetable> setOfVegetable, String condition) {
 		ArrayList<AbstractVegetable> vegetableList = new ArrayList<>(); // list of find vegetables that do for allS conditions
 		ArrayList<AbstractVegetable> vegetablesFitToOneCondition = new ArrayList<>(); // list of vegetables that do for one condition
 
 		// Patters for searching
-		Pattern weightCaloriePattern = Pattern.compile("(weight|calorie)(\\s*)(>|<|=)(\\s*)(\\d*)");
+		Pattern weightCaloriePattern = Pattern.compile("(weight|calorie)(\\s*)(>|<|=|\\<=|\\>=|\\!=)(\\s*)(\\d*)");
 		Pattern numberPattern = Pattern.compile("(\\d*)");
-		Pattern comparationPattern = Pattern.compile(">|<|=");
+		Pattern comparationPattern = Pattern.compile("(>|<|=|<=|>=|!=)");
 
 		// Matcher
 		Matcher weightCalorieMatcher = weightCaloriePattern.matcher(condition);
@@ -48,11 +48,11 @@ public class SearchingVegetables {
 				if (weightCalorieMatcher.group().contains("weight")) { // if field for comparison is weight
 					
 					// for every vegetable in salad compare..
-					for(AbstractVegetable vegetable : salad.getVegetablesSalad()) {
+					for(AbstractVegetable vegetable : setOfVegetable) {
 						vegetablesFitToOneCondition.addAll(returnVegetableMatchToCondition(vegetable, vegetable.getWeightOfVegetable(), value, compatationMatcher.group()));
 					}
 				} else if (weightCalorieMatcher.group().contains("calorie")) { // if field for comparison is calorie
-					for(AbstractVegetable vegetable : salad.getVegetablesSalad()) {
+					for(AbstractVegetable vegetable : setOfVegetable) {
 						vegetablesFitToOneCondition.addAll(returnVegetableMatchToCondition(vegetable, vegetable.getCalorieInOneHundredGramms(), value, compatationMatcher.group()));
 					}
 				}
@@ -87,7 +87,7 @@ public class SearchingVegetables {
 	 */
 	private static ArrayList<AbstractVegetable> returnVegetableMatchToCondition(AbstractVegetable vegetable, Object field, double value, String comparator) {
 		ArrayList<AbstractVegetable> vegetableList = new ArrayList<>();
-		
+
 		switch (comparator) {
 		case ">":
 			if ((double) field > value) {
@@ -103,10 +103,11 @@ public class SearchingVegetables {
 			if ((double) field == value) {
 				vegetableList.add(vegetable);
 			}
-			break;
+			break;		
 		default:
 			break;
-		}
+		}		
+		
 		return vegetableList;
 	}
 }
