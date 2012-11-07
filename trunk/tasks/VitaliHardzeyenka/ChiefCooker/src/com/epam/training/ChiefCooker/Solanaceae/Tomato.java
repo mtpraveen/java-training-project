@@ -21,11 +21,11 @@ public class Tomato extends AbstractSolanaceous {
 	 * @param weightOfVegetable - weight of vegetable. Field from parent class AbstractVegetable.
 	 * @param calorieInOneHundredGramms - calories in 100 grams. Field from parent class AbstractVegetable.
 	 * @param ripenness - ripeness of vegetable. Field from parent class AbstractSolanaceous.
-	 * @param availabilityOfPulp - pulp of vegetable. Field from parent class AbstractSolanaceous.
+	 * @param isPulp - pulp of vegetable. Field from parent class AbstractSolanaceous.
 	 */
-	public Tomato(double weightOfVegetable, double calorieInOneHundredGramms, RipenessOfSolanaceae ripeness, boolean availabilityOfPulp){
+	public Tomato(double weightOfVegetable, double calorieInOneHundredGramms, RipenessOfSolanaceae ripeness, boolean isPulp){
 		super(weightOfVegetable, calorieInOneHundredGramms, ripeness);
-		super.setAvailabilityOfPulp(availabilityOfPulp);
+		super.setAvailabilityOfPulp(isPulp);
 		removePulp(ripeness); // remove the pulp from the vegetable subject to the ripeness degree
 	}
 	
@@ -34,7 +34,7 @@ public class Tomato extends AbstractSolanaceous {
 	 * @param ripeness
 	 */
 	private void removePulp(RipenessOfSolanaceae ripeness) {
-		if (super.getAvailabilityOfPulp() == true) { // if the vegetable has the pulp
+		if (super.isPulp() == true) { // if the vegetable has the pulp
 			setWeightOfPulp(ripeness); // set weight of pulp subject to ripeness degree
 			super.setWeightOfVegetable(super.getWeightOfVegetable() - getWeightOfPulp()); // worse ripeness - more pulp will remove
 			super.setAvailabilityOfPulp(false); // there is no pulp in vegetable after removing :)

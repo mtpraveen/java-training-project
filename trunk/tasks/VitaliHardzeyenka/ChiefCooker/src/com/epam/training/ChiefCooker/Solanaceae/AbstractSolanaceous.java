@@ -8,7 +8,7 @@ import com.epam.training.ChiefCooker.Vegetable.*;
  */
 abstract public class AbstractSolanaceous extends AbstractVegetable {
 	private RipenessOfSolanaceae ripeness; // vegetable ripeness degree from enumeration
-	private boolean availabilityOfPulp; // available of pulp [yes/no]
+	private boolean isPulp; // available of pulp [yes/no]
 	
 	/**
 	 * Constructor.
@@ -42,11 +42,7 @@ abstract public class AbstractSolanaceous extends AbstractVegetable {
 	 * @param ripeness - value from enumeration RipenessOfSolanaceae. 
 	 */
 	public void setRipeness(RipenessOfSolanaceae ripeness) {
-		if (ripeness instanceof RipenessOfSolanaceae) { // ripeness must belong enumeration RipenessOfSolanaceae  
-			this.ripeness = ripeness;
-		} else {
-			this.ripeness = RipenessOfSolanaceae.BAD;
-		}
+		this.ripeness = ripeness;
 	}
 	
 	/**
@@ -60,14 +56,14 @@ abstract public class AbstractSolanaceous extends AbstractVegetable {
 	 * Set the private field availabilityOfPulp
 	 * @param availabilityOfPulp
 	 */
-	public void setAvailabilityOfPulp(boolean availabilityOfPulp) {
-		this.availabilityOfPulp = availabilityOfPulp;
+	public void setAvailabilityOfPulp(boolean isPulp) {
+		this.isPulp = isPulp;
 	}
 	
 	/**
 	 * @return - boolean - ability of pulp.
 	 */
-	public boolean getAvailabilityOfPulp() {
-		return this.availabilityOfPulp;
+	public boolean isPulp() {
+		return this.isPulp;
 	}	
 }
