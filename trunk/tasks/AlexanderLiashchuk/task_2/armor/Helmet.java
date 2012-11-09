@@ -1,8 +1,7 @@
 package armor;
 
 /**
- * Класс описывает шлем.
- * 
+ * Class describes knight's helmet. 
  * @author Alexander
  */
 public class Helmet extends Armor implements Comparable<Helmet> {

@@ -9,7 +9,7 @@ package weapon;
  * @author Alexander
  * 
  */
-public class Weapon {
+public class Weapon implements Comparable<Weapon> {
 
 	/**
 	 * Weapon cost, gold
