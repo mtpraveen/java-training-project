@@ -30,7 +30,7 @@ public class Stock {
 				if (o.getCost() > costMin && o.getCost() < costMax)
 					return o;
 			}
-			throw new Exception("NotFoundException");
+			throw new Exception("Battens with such parameters not found");
 		} catch (Exception e) {
 			e.printStackTrace();
 			Battens[] arr = (Battens[]) this.battens.toArray();
@@ -59,11 +59,10 @@ public class Stock {
 				if (o.getCost() > costMin && o.getCost() < costMax)
 					return o;
 			}
-			throw new Exception("NotFoundException");
-		} catch (Exception e) {
-			e.printStackTrace();
-			Helmet[] arr = (Helmet[]) this.helmet.toArray();
-			return arr[0];
+			throw new NotFound("Helmet with such parameters not found", null, null);
+		} 
+		catch(NotFound e) {
+			throw e;
 		}
 	}
 
@@ -73,11 +72,10 @@ public class Stock {
 				if (o.getCost() > costMin && o.getCost() < costMax)
 					return o;
 			}
-			throw new Exception("NotFoundException");
-		} catch (Exception e) {
-			e.printStackTrace();
-			Weapon[] arr = (Weapon[]) this.weapon.toArray();
-			return arr[0];
+			throw new NotFound("Weapon with such parameters not found", null, null);
+		} 
+		catch(NotFound e) {
+			throw e;
 		}
 	}
 
@@ -88,6 +86,10 @@ public class Stock {
 	public void setBattens(Set<Battens> battens) {
 		this.battens = battens;
 	}
+	
+	public void addBattens(Battens battens) {
+		this.battens.add(battens);
+	}
 
 	public Set<Hauberk> getHauberk() {
 		return hauberk;
@@ -95,6 +97,10 @@ public class Stock {
 
 	public void setHauberk(Set<Hauberk> hauberk) {
 		this.hauberk = hauberk;
+	}
+	
+	public void addHauberk(Hauberk hauberk) {
+		this.hauberk.add(hauberk);
 	}
 
 	public Set<Helmet> getHelmet() {
@@ -104,6 +110,10 @@ public class Stock {
 	public void setHelmet(Set<Helmet> helmet) {
 		this.helmet = helmet;
 	}
+	
+	public void addHelmet(Helmet helmet) {
+		this.helmet.add(helmet);
+	}
 
 	public Set<Weapon> getWeapon() {
 		return weapon;
@@ -111,5 +121,9 @@ public class Stock {
 
 	public void setWeapon(Set<Weapon> weapon) {
 		this.weapon = weapon;
+	}
+	
+	public void addWeapon(Weapon weapon) {
+		this.weapon.add(weapon);
 	}
 }
