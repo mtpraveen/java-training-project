@@ -1,91 +1,111 @@
 package com.finance.derivative;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
 import java.util.List;
-import org.junit.Before;
+
+import org.junit.BeforeClass;
 import org.junit.Test;
-import com.finance.insuranceLiability.HealthInsurance;
-import com.finance.insuranceLiability.Insurance;
-import com.finance.insuranceLiability.VehicleInsurance;
+
+import com.finance.model.HealthInsurance;
+import com.finance.model.Insurance;
+import com.finance.model.VehicleInsurance;
 
 public class DerivateTest {
 
-	Derivative derivative = new Derivative();
+	private static Derivative derivative = new Derivative();
+	private static List<Insurance> result;
 
-	@Before
-	public void init() {
-		HealthInsurance h = new HealthInsurance("Health Insurance", 999.99, 10,
-				"Ivan", "Ivanovich", "Ivanov");
-		derivative.addInsurance(h);
-		VehicleInsurance v = new VehicleInsurance("Vehicle Insurance", 99.99,
-				30, "modelCar", 2005);
-		derivative.addInsurance(v);
-	}
+	private static HealthInsurance healthInsurance;
+	private static VehicleInsurance vehicleInsurance;
 
-	@Test
-	public void testCreateInsurance() throws CloneNotSupportedException {
-		for (Insurance i : derivative.getInsurances()) {
-			if (i instanceof HealthInsurance) {
-				assertEquals("Health Insurance", i.getTitle());
-				assertTrue(i.getPrice() == 999.99);
-				assertTrue(i.getRisk() == 10);
-			}
-			if (i instanceof VehicleInsurance) {
-				assertEquals("Vehicle Insurance", i.getTitle());
-				assertTrue(i.getPrice() == 99.99);
-				assertTrue(i.getRisk() == 30);
-			}
-		}
+	private static final String healthInsuranceTitle = "Health Insurance";
+	private static final double healthInsurancePrice = 999.99;
+	private static final int healthInsuranceRisk = 10;
+	private static final String firstName = "Ivan";
+	private static final String middleName = "Ivanovich";
+	private static final String lastName = "Ivanov";
+
+	private static final String vehicleInsuranceTitle = "Vehicle Insurance";
+	private static final double vehicleInsurancePrice = 99.99;
+	private static final int vehicleInsuranceRisk = 30;
+	private static final String modelName = "modelCar";
+	private static final int yearManufactured = 2005;
+
+	@BeforeClass
+	public static void init() {
+		healthInsurance = new HealthInsurance(healthInsuranceTitle,
+				healthInsurancePrice, healthInsuranceRisk, firstName,
+				middleName, lastName);
+		derivative.addInsurance(healthInsurance);
+		vehicleInsurance = new VehicleInsurance(vehicleInsuranceTitle,
+				vehicleInsurancePrice, vehicleInsuranceRisk, modelName,
+				yearManufactured);
+		derivative.addInsurance(vehicleInsurance);
 	}
 
 	@Test
 	public void testPrice() {
-		assertTrue(derivative.price() == 1099.98);
+		assertTrue(derivative.getPrice() == 1099.98);
 	}
 
 	@Test
 	public void testSearchByTitle() {
-		assertTrue(derivative.searchByTitle("Health Insurance") instanceof HealthInsurance);
-		assertTrue(derivative.searchByTitle("Vehicle Insurance") instanceof VehicleInsurance);
+		result = new ArrayList<Insurance>();
+		assertEquals(result, derivative.searchByTitle("false"));
+		result.add(healthInsurance);
+		assertEquals(result.get(0).getTitle(),derivative.searchByTitle(healthInsuranceTitle).get(0).getTitle());
+		result.clear();
+		result.add(vehicleInsurance);
+		assertEquals(result.get(0).getTitle(),derivative.searchByTitle(vehicleInsuranceTitle).get(0).getTitle());
 	}
 
 	@Test
 	public void testSearchByPrice() {
-		assertTrue(derivative.searchByPrice(99.99) instanceof VehicleInsurance);
-		assertTrue(derivative.searchByPrice(999.99) instanceof HealthInsurance);
+		assertTrue(0 == derivative.searchByPrice(5).size());
+		for (Insurance i : derivative.searchByPrice(healthInsurancePrice)) {
+			assertTrue(healthInsurancePrice == i.getPrice());
+		}
+		for (Insurance i : derivative.searchByPrice(vehicleInsurancePrice)) {
+			assertTrue(vehicleInsurancePrice == i.getPrice());
+		}
 	}
 
 	@Test
 	public void testSearchByRisk() {
-		assertTrue(derivative.searchByRisk(10) instanceof HealthInsurance);
-		assertTrue(derivative.searchByRisk(30) instanceof VehicleInsurance);
-	}
-
-	@Test
-	public void testSearchByFirstName() {
-		assertEquals(derivative.searchByFirstName("Ivan").getFirstName(), "Ivan");
+		result = new ArrayList<Insurance>();
+		assertEquals(result.size(), derivative.searchByRisk(45).size());
+		result.add(healthInsurance);
+		assertEquals(result, derivative.searchByRisk(healthInsuranceRisk));
+		result.clear();
+		result.add(vehicleInsurance);
+		assertEquals(result, derivative.searchByRisk(vehicleInsuranceRisk));
 	}
 
 	@Test
 	public void testSearchByTitleAndPrice() {
-		assertTrue(derivative.searchByTitleAndPrice("Health Insurance", 999.99) instanceof HealthInsurance);
-		assertTrue(derivative.searchByTitleAndPrice("Vehicle Insurance", 99.99) instanceof VehicleInsurance);
+		result = new ArrayList<Insurance>();
+		assertEquals(result, derivative.searchByTitleAndPrice(
+				healthInsuranceTitle, vehicleInsuranceRisk));
+		result.add(healthInsurance);
+		assertEquals(result, derivative.searchByTitleAndPrice(
+				healthInsuranceTitle, healthInsuranceRisk));
 	}
 
 	@Test
-	public void testSortInshuranceByRisk() throws CloneNotSupportedException {
-		List<Insurance> list = derivative.sortInsurances();
-		assertEquals(list.get(0).getRisk(), 30);
-		assertEquals(list.get(1).getRisk(), 10);
-		List<Insurance> insurances = derivative.getInsurances();
-		assertEquals(insurances.get(0).getRisk(), 10);
-		assertEquals(insurances.get(1).getRisk(), 30);
+	public void sortInsurancesByRiskReduction() {
+		result = derivative.sortInsurancesByRiskReduction();
+		assertTrue(result.get(0).getRisk() >= result.get(1).getRisk());
 	}
 
 	@Test
-	public void removeInsuranceByTitle() throws CloneNotSupportedException {
-		assertTrue(derivative.getInsurances().size() == 2);
-		derivative.removeInsuranceByTitle("Health Insurance");
-		assertTrue(derivative.getInsurances().size() == 1);
+	public void testRemove() {
+		result = new ArrayList<Insurance>();
+		result.add(healthInsurance);
+		derivative.removeInsurance(vehicleInsurance);
+		assertEquals(result, derivative.getInsurances());
 	}
+
 }

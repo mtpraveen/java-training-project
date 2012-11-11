@@ -1,7 +1,8 @@
 package com.finance.derivative;
 
 import java.util.Comparator;
-import com.finance.insuranceLiability.Insurance;
+
+import com.finance.model.Insurance;
 
 /**
  * 
