@@ -1,4 +1,4 @@
-package com.epam.data;
+package com.epam.training.data;
 
 import java.io.File;
 

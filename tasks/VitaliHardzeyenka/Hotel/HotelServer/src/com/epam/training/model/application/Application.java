@@ -1,8 +1,8 @@
-package com.epam.model.application;
+package com.epam.training.model.application;
 
 import java.util.Date;
 
-import com.epam.model.room.ClassApartments;
+import com.epam.training.model.room.ClassApartments;
 
 public class Application {
 	private int numberSeats;

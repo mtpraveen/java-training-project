@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import com.epam.threads.ServerThread;
+import com.epam.training.threads.ServerThread;
 
 public class Runner {
 

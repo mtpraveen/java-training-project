@@ -1,4 +1,4 @@
-package com.epam.model.room;
+package com.epam.training.model.room;
 
 public class Room {
 	private int numberRoom;

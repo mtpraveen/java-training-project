@@ -1,4 +1,4 @@
-package com.epam.threads;
+package com.epam.training.threads;
 
 import java.net.Socket;
 import java.util.concurrent.Callable;

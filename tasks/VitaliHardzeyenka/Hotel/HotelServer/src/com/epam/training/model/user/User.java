@@ -1,4 +1,4 @@
-package com.epam.model.user;
+package com.epam.training.model.user;
 
 public class User {
 	private String login;
