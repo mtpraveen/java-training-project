@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>HotelClient</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<variableList>
+		<variable>
+			<name>apacheLog4j</name>
+			<value>file:/D:/WORK/MY_PROJECTS/JAVA/EPAM_STUDY/THREADS_CLIENT_SERVER/Hotel/HotelClient/lib/log4j-1.2.16.jar</value>
+		</variable>
+	</variableList>
+</projectDescription>
