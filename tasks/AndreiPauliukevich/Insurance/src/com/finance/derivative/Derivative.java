@@ -1,10 +1,10 @@
 package com.finance.derivative;
 
-import com.finance.insuranceLiability.HealthInsurance;
-import com.finance.insuranceLiability.Insurance;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.finance.model.Insurance;
 
 /**
  * 
@@ -20,7 +20,7 @@ public class Derivative {
 	 * 
 	 * @return price
 	 */
-	public double price() {
+	public double getPrice() {
 		double price = 0;
 		for (Insurance i : insurances) {
 			price += i.getPrice();
@@ -33,7 +33,7 @@ public class Derivative {
 	 * 
 	 * @return list of insurance
 	 */
-	public List<Insurance> sortInsurances() {
+	public List<Insurance> sortInsurancesByRiskReduction() {
 		List<Insurance> list = new ArrayList<Insurance>(insurances);
 		Collections.sort(list, new DerivativeComparator());
 		return list;
@@ -45,11 +45,11 @@ public class Derivative {
 	 * @param title
 	 * @return insurance
 	 */
-	public Insurance searchByTitle(String title) {
-		Insurance result = null;
+	public List<Insurance> searchByTitle(String title) {
+		List<Insurance> result = new ArrayList<Insurance>();
 		for (Insurance i : insurances) {
 			if (i.getTitle().equals(title)) {
-				result = i;
+				result.add(i);
 			}
 		}
 		return result;
@@ -61,11 +61,11 @@ public class Derivative {
 	 * @param risk
 	 * @return insurance
 	 */
-	public Insurance searchByRisk(int risk) {
-		Insurance result = null;
+	public List<Insurance> searchByRisk(int risk) {
+		List<Insurance> result = new ArrayList<Insurance>();
 		for (Insurance i : insurances) {
 			if (i.getRisk() == risk) {
-				result = i;
+				result.add(i);
 			}
 		}
 		return result;
@@ -77,61 +77,32 @@ public class Derivative {
 	 * @param price
 	 * @return insurance
 	 */
-	public Insurance searchByPrice(double price) {
-		Insurance result = null;
+	public List<Insurance> searchByPrice(double price) {
+		List<Insurance> result = new ArrayList<Insurance>();
 		for (Insurance i : insurances) {
 			if (i.getPrice() == price) {
-				result = i;
+				result.add(i);
 			}
 		}
 		return result;
 	}
-
-	/**
-	 * Search by title and price
-	 * 
-	 * @param title
-	 * @param price
-	 * @return insurance
-	 */
-	public Insurance searchByTitleAndPrice(String title, double price) {
-		Insurance result = null;
+	
+	public List<Insurance> searchByTitleAndPrice(String title , int risk) {
+		List<Insurance> result = new ArrayList<Insurance>();
 		for (Insurance i : insurances) {
-			if (i.getTitle().equals(title) && i.getPrice() == price) {
-				result = i;
+			if (i.getTitle().equals(title) && i.getRisk() == risk) {
+				result.add(i);
 			}
 		}
 		return result;
-	}
-
-	/**
-	 * Search health insurance by first name
-	 * 
-	 * @param name
-	 * @return HealthInsurance
-	 */
-	public HealthInsurance searchByFirstName(String name) {
-		Insurance result = null;
-		for (Insurance i : insurances) {
-			if (i instanceof HealthInsurance) {
-				if (((HealthInsurance) i).getFirstName().equals(name)) {
-					result = i;
-				}
-			}
-		}
-		return (HealthInsurance) result;
 	}
 
 	/**
 	 * @return the insurances
 	 * @throws CloneNotSupportedException
 	 */
-	public List<Insurance> getInsurances() throws CloneNotSupportedException {
-		List<Insurance> list = new ArrayList<Insurance>(insurances.size());
-		for (Insurance i : insurances) {
-			list.add(i.clone());
-		}
-		return list;
+	public List<Insurance> getInsurances() {
+		return insurances;
 	}
 
 	/**
@@ -140,16 +111,15 @@ public class Derivative {
 	 * @param insurance
 	 */
 	public void addInsurance(Insurance insurance) {
-		this.insurances.add(insurance);
+		insurances.add(insurance);
 	}
 
 	/**
-	 * Remove insurance by title
+	 * Remove insurance
 	 * 
-	 * @param title
+	 * @param insurance
 	 */
-	public void removeInsuranceByTitle(String title) {
-		this.insurances.remove(searchByTitle(title));
+	public void removeInsurance(Insurance insurance) {
+		insurances.remove(insurance);
 	}
-
 }
