@@ -72,45 +72,34 @@ public class Knight {
 
 	/**
 	 * This function allows to equip the instance of the Knight class
-	 * automatically. Cost of every thing is
+	 * automatically. Cost of every thing is determined automatically and based
+	 * on constants.
 	 * 
 	 * @param stock
 	 */
 	public void selfEquip(Stock stock) {
 		try {
+			int availableCash = this.getCashAvailable();
+			double battensLowerValueBoundary = availableCash * 0.3;
+			double battensHigherValueBoundary = availableCash * 0.4;
+			double hauberkLowerValueBoundary = availableCash * 0.1;			
+			double hauberkHidherValueBoundary = availableCash * 0.2;
+			double helmetLowerValueBoundary = availableCash * 0.1;
+			double weaponLowerValueBoundary = availableCash * 0.4;
+			double weaponHigherValueBoundary = availableCash * 0.5;
 			this.setBattens((Battens) stock.search(stock.getBattens(),
-					this.getCashAvailable() * 0.3,
-					this.getCashAvailable() * 0.4));
+					battensLowerValueBoundary,
+					battensHigherValueBoundary));
 			this.setHauberk((Hauberk) stock.search(stock.getHauberk(),
-					this.getCashAvailable() * 0.1,
-					this.getCashAvailable() * 0.2));
+					hauberkLowerValueBoundary,
+					hauberkHidherValueBoundary));
 			this.setHelmet((Helmet) stock.search(stock.getHelmet(), 0,
-					this.getCashAvailable() * 0.1));
+					helmetLowerValueBoundary));
 			this.setWeapon((Weapon) stock.search(stock.getWeapon(),
-					this.getCashAvailable() * 0.4,
-					this.getCashAvailable() * 0.5));
+					weaponLowerValueBoundary,
+					weaponHigherValueBoundary));
 		} catch (NotFound e) {
 			e.printStackTrace();
 		}
-	}
-
-	public static void main(String[] args) {
-		Knight knight1 = new Knight();
-		knight1.helmet = new Helmet(200, 30, 1.2, "Leather", 62);
-		knight1.hauberk = new Hauberk(600, 50, 3.0, "Steel", 100, 10);
-		knight1.battens = new Battens(1200, 80, 12.0, "Steel", 100, 80, 80);
-		knight1.weapon = new Weapon(1500, 80, 1.2, "Damask Steel",
-				"Raven Sword");
-		System.out.println(knight1.getCost());
-		Stock stock = new Stock();
-		stock.addBattens(new Battens(1200, 80, 12.0, "Steel", 100, 80, 80));
-		stock.addHauberk(new Hauberk(600, 50, 3.0, "Steel", 100, 10));
-		stock.addHelmet(new Helmet(200, 30, 1.2, "Leather", 62));
-		stock.addWeapon(new Weapon(1500, 80, 1.2, "Damask Steel", "Raven Sword"));
-		Knight knight2 = new Knight();
-		knight2.setCashAvailable(3600);
-		// knight2.selfEquip(stock);
-
-		System.out.println(knight2.getCost());
 	}
 }
