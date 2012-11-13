@@ -1,0 +1,4 @@
+vadim,1234qwer,administrator
+aleksey,asdfqqwwe,user
+svetlana,asdfasdfw,user
+dmitry,33443322,user
