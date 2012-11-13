@@ -35,14 +35,15 @@ public class KnightTest {
 	}
 	
 	@Test
-	public void testGetCost() {
-		assertEquals(3500, knight_1.getCost());
-	}
-	
-	@Test
 	public void testSelfEquip() {
 		knight_2.selfEquip(stock);
 		assertEquals(1, knight_1.equals(knight_2));
+	}
+	
+	@Test
+	public void testGetCost() {
+		assertEquals(3500, knight_1.getCost());
+		assertEquals(3500, knight_2.getCost());
 	}
 
 }
