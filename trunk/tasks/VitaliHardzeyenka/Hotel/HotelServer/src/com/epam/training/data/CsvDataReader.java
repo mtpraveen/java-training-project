@@ -1,7 +1,7 @@
 package com.epam.training.data;
 
-import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.commons.io.FileUtils;
 
@@ -16,29 +16,26 @@ public class CsvDataReader extends DataFile {
     }
 
     /**
-     * Read information from file.
-     * @return information from file as string.
+     * Read whole text file line by line.
+     * @return list of strings.
      */
-    public String read() {
-        StringBuilder fileReadString = new StringBuilder(); // return
-        int currentChar; // current reading char from file
+    public ArrayList<String> read() {
 
         if (super.getFile().exists()) { // if file exist
             if (super.getFile().isFile()) { // if it is file
                 try {
-                    FileReader fileReader = new FileReader(super.getFile());
-                    while ((currentChar = fileReader.read()) != -1) {
-                        fileReadString.append((char) currentChar); // add char to return string
-                    }
+                	// read line by line
+                	return (ArrayList<String>) FileUtils.readLines(super.getFile()); 
                 } catch (IOException e) {
                 	// logger
                     System.err.println("Reading file error: " + e);
                 }
             }
         }
-
-        return fileReadString.toString();
+        
+		return null;
     }
+    
 
     /**
      * Read certain line from file.
@@ -47,6 +44,7 @@ public class CsvDataReader extends DataFile {
      */
     public String read(int number) {
         StringBuilder fileReadString = new StringBuilder(); // return
+        
          if (super.getFile().exists()) { // if file exist
             if (super.getFile().isFile()) { // if it is file
                 try {
@@ -56,7 +54,7 @@ public class CsvDataReader extends DataFile {
                     //Logger.getLogger(TextFileReader.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-         }
+        }
         return fileReadString.toString();
     }
 
