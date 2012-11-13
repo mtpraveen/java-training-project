@@ -43,9 +43,7 @@ public class ClientManager {
 	public void sendMessageToServer(Socket serverSocket, String message, MessageTypes messageType, org.apache.log4j.Logger exeptionsLogger) {
 		try {
 			PrintStream printStream = new PrintStream(serverSocket.getOutputStream());
-			printStream.print(String.format("\n %s", message)); // send message
-			printStream.flush();
-			printStream.print(String.valueOf(messageType.toString().toUpperCase())); // send message type
+			printStream.print(String.format("%s;%s", message, messageType.toString().toUpperCase())); // send message
 			printStream.flush();
 			
 			printStream.close();
