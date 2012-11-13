@@ -15,7 +15,7 @@ import equipment.Weapon;
  * Class storing all available for knight equipment
  * 
  * @author Alexander
- * @trow NotFound exception
+ * @throws NotFound 
  */
 public class Stock {
 	private Set<Battens> battens;
@@ -38,32 +38,6 @@ public class Stock {
 		}
 		throw new NotFound("Equipment  with such parameters not found", null,
 				null);
-	}
-
-	public Helmet searchHelmet(double costMin, double costMax) throws NotFound {
-		try {
-			for (Helmet o : this.helmet) {
-				if (o.getCost() > costMin && o.getCost() < costMax)
-					return o;
-			}
-			throw new NotFound("Helmet with such parameters not found", null,
-					null);
-		} catch (NotFound e) {
-			throw e;
-		}
-	}
-
-	public Weapon searchWeapon(double costMin, double costMax) throws NotFound {
-		try {
-			for (Weapon o : this.weapon) {
-				if (o.getCost() > costMin && o.getCost() < costMax)
-					return o;
-			}
-			throw new NotFound("Weapon with such parameters not found", null,
-					null);
-		} catch (NotFound e) {
-			throw e;
-		}
 	}
 
 	public Set<Battens> getBattens() {
