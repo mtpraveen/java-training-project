@@ -15,5 +15,17 @@ public class FileFinder {
     public static String findFilePath(String fileName) {
         return System.getProperty("user.dir") + String.format("\\data\\%s", fileName);
     }
+    
+    /**
+     * Find parent folder of specified file.
+     * @param absolutePath path to file.
+     * @return parent folder as string
+     */
+    public static String findFileParentFolder(String absolutePath) {
+    	String parentFolder = null;
+    	int index = absolutePath.lastIndexOf("\\");
+    	parentFolder = absolutePath.substring(0, index + 1);
+    	return parentFolder;
+    }
 
 }
