@@ -35,6 +35,19 @@ public class ClientManager {
 	}
 	
 	/**
+	 * Close connection with server.
+	 * @param socket
+	 * @param logger
+	 */
+	public void closeClient(Socket socket, Logger logger) {
+		try {
+			socket.close();
+		} catch(IOException exception) {
+			logger.getExeptionsLogger().error(exception);
+		}
+	}
+	
+	/**
 	 * Send message to the server.
 	 * @param message message that will be sent.
 	 * @param messageType type of sending message.
