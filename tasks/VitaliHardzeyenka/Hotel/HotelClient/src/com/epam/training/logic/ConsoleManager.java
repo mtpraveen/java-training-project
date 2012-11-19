@@ -1,6 +1,7 @@
 package com.epam.training.logic;
 
 import java.net.Socket;
+import java.util.ResourceBundle;
 
 /**
  * @author EXUMLOKE
@@ -12,6 +13,7 @@ public class ConsoleManager {
 	
 	private ClientManager clientManager = new ClientManager();
 	private Socket socket; // server connection
+	private final ResourceBundle resourceBundle = ResourceBundle.getBundle(System.getProperty("user.dir") + "\\resources\\clientMessages");
 	
 	/**
 	 * Constructor
