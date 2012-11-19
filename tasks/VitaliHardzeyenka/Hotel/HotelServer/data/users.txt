@@ -1,4 +1,4 @@
-vadim,1234qwer,administrator
-aleksey,asdfqqwwe,user
-svetlana,asdfasdfw,user
-dmitry,33443322,user
+vadim,1234qwer,ADMINISTRATOR
+aleksey,asdfqqwwe,CLIENT
+svetlana,asdfasdfw,CLIENT
+dmitry,33443322,CLIENT
