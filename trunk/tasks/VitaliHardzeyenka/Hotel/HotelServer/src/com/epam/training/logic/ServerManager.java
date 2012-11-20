@@ -24,6 +24,7 @@ public class ServerManager {
 		try {
 			return serverSocket.accept();
 		} catch (IOException exception) {
+			exception.printStackTrace();
 			exceptionLogger.error(exception);
 			return null;
 		}

@@ -19,9 +19,6 @@ public class ServerWorker {
 	private ServerManager serverManager = new ServerManager(); // object with all possible server actions
 	Logger logger = new Logger(org.apache.log4j.Logger.getLogger(ServerWorker.class.getName())); // logger	
 	
-	/**
-	 * 
-	 */
 	public void run() {
 		
 		DataStorage.loadData(System.getProperty("user.dir") + "\\data\\data.zip"); // load data from zip archive
@@ -35,9 +32,9 @@ public class ServerWorker {
 		 * get thread result.
 		 */
 		while (!server.getServerSocket().isClosed()) { // do while server will not be shutdown
-			
-			// Wait new client and connect with it. 
+			// Wait new client and connect with it.
 			Socket clientSocket = serverManager.acceptClientConnection(server.getServerSocket(), logger.getExeptionsLogger());
+			System.out.println("client connected: " + clientSocket.getInetAddress());
 			
 			if (clientSocket != null) { // if client was connected
 				server.getClientSockets().add(clientSocket); // add new connected client to the list
