@@ -25,6 +25,7 @@ public class Server {
 		try {
 			// Set default server socket as 1234. 
 			setServerSocket(new ServerSocket(1234));
+			System.out.println("server is run with port 1234");
 		} catch (IOException e) {
 			// logger
 			e.printStackTrace();

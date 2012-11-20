@@ -1,14 +1,16 @@
 package com.epam.training.serverworkerstest;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
+
+import com.epam.training.logic.ServerWorker;
 
 public class ServerWorkerTest {
 
 	@Test
-	public void test() {
+	public void testServerWorker() {
 		
+		ServerWorker serverWorker = new ServerWorker();
+		serverWorker.run();
 	}
 
 }
