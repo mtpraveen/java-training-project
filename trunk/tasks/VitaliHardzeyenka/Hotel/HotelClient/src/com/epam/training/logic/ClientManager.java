@@ -20,7 +20,7 @@ public class ClientManager {
 	 * 		  			  if server is on the local machine.
 	 * @param port port of server.
 	 * @param exeptionsLogger text file logger for errors. 
-	 * @return true if connection has been established, false in another case.
+	 * @return server connection
 	 */
 	public Socket setServerSonnection(InetAddress inetAddress, int port, org.apache.log4j.Logger exeptionsLogger) {
 		try {
@@ -29,6 +29,7 @@ public class ClientManager {
 			exeptionsLogger.error(exception);
 			return null;
 		} catch (IOException exception) {
+			exception.printStackTrace();
 			exeptionsLogger.error(exception);
 			return null;
 		}
