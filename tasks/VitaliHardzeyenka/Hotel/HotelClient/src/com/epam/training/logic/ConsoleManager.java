@@ -13,7 +13,7 @@ public class ConsoleManager {
 	
 	private ClientManager clientManager = new ClientManager();
 	private Socket socket; // server connection
-	private final ResourceBundle resourceBundle = ResourceBundle.getBundle(System.getProperty("user.dir") + "\\resources\\clientMessages");
+//	private final ResourceBundle resourceBundle = ResourceBundle.getBundle(System.getProperty("user.dir") + "\\resources\\clientMessages");
 	
 	/**
 	 * Constructor

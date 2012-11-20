@@ -13,12 +13,10 @@ public class Connecter {
 	private Socket serverSocket;
 
 	public void run() {
-		System.out.println("client was started");
 		try {
 			InetAddress address = InetAddress.getByName(serverIp); // get server address
 			serverSocket = clientManager.setServerSonnection(address, serverPort, logger.getExeptionsLogger()); // try to connect to server
-			System.out.println("client connected");
-			
+
 			// Give control to user.
 			ConsoleManager consoleManager = new ConsoleManager(serverSocket);
 			consoleManager.run();
