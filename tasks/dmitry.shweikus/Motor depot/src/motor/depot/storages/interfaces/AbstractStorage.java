@@ -3,6 +3,8 @@
  */
 package motor.depot.storages.interfaces;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -12,8 +14,12 @@ import java.util.ArrayList;
 public interface AbstractStorage
 {
 	void save();
-	AbstractItemStateSaver createNewSaver(String itemId);
-	void addSaver(AbstractItemStateSaver saver);
-	void load();
-	public ArrayList<AbstractItemStateLoader> getLoaders(String classId);
+	void initSave();
+	//AbstractItemStateSaver createNewSaver(String itemId);
+	//void addSaver(AbstractItemStateSaver saver);
+	boolean load();
+	boolean loadFromCSV(String filePath);
+	ArrayList<AbstractItemStateLoader> getLoaders(String classId);
+	ObjectOutputStream getOutputStream();
+	ObjectInputStream getInputStream();
 }

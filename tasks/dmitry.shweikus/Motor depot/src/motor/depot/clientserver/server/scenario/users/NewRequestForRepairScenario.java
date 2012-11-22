@@ -38,7 +38,7 @@ public class NewRequestForRepairScenario extends AbstractScenario
 			driver = (Driver) thread.getUser();
 		else
 		{
-			ListWithIds<Driver> drivers = MotorDepot.instance().drivers.getCopy();
+			ListWithIds<Driver> drivers = MotorDepot.getInstance().drivers.getCopy();
 			ListIterator<Driver> iterator = drivers.listIterator();
 			while(iterator.hasNext())
 			{
@@ -55,17 +55,17 @@ public class NewRequestForRepairScenario extends AbstractScenario
 		}
 		str("");
 		str("Select car:");
-		TableScenario carTable = new TableScenario(thread, MotorDepot.instance().cars.getTableProvider());
+		TableScenario carTable = new TableScenario(thread, MotorDepot.getInstance().cars.getTableProvider());
 		carTable.setSelectable(true);
 		carTable.run();
 		if (carTable.getSelectedRow() == -1)
 			return;
-		Car car = MotorDepot.instance().cars.get(carTable.getSelectedRow());
+		Car car = MotorDepot.getInstance().cars.get(carTable.getSelectedRow());
 		str("");
 		str("Enter reason:");
 		String description = readString();
 		
-		RequestForRepair request = MotorDepot.instance().addRequestForRepair(driver, car, description);
+		RequestForRepair request = MotorDepot.getInstance().addRequestForRepair(driver, car, description);
 		if (request == null)
 			str("Request not added.");
 		else

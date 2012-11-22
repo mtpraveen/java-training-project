@@ -1,0 +1,9 @@
+dispatcher;0;admin;123;10
+driver;1;ivan;1;1
+driver;2;иван;1;1
+car;3;cool;bmw;777;good
+car;4;=(;icarus;13;normal
+trip;9;berlin;moscow;bm;0;4;1
+RequestForRepair;5;very old;1;4
+RequestForRepair;6;no reason;1;3
+RequestForRepair;7;"reason with quoute ["" ;] ";1;3

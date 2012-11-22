@@ -4,7 +4,9 @@
 package motor.depot.clientserver;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.Console;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -52,7 +54,7 @@ final class ShowTextCommandImpl extends AbstractClientServerCommandImpl
 		}
 	}
 
-	public void sendString(PrintWriter toServer, String s)
+	public void sendString(PrintWriter toServer, String s) throws IOException
 	{
 		sendToClient(toServer);
 		toServer.println(s);

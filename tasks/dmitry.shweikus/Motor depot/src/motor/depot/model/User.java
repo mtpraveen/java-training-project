@@ -3,9 +3,6 @@
  */
 package motor.depot.model;
 
-import motor.depot.storages.interfaces.AbstractItemStateLoader;
-import motor.depot.storages.interfaces.AbstractItemStateSaver;
-import motor.depot.storages.interfaces.AbstractStorage;
 import motor.depot.storages.interfaces.ICanBeSaved;
 import motor.depot.storages.interfaces.ITableRowProvider;
 
@@ -58,25 +55,6 @@ public abstract class User implements ICanBeSaved,ITableRowProvider
 		this.password = password;
 	}
 	public abstract boolean isAdmin();
-	
-	@Override
-	public AbstractItemStateSaver getSaver(
-			AbstractStorage saverCreator) {
-		return saverCreator.createNewSaver(getClassId()).addValue(id).addValue(login).addValue(password);
-	}
-	
-	@Override
-	public void loadObjects(MotorDepot motorDepot,
-			AbstractItemStateLoader getter) {
-		//do nothing here because we have no objects		
-	}
-	
-	@Override
-	public void loadPrimitives(AbstractItemStateLoader stateGetter) {
-		id = stateGetter.getValueInt(0);
-		login = stateGetter.getValue(1);
-		password = stateGetter.getValue(2);
-	}
 	
 	public boolean mathLoginData(String login, String password)
 	{

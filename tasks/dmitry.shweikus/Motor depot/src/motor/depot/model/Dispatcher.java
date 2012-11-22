@@ -3,9 +3,6 @@
  */
 package motor.depot.model;
 
-import motor.depot.storages.interfaces.AbstractItemStateLoader;
-import motor.depot.storages.interfaces.AbstractItemStateSaver;
-import motor.depot.storages.interfaces.AbstractStorage;
 import motor.depot.storages.interfaces.ICanBeSaved;
 
 /**
@@ -15,7 +12,8 @@ import motor.depot.storages.interfaces.ICanBeSaved;
 public class Dispatcher extends User
 {
 	int nextId = 1;
-
+	private static final long serialVersionUID = 22112012;
+	
 	@Override
 	public boolean isAdmin()
 	{
@@ -27,18 +25,6 @@ public class Dispatcher extends User
 		return null;
 	}
 
-	@Override
-	public AbstractItemStateSaver getSaver(AbstractStorage saverCreator)
-	{
-		return super.getSaver(saverCreator).addValue(nextId);
-	}
-	@Override
-	public void loadPrimitives(AbstractItemStateLoader stateGetter)
-	{
-		super.loadPrimitives(stateGetter);
-		if (stateGetter.getValuesCount() > 3)
-			nextId = stateGetter.getValueInt(3);
-	}
 	public void setDriverSuspendedState(Driver driver, boolean isSuspended)
 	{
 
@@ -59,6 +45,11 @@ public class Dispatcher extends User
 	public int generateNewId()
 	{
 		return nextId++;
+	}
+
+	@Override
+	public long getSerialVersionUID() {
+		return serialVersionUID;
 	}
 
 }

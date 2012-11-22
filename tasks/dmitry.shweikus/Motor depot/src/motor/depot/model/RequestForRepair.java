@@ -3,9 +3,6 @@
  */
 package motor.depot.model;
 
-import motor.depot.storages.interfaces.AbstractItemStateLoader;
-import motor.depot.storages.interfaces.AbstractItemStateSaver;
-import motor.depot.storages.interfaces.AbstractStorage;
 import motor.depot.storages.interfaces.ICanBeSaved;
 import motor.depot.storages.interfaces.ITableRowProvider;
 
@@ -19,6 +16,7 @@ public class RequestForRepair implements ICanBeSaved,ITableRowProvider
 	Driver driver;
 	Car car;
 	String description;
+	private static final long serialVersionUID = 22112012;
 	/**
 	 * @return the driver
 	 */
@@ -67,28 +65,6 @@ public class RequestForRepair implements ICanBeSaved,ITableRowProvider
 		return id;
 	}
 	@Override
-	public AbstractItemStateSaver getSaver(AbstractStorage saverCreator)
-	{
-		AbstractItemStateSaver saver = saverCreator.createNewSaver(getClassId());
-		saver.addValue(id);
-		saver.addValue(description);
-		saver.addValue(driver.getId());
-		saver.addValue(car.getId());
-		return saver;
-	}
-	@Override
-	public void loadPrimitives(AbstractItemStateLoader stateGetter)
-	{
-		id = stateGetter.getValueInt(0);
-		description = stateGetter.getValue(1);
-	}
-	@Override
-	public void loadObjects(MotorDepot motorDepot, AbstractItemStateLoader getter)
-	{
-		driver = motorDepot.findDriverById(getter.getValueInt(2));
-		car = motorDepot.findCarById(getter.getValueInt(3));
-	}
-	@Override
 	public String getClassId()
 	{
 		return "RequestForRepair";
@@ -132,5 +108,9 @@ public class RequestForRepair implements ICanBeSaved,ITableRowProvider
 	public ITableRowProvider getRowProvider()
 	{
 		return this;
+	}
+	@Override
+	public long getSerialVersionUID() {
+		return serialVersionUID;
 	}
 }

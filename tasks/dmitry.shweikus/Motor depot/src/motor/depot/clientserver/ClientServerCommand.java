@@ -3,6 +3,8 @@
  */
 package motor.depot.clientserver;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 
@@ -40,6 +42,11 @@ public enum ClientServerCommand
 	public static void sendText(PrintWriter writer, String textToClient)
 	{
 		ShowTextCommandImpl impl = new ShowTextCommandImpl(SHOW_TEXT);
-		impl.sendString(writer, textToClient);
+		try
+		{
+			impl.sendString(writer, textToClient);
+		} catch (IOException e)
+		{
+		}
 	}
 }

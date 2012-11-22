@@ -3,9 +3,14 @@
  */
 package motor.depot.model;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 import motor.depot.listclasses.ListWithIds;
+import motor.depot.model.enums.TripState;
 import motor.depot.storages.csv.CsvStorage;
 import motor.depot.storages.interfaces.AbstractStorage;
 import motor.depot.storages.interfaces.ICanBeSaved;
@@ -17,6 +22,8 @@ import motor.depot.storages.interfaces.ICanBeSaved;
 public class MotorDepot
 {
 	Dispatcher dispatcher;
+	private static final Logger LOGGER = Logger.getLogger(MotorDepot.class);
+	private static final long serialVersionUID = 565645645688l;
 	/**
 	 * @return the dispatcher
 	 */
@@ -46,25 +53,45 @@ public class MotorDepot
 		return drivers.findById(id);
 	}
 	
-	public MotorDepot(AbstractStorage storage)
+	public MotorDepot(AbstractStorage storage)  
 	{
 		ListWithIds<Dispatcher> dispatchers = new ListWithIds<Dispatcher>(new Dispatcher());
-		ArrayList<ListWithIds<? extends ICanBeSaved>> arrays = new ArrayList<ListWithIds<? extends ICanBeSaved>>();
+		//
+		if (storage.load())
+		{
+			ObjectInputStream stream = storage.getInputStream();
+			Object obj;
+			try {
+				obj = stream.readObject();
+				while(obj!=null)
+				{
+					dispatchers.addObjectIfMatchType(obj);
+					drivers.addObjectIfMatchType(obj);
+					cars.addObjectIfMatchType(obj);
+					trips.addObjectIfMatchType(obj);
+					requestsForRepair.addObjectIfMatchType(obj);
+					obj = stream.readObject();
+				}
+			} catch (IOException e) {
+			} catch (ClassNotFoundException e) {
+			}
+		}
+		/*
+		 * 		ArrayList<ListWithIds<? extends ICanBeSaved>> arrays = new ArrayList<ListWithIds<? extends ICanBeSaved>>();
 		arrays.add(dispatchers);
 		arrays.add(drivers);
 		arrays.add(cars);
 		arrays.add(trips);
 		arrays.add(requestsForRepair);
-		//
-		storage.load();
-		for (ListWithIds<? extends ICanBeSaved> list : arrays)
+
+		 * for (ListWithIds<? extends ICanBeSaved> list : arrays)
 		{
 			list.loadPrimitives(storage);
 		}
 		for (ListWithIds<? extends ICanBeSaved> list : arrays)
 		{
 			list.loadObjects(storage, this);
-		}
+		}*/
 		//
 		if (dispatchers.size() == 0)
 		{
@@ -77,17 +104,22 @@ public class MotorDepot
 	}
 	public void save(AbstractStorage storage)
 	{
+		storage.initSave();
 		ListWithIds<Dispatcher> dispatchers = new ListWithIds<Dispatcher>(new Dispatcher());
 		dispatchers.add(dispatcher);
 		//
-		dispatchers.save(storage);
-		drivers.save(storage);
-		cars.save(storage);
-		trips.save(storage);
-		requestsForRepair.save(storage);
+		try {
+			dispatchers.saveToStream(storage.getOutputStream());
+			drivers.saveToStream(storage.getOutputStream());
+			cars.saveToStream(storage.getOutputStream());
+			trips.saveToStream(storage.getOutputStream());
+			requestsForRepair.saveToStream(storage.getOutputStream());
+		} catch (IOException e) {
+			LOGGER.error("IOException by saving database", e);
+		}
 		storage.save();
 	}
-	public static MotorDepot instance()
+	public static MotorDepot getInstance()
 	{
 		if (_instance == null)
 		{
@@ -155,5 +187,49 @@ public class MotorDepot
 		car.setState(state);
 		cars.add(car);
 		return car;
+	}
+	
+	public ListWithIds<Trip> getTripsByState(TripState state)
+	{
+		ListWithIds<Trip> res = new ListWithIds<Trip>(new Trip());
+		for (Trip trip : trips) {
+			if(trip.state == state)
+				res.add(trip);
+		}
+		return res;
+	}
+	
+	public boolean setNewDriverActiveState(Driver driver, boolean isActive)
+	{
+		if (!isActive)
+		{
+			for (Trip trip : getTripsByState(TripState.STARTED))
+			{
+				if(trip.driver==driver)
+					return false;
+			}
+		}
+		driver.setActive(isActive);
+		return true;
+	}
+	
+	public Trip addTrip(Driver driver, Car car, String start, String destination, String description)
+	{
+		if(!driver.active)
+			return null;
+		for (Trip trip : getTripsByState(TripState.STARTED))
+		{
+			if(trip.car==car)
+				return null;
+		}
+		Trip trip = new Trip();
+		trip.setId(generateNewId());
+		trip.setDriver(driver);
+		trip.setCar(car);
+		trip.setStart(start);
+		trip.setDestination(destination);
+		trip.setDescription(description);
+		trips.add(trip);
+		return trip;
 	}
 }

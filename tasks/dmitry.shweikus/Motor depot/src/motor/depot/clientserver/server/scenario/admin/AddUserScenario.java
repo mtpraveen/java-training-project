@@ -36,7 +36,7 @@ public class AddUserScenario extends AbstractScenario
 			}
 			else
 			{
-				User user = MotorDepot.instance().findUserIgnoreCase(s);
+				User user = MotorDepot.getInstance().findUserIgnoreCase(s);
 				if (user != null)
 				{
 					if (question("User with this name allready exists. Abort action?"))
@@ -56,7 +56,7 @@ public class AddUserScenario extends AbstractScenario
 		{
 			str("Password:");
 			String password = readPassword();
-			MotorDepot.instance().addUser(userName,password);
+			MotorDepot.getInstance().addUser(userName,password);
 			str("User created");
 		}
 	}

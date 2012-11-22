@@ -9,7 +9,6 @@ package motor.depot.model.enums;
  */
 public enum TripState
 {
-	NEW,
 	STARTED,
 	FINISHED,
 	ERROR

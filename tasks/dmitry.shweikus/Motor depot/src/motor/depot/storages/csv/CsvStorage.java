@@ -5,19 +5,21 @@ package motor.depot.storages.csv;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
-
-import motor.depot.storages.csv.utils.CsvBuilder;
 import motor.depot.storages.csv.utils.CsvSplitter;
 import motor.depot.storages.interfaces.AbstractItemStateLoader;
 import motor.depot.storages.interfaces.AbstractItemStateSaver;
 import motor.depot.storages.interfaces.AbstractStorage;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author dima
@@ -25,45 +27,76 @@ import motor.depot.storages.interfaces.AbstractStorage;
  */
 public class CsvStorage implements AbstractStorage
 {
-	private static final String FILEPATH = "data.csv";
+	private static final String DATA_FILEPATH = "data.bin";
 	private final static Logger LOGGER = Logger.getLogger(CsvStorage.class);
 	ArrayList<CsvItemStateLoader> loaders = new ArrayList<CsvItemStateLoader>();
-	ArrayList<CsvItemStateSaver> savers = new ArrayList<CsvItemStateSaver>();
+	ObjectInputStream objectInputStream;
+	ObjectOutputStream objectOutputStream;
+	FileOutputStream fileOutputStream;
+	FileInputStream fileInputStream;
 	@Override
 	public void save()
 	{
-		File file = new File(FILEPATH);
-		CsvBuilder csvBuilder = new CsvBuilder();
-		file.delete();
 		try {
-			PrintStream stream = new PrintStream(file);
-			for (CsvItemStateSaver saver : savers) {
-				stream.println(csvBuilder.create(saver.getData()));								
-			}
-			stream.close();
-		} catch (FileNotFoundException e) {
-			LOGGER.error("FileNotFoundException by saving database", e);
+			objectOutputStream.flush();
+			objectOutputStream.close();
+			fileOutputStream.flush();
+			fileOutputStream.close();
+		} catch (IOException e) {
+			LOGGER.error("IOException by saving database", e);
 		}
 	}
 	@Override
-	public AbstractItemStateSaver createNewSaver(String itemId)
+	public boolean load()
 	{
-		return new CsvItemStateSaver(itemId);
+		File file = new File(DATA_FILEPATH);
+		try {
+			fileInputStream = new FileInputStream(file);
+			objectInputStream = new ObjectInputStream(fileInputStream);
+			return true;
+		} catch (FileNotFoundException e) {
+			LOGGER.error("FileNotFoundException by loading database", e);
+			return false;
+		} catch (IOException e) {
+			LOGGER.error("IOException by loading database", e);
+			return false;
+		}
 	}
 
-	/* (non-Javadoc)
-	 * @see motor.depot.storages.interfaces.AbstractStorage#addSaver(motor.depot.storages.interfaces.AbstractItemStateSaver)
-	 */
 	@Override
-	public void addSaver(AbstractItemStateSaver saver)
+	public ArrayList<AbstractItemStateLoader> getLoaders(String classId)
 	{
-		savers.add((CsvItemStateSaver)saver);
+		ArrayList<AbstractItemStateLoader> res = new ArrayList<AbstractItemStateLoader>();
+		for (CsvItemStateLoader loader : loaders) {
+			if (loader.getClassId().equals(classId))
+				res.add(loader);
+		}
+		return res;
 	}
-
 	@Override
-	public void load()
-	{
-		File file = new File(FILEPATH);
+	public void initSave() {
+		File file = new File(DATA_FILEPATH);
+		file.delete();
+		try {
+			fileOutputStream = new FileOutputStream(file);
+			objectOutputStream = new ObjectOutputStream(fileOutputStream);
+		} catch (FileNotFoundException e) {
+			LOGGER.error("FileNotFoundException by saving database", e);
+		} catch (IOException e) {
+			LOGGER.error("IOException by saving database", e);
+		}
+	}
+	@Override
+	public ObjectOutputStream getOutputStream() {
+		return objectOutputStream;
+	}
+	@Override
+	public ObjectInputStream getInputStream() {
+		return objectInputStream;
+	}
+	@Override
+	public boolean loadFromCSV(String filePath) {
+		File file = new File(filePath);
 		if (file.isFile())
 			if (file.exists())
 			{
@@ -83,22 +116,13 @@ public class CsvStorage implements AbstractStorage
 								loaders.add(loader);
 							}
 					}
+					return true;
 				} catch (FileNotFoundException e) {
 					LOGGER.error("FileNotFoundException by loading database", e);
 				} catch (IOException e) {
 					LOGGER.error("IOException by loading database", e);
 				}
 			}
-	}
-
-	@Override
-	public ArrayList<AbstractItemStateLoader> getLoaders(String classId)
-	{
-		ArrayList<AbstractItemStateLoader> res = new ArrayList<AbstractItemStateLoader>();
-		for (CsvItemStateLoader loader : loaders) {
-			if (loader.getClassId().equals(classId))
-				res.add(loader);
-		}
-		return res;
+		return false;
 	}
 }
