@@ -3,13 +3,11 @@
  */
 package motor.depot.listclasses;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import motor.depot.clientserver.server.scenario.tables.ITableProvider;
-import motor.depot.model.MotorDepot;
-import motor.depot.storages.interfaces.AbstractItemStateLoader;
-import motor.depot.storages.interfaces.AbstractItemStateSaver;
-import motor.depot.storages.interfaces.AbstractStorage;
 import motor.depot.storages.interfaces.ICanBeSaved;
 
 /**
@@ -35,35 +33,14 @@ public class ListWithIds<T extends ICanBeSaved> extends ArrayList<T>
 		}
 		return null;
 	}
-	public void save(AbstractStorage storage)
+	/*public void save(AbstractStorage storage)
 	{
 		for (T canBeSaved : this)
 		{
 			AbstractItemStateSaver saver = canBeSaved.getSaver(storage);
 			storage.addSaver(saver);
 		}
-	}
-	public void loadPrimitives(AbstractStorage storage)
-	{
-		for (AbstractItemStateLoader loader : storage.getLoaders(prototype.getClassId()))
-		{
-			ICanBeSaved item = prototype.newInstance();
-			item.loadPrimitives(loader);
-			add((T)item);
-		}
-	}
-	public void loadObjects(AbstractStorage storage, MotorDepot motorDepot)
-	{
-		for (AbstractItemStateLoader loader : storage.getLoaders(prototype.getClassId()))
-		{
-			int id = loader.getValueInt(0);
-			T item = findById(id);
-			if (item != null)
-			{
-				item.loadObjects(motorDepot, loader);
-			}
-		}
-	}
+	}*/
 	public ITableProvider getTableProvider()
 	{
 		return new ITableProvider() {
@@ -101,5 +78,20 @@ public class ListWithIds<T extends ICanBeSaved> extends ArrayList<T>
 			copy.add(iCanBeSaved);
 		}
 		return copy;
+	}
+	public void saveToStream(ObjectOutputStream stream) throws IOException
+	{
+		for (T element : this) {
+				stream.writeObject(element);
+		}
+	}
+	public boolean addObjectIfMatchType(Object object)
+	{
+		if(object.getClass().equals(prototype.getClass()))
+		{
+			add((T)object);
+			return true;
+		}
+		return false;
 	}
 }

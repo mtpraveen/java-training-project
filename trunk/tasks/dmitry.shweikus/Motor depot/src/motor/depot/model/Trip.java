@@ -21,8 +21,33 @@ public class Trip implements ICanBeSaved,ITableRowProvider
 	String start;
 	String destination;
 	String description;
-	TripState state;
+	TripState state = TripState.STARTED;
 	Car car;
+	private static final long serialVersionUID = 22112012;
+	/**
+	 * @param start the start to set
+	 */
+	public void setStart(String start) {
+		this.start = start;
+	}
+	/**
+	 * @param destination the destination to set
+	 */
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	/**
+	 * @param car the car to set
+	 */
+	public void setCar(Car car) {
+		this.car = car;
+	}
 	Driver driver;	
 	/**
 	 * @return the state
@@ -90,37 +115,6 @@ public class Trip implements ICanBeSaved,ITableRowProvider
 				throw new CannotChangeAssignedDriverException(this);
 		this.driver = driver;
 	}
-	/* (non-Javadoc)
-	 * @see motor.depot.storages.interfaces.ICanBeSaved#getSaver(motor.depot.storages.interfaces.IAbstractItemStateSaverCreator)
-	 */
-	@Override
-	public AbstractItemStateSaver getSaver(AbstractStorage saverCreator)
-	{
-		AbstractItemStateSaver saver = saverCreator.createNewSaver(getClassId());
-		saver.addValue(id);
-		saver.addValue(start);
-		saver.addValue(destination);
-		saver.addValue(description);
-		saver.addValue(state.ordinal());
-		saver.addValue(car.getId());
-		saver.addValue(driver.getId());
-		return saver;
-	}
-	@Override
-	public void loadPrimitives(AbstractItemStateLoader stateGetter)
-	{
-		id = stateGetter.getValueInt(0);
-		start = stateGetter.getValue(1);
-		destination = stateGetter.getValue(3);
-		description = stateGetter.getValue(2);
-		state = TripState.values()[stateGetter.getValueInt(4)];
-	}
-	@Override
-	public void loadObjects(MotorDepot motorDepot, AbstractItemStateLoader getter)
-	{
-		car = motorDepot.findCarById(getter.getValueInt(5));
-		driver = motorDepot.findDriverById(getter.getValueInt(5));
-	}
 	@Override
 	public String getClassId()
 	{
@@ -171,5 +165,9 @@ public class Trip implements ICanBeSaved,ITableRowProvider
 	public ITableRowProvider getRowProvider()
 	{
 		return this;
+	}
+	@Override
+	public long getSerialVersionUID() {
+		return serialVersionUID;
 	}
 }

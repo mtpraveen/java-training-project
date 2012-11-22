@@ -28,7 +28,7 @@ public class ShowMyRequestsForRepairScenario extends AbstractScenario
 	@Override
 	public void run()
 	{
-		ListWithIds<RequestForRepair> requests = MotorDepot.instance().requestsForRepair.getCopy();
+		ListWithIds<RequestForRepair> requests = MotorDepot.getInstance().requestsForRepair.getCopy();
 		ListIterator<RequestForRepair> iterator = requests.listIterator();
 		while(iterator.hasNext())
 		{

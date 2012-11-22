@@ -3,20 +3,20 @@
  */
 package motor.depot.storages.interfaces;
 
+import java.io.Serializable;
+
 import motor.depot.model.MotorDepot;
 
 /**
  * @author dima
  *
  */
-public interface ICanBeSaved
+public interface ICanBeSaved extends Serializable
 {
-	AbstractItemStateSaver getSaver(AbstractStorage saverCreator);
-	void loadPrimitives(AbstractItemStateLoader stateGetter);
-	void loadObjects(MotorDepot motorDepot, AbstractItemStateLoader getter);
 	String getClassId();
 	int getId();
 	void setId(int id);
 	ICanBeSaved newInstance();
 	ITableRowProvider getRowProvider();
+	long getSerialVersionUID();
 }

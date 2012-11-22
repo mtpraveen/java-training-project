@@ -3,9 +3,6 @@
  */
 package motor.depot.model;
 
-import motor.depot.storages.interfaces.AbstractItemStateLoader;
-import motor.depot.storages.interfaces.AbstractItemStateSaver;
-import motor.depot.storages.interfaces.AbstractStorage;
 import motor.depot.storages.interfaces.ICanBeSaved;
 import motor.depot.storages.interfaces.ITableRowProvider;
 
@@ -20,6 +17,7 @@ public class Car implements ICanBeSaved, ITableRowProvider
 	String model;
 	String description;
 	String state;
+	private static final long serialVersionUID = 22112012;
 
 	/**
 	 * @return the number
@@ -97,37 +95,9 @@ public class Car implements ICanBeSaved, ITableRowProvider
 	}
 
 	@Override
-	public AbstractItemStateSaver getSaver(AbstractStorage saverCreator)
-	{
-		AbstractItemStateSaver saver = saverCreator.createNewSaver(getClassId());
-		saver.addValue(id);
-		saver.addValue(description);
-		saver.addValue(model);
-		saver.addValue(number);
-		saver.addValue(state);
-		return saver;
-	}
-
-	@Override
-	public void loadPrimitives(AbstractItemStateLoader stateGetter)
-	{
-		id = stateGetter.getValueInt(0);
-		description = stateGetter.getValue(1);
-		model = stateGetter.getValue(2);
-		number = stateGetter.getValue(3);
-		state = stateGetter.getValue(4);
-	}
-
-	@Override
 	public String getClassId()
 	{
 		return "car";
-	}
-
-	@Override
-	public void loadObjects(MotorDepot motorDepot, AbstractItemStateLoader getter)
-	{
-		// do nothings here, because we have no objects here
 	}
 
 	@Override
@@ -190,5 +160,10 @@ public class Car implements ICanBeSaved, ITableRowProvider
 	public String toString()
 	{
 		return number + " " + model;
+	}
+
+	@Override
+	public long getSerialVersionUID() {
+		return serialVersionUID;
 	}
 }

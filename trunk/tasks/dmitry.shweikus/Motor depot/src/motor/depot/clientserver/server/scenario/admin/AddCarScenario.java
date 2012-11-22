@@ -33,7 +33,7 @@ public class AddCarScenario extends AbstractScenario
 		String state = readString(); 
 		str("Description:");
 		String description = readString();
-		Car car = MotorDepot.instance().addCar(model, number, state, description);
+		Car car = MotorDepot.getInstance().addCar(model, number, state, description);
 		str("Car created");
 		waitForInput();
 	}

@@ -71,7 +71,7 @@ public class Server
 		for (ClientThread thread : threads)
 		{
 			/*try
-			{
+			{ 
 				PrintWriter writer = new PrintWriter(thread.getSocket().getOutputStream());
 				ClientServerCommand.sendText(writer, message);
 			} catch (IOException e)
@@ -99,7 +99,7 @@ public class Server
 		{
 			LOGGER.error("Error closing main socket in closing command", e);
 		}
-		MotorDepot.instance().save(new CsvStorage());
+		MotorDepot.getInstance().save(new CsvStorage());
 		LOGGER.debug("Server closed"); //$NON-NLS-1$
 		System.exit(0);
 	}
@@ -108,7 +108,7 @@ public class Server
 	{
 		LOGGER.debug("Server started"); //$NON-NLS-1$
 		ConnectionSettings.load();
-		MotorDepot.instance();//loading data
+		MotorDepot.getInstance();//loading data
 		try
 		{
 			servers = new ServerSocket(ConnectionSettings.port);
