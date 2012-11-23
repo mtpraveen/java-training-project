@@ -1,16 +1,22 @@
 package com.epam.training.threads;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.net.Socket;
-import java.util.concurrent.Callable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.ResourceBundle;
 
-import com.epam.training.data.CsvDataReader;
-import com.epam.training.data.CsvDataWriter;
 import com.epam.training.data.DataAnalyser;
 import com.epam.training.data.DataStorage;
 import com.epam.training.logic.Logger;
 import com.epam.training.logic.MessageTypes;
 import com.epam.training.logic.Server;
-import com.epam.training.logic.ServerManager;
+import com.epam.training.model.application.Application;
+import com.epam.training.model.room.ClassApartments;
 import com.epam.training.model.user.User;
 import com.epam.training.model.user.UserStatus;
 
@@ -20,13 +26,13 @@ import com.epam.training.model.user.UserStatus;
  * @author EXUMLOKE
  *
  */
-public class ServerThread implements Callable<Void> {
+public class ServerThread extends Thread {
 	private Server server; // server exemplar
 	private Socket clientSocket; // client exemplar
-	CsvDataReader csvDataReader;
-	CsvDataWriter csvDataWriter;
-	ServerManager serverManager = new ServerManager();
-	Logger logger = new Logger(org.apache.log4j.Logger.getLogger(ServerThread.class)); // logger
+	private Logger logger = new Logger(org.apache.log4j.Logger.getLogger(ServerThread.class)); // logger
+	private BufferedReader bufferedReader;
+	private PrintStream printStream;
+	private ResourceBundle resourceBundle = ResourceBundle.getBundle("com.epam.training.threads.resources.serverMessages");
 	
 	/**
 	 * Constructor.
@@ -36,11 +42,17 @@ public class ServerThread implements Callable<Void> {
 	public ServerThread(Server server, Socket clientSocket) {
 		this.server = server;
 		this.clientSocket = clientSocket;
+		
+		try {
+			bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			printStream = new PrintStream(clientSocket.getOutputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-
 	@Override
-	public Void call() throws Exception {
+	public void run() {
 		MessageTypes messageType = null;
 		String messageFromClient = null;
 		
@@ -53,37 +65,38 @@ public class ServerThread implements Callable<Void> {
 		 * 
 		 */		
 		do {
-			// receive message from client
-			messageFromClient = serverManager.receiveMessageFromClient(clientSocket, logger.getExeptionsLogger());
+			// receive message from client			
+			messageFromClient = receiveMessageFromClient();
 			messageType = getMessageTypeFromClientMessage(messageFromClient); // get type of message
 			messageFromClient = getMessagePartFromClientMessage(messageFromClient); // get message part without MessageType
-			
+			System.out.println(messageFromClient + " " + messageType.toString());
 			
 			switch(String.valueOf(messageType)) {
 				case "MESSAGE" :  // simple message, only text string
-					// TODO when receive simple message from client, server send it message back.
-					messageAction(serverManager, clientSocket, messageFromClient, logger.getExeptionsLogger());
+					messageAction(messageFromClient);
 					break;
 				case "LOG_ON" : 
-					// TODO server must search login and password that has been received
-					// in data base and if its true send acception.
-					logOnAction(clientSocket, messageFromClient, logger.getExeptionsLogger());
+					logOnAction(messageFromClient);
 					break;
 				case "CREATE_ACCOUNT" :
-					// TODO if new login is exist in data base, sent to client message
-					// about it, if not - save information in data base.
-					createAccountAction(clientSocket, messageFromClient, logger.getExeptionsLogger());
+					createAccountAction(messageFromClient);
+					break;
+				case "CREATE_APPLICATION" :
+					createApplicationAction(messageFromClient);
+					break;
+				case "GET_REPORT" :
 					break;
 				case "CHANGE_PASSWORD" :
-					changePasswordAction(clientSocket, messageFromClient, logger.getExeptionsLogger());
+					changePasswordAction(messageFromClient);
 					break;
 				case "DISCONNECT_CLIENT" :
 					disconnectClientAction(clientSocket);
 					break;
 				case "DELETE_ACCOUNT" :
-					deleteAccountAction(clientSocket, messageFromClient, logger.getExeptionsLogger());
+					deleteAccountAction(messageFromClient);
 					break;
 				case "STOP_SERVER" :
+					stopSeverAction(logger.getExeptionsLogger());
 					break;
 				default:		
 					break;
@@ -91,141 +104,192 @@ public class ServerThread implements Callable<Void> {
 			
 		} while(messageType != MessageTypes.DISCONNECT_CLIENT);
 		
-		
-		return null;
 	}
 	
+	/**
+	 * Send message to client.
+	 * @param message message will be send.
+	 */
+	private void sendMessageToClient(String message) {
+		printStream.println(message);
+	}
+	
+	/**
+	 * Receive message from client.
+	 * @return string message form client.
+	 */
+	private String receiveMessageFromClient() {
+		try {
+			return bufferedReader.readLine();
+		} catch (IOException exception) {
+			exception.printStackTrace();
+			return null;
+		} 
+	}
+	
+	/**
+	 * Return message type that will get from 
+	 * string that received form client.
+	 * @param message string from client.
+	 * @return message type
+	 */
 	private MessageTypes getMessageTypeFromClientMessage(String message) {
 		return MessageTypes.valueOf(DataAnalyser.split(message, ";").get(1).toUpperCase());
 	}
 	
+	/**
+	 * Return message without message type.
+	 * @param message string from client.
+	 * @return
+	 */
 	private String getMessagePartFromClientMessage(String message) {
 		return DataAnalyser.split(message, ";").get(0).toString();
 	}
 	
-	private void messageAction(ServerManager serverManager, Socket clientSocket, String message, org.apache.log4j.Logger exceptionLogger) {
-		serverManager.sendMessageToClient(clientSocket, message, exceptionLogger);
+	/**
+	 * Send to client same message that has been received from it.
+	 * @param message
+	 */
+	private void messageAction(String message) {
+		sendMessageToClient(message);
 	}
 	
 	/**
-	 * 
-	 * @param clientSocket
-	 * @param message
-	 * @param exceptionLogger
+	 * Client logging on.
+	 * Send to client result of loggin on.
+	 * @param message string with login, password.
 	 */
-	private void logOnAction(Socket clientSocket, String message, org.apache.log4j.Logger exceptionLogger) {
+	private void logOnAction(String message) {
 		String receivedLogin = message.split(",")[0]; // login
 		String receivedPassword = message.split(",")[1]; // pass
-		boolean isFound = false;
 		
 		for (User user : DataStorage.USERS_LIST) { // search in user list that has been loaded when program start
 			if (user.getLogin().equals(receivedLogin) && (user.getPassword().equals(receivedPassword))) {
-				isFound = true;
-				break; // exit from cycle
+				sendMessageToClient("true"); // if login and password has been found in data base
+				return;
 			}
 		}
 		
-		// Send message to client
-		if (isFound) { // if login and password has been found in data base
-			serverManager.sendMessageToClient(clientSocket, "true", exceptionLogger);
-		} else { // if login hasnt been found in data base or password is incorrect
-			serverManager.sendMessageToClient(clientSocket, "false", exceptionLogger);
-		}		
+		sendMessageToClient("false");
 	}
 	
 	/**
-	 * 
-	 * @param clientSocket
+	 * If login is not busy create new account.
 	 * @param message
-	 * @param exceptionLogger
 	 */
-	private void createAccountAction(Socket clientSocket, String message, org.apache.log4j.Logger exceptionLogger) {
+	private void createAccountAction(String message) {
 		String receivedLogin = message.split(",")[0]; // login
 		String receivedPassword = message.split(",")[1]; // pass
 		
-		boolean isFound = false;
-		
 		for (User user : DataStorage.USERS_LIST) { // search in user list that has been loaded when program start
 			if (user.getLogin().equals(receivedLogin)) {
-				isFound = true;
-				break; // exit from cycle
+				sendMessageToClient("used");
+				return; // exit from cycle
 			}
 		}
 		
-		if (isFound) { // if login exist in data base yet
-			serverManager.sendMessageToClient(clientSocket, "Login that u typed used by another user. Please try again.", exceptionLogger);
-		} else { // if all ok and it can create new account
-			DataStorage.USERS_LIST.add(new User(receivedLogin, receivedPassword, UserStatus.CLIENT));
-			serverManager.sendMessageToClient(clientSocket, "Thats good, account has been created. Please log on.", exceptionLogger);
-		}
+		// if all ok and it can create new account
+		DataStorage.USERS_LIST.add(new User(receivedLogin, receivedPassword, UserStatus.CLIENT));
+		sendMessageToClient("true");
 	}
 	
 	/**
-	 * 
-	 * @param clientSocket
+	 * Creating new application.
 	 * @param message
-	 * @param exceptionLogger
 	 */
-	private void changePasswordAction(Socket clientSocket, String message, org.apache.log4j.Logger exceptionLogger) {
+	private void createApplicationAction(String message) {
+		String[] messageParts = message.split(",");
+		String numberSeats = messageParts[0];
+		String classApartments = messageParts[1];
+		String arrivalDate = messageParts[2];
+		String evictionDate = messageParts[3];
+		
+		try {
+			DataStorage.APPLICATIONS_LIST.add(new Application(Integer.valueOf(numberSeats), 
+															  ClassApartments.valueOf(classApartments), 
+															  (Date) (new SimpleDateFormat("dd.MM.yyyy")).parse(arrivalDate), 
+															  (Date) (new SimpleDateFormat("dd.MM.yyyy")).parse(evictionDate)));
+		} catch (NumberFormatException exception) {
+			sendMessageToClient(resourceBundle.getString("error.application.creating"));
+			logger.getExeptionsLogger().error(exception);
+			return;
+		} catch (ParseException exception) {
+			sendMessageToClient(resourceBundle.getString("error.application.creating"));
+			logger.getExeptionsLogger().error(exception);
+			return;
+		}
+		
+		sendMessageToClient(resourceBundle.getString("application.created"));		
+	}
+	
+	/**
+	 * Find account and change account password.
+	 * @param message message with login, old password, new password.
+	 */
+	private void changePasswordAction(String message) {
 		String receivedLogin = message.split(",")[0]; // login
 		String receivedOldPassword = message.split(",")[1]; // old password
 		String receivedNewPassword = message.split(",")[2]; // new password
 		
-		boolean isFound = false;
-		UserStatus userStatus = null;
-
 		for (User user : DataStorage.USERS_LIST) { // search in user list that has been loaded when program start
 			if (user.getLogin().equals(receivedLogin) && (user.getPassword().equals(receivedOldPassword))) {
-				isFound = true;
-				userStatus = user.getStatus();
-				DataStorage.USERS_LIST.remove(user); // delete current user
-				break; // exit from cycle
+				user.setPassword(receivedNewPassword);
+				sendMessageToClient(resourceBundle.getString("password.changed"));
+				return;
 			}
 		}
 		
-		if (isFound) { // create new user with new password and add it in the end of user list
-			DataStorage.USERS_LIST.add(new User(receivedLogin, receivedNewPassword, userStatus));
-			serverManager.sendMessageToClient(clientSocket, "Password was changed.", exceptionLogger);
-		} else {
-			serverManager.sendMessageToClient(clientSocket, "Login or password that u typed incorrect. Please try again.", exceptionLogger);
-		}
+		sendMessageToClient(resourceBundle.getString("login.password.incorrect"));
 	}
 	
 	/**
-	 * 
+	 * Disconnect client from server.
 	 * @param clientSocket
 	 */
 	private void disconnectClientAction(Socket clientSocket) {
-		serverManager.disconnectClient(clientSocket);
+		try {
+			clientSocket.close();
+		} catch (IOException exception) {
+			logger.getExeptionsLogger().error(exception);
+		}
 	}
 	
 	/**
-	 * 
-	 * @param clientSocket
+	 * Delete account from users list.
 	 * @param message
-	 * @param exceptionLogger
 	 */
-	private void deleteAccountAction(Socket clientSocket, String message, org.apache.log4j.Logger exceptionLogger) {
+	private void deleteAccountAction(String message) {
 		String receivedLogin = message.split(",")[0]; // login
 		String receivedPassword = message.split(",")[1]; // pass
 		
-		boolean isFound = false;
-		
 		for (User user : DataStorage.USERS_LIST) { // search in user list that has been loaded when program start
-			if (user.getLogin().equals(receivedLogin)) {
-				isFound = true;
+			if (user.getLogin().equals(receivedLogin) && (user.getPassword().equals(receivedPassword))) {
 				DataStorage.USERS_LIST.remove(user);
-				serverManager.sendMessageToClient(clientSocket, "Account has been deleted.", exceptionLogger);
-				break; // exit from cycle
+				sendMessageToClient(resourceBundle.getString("account.deleted"));
+				return; // exit from cycle
 			}
-		}		
+		}
+		
+		sendMessageToClient(resourceBundle.getString("login.password.incorrect"));
 	}
 	
 	/**
-	 * 
+	 * Close all clients connection and stop server.
 	 */
-	private void stopSeverAction() {
-		// TODO server can stop administrator only.
+	private void stopSeverAction(org.apache.log4j.Logger exceptionLogger) {
+		for (Socket socket : server.getClientSockets()) {
+			try {
+				socket.close();
+			} catch (IOException exception) {
+				exceptionLogger.error(exception);
+			}
+		}
+		
+		try {
+			server.getServerSocket().close();
+		} catch (IOException exception) {
+			exceptionLogger.error(exception);
+		}
 	}
 	
 }
