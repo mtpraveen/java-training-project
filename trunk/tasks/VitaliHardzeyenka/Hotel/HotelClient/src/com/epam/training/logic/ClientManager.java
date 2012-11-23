@@ -1,12 +1,7 @@
 package com.epam.training.logic;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 /**
  * This class describe all candidate actions by client part.
@@ -14,25 +9,10 @@ import java.net.UnknownHostException;
  */
 public class ClientManager {
 
-	/**
-	 * Set connection with server.
-	 * @param inetAddress Internet address of server. Use method getLocalHost() 
-	 * 		  			  if server is on the local machine.
-	 * @param port port of server.
-	 * @param exeptionsLogger text file logger for errors. 
-	 * @return server connection
-	 */
-	public Socket setServerSonnection(InetAddress inetAddress, int port, org.apache.log4j.Logger exeptionsLogger) {
-		try {
-			return new Socket(inetAddress, port);
-		} catch (UnknownHostException exception) {
-			exeptionsLogger.error(exception);
-			return null;
-		} catch (IOException exception) {
-			exception.printStackTrace();
-			exeptionsLogger.error(exception);
-			return null;
-		}
+	private ServerConnection connection;
+	
+	public ClientManager(ServerConnection connection) {
+		this.connection = connection;
 	}
 	
 	/**
@@ -54,16 +34,9 @@ public class ClientManager {
 	 * @param messageType type of sending message.
 	 * @param exeptionsLogger text file logger for errors.
 	 */
-	public void sendMessageToServer(Socket serverSocket, String message, MessageTypes messageType, org.apache.log4j.Logger exeptionsLogger) {
-		try {
-			PrintStream printStream = new PrintStream(serverSocket.getOutputStream());
-			printStream.print(String.format("%s;%s", message, messageType.toString().toUpperCase())); // send message
-			printStream.flush();
-			
-			printStream.close();
-		} catch (IOException exception) {
-			exeptionsLogger.error(exception);
-		}
+	public void sendMessageToServer(String message, MessageTypes messageType, org.apache.log4j.Logger exeptionsLogger) {
+		System.out.println(String.format("%s;%s", message, messageType.toString().toUpperCase()));
+		this.connection.getPrintStream().println(String.format("%s;%s", message, messageType.toString().toUpperCase())); // send message
 	}
 	
 	/**
@@ -72,13 +45,13 @@ public class ClientManager {
 	 * @param exeptionsLogger text file logger for errors.
 	 * @return message from server.
 	 */
-	public String receiveMessageFromServer(Socket serverSocket, org.apache.log4j.Logger exeptionsLogger) {
+	public String receiveMessageFromServer(org.apache.log4j.Logger exeptionsLogger) {
 		try {
-			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
-			return bufferedReader.readLine();
+			return this.connection.getBufferedReader().readLine();
 		} catch (IOException exception) {
 			exeptionsLogger.error(exception);
-			return "";
+			exception.printStackTrace();
+			return "error with receiving";
 		}
 	}
 	
@@ -94,7 +67,7 @@ public class ClientManager {
 	 */
 	public void createAccout(Socket serverSocket, String login, String password, org.apache.log4j.Logger exeptionsLogger) {
 		String message = String.format("%s,%s", login, password);		
-		sendMessageToServer(serverSocket, message, MessageTypes.CREATE_ACCOUNT, exeptionsLogger);
+		sendMessageToServer(message, MessageTypes.CREATE_ACCOUNT, exeptionsLogger);
 	}
 	
 	/**
@@ -105,14 +78,7 @@ public class ClientManager {
 	 */
 	public void logOn(Socket serverSocket, String login, String password, org.apache.log4j.Logger exeptionsLogger) {
 		String message = String.format("%s,%s", login, password);		
-		sendMessageToServer(serverSocket, message, MessageTypes.LOG_ON, exeptionsLogger);		
-	}
-	
-	/**
-	 * 
-	 */
-	public void logOff() {
-		
+		sendMessageToServer(message, MessageTypes.LOG_ON, exeptionsLogger);		
 	}
 	
 	/**
@@ -121,26 +87,6 @@ public class ClientManager {
 	 * @param exeptionsLogger text file logger for errors.
 	 */
 	public void changePassword(Socket serverSocket, String newPassword, org.apache.log4j.Logger exeptionsLogger) {
-		sendMessageToServer(serverSocket, newPassword, MessageTypes.CHANGE_PASSWORD, exeptionsLogger);
+		sendMessageToServer(newPassword, MessageTypes.CHANGE_PASSWORD, exeptionsLogger);
 	}
-	
-	//
-	// Actions that cad do administrator only.
-	//
-	
-	/**
-	 * Deleting account by its number in data base. 
-	 * @param number number of account in data base
-	 */
-	public void deleteAccount(int number) {
-		
-	}
-	
-	/**
-	 * Deleting account by login.
-	 * @param login login of the deleting account
-	 */
-	public void deleteAccount(String login) {
-		
-	}	
 }
