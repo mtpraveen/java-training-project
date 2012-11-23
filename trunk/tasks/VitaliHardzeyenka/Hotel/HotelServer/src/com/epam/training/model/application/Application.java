@@ -55,9 +55,5 @@ public class Application {
 
 	public void setEvictionDate(Date evictionDate) {
 		this.evictionDate = evictionDate;
-	}
-	
-	
-	
-	
+	}	
 }

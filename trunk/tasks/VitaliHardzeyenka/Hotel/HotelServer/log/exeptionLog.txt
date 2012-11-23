@@ -1,0 +1,22 @@
+ERROR - java.io.FileNotFoundException: D:\WORK\PROJECTS\epam_java_projects\THREADS_CLIENT_SERVER\Hotel\HotelServer\users.txt (The system cannot find the file specified)
+ERROR - java.io.FileNotFoundException: D:\WORK\PROJECTS\epam_java_projects\THREADS_CLIENT_SERVER\Hotel\HotelServer\nullusers.txt (The system cannot find the file specified)
+ERROR - java.io.FileNotFoundException: null\data.zip (The system cannot find the path specified)
+ERROR - java.net.SocketException: Connection reset
+ERROR - java.net.SocketException: Connection reset
+ERROR - java.net.SocketException: Connection reset
+ERROR - java.net.SocketException: Connection reset
+ERROR - java.net.SocketException: Socket is closed
+ERROR - java.net.SocketException: Socket is closed
+ERROR - java.net.SocketException: Socket is closed
+ERROR - java.net.SocketException: Connection reset
+ERROR - java.net.SocketException: Connection reset
+ERROR - java.net.SocketException: Connection reset
+ERROR - java.net.SocketException: Connection reset
+ERROR - java.net.SocketException: Socket is closed
+ERROR - java.net.SocketException: Connection reset
+ERROR - java.net.SocketException: Socket is closed
+ERROR - java.net.SocketException: Socket is closed
+ERROR - java.net.SocketException: Socket is closed
+ERROR - java.net.SocketException: socket closed
+ERROR - java.net.SocketException: Socket input is shutdown
+ERROR - java.net.SocketException: Socket input is shutdown

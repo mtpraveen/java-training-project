@@ -10,6 +10,8 @@ public enum MessageTypes {
 	LOG_ON, // account log on
 	CREATE_ACCOUNT,  // create new account by client
 	CHANGE_PASSWORD, // change password of existing account
+	CREATE_APPLICATION,
+	GET_REPORT,
 	DISCONNECT_CLIENT, // disconnect client from server
 	ADD_ACCOUNT, // create new account by administrator
 	DELETE_ACCOUNT, // delete account by administrator
