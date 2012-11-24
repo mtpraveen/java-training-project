@@ -3,13 +3,13 @@
  */
 package motor.depot.clientserver;
 
-import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.BufferedWriter;
 import java.io.Console;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.io.PrintWriter;
+import java.io.DataOutputStream;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -26,11 +26,11 @@ final class ShowTextCommandImpl extends AbstractClientServerCommandImpl
 	}
 
 	@Override
-	public void processDataOnClient(BufferedReader fromServer, PrintWriter toServer)
+	public void processDataOnClient(DataInputStream fromServer, DataOutputStream toServer)
 	{
 		try
 		{
-			String s = fromServer.readLine() + "\n";
+			String s = fromServer.readUTF() + "\n";
 			byte[] b;
 			if (System.console() == null)
 			{
@@ -54,9 +54,9 @@ final class ShowTextCommandImpl extends AbstractClientServerCommandImpl
 		}
 	}
 
-	public void sendString(PrintWriter toServer, String s) throws IOException
+	public void sendString(DataOutputStream toServer, String s) throws IOException
 	{
 		sendToClient(toServer);
-		toServer.println(s);
+		toServer.writeUTF(s);
 	}
 }

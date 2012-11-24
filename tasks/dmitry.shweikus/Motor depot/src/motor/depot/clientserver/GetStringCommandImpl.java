@@ -3,7 +3,6 @@
  */
 package motor.depot.clientserver;
 
-import java.io.BufferedReader;
 import java.io.Console;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -11,16 +10,18 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Scanner;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author dima
  * 
  */
-public class GetStringCommandImpl extends AbstractClientServerCommandImpl
-{
+public class GetStringCommandImpl extends AbstractClientServerCommandImpl {
 	boolean isPassword;
+	private final static Logger LOGGER = Logger
+			.getLogger(GetStringCommandImpl.class);
 
 	/**
 	 * @param command
@@ -29,99 +30,112 @@ public class GetStringCommandImpl extends AbstractClientServerCommandImpl
 		super(command);
 	}
 
-	PrintWriter toServer = null;
+	DataOutputStream toServer = null;
 
-	private class WaitTextThread implements Runnable
-	{
+	private class WaitTextThread implements Runnable {
 		@Override
-		public void run()
-		{
+		public void run() {
 			String text;
 			Console console = System.console();
-			if (console == null)
-			{
+			if (console == null) {
 				Scanner scanner = new Scanner(System.in);
 				text = scanner.nextLine();
-			}
-			else if (isPassword)
-			{
+			} else if (isPassword) {
 				text = new String(console.readPassword());
-			}
-			else
-			{
+			} else {
 				text = console.readLine();
 			}
-			toServer.println(text);
+			try {
+				toServer.writeUTF(text);
+			} catch (IOException e) {
+				LOGGER.error("IOException by sendig text message to client", e);
+			}
 		}
 	}
 
-	private void sendFile(String fileName)
-	{
+	private void sendFile(String fileName) {
 		File file = new File(fileName);
+		boolean fileSended = false;
 		if (file.exists())
-			if(file.isFile())
-			{
-				try
-				{
-					DataInputStream dataInputStream = new DataInputStream(new FileInputStream(file));
-					return;
-				} catch (FileNotFoundException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			if (file.isFile()) {
+				DataInputStream dataInputStream = null;
+				try {
+					toServer.writeUTF("" + file.length());
+					LOGGER.debug("Start sending to client file '" + fileName
+							+ "'");
+					dataInputStream = new DataInputStream(new FileInputStream(
+							file));
+					byte[] buf = new byte[4096];
+					while (true) {
+						int nLength = dataInputStream.read(buf);
+						if (nLength <= 0) {
+							break;
+						}
+						LOGGER.debug("Send to client next file part");
+						toServer.write(buf, 0, nLength);
+					}
+					LOGGER.debug("File sended");
+					fileSended = true;
+				} catch (FileNotFoundException e) {
+					//
+				} catch (IOException e) {
+					LOGGER.error("IOException by reading sended file", e);
+				} finally {
+					if (dataInputStream != null)
+						try {
+							dataInputStream.close();
+						} catch (IOException e) {
+						}
 				}
 			}
-		toServer.println("-1");
+		if (!fileSended)
+			try {
+				toServer.writeUTF("-1");
+			} catch (IOException e) {
+				LOGGER.error("IOException by sendig file size to client", e);
+			}
 	}
 
 	@Override
-	public void processDataOnClient(BufferedReader fromServer, PrintWriter toServer)
-	{
-		try
-		{
+	public void processDataOnClient(DataInputStream fromServer,
+			DataOutputStream toServer) {
+		try {
 			this.toServer = toServer;
-			int iKind = Integer.parseInt(fromServer.readLine());
+			int iKind = Integer.parseInt(fromServer.readUTF());
 			CLIENT_CONTENT_KIND kind = CLIENT_CONTENT_KIND.TEXT;
-			try
-			{
+			try {
 				kind = CLIENT_CONTENT_KIND.values()[iKind];
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 			}
-			if (kind == CLIENT_CONTENT_KIND.FILE)
-			{
-				sendFile(fromServer.readLine());
-			}
-			else
-			{
+			LOGGER.debug(kind.toString() + "  " + iKind);
+			if (kind == CLIENT_CONTENT_KIND.FILE) {
+				sendFile(fromServer.readUTF());
+			} else {
 				isPassword = kind == CLIENT_CONTENT_KIND.PASSWORD;
 				Thread thread = new Thread(new WaitTextThread());
 				thread.setDaemon(true);
 				thread.start();
 			}
-		} catch (IOException e)
-		{
+		} catch (IOException e) {
 		}
 	}
 
 	@Override
-	public void sendToClient(PrintWriter toClient) 
-	{
-		try
-		{
+	public void sendToClient(DataOutputStream toClient) {
+		try {
 			sendToClient(toClient, CLIENT_CONTENT_KIND.TEXT, "");
-		} catch (IOException e)
-		{
+		} catch (IOException e) {
 		}
 	}
 
-	public void sendToClient(PrintWriter toClient, CLIENT_CONTENT_KIND content_KIND, String filepath) throws IOException
-	{
+	public void sendToClient(DataOutputStream toClient,
+			CLIENT_CONTENT_KIND content_KIND, String filepath)
+			throws IOException {
 		super.sendToClient(toClient);
-		toClient.println(String.valueOf(content_KIND.ordinal()));
-		if (content_KIND == CLIENT_CONTENT_KIND.FILE)
-		{
-			toClient.println(filepath);
+
+		toClient.writeUTF(String.valueOf(content_KIND.ordinal()));
+		if (content_KIND == CLIENT_CONTENT_KIND.FILE) {
+			toClient.writeUTF(filepath);
 		}
 	}
 }

@@ -5,7 +5,7 @@ package motor.depot.clientserver;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.DataOutputStream;
 
 
 /**
@@ -39,7 +39,7 @@ public enum ClientServerCommand
 		}
 	};
 	public abstract AbstractClientServerCommandImpl getImpl();
-	public static void sendText(PrintWriter writer, String textToClient)
+	public static void sendText(DataOutputStream writer, String textToClient)
 	{
 		ShowTextCommandImpl impl = new ShowTextCommandImpl(SHOW_TEXT);
 		try

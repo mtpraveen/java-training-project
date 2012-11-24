@@ -3,8 +3,8 @@
  */
 package motor.depot.clientserver;
 
-import java.io.BufferedReader;
-import java.io.PrintWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 
 /**
  * @author dima
@@ -28,7 +28,7 @@ public class CloseClientCommandImpl extends AbstractClientServerCommandImpl
 	}
 
 	@Override
-	public void processDataOnClient(BufferedReader fromServer, PrintWriter toServer)
+	public void processDataOnClient(DataInputStream fromServer, DataOutputStream toServer)
 	{
 		if (exitable!=null)
 			exitable.doExit();

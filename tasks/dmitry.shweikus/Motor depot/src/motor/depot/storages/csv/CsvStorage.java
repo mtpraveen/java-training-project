@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 import motor.depot.storages.csv.utils.CsvSplitter;
 import motor.depot.storages.interfaces.AbstractItemStateLoader;
-import motor.depot.storages.interfaces.AbstractItemStateSaver;
 import motor.depot.storages.interfaces.AbstractStorage;
 
 import org.apache.log4j.Logger;
@@ -50,6 +49,8 @@ public class CsvStorage implements AbstractStorage
 	public boolean load()
 	{
 		File file = new File(DATA_FILEPATH);
+		if (!file.exists())
+			return false;
 		try {
 			fileInputStream = new FileInputStream(file);
 			objectInputStream = new ObjectInputStream(fileInputStream);

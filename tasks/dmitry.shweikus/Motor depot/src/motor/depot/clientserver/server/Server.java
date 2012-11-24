@@ -4,7 +4,7 @@
 package motor.depot.clientserver.server;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -72,7 +72,7 @@ public class Server
 		{
 			/*try
 			{ 
-				PrintWriter writer = new PrintWriter(thread.getSocket().getOutputStream());
+				DataOutputStream writer = new DataOutputStream(thread.getSocket().getOutputStream());
 				ClientServerCommand.sendText(writer, message);
 			} catch (IOException e)
 			{

@@ -1,8 +1,8 @@
 package motor.depot.clientserver.server.scenario;
 
 import java.awt.Menu;
-import java.io.BufferedReader;
-import java.io.PrintWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.util.ArrayList;
 
 import motor.depot.clientserver.server.ClientThread;

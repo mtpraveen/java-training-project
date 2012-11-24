@@ -3,23 +3,18 @@
  */
 package motor.depot.clientserver.server.scenario;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.nio.CharBuffer;
-
-import org.apache.log4j.Logger;
 
 import motor.depot.clientserver.CLIENT_CONTENT_KIND;
 import motor.depot.clientserver.ClientServerCommand;
 import motor.depot.clientserver.GetStringCommandImpl;
 import motor.depot.clientserver.server.ClientThread;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author dima
@@ -28,8 +23,8 @@ import motor.depot.clientserver.server.ClientThread;
 public abstract class AbstractScenario
 {
 	private final static Logger LOGGER = Logger.getLogger(AbstractScenario.class);
-	protected BufferedReader reader;
-	protected PrintWriter writer;
+	protected DataInputStream reader;
+	protected DataOutputStream writer;
 	protected ClientThread thread;
 	protected boolean hasErrors;
 
@@ -49,7 +44,7 @@ public abstract class AbstractScenario
 		String s = "";
 		try
 		{
-			s = reader.readLine();
+			s = reader.readUTF();
 		} catch (IOException e)
 		{
 			hasErrors = true;
@@ -62,11 +57,13 @@ public abstract class AbstractScenario
 
 	private String readFileFromClient()
 	{
+		LOGGER.debug("Start receiving file");
 		String s = "";
 		int size = -1;
 		try
 		{
-			s = reader.readLine();
+			s = reader.readUTF();
+			LOGGER.debug("FileSize = " + s);
 			if (isInt(s))
 			{
 				size = Integer.parseInt(s);
@@ -74,18 +71,17 @@ public abstract class AbstractScenario
 				{
 					File file = File.createTempFile("data_from_client", ".tmp");
 					FileOutputStream outputStream = new FileOutputStream(file);
-					DataInputStream dataInputStream = new DataInputStream(thread.getSocket()
-							.getInputStream());
 					int bufsize = 4096;
 					byte[] buf = new byte[bufsize];
 					while (size > 0)
 					{
-						int len = dataInputStream.read(buf);
-						outputStream.write(buf);
+						int len = reader.read(buf);
+						outputStream.write(buf,0,len);
 						size -= len;
 					}
 					outputStream.flush();
 					outputStream.close();
+					LOGGER.debug("Receiving successfull");
 					return file.getAbsolutePath();
 				}
 			}
@@ -93,6 +89,7 @@ public abstract class AbstractScenario
 		{
 			LOGGER.error("IOException by reading file from client");
 		}
+		LOGGER.debug("Erros receiving");
 		return "";
 	}
 

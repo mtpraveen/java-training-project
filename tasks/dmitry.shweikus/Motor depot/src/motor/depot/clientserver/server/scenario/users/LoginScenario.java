@@ -3,8 +3,8 @@
  */
 package motor.depot.clientserver.server.scenario.users;
 
-import java.io.BufferedReader;
-import java.io.PrintWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 
 import motor.depot.clientserver.server.ClientThread;
 import motor.depot.clientserver.server.Server;

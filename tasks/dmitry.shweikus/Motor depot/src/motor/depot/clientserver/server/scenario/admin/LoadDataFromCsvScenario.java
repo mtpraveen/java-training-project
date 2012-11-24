@@ -11,8 +11,16 @@ public class LoadDataFromCsvScenario extends AbstractScenario {
 
 	@Override
 	public void run() {
-		String tempPath = readFile("c:\\hello.txt");
-		str("get -" + tempPath + "-");
+		str("Enter valid filepath:");
+		String path = readString();
+		String tmpPath = readFile(path);
+		if(tmpPath.equals(""))
+		{
+			str("File not found");
+			waitForInput();
+			return;
+		}
+		str("File received : " + tmpPath);
 	}
 
 }

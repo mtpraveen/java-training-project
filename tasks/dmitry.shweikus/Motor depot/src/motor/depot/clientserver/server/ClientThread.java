@@ -3,11 +3,11 @@
  */
 package motor.depot.clientserver.server;
 
-import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.DataOutputStream;
 import java.net.Socket;
 
 import org.apache.log4j.Logger;
@@ -25,7 +25,7 @@ public class ClientThread extends Thread
 	private Socket socket = null;
 	private String sessionLogin = "<not defined>";
 	private String address = "";
-	private BufferedReader in = null;
+	private DataInputStream in = null;
 	private User user = null;
 	/**
 	 * @return the socket
@@ -34,7 +34,7 @@ public class ClientThread extends Thread
 	{
 		return socket;
 	}
-	private PrintWriter out = null;
+	private DataOutputStream out = null;
 	int threadId = -1;
 	/**
 	 * @return the user
@@ -47,7 +47,7 @@ public class ClientThread extends Thread
 	/**
 	 * @return the in
 	 */
-	public BufferedReader getIn()
+	public DataInputStream getIn()
 	{
 		return in;
 	}
@@ -55,7 +55,7 @@ public class ClientThread extends Thread
 	/**
 	 * @return the out
 	 */
-	public PrintWriter getOut()
+	public DataOutputStream getOut()
 	{
 		return out;
 	}
@@ -89,8 +89,8 @@ public class ClientThread extends Thread
 		try
 		{
 			updateName();
-			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			out = new PrintWriter(socket.getOutputStream(),true);
+			in = new DataInputStream(socket.getInputStream());
+			out = new DataOutputStream(socket.getOutputStream());
 			LoginScenario loginScenario = new LoginScenario(this);
 			loginScenario.run();
 			if (loginScenario.isLogged())
