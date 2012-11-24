@@ -3,13 +3,10 @@
  */
 package motor.depot.clientserver.client;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket; 
+import java.net.Socket;
 
 import motor.depot.clientserver.ClientServerCommand;
 import motor.depot.clientserver.CloseClientCommandImpl;
@@ -27,8 +24,8 @@ import org.apache.log4j.PropertyConfigurator;
 public class Client implements IExitable
 {
 	private static final Logger LOGGER = Logger.getLogger(Client.class);
-	BufferedReader srvIn = null;
-	PrintWriter srvOut = null;
+	DataInputStream srvIn = null;
+	DataOutputStream srvOut = null;
 	Socket fromserver = null;
 	ClientMessageParserThread clientMessageParserThread;
 	private class ClientMessageParserThread extends Thread
@@ -39,7 +36,7 @@ public class Client implements IExitable
 			String fserver = ""; 
 			try
 			{
-				while((fserver = srvIn.readLine()) != null)
+				while((fserver = srvIn.readUTF()) != null)
 				{
 					ClientServerCommand cmd = ClientServerCommand.valueOf(fserver);
 					if (cmd != null)
@@ -64,8 +61,8 @@ public class Client implements IExitable
 			ConnectionSettings.load();
 			fromserver = new Socket(ConnectionSettings.host, ConnectionSettings.port);
 			LOGGER.debug("Client connected to " + ConnectionSettings.host + ":" + ConnectionSettings.port);
-			srvIn = new BufferedReader(new InputStreamReader(fromserver.getInputStream()));
-			srvOut = new PrintWriter(fromserver.getOutputStream(), true);
+			srvIn = new DataInputStream(fromserver.getInputStream());
+			srvOut = new DataOutputStream(fromserver.getOutputStream());
 			clientMessageParserThread = new ClientMessageParserThread();
 			clientMessageParserThread.start();
 			clientMessageParserThread.join();
