@@ -3,9 +3,6 @@
  */
 package motor.depot.clientserver.server.scenario.users;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-
 import motor.depot.clientserver.server.ClientThread;
 import motor.depot.clientserver.server.Server;
 import motor.depot.clientserver.server.scenario.AbstractScenario;
@@ -46,12 +43,12 @@ public class LoginScenario extends AbstractScenario
 	@Override
 	public void run()
 	{
-		str("Please login");
+		str(thread.getString("Please_login")); //$NON-NLS-1$
 		while (!isLogged())
 		{
-			str("Login");
+			str(thread.getString("Login")); //$NON-NLS-1$
 			String login = readString();
-			str("Password");
+			str(thread.getString("Password")); //$NON-NLS-1$
 			String password = readPassword();
 			user = MotorDepot.getInstance().findUser(login, password);
 			if (isLogged())
@@ -63,7 +60,7 @@ public class LoginScenario extends AbstractScenario
 						if (user == clientThread.getUser())
 						{
 							user = null;
-							if (question("This user allready connected. Try agayn?"))
+							if (question(thread.getString("This_user_allready_connected.Try_agayn"))) //$NON-NLS-1$
 								break;
 							else
 								return;
@@ -71,7 +68,7 @@ public class LoginScenario extends AbstractScenario
 					}
 				}
 			}
-			else if (!question("Invalid password or login. Try agayn?"))
+			else if (!question(thread.getString("Invalid_password_or_login.Try_agayn"))) //$NON-NLS-1$
 				break;
 		}
 	}

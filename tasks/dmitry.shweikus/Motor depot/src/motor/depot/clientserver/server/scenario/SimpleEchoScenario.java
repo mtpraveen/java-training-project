@@ -1,8 +1,5 @@
 package motor.depot.clientserver.server.scenario;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-
 import motor.depot.clientserver.server.ClientThread;
 
 public class SimpleEchoScenario extends AbstractScenario {
@@ -14,9 +11,9 @@ public class SimpleEchoScenario extends AbstractScenario {
 
 	@Override
 	public void run() {
-		str("Enter string");
+		str(thread.getString("SimpleEchoScenario.Enter_String")); //$NON-NLS-1$
 		String s = readString();
-		str("You wrote : " + s);
+		str(thread.getString("SimpleEchoScenario.You_wrote") + s); //$NON-NLS-1$
 	}
 
 }

@@ -47,8 +47,8 @@ public class DisconnectUserScenario extends AbstractScenario
 			}
 			if(clientThread != null)
 			{
-				Server.getInstance().disconnectUser(clientThread , "You disconnected by admin");
-				str("User " + user.getLogin() + " disconnected");
+				Server.getInstance().disconnectUser(clientThread , thread.getString("DisconnectUserScenario.You_disconnected_by_admin")); //$NON-NLS-1$
+				str(thread.getString("DisconnectUserScenario.User_disconnected") + user.getLogin()); //$NON-NLS-1$
 				waitForInput();
 			}
 		}

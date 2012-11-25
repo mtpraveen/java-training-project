@@ -1,15 +1,12 @@
 package motor.depot.clientserver.server.scenario;
 
-import java.awt.Menu;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.util.ArrayList;
 
 import motor.depot.clientserver.server.ClientThread;
 
 public class MenuScenario extends AbstractScenario {
 	int selectedItem = -1;
-	String caption = "Please enter action number:";
+	String caption = ""; //$NON-NLS-1$
 	/**
 	 * @return the caption
 	 */
@@ -39,6 +36,7 @@ public class MenuScenario extends AbstractScenario {
 	 */
 	public MenuScenario(ClientThread thread) {
 		super(thread);
+		caption = thread.getString("MenuScenario.Please_enter_action_number"); //$NON-NLS-1$
 	}
 
 	private ArrayList<MenuItem> menuItems = new ArrayList<MenuScenario.MenuItem>();
@@ -84,11 +82,11 @@ public class MenuScenario extends AbstractScenario {
 	public void run() {
 		while (true)
 		{
-			str("");
+			str(""); //$NON-NLS-1$
 			str(caption);
 			for(int i = 0; i<menuItems.size(); i++)
 			{
-				str((i+1) + ". " + menuItems.get(i).rext);
+				str((i+1) + ". " + menuItems.get(i).rext); //$NON-NLS-1$
 			}
 			Integer iAnswer = null;
 			while(iAnswer == null)
@@ -102,7 +100,7 @@ public class MenuScenario extends AbstractScenario {
 							iAnswer = intAnswer;
 				}
 				if (iAnswer == null)
-					str("Please enter valid number.");
+					str(thread.getString("MenuScenario.Please_enter_valid_number")); //$NON-NLS-1$
 			}
 			MenuItem menuItem = menuItems.get(iAnswer-1);
 			selectedItem = iAnswer - 1;

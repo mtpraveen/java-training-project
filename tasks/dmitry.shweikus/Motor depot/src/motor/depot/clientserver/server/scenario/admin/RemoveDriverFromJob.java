@@ -29,21 +29,21 @@ public class RemoveDriverFromJob extends AbstractScenario {
 		}
 		if (drivers.size() == 0)
 		{
-			str("No active drivers found");
+			str(thread.getString("RemoveDriverFromJob.No_active_drivers_found")); //$NON-NLS-1$
 			waitForInput();
 			return;
 		}
 		TableScenario scenario = new TableScenario(thread, drivers.getTableProvider());
 		scenario.setSelectable(true);
-		scenario.setCaption("Select driver:");
+		scenario.setCaption(thread.getString("RemoveDriverFromJob.Select_driver")); //$NON-NLS-1$
 		scenario.run();
 		if(scenario.getSelectedRow() == -1)
 			return;
 		Driver driver = drivers.get(scenario.getSelectedRow());
 		if (MotorDepot.getInstance().setNewDriverActiveState(driver, false))
-			str("Driver removed from job");
+			str(thread.getString("RemoveDriverFromJob.Driver_removed_from_job")); //$NON-NLS-1$
 		else
-			str("Error removing. Driver may be an trip.");
+			str(thread.getString("RemoveDriverFromJob.Error_removing.Driver_may_be_an_trip")); //$NON-NLS-1$
 		waitForInput();
 	}
 
