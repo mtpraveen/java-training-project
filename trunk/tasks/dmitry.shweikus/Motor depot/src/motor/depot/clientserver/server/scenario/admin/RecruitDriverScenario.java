@@ -27,13 +27,13 @@ public class RecruitDriverScenario extends AbstractScenario {
 		}
 		if (drivers.size() == 0)
 		{
-			str("All drivers active");
+			str(thread.getString("RecruitDriverScenario.All_drivers_active")); //$NON-NLS-1$
 			waitForInput();
 			return;
 		}
 		TableScenario scenario = new TableScenario(thread, drivers.getTableProvider());
 		scenario.setSelectable(true);
-		scenario.setCaption("Select driver:");
+		scenario.setCaption(thread.getString("RecruitDriverScenario.Select_driver")); //$NON-NLS-1$
 		scenario.run();
 		if(scenario.getSelectedRow() == -1)
 			return;

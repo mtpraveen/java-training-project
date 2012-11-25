@@ -27,11 +27,11 @@ public class AddUserScenario extends AbstractScenario
 		String res = null;
 		while(res == null)
 		{
-			str("Username:");
+			str(thread.getString("AddUserScenario.Username")); //$NON-NLS-1$
 			String s = readString();
-			if(s.equals(""))
+			if(s.equals("")) //$NON-NLS-1$
 			{
-				if (question("Name cannot be empty. Abort action?"))
+				if (question(thread.getString("AddUserScenario.Name_cannot_be_empty.Abort_action"))) //$NON-NLS-1$
 					return null;
 			}
 			else
@@ -39,7 +39,7 @@ public class AddUserScenario extends AbstractScenario
 				User user = MotorDepot.getInstance().findUserIgnoreCase(s);
 				if (user != null)
 				{
-					if (question("User with this name allready exists. Abort action?"))
+					if (question(thread.getString("AddUserScenario.User_with_this_name_allready_exists.Abort_action"))) //$NON-NLS-1$
 						return null;
 				}
 				else
@@ -54,10 +54,10 @@ public class AddUserScenario extends AbstractScenario
 		String userName = getUsername();
 		if (userName != null)
 		{
-			str("Password:");
+			str(thread.getString("AddUserScenario.Password")); //$NON-NLS-1$
 			String password = readPassword();
 			MotorDepot.getInstance().addUser(userName,password);
-			str("User created");
+			str(thread.getString("AddUserScenario.User_created")); //$NON-NLS-1$
 		}
 	}
 

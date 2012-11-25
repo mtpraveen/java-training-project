@@ -15,18 +15,18 @@ public class LoadDataFromCsvScenario extends AbstractScenario {
 
 	@Override
 	public void run() {
-		str("Enter valid filepath:");
+		str(thread.getString("LoadDataFromCsvScenario.Enter_valid_filepath")); //$NON-NLS-1$
 		String path = readString();
 		String tmpPath = readFile(path);
-		if(tmpPath.equals(""))
+		if(tmpPath.equals("")) //$NON-NLS-1$
 		{
-			str("File not found");
+			str(thread.getString("LoadDataFromCsvScenario.File_not_found")); //$NON-NLS-1$
 			waitForInput();
 			return;
 		}
 		ZippedCsvLoader csvLoader = new ZippedCsvLoader();
 		int recordsAdded = csvLoader.appendFromZippedCsv(tmpPath, MotorDepot.getInstance());
-		str("records added : " +  recordsAdded);
+		str(thread.getString("LoadDataFromCsvScenario.records_added") +  recordsAdded); //$NON-NLS-1$
 		waitForInput();
 		File tmp = new File(tmpPath);
 		tmp.delete();

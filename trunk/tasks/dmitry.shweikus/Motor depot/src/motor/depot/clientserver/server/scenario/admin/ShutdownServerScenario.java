@@ -15,6 +15,6 @@ public class ShutdownServerScenario extends AbstractScenario{
 
 	@Override
 	public void run() {
-		Server.getInstance().closeAll("Server will be closed in 1 sec",1);
+		Server.getInstance().closeAll(thread.getString("ShutdownServerScenario.Server_will_be_closed_in_1_sec"),1); //$NON-NLS-1$
 	}
 }

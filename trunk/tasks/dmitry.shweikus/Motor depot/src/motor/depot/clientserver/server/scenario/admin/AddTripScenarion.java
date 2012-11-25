@@ -48,7 +48,7 @@ public class AddTripScenarion extends AbstractScenario {
 		}
 		TableScenario driverTableScenario = new TableScenario(thread, drivers.getTableProvider());
 		driverTableScenario.setSelectable(true);
-		driverTableScenario.setCaption("Select driver:");
+		driverTableScenario.setCaption(thread.getString("AddTripScenarion.Select_driver")); //$NON-NLS-1$
 		driverTableScenario.run();
 		if(driverTableScenario.getSelectedRow() == -1)
 			return;
@@ -72,24 +72,24 @@ public class AddTripScenarion extends AbstractScenario {
 		}
 		TableScenario carTableScenario = new TableScenario(thread, cars.getTableProvider());
 		carTableScenario.setSelectable(true);
-		carTableScenario.setCaption("Select car:");
+		carTableScenario.setCaption(thread.getString("AddTripScenarion.Select_car")); //$NON-NLS-1$
 		carTableScenario.run();
 		if(carTableScenario.getSelectedRow() == -1)
 			return;
 		Car car = cars.get(carTableScenario.getSelectedRow());
 		//
-		str("Enter start:");
+		str(thread.getString("AddTripScenarion.Enter_start")); //$NON-NLS-1$
 		String start = readString();
-		str("Enter destination:");
+		str(thread.getString("AddTripScenarion.Enter_destination")); //$NON-NLS-1$
 		String destination = readString();
-		str("Enter description:");
+		str(thread.getString("AddTripScenarion.Enter_description")); //$NON-NLS-1$
 		String description = readString();
 		//
 		Trip trip = MotorDepot.getInstance().addTrip(driver, car, start, destination, description);
 		if(trip == null)
-			str("Trip not created");
+			str(thread.getString("AddTripScenarion.Trip_not_created")); //$NON-NLS-1$
 		else
-			str("Trip created");
+			str(thread.getString("AddTripScenarion.Trip_created")); //$NON-NLS-1$
 		waitForInput();
 	}
 

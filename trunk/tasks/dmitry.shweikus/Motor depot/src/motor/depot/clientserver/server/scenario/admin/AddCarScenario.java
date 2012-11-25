@@ -25,16 +25,16 @@ public class AddCarScenario extends AbstractScenario
 	@Override
 	public void run()
 	{
-		str("Model:");
+		str(thread.getString("AddCarScenario.Model")); //$NON-NLS-1$
 		String model = readString(); 
-		str("Number:");
+		str(thread.getString("AddCarScenario.Number")); //$NON-NLS-1$
 		String number = readString(); 
-		str("State:");
+		str(thread.getString("AddCarScenario.State")); //$NON-NLS-1$
 		String state = readString(); 
-		str("Description:");
+		str(thread.getString("AddCarScenario.Description")); //$NON-NLS-1$
 		String description = readString();
 		Car car = MotorDepot.getInstance().addCar(model, number, state, description);
-		str("Car created");
+		str(thread.getString("AddCarScenario.Car_created")); //$NON-NLS-1$
 		waitForInput();
 	}
 

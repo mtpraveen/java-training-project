@@ -9,11 +9,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
 import motor.depot.clientserver.server.scenario.AbstractScenario;
 import motor.depot.clientserver.server.scenario.admin.DispatcherMainScenario;
+import motor.depot.clientserver.server.scenario.admin.SetLocaleScenario;
 import motor.depot.clientserver.server.scenario.users.DriverMainScenario;
 import motor.depot.clientserver.server.scenario.users.LoginScenario;
 import motor.depot.model.Dispatcher;
@@ -27,12 +31,32 @@ public class ClientThread extends Thread
 	private String address = "";
 	private DataInputStream in = null;
 	private User user = null;
+	private final static String RESOURCE_BUNDLE = "motor.depot.clientserver.server.scenario.admin.messages";
+	private ResourceBundle resourceBundle = ResourceBundle.getBundle(RESOURCE_BUNDLE);
 	/**
 	 * @return the socket
 	 */
 	public Socket getSocket()
 	{
 		return socket;
+	}
+	public String getString(String key)
+	{
+		try
+		{
+			return resourceBundle.getString(key);
+		} catch (MissingResourceException e)
+		{
+			return '!' + key + '!';
+		}
+	}
+	public void setEnglishLocale()
+	{
+		resourceBundle = ResourceBundle.getBundle(RESOURCE_BUNDLE,new Locale("en"));
+	}
+	public void setRussianLocale()
+	{
+		resourceBundle = ResourceBundle.getBundle(RESOURCE_BUNDLE,new Locale("ru"));
 	}
 	private DataOutputStream out = null;
 	int threadId = -1;
@@ -91,6 +115,8 @@ public class ClientThread extends Thread
 			updateName();
 			in = new DataInputStream(socket.getInputStream());
 			out = new DataOutputStream(socket.getOutputStream());
+			SetLocaleScenario localeScenario = new SetLocaleScenario(this);
+			localeScenario.run();
 			LoginScenario loginScenario = new LoginScenario(this);
 			loginScenario.run();
 			if (loginScenario.isLogged())

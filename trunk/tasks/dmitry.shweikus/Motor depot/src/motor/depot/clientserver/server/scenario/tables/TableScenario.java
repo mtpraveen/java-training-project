@@ -12,7 +12,7 @@ import motor.depot.clientserver.server.scenario.AbstractScenario;
  */
 public class TableScenario extends AbstractScenario
 {
-	String caption = "";
+	String caption = ""; //$NON-NLS-1$
 	boolean selectable = false;
 	boolean waitable = true;
 	/**
@@ -106,7 +106,7 @@ public class TableScenario extends AbstractScenario
 	{
 		while (selectedRow == -1)
 		{
-			str("Enter index:");
+			str(thread.getString("TableScenario.Enter_index")); //$NON-NLS-1$
 			String sIndex = readString();
 			if (isInt(sIndex))
 			{
@@ -116,13 +116,13 @@ public class TableScenario extends AbstractScenario
 						selectedRow = index;
 			}
 			if (selectedRow == -1)
-				str("Invalid row index.");
+				str(thread.getString("TableScenario.Invalid_row_index")); //$NON-NLS-1$
 		}
 	}
 	@Override
 	public void run()
 	{
-		if (!"".equals(caption))
+		if (!"".equals(caption)) //$NON-NLS-1$
 			str(caption);
 		if (tableProvider == null)
 			return;
@@ -145,11 +145,11 @@ public class TableScenario extends AbstractScenario
 			totalLineWidth += maxColWidth + 1;
 		}
 		// header
-		str("");
+		str(""); //$NON-NLS-1$
 		StringBuilder data = new StringBuilder();
 		if (isSelectable())
 		{
-			data.append(padding("", lineIdxColWidth, ' '));
+			data.append(padding("", lineIdxColWidth, ' ')); //$NON-NLS-1$
 			data.append('|');
 		}
 		for (int col = 0; col < tableProvider.getColCount(); col++)
@@ -159,7 +159,7 @@ public class TableScenario extends AbstractScenario
 			data.append(padding(tableProvider.getColName(col), colWidths[col], ' '));
 		}
 		str(data.toString());
-		str(padding("", Math.min(totalLineWidth, screenLineSize), '-'));
+		str(padding("", Math.min(totalLineWidth, screenLineSize), '-')); //$NON-NLS-1$
 		// rows
 		for (int row = 0; row < tableProvider.getRowCount(); row++)
 		{
@@ -178,7 +178,7 @@ public class TableScenario extends AbstractScenario
 			str(data.toString());
 		}
 		// index
-		str("");
+		str(""); //$NON-NLS-1$
 		if (tableProvider.getRowCount() > 0)
 			if (isSelectable())
 			{

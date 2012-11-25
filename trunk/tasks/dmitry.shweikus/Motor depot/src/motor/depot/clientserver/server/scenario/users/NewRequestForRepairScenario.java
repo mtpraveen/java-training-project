@@ -3,7 +3,6 @@
  */
 package motor.depot.clientserver.server.scenario.users;
 
-import java.util.Iterator;
 import java.util.ListIterator;
 
 import motor.depot.clientserver.server.ClientThread;
@@ -32,7 +31,7 @@ public class NewRequestForRepairScenario extends AbstractScenario
 	@Override
 	public void run()
 	{
-		str("");
+		str(""); //$NON-NLS-1$
 		Driver driver;
 		if (thread.getUser() instanceof Driver)
 			driver = (Driver) thread.getUser();
@@ -45,7 +44,7 @@ public class NewRequestForRepairScenario extends AbstractScenario
 				if(!iterator.next().isActive())
 					iterator.remove();
 			}
-			str("Select driver:");
+			str(thread.getString("NewRequestForRepairScenario.Select_driver")); //$NON-NLS-1$
 			TableScenario driversTable = new TableScenario(thread, drivers.getTableProvider());
 			driversTable.setSelectable(true);
 			driversTable.run();
@@ -53,23 +52,23 @@ public class NewRequestForRepairScenario extends AbstractScenario
 				return;
 			driver = drivers.get(driversTable.getSelectedRow());
 		}
-		str("");
-		str("Select car:");
+		str(""); //$NON-NLS-1$
+		str(thread.getString("NewRequestForRepairScenario.Select_car")); //$NON-NLS-1$
 		TableScenario carTable = new TableScenario(thread, MotorDepot.getInstance().cars.getTableProvider());
 		carTable.setSelectable(true);
 		carTable.run();
 		if (carTable.getSelectedRow() == -1)
 			return;
 		Car car = MotorDepot.getInstance().cars.get(carTable.getSelectedRow());
-		str("");
-		str("Enter reason:");
+		str(""); //$NON-NLS-1$
+		str(thread.getString("NewRequestForRepairScenario.Enter_reason")); //$NON-NLS-1$
 		String description = readString();
 		
 		RequestForRepair request = MotorDepot.getInstance().addRequestForRepair(driver, car, description);
 		if (request == null)
-			str("Request not added.");
+			str(thread.getString("NewRequestForRepairScenario.Request_not_added")); //$NON-NLS-1$
 		else
-			str("Request added.");
+			str(thread.getString("NewRequestForRepairScenario.Request_added")); //$NON-NLS-1$
 		waitForInput();
 	}
 }

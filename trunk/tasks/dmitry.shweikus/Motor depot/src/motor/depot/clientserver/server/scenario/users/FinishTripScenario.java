@@ -27,22 +27,22 @@ public class FinishTripScenario extends AbstractScenario {
 		}
 		if(trips.size() == 0)
 		{
-			str("You don't have active trips");
+			str(thread.getString("You_dont_have_active_trips")); //$NON-NLS-1$
 			return;
 		}
 		TableScenario tableScenario = new TableScenario(thread, trips.getTableProvider());
 		tableScenario.setSelectable(true);
-		tableScenario.setCaption("Select trip:");
+		tableScenario.setCaption(thread.getString("Select_trip")); //$NON-NLS-1$
 		tableScenario.run();
 		if (tableScenario.getSelectedRow() == -1)
 			return;
 		Trip trip = trips.get(tableScenario.getSelectedRow());
 		TripState state;
-		if(question("Trip was ended successfully?"))
+		if(question(thread.getString("Trip_was_ended_successfully"))) //$NON-NLS-1$
 			state = TripState.FINISHED;
 		else
 			state = TripState.ERROR;
-		str("Enter car state after trip");
+		str(thread.getString("Enter_car_state_after_trip")); //$NON-NLS-1$
 		String carstate = readString();
 		trip.setState(state);
 		trip.getCar().setState(carstate);
