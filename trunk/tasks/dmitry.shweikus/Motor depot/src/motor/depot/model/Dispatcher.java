@@ -41,7 +41,7 @@ public class Dispatcher extends User
 	{
 		return "dispatcher";
 	}
-
+	@Deprecated
 	public int generateNewId()
 	{
 		return nextId++;

@@ -1,7 +1,11 @@
 package motor.depot.clientserver.server.scenario.admin;
 
+import java.io.File;
+
 import motor.depot.clientserver.server.ClientThread;
 import motor.depot.clientserver.server.scenario.AbstractScenario;
+import motor.depot.model.MotorDepot;
+import motor.depot.storages.csv.ZippedCsvLoader;
 
 public class LoadDataFromCsvScenario extends AbstractScenario {
 
@@ -20,7 +24,12 @@ public class LoadDataFromCsvScenario extends AbstractScenario {
 			waitForInput();
 			return;
 		}
-		str("File received : " + tmpPath);
+		ZippedCsvLoader csvLoader = new ZippedCsvLoader();
+		int recordsAdded = csvLoader.appendFromZippedCsv(tmpPath, MotorDepot.getInstance());
+		str("records added : " +  recordsAdded);
+		waitForInput();
+		File tmp = new File(tmpPath);
+		tmp.delete();
 	}
 
 }

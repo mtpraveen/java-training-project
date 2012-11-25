@@ -12,7 +12,7 @@ import motor.depot.storages.interfaces.ITableRowProvider;
  */
 public class RequestForRepair implements ICanBeSaved,ITableRowProvider
 {
-	int id;
+	//int id;
 	Driver driver;
 	Car car;
 	String description;
@@ -59,11 +59,11 @@ public class RequestForRepair implements ICanBeSaved,ITableRowProvider
 	{
 		this.description = description;
 	}
-	@Override
+	/*@Override
 	public int getId()
 	{
 		return id;
-	}
+	}*/
 	@Override
 	public String getClassId()
 	{
@@ -74,11 +74,11 @@ public class RequestForRepair implements ICanBeSaved,ITableRowProvider
 	{
 		return new RequestForRepair();
 	}
-	@Override
+	/*@Override
 	public void setId(int id)
 	{
 		this.id = id;
-	}
+	}*/
 	@Override
 	public int getColCount()
 	{

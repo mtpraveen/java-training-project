@@ -7,6 +7,7 @@ import motor.depot.clientserver.server.scenario.tables.ShowModelTable;
 import motor.depot.clientserver.server.scenario.users.ChangePasswordScenario;
 import motor.depot.clientserver.server.scenario.users.NewRequestForRepairScenario;
 import motor.depot.model.MotorDepot;
+import motor.depot.reports.CreateReportScenario;
 
 public class DispatcherMainScenario extends AbstractScenario {
 
@@ -28,6 +29,7 @@ public class DispatcherMainScenario extends AbstractScenario {
 		subMenu.addMenuItem("Show connected users", new ShowConnectedUsersScenario(thread));
 		subMenu.addMenuItem("Disconnect user", new DisconnectUserScenario(thread));
 		subMenu.addMenuItem("Change password", new ChangePasswordScenario(thread));
+		subMenu.addMenuItem("Create report", new CreateReportScenario(thread));
 		subMenu.addMenuItem("Load data from zipped CSV files", new LoadDataFromCsvScenario(thread));
 		subMenu.addMenuItem("Shutdown server and exit", new ShutdownServerScenario(thread));
 		subMenu.addExitItem(".. go to main menu");
