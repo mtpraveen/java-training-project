@@ -3,16 +3,14 @@
  */
 package motor.depot.model;
 
-import motor.depot.storages.interfaces.AbstractItemStateLoader;
-import motor.depot.storages.interfaces.AbstractItemStateSaver;
-import motor.depot.storages.interfaces.AbstractStorage;
 import motor.depot.storages.interfaces.ICanBeSaved;
+import motor.depot.storages.interfaces.ILoadableFromCsv;
 
 /**
  * @author dima
  *
  */
-public class Driver extends User
+public class Driver extends User implements ILoadableFromCsv
 {
 	boolean active = true;
 	private static final long serialVersionUID = 22112012;
@@ -22,6 +20,36 @@ public class Driver extends User
 	public boolean isActive()
 	{
 		return active;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + (active ? 1231 : 1237);
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Driver other = (Driver) obj;
+		if (active != other.active)
+			return false;
+		return true;
 	}
 
 	/**
@@ -62,19 +90,20 @@ public class Driver extends User
 	
 	@Override
 	public int getColCount() {
-		return 2;
+		return 	super.getColCount() + 1;
 	}
 	
 	@Override
 	public String getColName(int col) {
-		if (col == 0)
+		if (col < super.getColCount())
 			return super.getColName(col);
 		else
 			return "Active";
 	}
 	@Override
 	public String getValue(int col) {
-		if (col == 0)
+		
+		if (col < super.getColCount())
 			return super.getValue(col);
 		else
 			return active?"Yes":"No";
@@ -83,5 +112,19 @@ public class Driver extends User
 	@Override
 	public long getSerialVersionUID() {
 		return serialVersionUID;
+	}
+
+	@Override
+	public void setField(int index, String value)
+	{
+		switch (index) {
+		case 0: 
+			setLogin(value);
+			break;
+		case 1: setPassword(value);
+			break;
+		case 2: active = !(value.trim().equalsIgnoreCase("No")||value.trim().equalsIgnoreCase("0"));
+			break;
+		}
 	}
 }

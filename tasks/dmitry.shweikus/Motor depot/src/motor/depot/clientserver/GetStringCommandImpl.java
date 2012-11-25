@@ -107,7 +107,7 @@ public class GetStringCommandImpl extends AbstractClientServerCommandImpl {
 				kind = CLIENT_CONTENT_KIND.values()[iKind];
 			} catch (Exception e) {
 			}
-			LOGGER.debug(kind.toString() + "  " + iKind);
+			//LOGGER.debug(kind.toString() + "  " + iKind);
 			if (kind == CLIENT_CONTENT_KIND.FILE) {
 				sendFile(fromServer.readUTF());
 			} else {

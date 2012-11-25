@@ -15,7 +15,7 @@ import motor.depot.clientserver.ClientServerCommand;
 import motor.depot.clientserver.ConnectionSettings;
 import motor.depot.model.Dispatcher;
 import motor.depot.model.MotorDepot;
-import motor.depot.storages.csv.CsvStorage;
+import motor.depot.storages.csv.Storage;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -99,7 +99,7 @@ public class Server
 		{
 			LOGGER.error("Error closing main socket in closing command", e);
 		}
-		MotorDepot.getInstance().save(new CsvStorage());
+		MotorDepot.getInstance().save(new Storage());
 		LOGGER.debug("Server closed"); //$NON-NLS-1$
 		System.exit(0);
 	}

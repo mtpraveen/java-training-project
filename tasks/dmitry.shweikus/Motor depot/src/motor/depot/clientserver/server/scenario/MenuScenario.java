@@ -8,6 +8,32 @@ import java.util.ArrayList;
 import motor.depot.clientserver.server.ClientThread;
 
 public class MenuScenario extends AbstractScenario {
+	int selectedItem = -1;
+	String caption = "Please enter action number:";
+	/**
+	 * @return the caption
+	 */
+	public String getCaption()
+	{
+		return caption;
+	}
+
+	/**
+	 * @param caption the caption to set
+	 */
+	public void setCaption(String caption)
+	{
+		this.caption = caption;
+	}
+
+	/**
+	 * @return the selectedItem
+	 */
+	public int getSelectedItem()
+	{
+		return selectedItem;
+	}
+
 	/**
 	 * @param thread
 	 */
@@ -59,7 +85,7 @@ public class MenuScenario extends AbstractScenario {
 		while (true)
 		{
 			str("");
-			str("Please enter action number:");
+			str(caption);
 			for(int i = 0; i<menuItems.size(); i++)
 			{
 				str((i+1) + ". " + menuItems.get(i).rext);
@@ -79,6 +105,7 @@ public class MenuScenario extends AbstractScenario {
 					str("Please enter valid number.");
 			}
 			MenuItem menuItem = menuItems.get(iAnswer-1);
+			selectedItem = iAnswer - 1;
 			if (menuItem.scenario == null)
 				return;
 			else

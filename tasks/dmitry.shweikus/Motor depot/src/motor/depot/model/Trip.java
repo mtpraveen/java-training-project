@@ -17,7 +17,7 @@ import motor.depot.storages.interfaces.ITableRowProvider;
  */
 public class Trip implements ICanBeSaved,ITableRowProvider
 {
-	int id;
+	//int id;
 	String start;
 	String destination;
 	String description;
@@ -66,10 +66,10 @@ public class Trip implements ICanBeSaved,ITableRowProvider
 	/**
 	 * @return the id
 	 */
-	public int getId()
+	/*public int getId()
 	{
 		return id;
-	}
+	}*/
 	/**
 	 * @return the start
 	 */
@@ -125,11 +125,11 @@ public class Trip implements ICanBeSaved,ITableRowProvider
 	{
 		return new Trip();
 	}
-	@Override
+	/*@Override
 	public void setId(int id)
 	{
 		this.id = id;
-	}
+	}*/
 	@Override
 	public int getColCount()
 	{

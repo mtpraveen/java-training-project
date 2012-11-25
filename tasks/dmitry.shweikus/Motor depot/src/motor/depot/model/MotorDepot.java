@@ -11,9 +11,10 @@ import org.apache.log4j.Logger;
 
 import motor.depot.listclasses.ListWithIds;
 import motor.depot.model.enums.TripState;
-import motor.depot.storages.csv.CsvStorage;
+import motor.depot.storages.csv.Storage;
 import motor.depot.storages.interfaces.AbstractStorage;
 import motor.depot.storages.interfaces.ICanBeSaved;
+import motor.depot.storages.interfaces.ILoadableFromCsv;
 
 /**
  * @author dima
@@ -24,6 +25,11 @@ public class MotorDepot
 	Dispatcher dispatcher;
 	private static final Logger LOGGER = Logger.getLogger(MotorDepot.class);
 	private static final long serialVersionUID = 565645645688l;
+	public ListWithIds<Driver> drivers = new ListWithIds<Driver>(new Driver());
+	public ListWithIds<Car> cars = new ListWithIds<Car>(new Car());
+	public ListWithIds<Trip> trips = new ListWithIds<Trip>(new Trip());
+	public ListWithIds<RequestForRepair> requestsForRepair = new ListWithIds<RequestForRepair>(new RequestForRepair());
+	private static MotorDepot _instance;
 	/**
 	 * @return the dispatcher
 	 */
@@ -31,12 +37,7 @@ public class MotorDepot
 	{
 		return dispatcher;
 	}
-	public ListWithIds<Driver> drivers = new ListWithIds<Driver>(new Driver());
-	public ListWithIds<Car> cars = new ListWithIds<Car>(new Car());
-	public ListWithIds<Trip> trips = new ListWithIds<Trip>(new Trip());
-	public ListWithIds<RequestForRepair> requestsForRepair = new ListWithIds<RequestForRepair>(new RequestForRepair());
-	private static MotorDepot _instance;
-	public Car findCarById(int id)
+	/*public Car findCarById(int id)
 	{
 		return cars.findById(id);
 	}
@@ -51,7 +52,7 @@ public class MotorDepot
 	public Driver findDriverById(int id)
 	{
 		return drivers.findById(id);
-	}
+	}*/
 	
 	public MotorDepot(AbstractStorage storage)  
 	{
@@ -123,7 +124,7 @@ public class MotorDepot
 	{
 		if (_instance == null)
 		{
-			_instance = new MotorDepot(new CsvStorage());
+			_instance = new MotorDepot(new Storage());
 		}
 		return _instance;
 	}
@@ -147,6 +148,7 @@ public class MotorDepot
 		}
 		return null;
 	}
+	@Deprecated
 	public int generateNewId()
 	{
 		return dispatcher.generateNewId();
@@ -160,7 +162,7 @@ public class MotorDepot
 		Driver driver = new Driver();
 		driver.setLogin(userName);
 		driver.setPassword(password);
-		driver.setId(generateNewId());
+		//driver.setId(generateNewId());
 		drivers.add(driver);
 		return driver;
 	}
@@ -169,7 +171,7 @@ public class MotorDepot
 		if (!driver.isActive())
 			return null;
 		RequestForRepair request = new RequestForRepair();
-		request.setId(dispatcher.generateNewId());
+		//request.setId(dispatcher.generateNewId());
 		request.setCar(car);
 		request.setDescription(description);
 		request.setDriver(driver);
@@ -180,7 +182,7 @@ public class MotorDepot
 	public Car addCar(String model,String number,String state, String description)
 	{
 		Car car = new Car();
-		car.setId(generateNewId());
+		//car.setId(generateNewId());
 		car.setNumber(number);
 		car.setDescription(description);
 		car.setModel(model);
@@ -223,7 +225,7 @@ public class MotorDepot
 				return null;
 		}
 		Trip trip = new Trip();
-		trip.setId(generateNewId());
+		//trip.setId(generateNewId());
 		trip.setDriver(driver);
 		trip.setCar(car);
 		trip.setStart(start);
@@ -232,4 +234,26 @@ public class MotorDepot
 		trips.add(trip);
 		return trip;
 	}
+	public ArrayList<ListWithIds<? extends ICanBeSaved>> getAllListsWithIds()
+	{
+		ArrayList<ListWithIds<? extends ICanBeSaved>> res = new ArrayList<ListWithIds<? extends ICanBeSaved>>();
+		res.add(drivers);
+		res.add(requestsForRepair);
+		res.add(cars);
+		res.add(trips);
+		return res;
+	}
+	public ListWithIds<? extends ICanBeSaved> getLoadableFromCsvList(String name)
+	{
+		for (ListWithIds<? extends ICanBeSaved> list : getAllListsWithIds())
+		{
+			if(list.getPrototype() instanceof ILoadableFromCsv)
+			{
+				if(list.getPrototype().getClassId().equalsIgnoreCase(name))
+					return list;
+			}
+		}
+		return null;
+	}
+	
 }

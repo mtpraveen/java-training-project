@@ -37,7 +37,15 @@ public enum ClientServerCommand
 		{
 			return new CloseClientCommandImpl(this);
 		}
-	};
+	},
+	DOWNLOAD_FILE {
+		@Override
+		public AbstractClientServerCommandImpl getImpl()
+		{
+			return new DownloadFileClientCommandImpl(this);
+		}
+	}
+	;
 	public abstract AbstractClientServerCommandImpl getImpl();
 	public static void sendText(DataOutputStream writer, String textToClient)
 	{

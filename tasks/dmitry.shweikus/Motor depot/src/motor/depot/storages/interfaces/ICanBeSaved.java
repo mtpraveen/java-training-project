@@ -14,8 +14,8 @@ import motor.depot.model.MotorDepot;
 public interface ICanBeSaved extends Serializable
 {
 	String getClassId();
-	int getId();
-	void setId(int id);
+	//int getId();
+	//void setId(int id);
 	ICanBeSaved newInstance();
 	ITableRowProvider getRowProvider();
 	long getSerialVersionUID();
