@@ -3,6 +3,7 @@
  */
 package motor.depot.clientserver.server.scenario.users;
 
+import java.io.IOException;
 import java.util.ListIterator;
 
 import motor.depot.clientserver.server.ClientThread;
@@ -29,7 +30,7 @@ public class NewRequestForRepairScenario extends AbstractScenario
 	}
 
 	@Override
-	public void run()
+	public void run() throws IOException
 	{
 		str(""); //$NON-NLS-1$
 		Driver driver;

@@ -19,7 +19,7 @@ import org.apache.log4j.PropertyConfigurator;
 
 /**
  * @author dima
- * 
+ * main class for client
  */
 public class Client implements IExitable
 {

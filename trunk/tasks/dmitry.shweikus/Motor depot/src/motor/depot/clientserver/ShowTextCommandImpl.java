@@ -34,16 +34,20 @@ final class ShowTextCommandImpl extends AbstractClientServerCommandImpl
 			byte[] b;
 			if (System.console() == null)
 			{
+				//we are running from IDE
 				b = s.getBytes();
 			}
 			else
 			{
+				//we are running from "real" console
 				String cp = System.getProperty("console.encoding", "Cp866");
 				try
 				{
+					//try convert string to system default encoding
 					b = s.getBytes(cp);
 				} catch (UnsupportedEncodingException e)
 				{
+					//show string "as is"
 					b = s.getBytes();
 				}
 			}

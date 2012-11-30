@@ -22,7 +22,7 @@ import org.apache.log4j.PropertyConfigurator;
 
 /**
  * @author dima
- * 
+ * main class for server
  */
 public class Server
 {
@@ -62,24 +62,27 @@ public class Server
 		if (thread.getUser() != null)
 			if(thread.getUser() instanceof Dispatcher)
 				return false;
-		ClientServerCommand.sendText(thread.getOut(), message);
-		ClientServerCommand.CLOSE_CLIENT.getImpl().sendToClient(thread.getOut());
+		try
+		{
+			ClientServerCommand.sendText(thread.getOut(), message);
+			ClientServerCommand.CLOSE_CLIENT.getImpl().sendToClient(thread.getOut());
+		} catch (IOException e)
+		{
+			LOGGER.error("Error disconnecting user " + thread.toString(),e);
+		}
 		return true;
 	}
 	public void closeAll(String message, int seconds)
 	{
 		for (ClientThread thread : threads)
 		{
-			/*try
-			{ 
-				DataOutputStream writer = new DataOutputStream(thread.getSocket().getOutputStream());
-				ClientServerCommand.sendText(writer, message);
+			try
+			{
+				ClientServerCommand.sendText(thread.getOut(), message);
 			} catch (IOException e)
 			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
-			ClientServerCommand.sendText(thread.getOut(), message);
+				LOGGER.error("IOException by sending closing text to " + thread.toString(),e);
+			}
 		}
 		try
 		{
@@ -89,7 +92,13 @@ public class Server
 		} 
 		for (ClientThread thread : threads)
 		{
-			ClientServerCommand.CLOSE_CLIENT.getImpl().sendToClient(thread.getOut());
+			try
+			{
+				ClientServerCommand.CLOSE_CLIENT.getImpl().sendToClient(thread.getOut());
+			} catch (IOException e)
+			{
+				LOGGER.error("IOException by sending closing command to " + thread.toString(),e);
+			}
 		}
 		threads.clear();
 		try

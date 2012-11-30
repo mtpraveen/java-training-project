@@ -121,7 +121,7 @@ public class GetStringCommandImpl extends AbstractClientServerCommandImpl {
 	}
 
 	@Override
-	public void sendToClient(DataOutputStream toClient) {
+	public void sendToClient(DataOutputStream toClient) throws IOException {
 		try {
 			sendToClient(toClient, CLIENT_CONTENT_KIND.TEXT, "");
 		} catch (IOException e) {

@@ -6,13 +6,12 @@ package motor.depot.clientserver;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.DataOutputStream;
 
 import org.apache.log4j.Logger;
 
 /**
  * @author dima
- *
+ * Abstract class that implements client command
  */
 public abstract class AbstractClientServerCommandImpl
 {
@@ -25,14 +24,21 @@ public abstract class AbstractClientServerCommandImpl
 		super();
 		this.command = command;
 	}
+	/**
+	 * executes on client
+	 * @param fromServer - data, received from server
+	 * @param toServer - data, that will be send to server
+	 */
 	public abstract void processDataOnClient(DataInputStream fromServer, DataOutputStream toServer);
-	public void sendToClient(DataOutputStream toClient)
+	/**
+	 * executes on server 
+	 * @param toClient - data, that will be send to server
+	 * @throws IOException TODO
+	 * @throws IOException 
+	 */
+	public void sendToClient(DataOutputStream toClient) throws IOException
 	{
 		//by default send name of this command
-		try {
-			toClient.writeUTF(command.toString());
-		} catch (IOException e) {
-			LOGGER.error("IOException by sending message to client",e);
-		}
+		toClient.writeUTF(command.toString());
 	}
 }

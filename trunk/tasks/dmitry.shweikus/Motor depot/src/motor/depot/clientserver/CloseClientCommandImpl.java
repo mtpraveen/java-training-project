@@ -8,7 +8,7 @@ import java.io.DataOutputStream;
 
 /**
  * @author dima
- *
+ * client executes doExit() method,when receives this command 
  */
 public class CloseClientCommandImpl extends AbstractClientServerCommandImpl
 {
@@ -20,7 +20,9 @@ public class CloseClientCommandImpl extends AbstractClientServerCommandImpl
 	public CloseClientCommandImpl(ClientServerCommand command) {
 		super(command);
 	}
-
+	/**
+	 * exit handler
+	 */
 	static IExitable exitable;
 	public static void setExitable(IExitable exitListener)
 	{

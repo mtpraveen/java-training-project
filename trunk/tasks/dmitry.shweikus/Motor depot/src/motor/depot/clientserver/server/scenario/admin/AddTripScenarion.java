@@ -1,5 +1,6 @@
 package motor.depot.clientserver.server.scenario.admin;
 
+import java.io.IOException;
 import java.util.Iterator;
 
 import motor.depot.clientserver.server.ClientThread;
@@ -20,7 +21,7 @@ public class AddTripScenarion extends AbstractScenario {
 	}
 
 	@Override
-	public void run() {
+	public void run() throws IOException {
 		//driver
 		ListWithIds<Driver> drivers = MotorDepot.getInstance().drivers.getCopy();
 		Iterator<Driver> driverIterator = drivers.iterator();

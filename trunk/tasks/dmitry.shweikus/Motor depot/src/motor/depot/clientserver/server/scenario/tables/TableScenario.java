@@ -3,6 +3,8 @@
  */
 package motor.depot.clientserver.server.scenario.tables;
 
+import java.io.IOException;
+
 import motor.depot.clientserver.server.ClientThread;
 import motor.depot.clientserver.server.scenario.AbstractScenario;
 
@@ -102,7 +104,7 @@ public class TableScenario extends AbstractScenario
 			builder.append(ch);
 		return builder.toString();
 	}
-	private void selectRow()
+	private void selectRow() throws IOException
 	{
 		while (selectedRow == -1)
 		{
@@ -120,7 +122,7 @@ public class TableScenario extends AbstractScenario
 		}
 	}
 	@Override
-	public void run()
+	public void run() throws IOException
 	{
 		if (!"".equals(caption)) //$NON-NLS-1$
 			str(caption);

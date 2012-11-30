@@ -1,5 +1,7 @@
 package motor.depot.clientserver.server.scenario;
 
+import java.io.IOException;
+
 import motor.depot.clientserver.server.ClientThread;
 
 public class SimpleEchoScenario extends AbstractScenario {
@@ -10,7 +12,7 @@ public class SimpleEchoScenario extends AbstractScenario {
 	}
 
 	@Override
-	public void run() {
+	public void run() throws IOException {
 		str(thread.getString("SimpleEchoScenario.Enter_String")); //$NON-NLS-1$
 		String s = readString();
 		str(thread.getString("SimpleEchoScenario.You_wrote") + s); //$NON-NLS-1$

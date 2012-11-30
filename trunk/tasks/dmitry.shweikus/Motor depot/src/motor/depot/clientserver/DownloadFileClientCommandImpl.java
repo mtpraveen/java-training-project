@@ -9,13 +9,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import javax.swing.DebugGraphics;
-
 import org.apache.log4j.Logger;
 
 /**
  * @author dima
- * 
+ * this command download file from server 
  */
 public class DownloadFileClientCommandImpl extends AbstractClientServerCommandImpl
 {
@@ -36,8 +34,7 @@ public class DownloadFileClientCommandImpl extends AbstractClientServerCommandIm
 	}
 
 	/**
-	 * @param data
-	 *            the data to set
+	 * @param data  the data to set
 	 */
 	public void setData(byte[] data)
 	{
@@ -53,8 +50,7 @@ public class DownloadFileClientCommandImpl extends AbstractClientServerCommandIm
 	}
 
 	/**
-	 * @param filePath
-	 *            the filePath to set
+	 * @param filePath the filePath to set
 	 */
 	public void setFilePath(String filePath)
 	{
@@ -98,7 +94,7 @@ public class DownloadFileClientCommandImpl extends AbstractClientServerCommandIm
 	}
 
 	@Override
-	public void sendToClient(DataOutputStream toClient)
+	public void sendToClient(DataOutputStream toClient) throws IOException
 	{
 		super.sendToClient(toClient);
 		try
