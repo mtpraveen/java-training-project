@@ -12,7 +12,9 @@ import java.io.InputStreamReader;
 
 /**
  * @author dima
- *
+ * this class implements connection settings.
+ * Default values is host=127.0.0.1 and port=4433
+ * if file "server.txt" is present, then server will be readed from first line of this file
  */
 public class ConnectionSettings
 {

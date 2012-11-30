@@ -1,5 +1,6 @@
 package motor.depot.clientserver.server.scenario;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import motor.depot.clientserver.server.ClientThread;
@@ -79,7 +80,7 @@ public class MenuScenario extends AbstractScenario {
 	}
 
 	@Override
-	public void run() {
+	public void run() throws IOException {
 		while (true)
 		{
 			str(""); //$NON-NLS-1$

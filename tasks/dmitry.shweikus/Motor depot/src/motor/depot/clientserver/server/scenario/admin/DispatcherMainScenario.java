@@ -1,5 +1,7 @@
 package motor.depot.clientserver.server.scenario.admin;
 
+import java.io.IOException;
+
 import motor.depot.clientserver.server.ClientThread;
 import motor.depot.clientserver.server.scenario.AbstractScenario;
 import motor.depot.clientserver.server.scenario.MenuScenario;
@@ -18,7 +20,7 @@ public class DispatcherMainScenario extends AbstractScenario {
 	}
 
 	@Override
-	public void run() {
+	public void run() throws IOException {
 		MenuScenario menu = new MenuScenario(thread);
 		menu.setRepeatable(true);
 

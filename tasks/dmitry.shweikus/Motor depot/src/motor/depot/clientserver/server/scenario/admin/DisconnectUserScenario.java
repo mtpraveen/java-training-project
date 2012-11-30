@@ -3,6 +3,8 @@
  */
 package motor.depot.clientserver.server.scenario.admin;
 
+import java.io.IOException;
+
 import motor.depot.clientserver.server.ClientThread;
 import motor.depot.clientserver.server.Server;
 import motor.depot.clientserver.server.scenario.AbstractScenario;
@@ -26,7 +28,7 @@ public class DisconnectUserScenario extends AbstractScenario
 	}
 
 	@Override
-	public void run()
+	public void run() throws IOException
 	{
 		ConnectedUsersList users = new ConnectedUsersList();
 		users.getUsers().remove(MotorDepot.getInstance().getDispatcher());//cannot kill item self

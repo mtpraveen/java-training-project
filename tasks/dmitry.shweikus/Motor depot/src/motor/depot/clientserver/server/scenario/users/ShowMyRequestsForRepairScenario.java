@@ -3,6 +3,7 @@
  */
 package motor.depot.clientserver.server.scenario.users;
 
+import java.io.IOException;
 import java.util.ListIterator;
 
 import motor.depot.clientserver.server.ClientThread;
@@ -26,7 +27,7 @@ public class ShowMyRequestsForRepairScenario extends AbstractScenario
 	}
 
 	@Override
-	public void run()
+	public void run() throws IOException
 	{
 		ListWithIds<RequestForRepair> requests = MotorDepot.getInstance().requestsForRepair.getCopy();
 		ListIterator<RequestForRepair> iterator = requests.listIterator();

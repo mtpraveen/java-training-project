@@ -3,6 +3,8 @@
  */
 package motor.depot.clientserver.server.scenario.admin;
 
+import java.io.IOException;
+
 import motor.depot.clientserver.server.ClientThread;
 import motor.depot.clientserver.server.scenario.AbstractScenario;
 import motor.depot.model.MotorDepot;
@@ -22,7 +24,7 @@ public class AddUserScenario extends AbstractScenario
 		super(thread);
 	}
 
-	private String getUsername()
+	private String getUsername() throws IOException
 	{
 		String res = null;
 		while(res == null)
@@ -49,7 +51,7 @@ public class AddUserScenario extends AbstractScenario
 		return res;
 	}
 	@Override
-	public void run()
+	public void run() throws IOException
 	{
 		String userName = getUsername();
 		if (userName != null)

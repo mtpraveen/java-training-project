@@ -1,6 +1,7 @@
 package motor.depot.clientserver.server.scenario.admin;
 
 import java.io.File;
+import java.io.IOException;
 
 import motor.depot.clientserver.server.ClientThread;
 import motor.depot.clientserver.server.scenario.AbstractScenario;
@@ -14,7 +15,7 @@ public class LoadDataFromCsvScenario extends AbstractScenario {
 	}
 
 	@Override
-	public void run() {
+	public void run() throws IOException {
 		str(thread.getString("LoadDataFromCsvScenario.Enter_valid_filepath")); //$NON-NLS-1$
 		String path = readString();
 		String tmpPath = readFile(path);

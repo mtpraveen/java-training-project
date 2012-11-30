@@ -3,6 +3,8 @@
  */
 package motor.depot.clientserver.server.scenario.admin;
 
+import java.io.IOException;
+
 import motor.depot.clientserver.server.ClientThread;
 import motor.depot.clientserver.server.scenario.AbstractScenario;
 import motor.depot.model.Car;
@@ -23,7 +25,7 @@ public class AddCarScenario extends AbstractScenario
 	}
 
 	@Override
-	public void run()
+	public void run() throws IOException
 	{
 		str(thread.getString("AddCarScenario.Model")); //$NON-NLS-1$
 		String model = readString(); 

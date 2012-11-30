@@ -1,5 +1,6 @@
 package motor.depot.clientserver.server.scenario.users;
 
+import java.io.IOException;
 import java.util.Iterator;
 
 import motor.depot.clientserver.server.ClientThread;
@@ -17,7 +18,7 @@ public class FinishTripScenario extends AbstractScenario {
 	}
 
 	@Override
-	public void run() {
+	public void run() throws IOException {
 		ListWithIds<Trip> trips = MotorDepot.getInstance().getTripsByState(TripState.STARTED);
 		Iterator<Trip> iterator = trips.iterator();
 		while(iterator.hasNext())

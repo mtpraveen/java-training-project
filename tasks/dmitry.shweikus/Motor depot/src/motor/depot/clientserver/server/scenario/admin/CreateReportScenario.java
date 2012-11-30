@@ -3,6 +3,7 @@
  */
 package motor.depot.clientserver.server.scenario.admin;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import motor.depot.clientserver.ClientServerCommand;
@@ -32,7 +33,7 @@ public class CreateReportScenario extends AbstractScenario
 	}
 
 	@Override
-	public void run()
+	public void run() throws IOException
 	{
 		ArrayList<ListWithIds<? extends ICanBeSaved>> lists = MotorDepot.getInstance()
 				.getAllListsWithIds();

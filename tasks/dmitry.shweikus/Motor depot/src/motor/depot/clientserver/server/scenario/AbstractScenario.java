@@ -39,102 +39,78 @@ public abstract class AbstractScenario
 		this.writer = thread.getOut();
 	}
 
-	private String readAnswerFromClient()
+	private String readAnswerFromClient() throws IOException
 	{
 		String s = "";
-		try
-		{
-			s = reader.readUTF();
-		} catch (IOException e)
-		{
-			hasErrors = true;
-			LOGGER.error("IOException by reading string from client");
-		}
+		s = reader.readUTF();
 		if (s == null)
 			s = "";
 		return s;
 	}
 
-	private String readFileFromClient()
+	private String readFileFromClient() throws IOException
 	{
 		LOGGER.debug("Start receiving file");
 		String s = "";
 		int size = -1;
-		try
+		s = reader.readUTF();
+		LOGGER.debug("FileSize = " + s);
+		if (isInt(s))
 		{
-			s = reader.readUTF();
-			LOGGER.debug("FileSize = " + s);
-			if (isInt(s))
+			size = Integer.parseInt(s);
+			if (size > -1)
 			{
-				size = Integer.parseInt(s);
-				if (size > -1)
+				File file = File.createTempFile("data_from_client", ".tmp");
+				FileOutputStream outputStream = new FileOutputStream(file);
+				int bufsize = 4096;
+				byte[] buf = new byte[bufsize];
+				while (size > 0)
 				{
-					File file = File.createTempFile("data_from_client", ".tmp");
-					FileOutputStream outputStream = new FileOutputStream(file);
-					int bufsize = 4096;
-					byte[] buf = new byte[bufsize];
-					while (size > 0)
-					{
-						int len = reader.read(buf);
-						outputStream.write(buf,0,len);
-						size -= len;
-					}
-					outputStream.flush();
-					outputStream.close();
-					LOGGER.debug("Receiving successfull");
-					return file.getAbsolutePath();
+					int len = reader.read(buf);
+					outputStream.write(buf, 0, len);
+					size -= len;
 				}
+				outputStream.flush();
+				outputStream.close();
+				LOGGER.debug("Receiving successfull");
+				return file.getAbsolutePath();
 			}
-		} catch (IOException e)
-		{
-			LOGGER.error("IOException by reading file from client");
 		}
-		LOGGER.debug("Erros receiving");
 		return "";
 	}
 
-	protected String readFile(String fileName)
+	protected String readFile(String fileName) throws IOException
 	{
-		try
-		{
-			((GetStringCommandImpl) ClientServerCommand.GET_STRING.getImpl()).sendToClient(writer,
-					CLIENT_CONTENT_KIND.FILE, fileName);
-		} catch (IOException e)
-		{
-		}
+		((GetStringCommandImpl) ClientServerCommand.GET_STRING.getImpl()).sendToClient(writer,
+				CLIENT_CONTENT_KIND.FILE, fileName);
 		return readFileFromClient();
 	}
 
-	protected String readPassword()
+	protected String readPassword() throws IOException
 	{
-		try
-		{
-			((GetStringCommandImpl) ClientServerCommand.GET_STRING.getImpl()).sendToClient(writer,
-					CLIENT_CONTENT_KIND.PASSWORD, "");
-		} catch (IOException e)
-		{
-		}
+		((GetStringCommandImpl) ClientServerCommand.GET_STRING.getImpl()).sendToClient(writer,
+				CLIENT_CONTENT_KIND.PASSWORD, "");
 		return readAnswerFromClient();
 	}
 
-	protected String readString()
+	protected String readString() throws IOException
 	{
 		ClientServerCommand.GET_STRING.getImpl().sendToClient(writer);
 		return readAnswerFromClient();
 	}
 
-	protected void waitForInput()
+	protected void waitForInput() throws IOException
 	{
 		str("Press <enter> to continue");
 		readString();
 	}
 
-	protected void str(String s)
+	protected void str(String s) throws IOException
 	{
 		ClientServerCommand.sendText(writer, s);
 	}
 
-	public boolean question(String q)
+	public boolean question(String q) throws IOException
 	{
 		Boolean res = null;
 		while (res == null)
@@ -151,7 +127,7 @@ public abstract class AbstractScenario
 		return res;
 	}
 
-	public abstract void run();
+	public abstract void run() throws IOException;
 
 	public boolean isInt(String s)
 	{

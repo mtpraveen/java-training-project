@@ -1,5 +1,7 @@
 package motor.depot.clientserver.server.scenario.users;
 
+import java.io.IOException;
+
 import motor.depot.clientserver.server.ClientThread;
 import motor.depot.clientserver.server.scenario.AbstractScenario;
 import motor.depot.clientserver.server.scenario.MenuScenario;
@@ -15,7 +17,7 @@ public class DriverMainScenario extends AbstractScenario {
 	}
 
 	@Override
-	public void run() {
+	public void run() throws IOException {
 		Driver driver = (Driver) thread.getUser();
 		MenuScenario menu = new MenuScenario(thread);
 		menu.setRepeatable(true);

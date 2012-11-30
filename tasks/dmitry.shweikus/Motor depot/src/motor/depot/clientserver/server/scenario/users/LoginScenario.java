@@ -3,6 +3,8 @@
  */
 package motor.depot.clientserver.server.scenario.users;
 
+import java.io.IOException;
+
 import motor.depot.clientserver.server.ClientThread;
 import motor.depot.clientserver.server.Server;
 import motor.depot.clientserver.server.scenario.AbstractScenario;
@@ -41,7 +43,7 @@ public class LoginScenario extends AbstractScenario
 	}
 
 	@Override
-	public void run()
+	public void run() throws IOException
 	{
 		str(thread.getString("Please_login")); //$NON-NLS-1$
 		while (!isLogged())

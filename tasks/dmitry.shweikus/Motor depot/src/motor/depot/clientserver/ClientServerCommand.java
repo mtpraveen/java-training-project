@@ -5,15 +5,17 @@ package motor.depot.clientserver;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.DataOutputStream;
 
 
 /**
  * @author dima
- * 
+ * implementation of command. Used on client and server 
  */
 public enum ClientServerCommand
 {
+	/**
+	 * show text to user
+	 */
 	SHOW_TEXT
 	{
 		@Override
@@ -22,6 +24,9 @@ public enum ClientServerCommand
 			return new ShowTextCommandImpl(this);
 		}
 	},
+	/**
+	 * receive simple string, password or file from client
+	 */
 	GET_STRING
 	{
 		@Override
@@ -30,6 +35,9 @@ public enum ClientServerCommand
 			return new GetStringCommandImpl(this);
 		}
 	},
+	/**
+	 * disconnect client
+	 */
 	CLOSE_CLIENT
 	{
 		@Override
@@ -38,6 +46,9 @@ public enum ClientServerCommand
 			return new CloseClientCommandImpl(this);
 		}
 	},
+	/**
+	 * receive file from server
+	 */
 	DOWNLOAD_FILE {
 		@Override
 		public AbstractClientServerCommandImpl getImpl()
@@ -47,14 +58,15 @@ public enum ClientServerCommand
 	}
 	;
 	public abstract AbstractClientServerCommandImpl getImpl();
-	public static void sendText(DataOutputStream writer, String textToClient)
+	/**
+	 * sends text from server to client
+	 * @param writer - 
+	 * @param textToClient
+	 * @throws IOException 
+	 */
+	public static void sendText(DataOutputStream writer, String textToClient) throws IOException
 	{
 		ShowTextCommandImpl impl = new ShowTextCommandImpl(SHOW_TEXT);
-		try
-		{
-			impl.sendString(writer, textToClient);
-		} catch (IOException e)
-		{
-		}
+		impl.sendString(writer, textToClient);
 	}
 }

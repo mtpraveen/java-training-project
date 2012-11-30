@@ -3,6 +3,8 @@
  */
 package motor.depot.clientserver.server.scenario.tables;
 
+import java.io.IOException;
+
 import motor.depot.clientserver.server.ClientThread;
 import motor.depot.clientserver.server.scenario.AbstractScenario;
 import motor.depot.listclasses.ListWithIds;
@@ -20,7 +22,7 @@ public class ShowModelTable extends AbstractScenario
 		this.list = list;
 	}
 	@Override
-	public void run()
+	public void run() throws IOException
 	{
 		TableScenario scenario = new TableScenario(thread, list.getTableProvider());
 		scenario.run();

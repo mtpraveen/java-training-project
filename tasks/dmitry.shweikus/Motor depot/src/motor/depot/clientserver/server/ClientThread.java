@@ -6,14 +6,10 @@ package motor.depot.clientserver.server;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.DataOutputStream;
 import java.net.Socket;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-
-import org.apache.log4j.Logger;
 
 import motor.depot.clientserver.server.scenario.AbstractScenario;
 import motor.depot.clientserver.server.scenario.admin.DispatcherMainScenario;
@@ -23,6 +19,12 @@ import motor.depot.clientserver.server.scenario.users.LoginScenario;
 import motor.depot.model.Dispatcher;
 import motor.depot.model.User;
 
+import org.apache.log4j.Logger;
+/**
+ * every client run on separate thread
+ * @author dima
+ *
+ */
 public class ClientThread extends Thread
 {
 	private static final Logger LOGGER = Logger.getLogger(ClientThread.class);
@@ -133,15 +135,21 @@ public class ClientThread extends Thread
 			}
 			Server.getInstance().removeThreadFromQueue(this);
 			LOGGER.debug("Thread [" + toString() + "] done.");
-			if (!socket.isClosed())
+		} catch (IOException e)
+		{
+			LOGGER.debug("IOException in socket stream by " + toString()); //$NON-NLS-1$
+		}
+		if (!socket.isClosed())
+		{
+			try
 			{
 				out.close();
 				in.close();
 				socket.close();
+			} catch (IOException e)
+			{
+				LOGGER.debug("IOException by closing socket " + toString()); //$NON-NLS-1$
 			}
-		} catch (IOException e)
-		{
-			LOGGER.debug("IOException by getting socket stream"); //$NON-NLS-1$
 		}
 	}
 }
