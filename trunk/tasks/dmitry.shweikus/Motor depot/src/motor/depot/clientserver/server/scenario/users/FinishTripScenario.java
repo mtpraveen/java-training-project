@@ -19,7 +19,7 @@ public class FinishTripScenario extends AbstractScenario {
 
 	@Override
 	public void run() throws IOException {
-		ListWithIds<Trip> trips = MotorDepot.getInstance().getTripsByState(TripState.STARTED);
+		ListWithIds<Trip> trips = thread.getMotorDepot().getTripsByState(TripState.STARTED);
 		Iterator<Trip> iterator = trips.iterator();
 		while(iterator.hasNext())
 		{

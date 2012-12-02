@@ -38,7 +38,7 @@ public class DispatcherMainScenario extends AbstractScenario {
 		
 		subMenu = new MenuScenario(thread);
 		subMenu.setRepeatable(true);
-		subMenu.addMenuItem(thread.getString("DispatcherMainScenario.Show_all_drivers"), new ShowModelTable(thread, MotorDepot.getInstance().drivers)); //$NON-NLS-1$
+		subMenu.addMenuItem(thread.getString("DispatcherMainScenario.Show_all_drivers"), new ShowModelTable(thread, thread.getMotorDepot().drivers)); //$NON-NLS-1$
 		subMenu.addMenuItem(thread.getString("DispatcherMainScenario.Recruit_driver"), new RecruitDriverScenario(thread)); //$NON-NLS-1$
 		subMenu.addMenuItem(thread.getString("DispatcherMainScenario.Remove_driver_from_job"), new RemoveDriverFromJob(thread)); //$NON-NLS-1$
 		subMenu.addExitItem(thread.getString("DispatcherMainScenario..._go_to_main_menu")); //$NON-NLS-1$
@@ -46,21 +46,21 @@ public class DispatcherMainScenario extends AbstractScenario {
 		
 		subMenu = new MenuScenario(thread);
 		subMenu.setRepeatable(true);
-		subMenu.addMenuItem(thread.getString("DispatcherMainScenario.Show_all_cars"), new ShowModelTable(thread, MotorDepot.getInstance().cars)); //$NON-NLS-1$
+		subMenu.addMenuItem(thread.getString("DispatcherMainScenario.Show_all_cars"), new ShowModelTable(thread, thread.getMotorDepot().cars)); //$NON-NLS-1$
 		subMenu.addMenuItem(thread.getString("DispatcherMainScenario.Add_car"), new AddCarScenario(thread)); //$NON-NLS-1$
 		subMenu.addExitItem(thread.getString("DispatcherMainScenario..._go_to_main_menu")); //$NON-NLS-1$
 		menu.addMenuItem(thread.getString("DispatcherMainScenario.Cars"), subMenu); //$NON-NLS-1$
 
 		subMenu = new MenuScenario(thread);
 		subMenu.setRepeatable(true);
-		subMenu.addMenuItem(thread.getString("DispatcherMainScenario.Show_all_trips"), new ShowModelTable(thread, MotorDepot.getInstance().trips)); //$NON-NLS-1$
+		subMenu.addMenuItem(thread.getString("DispatcherMainScenario.Show_all_trips"), new ShowModelTable(thread, thread.getMotorDepot().trips)); //$NON-NLS-1$
 		subMenu.addMenuItem(thread.getString("DispatcherMainScenario.New_trip"), new AddTripScenarion(thread)); //$NON-NLS-1$
 		subMenu.addExitItem(thread.getString("DispatcherMainScenario..._go_to_main_menu")); //$NON-NLS-1$
 		menu.addMenuItem(thread.getString("DispatcherMainScenario.Trips"), subMenu); //$NON-NLS-1$
 		
 		subMenu = new MenuScenario(thread);
 		subMenu.setRepeatable(true);
-		subMenu.addMenuItem(thread.getString("DispatcherMainScenario.Show_all_requests_for_repair"), new ShowModelTable(thread, MotorDepot.getInstance().requestsForRepair)); //$NON-NLS-1$
+		subMenu.addMenuItem(thread.getString("DispatcherMainScenario.Show_all_requests_for_repair"), new ShowModelTable(thread, thread.getMotorDepot().requestsForRepair)); //$NON-NLS-1$
 		subMenu.addMenuItem(thread.getString("DispatcherMainScenario.New_request_for_repair"), new NewRequestForRepairScenario(thread)); //$NON-NLS-1$
 		subMenu.addExitItem(thread.getString("DispatcherMainScenario..._go_to_main_menu")); //$NON-NLS-1$
 		menu.addMenuItem(thread.getString("DispatcherMainScenario.Requests_for_repair"), subMenu); //$NON-NLS-1$

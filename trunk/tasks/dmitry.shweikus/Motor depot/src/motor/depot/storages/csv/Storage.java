@@ -65,16 +65,6 @@ public class Storage implements AbstractStorage
 	}
 
 	@Override
-	public ArrayList<AbstractItemStateLoader> getLoaders(String classId)
-	{
-		ArrayList<AbstractItemStateLoader> res = new ArrayList<AbstractItemStateLoader>();
-		for (CsvItemStateLoader loader : loaders) {
-			if (loader.getClassId().equals(classId))
-				res.add(loader);
-		}
-		return res;
-	}
-	@Override
 	public void initSave() {
 		File file = new File(DATA_FILEPATH);
 		file.delete();
@@ -94,36 +84,5 @@ public class Storage implements AbstractStorage
 	@Override
 	public ObjectInputStream getInputStream() {
 		return objectInputStream;
-	}
-	@Override
-	public boolean loadFromCSV(String filePath) {
-		File file = new File(filePath);
-		if (file.isFile())
-			if (file.exists())
-			{
-				FileReader freader;
-				try {
-					CsvSplitter splitter = new CsvSplitter();
-					freader = new FileReader(file);
-					BufferedReader reader = new BufferedReader(freader);
-					String csvData;
-					while ((csvData=reader.readLine())!=null)
-					{
-						ArrayList<String> data = splitter.parse(csvData);
-						if (data.size()>0)
-							if (!data.get(0).equals(""))
-							{
-								CsvItemStateLoader loader = new CsvItemStateLoader(data);
-								loaders.add(loader);
-							}
-					}
-					return true;
-				} catch (FileNotFoundException e) {
-					LOGGER.error("FileNotFoundException by loading database", e);
-				} catch (IOException e) {
-					LOGGER.error("IOException by loading database", e);
-				}
-			}
-		return false;
 	}
 }

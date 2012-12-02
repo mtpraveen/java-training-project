@@ -29,7 +29,7 @@ public class ShowMyRequestsForRepairScenario extends AbstractScenario
 	@Override
 	public void run() throws IOException
 	{
-		ListWithIds<RequestForRepair> requests = MotorDepot.getInstance().requestsForRepair.getCopy();
+		ListWithIds<RequestForRepair> requests = thread.getMotorDepot().requestsForRepair.getCopy();
 		ListIterator<RequestForRepair> iterator = requests.listIterator();
 		while(iterator.hasNext())
 		{

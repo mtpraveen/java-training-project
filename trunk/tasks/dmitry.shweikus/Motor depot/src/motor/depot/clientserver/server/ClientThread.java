@@ -17,6 +17,7 @@ import motor.depot.clientserver.server.scenario.admin.SetLocaleScenario;
 import motor.depot.clientserver.server.scenario.users.DriverMainScenario;
 import motor.depot.clientserver.server.scenario.users.LoginScenario;
 import motor.depot.model.Dispatcher;
+import motor.depot.model.MotorDepot;
 import motor.depot.model.User;
 
 import org.apache.log4j.Logger;
@@ -35,6 +36,7 @@ public class ClientThread extends Thread
 	private User user = null;
 	private final static String RESOURCE_BUNDLE = "motor.depot.clientserver.server.scenario.admin.messages";
 	private ResourceBundle resourceBundle = ResourceBundle.getBundle(RESOURCE_BUNDLE);
+	private MotorDepot motorDepot = null;
 	/**
 	 * @return the socket
 	 */
@@ -91,10 +93,11 @@ public class ClientThread extends Thread
 	 * @param threadId
 	 * @param server TODO
 	 */
-	public ClientThread(Socket fromClient, int threadId) {
+	public ClientThread(Socket fromClient, int threadId, MotorDepot motorDepot) {
 		super();
 		this.socket = fromClient;
 		this.threadId = threadId;
+		this.motorDepot = motorDepot;
 		address = socket.getInetAddress().toString();
 	}
 
@@ -151,5 +154,13 @@ public class ClientThread extends Thread
 				LOGGER.debug("IOException by closing socket " + toString()); //$NON-NLS-1$
 			}
 		}
+		Server.getInstance().removeThreadFromQueue(this);
+	}
+	/**
+	 * @return the motorDepot
+	 */
+	public MotorDepot getMotorDepot()
+	{
+		return motorDepot;
 	}
 }

@@ -170,4 +170,72 @@ public class Trip implements ICanBeSaved,ITableRowProvider
 	public long getSerialVersionUID() {
 		return serialVersionUID;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((car == null) ? 0 : car.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((destination == null) ? 0 : destination.hashCode());
+		result = prime * result + ((driver == null) ? 0 : driver.hashCode());
+		result = prime * result + ((start == null) ? 0 : start.hashCode());
+		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		return result;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Trip other = (Trip) obj;
+		if (car == null)
+		{
+			if (other.car != null)
+				return false;
+		}
+		else if (!car.equals(other.car))
+			return false;
+		if (description == null)
+		{
+			if (other.description != null)
+				return false;
+		}
+		else if (!description.equals(other.description))
+			return false;
+		if (destination == null)
+		{
+			if (other.destination != null)
+				return false;
+		}
+		else if (!destination.equals(other.destination))
+			return false;
+		if (driver == null)
+		{
+			if (other.driver != null)
+				return false;
+		}
+		else if (!driver.equals(other.driver))
+			return false;
+		if (start == null)
+		{
+			if (other.start != null)
+				return false;
+		}
+		else if (!start.equals(other.start))
+			return false;
+		if (state != other.state)
+			return false;
+		return true;
+	}
 }
