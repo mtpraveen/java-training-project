@@ -23,7 +23,7 @@ public class AddTripScenarion extends AbstractScenario {
 	@Override
 	public void run() throws IOException {
 		//driver
-		ListWithIds<Driver> drivers = MotorDepot.getInstance().drivers.getCopy();
+		ListWithIds<Driver> drivers = thread.getMotorDepot().drivers.getCopy();
 		Iterator<Driver> driverIterator = drivers.iterator();
 		Driver driver;
 		while(driverIterator.hasNext())
@@ -36,7 +36,7 @@ public class AddTripScenarion extends AbstractScenario {
 			else
 			{
 				boolean needRemove = false;
-				for (Trip trip : MotorDepot.getInstance().getTripsByState(TripState.STARTED)) {
+				for (Trip trip : thread.getMotorDepot().getTripsByState(TripState.STARTED)) {
 					if(trip.getDriver() == driver)
 					{
 						needRemove = true;
@@ -55,13 +55,13 @@ public class AddTripScenarion extends AbstractScenario {
 			return;
 		driver = drivers.get(driverTableScenario.getSelectedRow());
 		//car
-		ListWithIds<Car> cars = MotorDepot.getInstance().cars.getCopy();
+		ListWithIds<Car> cars = thread.getMotorDepot().cars.getCopy();
 		Iterator<Car> carIterator = cars.iterator();
 		while(carIterator.hasNext())
 		{
 			Car car = carIterator.next();
 			boolean needRemove = false;
-			for (Trip trip : MotorDepot.getInstance().getTripsByState(TripState.STARTED)) {
+			for (Trip trip : thread.getMotorDepot().getTripsByState(TripState.STARTED)) {
 				if(trip.getCar() == car)
 				{
 					needRemove = true;
@@ -86,7 +86,7 @@ public class AddTripScenarion extends AbstractScenario {
 		str(thread.getString("AddTripScenarion.Enter_description")); //$NON-NLS-1$
 		String description = readString();
 		//
-		Trip trip = MotorDepot.getInstance().addTrip(driver, car, start, destination, description);
+		Trip trip = thread.getMotorDepot().addTrip(driver, car, start, destination, description);
 		if(trip == null)
 			str(thread.getString("AddTripScenarion.Trip_not_created")); //$NON-NLS-1$
 		else

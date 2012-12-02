@@ -19,7 +19,7 @@ public class RecruitDriverScenario extends AbstractScenario {
 
 	@Override
 	public void run() throws IOException {
-		ListWithIds<Driver> drivers = MotorDepot.getInstance().drivers.getCopy();
+		ListWithIds<Driver> drivers = thread.getMotorDepot().drivers.getCopy();
 		Iterator<Driver> iterator = drivers.iterator();
 		while(iterator.hasNext())
 		{
@@ -39,7 +39,7 @@ public class RecruitDriverScenario extends AbstractScenario {
 		if(scenario.getSelectedRow() == -1)
 			return;
 		Driver driver = drivers.get(scenario.getSelectedRow());
-		MotorDepot.getInstance().setNewDriverActiveState(driver, true);
+		thread.getMotorDepot().setNewDriverActiveState(driver, true);
 		waitForInput();
 	}
 

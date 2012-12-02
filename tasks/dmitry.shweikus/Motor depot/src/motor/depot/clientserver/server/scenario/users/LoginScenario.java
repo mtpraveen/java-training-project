@@ -52,7 +52,7 @@ public class LoginScenario extends AbstractScenario
 			String login = readString();
 			str(thread.getString("Password")); //$NON-NLS-1$
 			String password = readPassword();
-			user = MotorDepot.getInstance().findUser(login, password);
+			user = thread.getMotorDepot().findUser(login, password);
 			if (isLogged())
 			{
 				for (ClientThread clientThread : Server.getInstance().threads)

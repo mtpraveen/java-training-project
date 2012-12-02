@@ -32,6 +32,7 @@ public class Server
 	 */
 	private ServerSocket servers;
 	public BlockingQueue<ClientThread> threads = new LinkedBlockingQueue<ClientThread>();
+	private MotorDepot motorDepot = null;
 	public void addThreadToQueue(ClientThread thread)
 	{
 		// offer is sync. we dont need "synchronized"
@@ -55,6 +56,7 @@ public class Server
 
 	private Server() {
 		instance = this;
+		motorDepot = new MotorDepot(new Storage());
 	}
 	
 	public synchronized boolean disconnectUser(ClientThread thread,String message)
@@ -108,7 +110,7 @@ public class Server
 		{
 			LOGGER.error("Error closing main socket in closing command", e);
 		}
-		MotorDepot.getInstance().save(new Storage());
+		motorDepot.save(new Storage());
 		LOGGER.debug("Server closed"); //$NON-NLS-1$
 		System.exit(0);
 	}
@@ -117,7 +119,6 @@ public class Server
 	{
 		LOGGER.debug("Server started"); //$NON-NLS-1$
 		ConnectionSettings.load();
-		MotorDepot.getInstance();//loading data
 		try
 		{
 			servers = new ServerSocket(ConnectionSettings.port);
@@ -130,7 +131,7 @@ public class Server
 					if (socket != null)
 					{
 						newId++;
-						ClientThread runnable = new ClientThread(socket, newId);
+						ClientThread runnable = new ClientThread(socket, newId,motorDepot);
 						Thread thread = new Thread(runnable);
 						addThreadToQueue(runnable);
 						thread.start();

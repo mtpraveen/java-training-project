@@ -35,7 +35,7 @@ public class CreateReportScenario extends AbstractScenario
 	@Override
 	public void run() throws IOException
 	{
-		ArrayList<ListWithIds<? extends ICanBeSaved>> lists = MotorDepot.getInstance()
+		ArrayList<ListWithIds<? extends ICanBeSaved>> lists = thread.getMotorDepot()
 				.getAllListsWithIds();
 		MenuScenario tables = new MenuScenario(thread);
 		tables.setCaption(thread.getString("CreateReportScenario.Select_kind")); //$NON-NLS-1$

@@ -18,8 +18,8 @@ public interface AbstractStorage
 	//AbstractItemStateSaver createNewSaver(String itemId);
 	//void addSaver(AbstractItemStateSaver saver);
 	boolean load();
-	boolean loadFromCSV(String filePath);
-	ArrayList<AbstractItemStateLoader> getLoaders(String classId);
+	//boolean loadFromCSV(String filePath);
+	//ArrayList<AbstractItemStateLoader> getLoaders(String classId);
 	ObjectOutputStream getOutputStream();
 	ObjectInputStream getInputStream();
 }

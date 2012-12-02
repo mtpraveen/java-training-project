@@ -21,7 +21,7 @@ public class RemoveDriverFromJob extends AbstractScenario {
 
 	@Override
 	public void run() throws IOException {
-		ListWithIds<Driver> drivers = MotorDepot.getInstance().drivers.getCopy();
+		ListWithIds<Driver> drivers = thread.getMotorDepot().drivers.getCopy();
 		Iterator<Driver> iterator = drivers.iterator();
 		while(iterator.hasNext())
 		{
@@ -41,7 +41,7 @@ public class RemoveDriverFromJob extends AbstractScenario {
 		if(scenario.getSelectedRow() == -1)
 			return;
 		Driver driver = drivers.get(scenario.getSelectedRow());
-		if (MotorDepot.getInstance().setNewDriverActiveState(driver, false))
+		if (thread.getMotorDepot().setNewDriverActiveState(driver, false))
 			str(thread.getString("RemoveDriverFromJob.Driver_removed_from_job")); //$NON-NLS-1$
 		else
 			str(thread.getString("RemoveDriverFromJob.Error_removing.Driver_may_be_an_trip")); //$NON-NLS-1$

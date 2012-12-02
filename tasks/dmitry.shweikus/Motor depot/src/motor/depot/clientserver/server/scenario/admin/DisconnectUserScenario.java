@@ -31,7 +31,7 @@ public class DisconnectUserScenario extends AbstractScenario
 	public void run() throws IOException
 	{
 		ConnectedUsersList users = new ConnectedUsersList();
-		users.getUsers().remove(MotorDepot.getInstance().getDispatcher());//cannot kill item self
+		users.getUsers().remove(thread.getMotorDepot().getDispatcher());//cannot kill item self
 		TableScenario table = new TableScenario(thread, users);
 		table.setSelectable(true);
 		table.run();

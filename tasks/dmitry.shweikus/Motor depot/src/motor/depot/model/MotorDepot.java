@@ -24,7 +24,6 @@ public class MotorDepot
 {
 	Dispatcher dispatcher;
 	private static final Logger LOGGER = Logger.getLogger(MotorDepot.class);
-	private static final long serialVersionUID = 565645645688l;
 	public ListWithIds<Driver> drivers = new ListWithIds<Driver>(new Driver());
 	public ListWithIds<Car> cars = new ListWithIds<Car>(new Car());
 	public ListWithIds<Trip> trips = new ListWithIds<Trip>(new Trip());
@@ -72,27 +71,13 @@ public class MotorDepot
 					trips.addObjectIfMatchType(obj);
 					requestsForRepair.addObjectIfMatchType(obj);
 					obj = stream.readObject();
+					
 				}
 			} catch (IOException e) {
 			} catch (ClassNotFoundException e) {
+				//   8-0
 			}
 		}
-		/*
-		 * 		ArrayList<ListWithIds<? extends ICanBeSaved>> arrays = new ArrayList<ListWithIds<? extends ICanBeSaved>>();
-		arrays.add(dispatchers);
-		arrays.add(drivers);
-		arrays.add(cars);
-		arrays.add(trips);
-		arrays.add(requestsForRepair);
-
-		 * for (ListWithIds<? extends ICanBeSaved> list : arrays)
-		{
-			list.loadPrimitives(storage);
-		}
-		for (ListWithIds<? extends ICanBeSaved> list : arrays)
-		{
-			list.loadObjects(storage, this);
-		}*/
 		//
 		if (dispatchers.size() == 0)
 		{
@@ -120,14 +105,6 @@ public class MotorDepot
 		}
 		storage.save();
 	}
-	public static MotorDepot getInstance()
-	{
-		if (_instance == null)
-		{
-			_instance = new MotorDepot(new Storage());
-		}
-		return _instance;
-	}
 	public User findUser(String login, String password)
 	{
 		if (dispatcher.mathLoginData(login, password))
@@ -147,11 +124,6 @@ public class MotorDepot
 				return driver;
 		}
 		return null;
-	}
-	@Deprecated
-	public int generateNewId()
-	{
-		return dispatcher.generateNewId();
 	}
 	/**
 	 * @param userName

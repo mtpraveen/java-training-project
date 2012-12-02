@@ -26,7 +26,7 @@ public class LoadDataFromCsvScenario extends AbstractScenario {
 			return;
 		}
 		ZippedCsvLoader csvLoader = new ZippedCsvLoader();
-		int recordsAdded = csvLoader.appendFromZippedCsv(tmpPath, MotorDepot.getInstance());
+		int recordsAdded = csvLoader.appendFromZippedCsv(tmpPath, thread.getMotorDepot());
 		str(thread.getString("LoadDataFromCsvScenario.records_added") +  recordsAdded); //$NON-NLS-1$
 		waitForInput();
 		File tmp = new File(tmpPath);

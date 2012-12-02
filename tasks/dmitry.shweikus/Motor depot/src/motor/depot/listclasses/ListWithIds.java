@@ -15,11 +15,12 @@ import motor.depot.storages.interfaces.ILoadableFromCsv;
 
 /**
  * @author dima
- *
+ * 
  */
 public class ListWithIds<T extends ICanBeSaved> extends ArrayList<T>
 {
 	private T prototype;
+
 	/**
 	 * @param prototype
 	 */
@@ -27,45 +28,38 @@ public class ListWithIds<T extends ICanBeSaved> extends ArrayList<T>
 		super();
 		this.prototype = prototype;
 	}
-	/*public T findById(int id)
-	{
-		for (T withId : this)
-		{
-			if (withId.getId() == id)
-				return withId;
-		}
-		return null;
-	}*/
-	/*public void save(AbstractStorage storage)
-	{
-		for (T canBeSaved : this)
-		{
-			AbstractItemStateSaver saver = canBeSaved.getSaver(storage);
-			storage.addSaver(saver);
-		}
-	}*/
+
+	/*
+	 * public T findById(int id) { for (T withId : this) { if (withId.getId() ==
+	 * id) return withId; } return null; }
+	 */
+	/*
+	 * public void save(AbstractStorage storage) { for (T canBeSaved : this) {
+	 * AbstractItemStateSaver saver = canBeSaved.getSaver(storage);
+	 * storage.addSaver(saver); } }
+	 */
 	public ITableProvider getTableProvider()
 	{
 		return new ITableProvider() {
-			
+
 			@Override
 			public int getRowCount()
 			{
 				return size();
 			}
-			
+
 			@Override
 			public String getColName(int col)
 			{
 				return prototype.getRowProvider().getColName(col);
 			}
-			
+
 			@Override
 			public int getColCount()
 			{
 				return prototype.getRowProvider().getColCount();
 			}
-			
+
 			@Override
 			public String getCellValue(int row, int col)
 			{
@@ -73,6 +67,7 @@ public class ListWithIds<T extends ICanBeSaved> extends ArrayList<T>
 			}
 		};
 	}
+
 	public ListWithIds<T> getCopy()
 	{
 		ListWithIds<T> copy = new ListWithIds<T>(prototype);
@@ -82,21 +77,25 @@ public class ListWithIds<T extends ICanBeSaved> extends ArrayList<T>
 		}
 		return copy;
 	}
+
 	public void saveToStream(ObjectOutputStream stream) throws IOException
 	{
-		for (T element : this) {
-				stream.writeObject(element);
+		for (T element : this)
+		{
+			stream.writeObject(element);
 		}
 	}
+
 	public boolean addObjectIfMatchType(Object object)
 	{
-		if(object.getClass().equals(prototype.getClass()))
+		if (object.getClass().equals(prototype.getClass()))
 		{
-			add((T)object);
+			add((T) object);
 			return true;
 		}
 		return false;
 	}
+
 	/**
 	 * @return
 	 */
@@ -104,21 +103,24 @@ public class ListWithIds<T extends ICanBeSaved> extends ArrayList<T>
 	{
 		return prototype;
 	}
+
 	private static class NonEmptyStringsReader
 	{
 		BufferedReader reader;
+
 		public NonEmptyStringsReader(BufferedReader reader) {
 			super();
 			this.reader = reader;
 		}
+
 		String getNextString()
 		{
 			String res = null;
 			try
 			{
-				while((res=reader.readLine())!=null)
+				while ((res = reader.readLine()) != null)
 				{
-					if(!res.equals(""))
+					if (!res.equals(""))
 						return res;
 				}
 			} catch (IOException e)
@@ -126,37 +128,38 @@ public class ListWithIds<T extends ICanBeSaved> extends ArrayList<T>
 			}
 			return null;
 		}
-		
+
 	}
+
 	public int appendFromCsvStream(BufferedReader reader)
 	{
 		int res = 0;
-		if(!(prototype instanceof ILoadableFromCsv))
+		if (!(prototype instanceof ILoadableFromCsv))
 			return 0;
 		NonEmptyStringsReader nonEmptyStringsReader = new NonEmptyStringsReader(reader);
 		String sCaptions = nonEmptyStringsReader.getNextString();
-		if(sCaptions == null)
+		if (sCaptions == null)
 			return 0;
 		ArrayList<String> captions = CsvSplitter.parse(sCaptions);
-		if(captions.size() < prototype.getRowProvider().getColCount())
+		if (captions.size() < prototype.getRowProvider().getColCount())
 			return 0;
-		for(int i=0;i<prototype.getRowProvider().getColCount();i++)
+		for (int i = 0; i < prototype.getRowProvider().getColCount(); i++)
 		{
-			if(!captions.get(i).equalsIgnoreCase(prototype.getRowProvider().getColName(i)))
+			if (!captions.get(i).equalsIgnoreCase(prototype.getRowProvider().getColName(i)))
 				return 0;
 		}
 		String row;
-		while((row=nonEmptyStringsReader.getNextString())!=null)
+		while ((row = nonEmptyStringsReader.getNextString()) != null)
 		{
 			ArrayList<String> values = CsvSplitter.parse(row);
-			if(values.size() >= prototype.getRowProvider().getColCount())
+			if (values.size() >= prototype.getRowProvider().getColCount())
 			{
-				T newItem = (T)prototype.newInstance();
-				for(int i=0;i<prototype.getRowProvider().getColCount();i++)
+				T newItem = (T) prototype.newInstance();
+				for (int i = 0; i < prototype.getRowProvider().getColCount(); i++)
 				{
-					((ILoadableFromCsv)newItem).setField(i, values.get(i));
+					((ILoadableFromCsv) newItem).setField(i, values.get(i));
 				}
-				if(indexOf(newItem)==-1)
+				if (indexOf(newItem) == -1)
 				{
 					add(newItem);
 					res++;
@@ -164,5 +167,66 @@ public class ListWithIds<T extends ICanBeSaved> extends ArrayList<T>
 			}
 		}
 		return res;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((prototype == null) ? 0 : prototype.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	private boolean sameContent(ListWithIds<T> list)
+	{
+		if (list.size() == size())
+		{
+			for (int i = 0; i < size(); i++)
+			{
+				if ((get(i) == null) && (list.get(i) == null))
+					continue;
+				if (get(i) != null)
+				{
+					if (get(i).equals(list.get(i)))
+					{
+						continue;
+					}
+				}
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ListWithIds other = (ListWithIds) obj;
+		if (prototype == null)
+		{
+			if (other.prototype != null)
+				return false;
+		}
+		else if (!prototype.equals(other.prototype))
+			return false;
+		return sameContent(other);
 	}
 }
