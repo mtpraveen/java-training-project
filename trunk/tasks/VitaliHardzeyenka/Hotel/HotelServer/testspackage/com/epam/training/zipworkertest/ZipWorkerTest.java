@@ -4,12 +4,14 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.epam.training.data.ZipWorker;
 
 public class ZipWorkerTest {
 
+	@Ignore
 	@Test
 	public void testAddFilesToZip() {
 		System.out.println(System.getProperty("user.dir") + "\\data\\" + "users.txt");
@@ -23,41 +25,52 @@ public class ZipWorkerTest {
 		ZipWorker.addFilesToZip(files, parentFolder + "data.zip");
 	}
 	
-//	@Test
-//	public void testUnzipFile() {
-//		File zipFile = new File("d:\\MyZip.zip");
-//		ZipWorker.unzipFile(zipFile);
-//	}
-//	
-//	@Test
-//	public void testDeleteFile() throws InterruptedException {
-//		Thread.sleep(3000);		
-//		System.out.println(ZipWorker.deleteFile(new File("d:\\1.txt")));
-//		Thread.sleep(1000);
-//		System.out.println(ZipWorker.deleteFile(new File("d:\\2.txt")));
-//		Thread.sleep(1000);
-//		System.out.println(ZipWorker.deleteFile(new File("d:\\3.txt")));
-//		Thread.sleep(1000);
-//		System.out.println(ZipWorker.deleteFile(new File("d:\\MyZip.zip")));
-//		
-//	}
-//	
-//	@Test
-//	public void testDeleteFolder() {
-//		ZipWorker.deleteFolder("d:\\fordeleating");
-//	}
-//	
-//	@Test
-//	public void testChechFiles() {
-//		File[] files = new File[] { 
-//				new File("d:\\1.txt"),
-//				new File("d:\\2.txt"),
-//				new File("d:\\3.txt")
-//		};
-//		
-//		File zipFile = new File("d:\\MyZip.zip");
-//		
-//		assertTrue(ZipWorker.checkFiles(zipFile, files));
-//	}
+	@Ignore
+	@Test
+	public void testUnzipFile() {
+		File zipFile = new File("d:\\MyZip.zip");
+		ZipWorker.unzipFile(zipFile);
+	}
+	
+	@Ignore
+	@Test
+	public void testDeleteFile() throws InterruptedException {
+		Thread.sleep(3000);		
+		System.out.println(ZipWorker.deleteFile(new File("d:\\1.txt")));
+		Thread.sleep(1000);
+		System.out.println(ZipWorker.deleteFile(new File("d:\\2.txt")));
+		Thread.sleep(1000);
+		System.out.println(ZipWorker.deleteFile(new File("d:\\3.txt")));
+		Thread.sleep(1000);
+		System.out.println(ZipWorker.deleteFile(new File("d:\\MyZip.zip")));
+		
+	}
+	
+	@Ignore
+	@Test
+	public void testDeleteFolder() {
+		ZipWorker.deleteFolder("d:\\fordeleating");
+	}
+	
+	@Ignore
+	@Test
+	public void testChechFiles() {
+		File[] files = new File[] { 
+				new File("d:\\1.txt"),
+				new File("d:\\2.txt"),
+				new File("d:\\3.txt")
+		};
+		
+		File zipFile = new File("d:\\MyZip.zip");
+		
+		assertTrue(ZipWorker.checkFiles(zipFile, files));
+	}
+	
+	@Test
+	public void testDeleteAllFilesInFolder() {
+		String folderPath = System.getProperty("user.dir") + "\\data\\";
+		
+		ZipWorker.deleteAllFilesInFolder(folderPath);
+	}
 
 }

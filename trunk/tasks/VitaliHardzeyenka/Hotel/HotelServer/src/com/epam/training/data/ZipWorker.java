@@ -54,23 +54,6 @@ public class ZipWorker {
 	}
 	
 	/**
-	 * Delete specified file.
-	 * @param file file that will be deleted.
-	 * @return true if file has been deleted, false if not.
-	 */
-	public static boolean deleteFile(File file) {
-		if (!file.isDirectory()) {
-			if (file.isFile()) {
-				if (file.exists()) {
-					file.delete();
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	
-	/**
 	 * Unzip .zip file, copy all inside files in the same directory.
 	 * @param zipFile file that will bee inzip.
 	 */
@@ -96,6 +79,44 @@ public class ZipWorker {
 		} catch (IOException exception) {
 			logger.getExeptionsLogger().error(exception);
 		}
+	}
+	
+	/**
+	 * Delete all files in specified directory.
+	 * @param directory full path to need directory.
+	 */
+	public static void deleteAllFilesInFolder(String directory) {
+		if (directory != null) {
+			File folder = new File(directory);
+			if (folder.exists()) {
+				if (folder.isDirectory()) {
+					File[] files = folder.listFiles();
+					
+					for (File file : files) {
+						if (file.isFile()) {
+							file.delete();
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Delete specified file.
+	 * @param file file that will be deleted.
+	 * @return true if file has been deleted, false if not.
+	 */
+	public static boolean deleteFile(File file) {
+		if (!file.isDirectory()) {
+			if (file.isFile()) {
+				if (file.exists()) {
+					file.delete();
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	/**

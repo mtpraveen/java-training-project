@@ -27,6 +27,13 @@ import com.epam.training.model.user.UserStatus;
  *
  */
 public class ServerThread extends Thread {
+	private enum ReportType {
+		ALL_CLIENTS,
+		CURRENT_CLIENTS,
+		CURRENT_FREE_ROOMS,
+		CURRENT_APPLICATONS
+	}
+	
 	private Server server; // server exemplar
 	private Socket clientSocket; // client exemplar
 	private Logger logger = new Logger(org.apache.log4j.Logger.getLogger(ServerThread.class)); // logger
@@ -85,6 +92,7 @@ public class ServerThread extends Thread {
 					createApplicationAction(messageFromClient);
 					break;
 				case "GET_REPORT" :
+					getReportAction(messageFromClient);
 					break;
 				case "CHANGE_PASSWORD" :
 					changePasswordAction(messageFromClient);
@@ -97,6 +105,7 @@ public class ServerThread extends Thread {
 					break;
 				case "STOP_SERVER" :
 					stopSeverAction(logger.getExeptionsLogger());
+					messageType = MessageTypes.DISCONNECT_CLIENT;
 					break;
 				default:		
 					break;
@@ -156,7 +165,7 @@ public class ServerThread extends Thread {
 	
 	/**
 	 * Client logging on.
-	 * Send to client result of loggin on.
+	 * Send to client result of logging on.
 	 * @param message string with login, password.
 	 */
 	private void logOnAction(String message) {
@@ -165,7 +174,7 @@ public class ServerThread extends Thread {
 		
 		for (User user : DataStorage.USERS_LIST) { // search in user list that has been loaded when program start
 			if (user.getLogin().equals(receivedLogin) && (user.getPassword().equals(receivedPassword))) {
-				sendMessageToClient("true"); // if login and password has been found in data base
+				sendMessageToClient(user.getStatus().toString()); // if login and password has been found in data base
 				return;
 			}
 		}
@@ -188,9 +197,9 @@ public class ServerThread extends Thread {
 			}
 		}
 		
-		// if all ok and it can create new account
+		// if all OK and it can create new account
 		DataStorage.USERS_LIST.add(new User(receivedLogin, receivedPassword, UserStatus.CLIENT));
-		sendMessageToClient("true");
+		sendMessageToClient(UserStatus.CLIENT.toString());
 	}
 	
 	/**
@@ -271,6 +280,40 @@ public class ServerThread extends Thread {
 		}
 		
 		sendMessageToClient(resourceBundle.getString("login.password.incorrect"));
+	}
+	
+	/**
+	 * Collect report and send it to client.
+	 * @param messageFromClient
+	 */
+	private void getReportAction(String messageFromClient) {
+		StringBuilder data = new StringBuilder();
+		Date today = new Date(System.currentTimeMillis());
+		
+		switch (ReportType.valueOf(messageFromClient.trim().toUpperCase())) {
+			case ALL_CLIENTS:
+				for (User user : DataStorage.USERS_LIST) {
+					data.append(String.format("%s,%s,%s\n", user.getLogin(), user.getPassword(), user.getStatus().toString()));
+				}
+				break;
+			case CURRENT_CLIENTS:
+				//TODO find all connected sockets and collect it
+				break;
+			case CURRENT_FREE_ROOMS:
+				//TODO compare dates in each room with today date, choose needed and 
+				// collect to string
+				break;
+			case CURRENT_APPLICATONS:
+				for (Application application : DataStorage.APPLICATIONS_LIST) {
+					data.append(String.format("%s,%s,%s,%s\n", String.valueOf(application.getNumberSeats()),
+																application.getClassApartments().toString(),
+																new SimpleDateFormat("dd.MM.yyyy").format(application.getArrivalDate()),
+																new SimpleDateFormat("dd.MM.yyyy").format(application.getArrivalDate())));
+				}
+				break;
+		}
+		
+		sendMessageToClient(data.toString());		
 	}
 	
 	/**
