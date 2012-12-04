@@ -8,7 +8,7 @@ public class Application {
 	private int numberSeats;
 	private ClassApartments classApartments;
 	private Date arrivalDate;
-	private Date evictionDate;	
+	private Date evictionDate;
 	
 	public Application(int numberSeats, ClassApartments classApartments, Date arrivalDate, Date evictionDate) {
 		this.numberSeats = numberSeats;

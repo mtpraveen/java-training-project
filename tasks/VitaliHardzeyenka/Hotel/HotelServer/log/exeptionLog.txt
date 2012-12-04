@@ -20,3 +20,5 @@ ERROR - java.net.SocketException: Socket is closed
 ERROR - java.net.SocketException: socket closed
 ERROR - java.net.SocketException: Socket input is shutdown
 ERROR - java.net.SocketException: Socket input is shutdown
+ERROR - java.net.SocketException: socket closed
+ERROR - java.net.SocketException: socket closed
