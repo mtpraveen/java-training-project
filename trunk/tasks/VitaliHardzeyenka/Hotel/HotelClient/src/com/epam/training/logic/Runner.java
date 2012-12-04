@@ -6,7 +6,7 @@ public class Runner {
 
 	/**
 	 * @param args
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {		
 		Connecter connecter = new Connecter();

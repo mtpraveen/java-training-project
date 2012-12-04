@@ -13,6 +13,19 @@ import java.util.ResourceBundle;
  */
 public class ConsoleManager {
 	
+	private enum UserStatus {
+		ADMINISTRATOR, // account have administrator rights 
+		CLIENT,  // account have customer rights 
+		DISABLED; // account deleted or blocked
+	}
+	
+	private enum ReportType {
+		ALL_CLIENTS,
+		CURRENT_CLIENTS,
+		CURRENT_FREE_ROOMS,
+		CURRENT_APPLICATONS
+	}
+	
 	private ServerConnection connection; // server connection and input output streams
 	private ClientManager clientManager;
 	private Socket socket; // socket of server
@@ -29,6 +42,7 @@ public class ConsoleManager {
 	private String answer; // answer from server
 	private String message; // message that will send to server
 	private char command; // console command from user
+	private UserStatus status;
 	
 	/**
 	 * Constructor
@@ -67,37 +81,60 @@ public class ConsoleManager {
 		// Give control to user.
 		// This describe client session.
 		if (enterClient(login, password, command)) { // try to create account or log on
-		
-			// Cycle for client manage from console while client is open. 
-			do {
-				System.out.println(resourceBundle.getString("change.password") +
-								   resourceBundle.getString("delete.account") +
-								   resourceBundle.getString("log.off") +
-								   resourceBundle.getString("create.application") +
-								   resourceBundle.getString("get.report"));
-				command = consoleInput.readString().charAt(0);
-				
-				switch(command) {
-					case '1' : // change password
-						changePasswordAction();
-						break;
-					case '2' : // delete account
-						deleteAccountAction();
-						break;
-					case '3' : // log off
-						logoffAction();
-						break;
-					case '4' : // create application
-						createApplicationAction();
-						break;
-					case '5' : // get report
-						getReportAction();
-						break;
-					default:
-						break;
-				}
-			} while (!socket.isClosed());
+			userCycle(this.status);			
 		}
+	}
+	
+	private void userCycle(UserStatus userStatus) {
+		String clientMenu = resourceBundle.getString("change.password") +
+				resourceBundle.getString("delete.account") +
+				resourceBundle.getString("log.off") +
+				resourceBundle.getString("create.application") +
+				resourceBundle.getString("get.report");
+		
+		String administratorMenu = resourceBundle.getString("change.password") +
+				resourceBundle.getString("delete.account") +
+				resourceBundle.getString("log.off") +
+				resourceBundle.getString("create.application") +
+				resourceBundle.getString("get.report") + 
+				"\n6. Shutdown server.";
+		
+		String menu = userStatus.equals(UserStatus.ADMINISTRATOR) ? administratorMenu : clientMenu;
+		
+		// Cycle for client manage from console while client is open. 
+		do {
+			System.out.println(menu);
+			
+			// read command
+			command = consoleInput.readString().charAt(0);
+
+			switch(command) {
+			case '1' : // change password
+				changePasswordAction();
+				break;
+			case '2' : // delete account
+				deleteAccountAction();
+				break;
+			case '3' : // log off
+				logoffAction();
+				break;
+			case '4' : // create application
+				createApplicationAction();
+				break;
+			case '5' : // get report
+				getReportAction();
+				break;
+			case '6' :
+				if (userStatus.equals(UserStatus.ADMINISTRATOR)) {
+					shutDownServerAction();
+				} else {
+					System.out.println("Incorrent command.");
+				}
+			default:
+				System.out.println("Incorrent command.");
+				break;
+			}
+		} while (!socket.isClosed());
 	}
 	
 	/**
@@ -119,19 +156,18 @@ public class ConsoleManager {
 		answer = this.clientManager.receiveMessageFromServer(logger.getExeptionsLogger());
 		
 		switch (answer) {
-			case "true" :
-				isEntered = true;
-				System.out.println(resourceBundle.getString("in.system"));
-				break;
-			case "false" :
+			case "false" : // if server said that login or password incorrect
 				isEntered = false;
 				System.out.println(resourceBundle.getString("incorrect.login.password"));
 				break;
-			case "used" :
+			case "used" : // server said that that login is used
 				isEntered = false;
 				System.out.println(resourceBundle.getString("login.use"));
 				break;
-			default:
+			default: // if all OK
+				isEntered = true;
+				this.status = UserStatus.valueOf(answer);
+				System.out.println(resourceBundle.getString("in.system"));
 				break;
 		}
 		
@@ -140,7 +176,7 @@ public class ConsoleManager {
 	
 	/**
 	 * Changing password in current account.
-	 * Read login, oldPass, newPass from console.	 * 
+	 * Read login, oldPass, newPass from console.
 	 */
 	private void changePasswordAction() {
 		// Reading login and password.
@@ -222,16 +258,65 @@ public class ConsoleManager {
 		
 		message = String.format("%s,%s,%s,%s", numberSeats, classApartments, arrivalDate, evictionDate);
 		
-		this.clientManager.sendMessageToServer(message,MessageTypes.CREATE_APPLICATION, logger.getExeptionsLogger());
+		this.clientManager.sendMessageToServer(message, MessageTypes.CREATE_APPLICATION, logger.getExeptionsLogger());
 		
 		System.out.println(this.clientManager.receiveMessageFromServer(logger.getExeptionsLogger()));
 	}
 	
 	/**
-	 * 
+	 * Send to server message to stop server,
+	 * that print out given from server message about
+	 * disconnecting all current client.  
 	 */
-	private void getReportAction() {
-//		this.clientManager.sendMessageToServer("rooms", messageType, exeptionsLogger)
+	private void shutDownServerAction() {
+		this.clientManager.sendMessageToServer("Shutdowt servser", MessageTypes.STOP_SERVER, logger.getExeptionsLogger());
+		
+		// Disconnect server.
+		try {
+			this.socket.close();
+			this.connection.getSocket().close();
+		} catch (IOException exception) {
+			logger.getExeptionsLogger().error(exception);
+		}
+
+		System.out.println(resourceBundle.getString("client.disconnect"));
 	}
 	
+	/**
+	 * Send message with need report type and get the request.
+	 */
+	private void getReportAction() {
+		String administratorReportMenu = "1. All clients." + 
+				"\n2. Current clients." + 
+				"\n3. Current free rooms." + 
+				"\n4. Current applications.";
+		
+		if (this.status.equals(UserStatus.ADMINISTRATOR)) {
+			System.out.println(administratorReportMenu);
+			
+			command = this.consoleInput.readString().charAt(0);
+			
+			switch (command) {
+				case '1' : // all clients
+					this.clientManager.sendMessageToServer(ReportType.ALL_CLIENTS.toString(), MessageTypes.GET_REPORT, logger.getExeptionsLogger());
+					break;
+				case '2' : // current clients
+					this.clientManager.sendMessageToServer(ReportType.CURRENT_CLIENTS.toString(), MessageTypes.GET_REPORT, logger.getExeptionsLogger());
+					break;
+				case '3' : // current free rooms
+					this.clientManager.sendMessageToServer(ReportType.CURRENT_FREE_ROOMS.toString(), MessageTypes.GET_REPORT, logger.getExeptionsLogger());
+					break;
+				case '4' : // current applications
+					this.clientManager.sendMessageToServer(ReportType.CURRENT_APPLICATONS.toString(), MessageTypes.GET_REPORT, logger.getExeptionsLogger());
+					break;
+				default:
+					System.out.println("Incorrent command.");
+					break;
+			}
+		} else {
+			this.clientManager.sendMessageToServer(ReportType.CURRENT_FREE_ROOMS.toString(), MessageTypes.GET_REPORT, logger.getExeptionsLogger());
+		}
+		
+		System.out.println(this.clientManager.receiveMessageFromServer(logger.getExeptionsLogger()));
+	}	
 }
