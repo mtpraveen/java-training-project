@@ -44,7 +44,12 @@ class ConnectedUsersList implements ITableProvider
 	@Override
 	public String getColName(int col)
 	{
-		return "Name";
+		return "Login";
+	}
+
+	@Override
+	public String getTranslatedColumn(int col, ClientThread thread) {
+		return thread.getString("Login");
 	}
 
 	@Override
@@ -52,5 +57,6 @@ class ConnectedUsersList implements ITableProvider
 	{
 		return users.get(row).getLogin();
 	}
+
 	
 }

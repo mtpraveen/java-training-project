@@ -60,6 +60,7 @@ public class Client implements IExitable
 			CloseClientCommandImpl.setExitable(this);
 			LOGGER.debug("Client started");
 			ConnectionSettings.load();
+			LOGGER.debug("Ñonnecting to " + ConnectionSettings.host + ":" + ConnectionSettings.port + " ...");
 			fromserver = new Socket(ConnectionSettings.host, ConnectionSettings.port);
 			LOGGER.debug("Client connected to " + ConnectionSettings.host + ":" + ConnectionSettings.port);
 			srvIn = new DataInputStream(fromserver.getInputStream());

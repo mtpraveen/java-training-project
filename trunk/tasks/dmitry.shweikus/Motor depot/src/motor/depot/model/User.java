@@ -3,6 +3,7 @@
  */
 package motor.depot.model;
 
+import motor.depot.clientserver.server.ClientThread;
 import motor.depot.storages.interfaces.ICanBeSaved;
 import motor.depot.storages.interfaces.ITableRowProvider;
 
@@ -115,10 +116,18 @@ public abstract class User implements ICanBeSaved,ITableRowProvider
 	public String getColName(int col)
 	{
 		switch (col) {
-		case 0: return "Login";
-		case 1: return "Password";
+		case 0: return "Login"; //$NON-NLS-1$
+		case 1: return "Password"; //$NON-NLS-1$
 		}
-		return "";
+		return ""; //$NON-NLS-1$
+	}
+	@Override
+	public String getTranslatedColumn(int col, ClientThread thread) {
+		switch (col) {
+		case 0: return thread.getString("Login"); //$NON-NLS-1$
+		case 1: return thread.getString("Password"); //$NON-NLS-1$
+		}
+		return ""; //$NON-NLS-1$
 	}
 	@Override
 	public String getValue(int col)
@@ -127,6 +136,6 @@ public abstract class User implements ICanBeSaved,ITableRowProvider
 		case 0: return login;
 		case 1: return password;
 		}
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 }

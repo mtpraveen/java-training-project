@@ -3,6 +3,7 @@
  */
 package motor.depot.model;
 
+import motor.depot.clientserver.server.ClientThread;
 import motor.depot.storages.interfaces.ICanBeSaved;
 import motor.depot.storages.interfaces.ILoadableFromCsv;
 import motor.depot.storages.interfaces.ITableRowProvider;
@@ -98,7 +99,7 @@ public class Car implements ICanBeSaved, ITableRowProvider,ILoadableFromCsv
 	@Override
 	public String getClassId()
 	{
-		return "car";
+		return "car"; //$NON-NLS-1$
 	}
 
 	@Override
@@ -183,15 +184,30 @@ public class Car implements ICanBeSaved, ITableRowProvider,ILoadableFromCsv
 	{
 		switch (col) {
 		case 0:
-			return "N";
+			return "N"; //$NON-NLS-1$
 		case 1:
-			return "Model";
+			return "Model"; //$NON-NLS-1$
 		case 2:
-			return "Descr.";
+			return "Descr."; //$NON-NLS-1$
 		case 3:
-			return "State";
+			return "State"; //$NON-NLS-1$
 		}
-		return "";
+		return ""; //$NON-NLS-1$
+	}
+
+	@Override
+	public String getTranslatedColumn(int col, ClientThread thread) {
+		switch (col) {
+		case 0:
+			return "#"; //$NON-NLS-1$
+		case 1:
+			return thread.getString("Model"); //$NON-NLS-1$
+		case 2:
+			return thread.getString("Descr."); //$NON-NLS-1$
+		case 3:
+			return thread.getString("State"); //$NON-NLS-1$
+		}
+		return ""; //$NON-NLS-1$
 	}
 
 	@Override
@@ -207,7 +223,7 @@ public class Car implements ICanBeSaved, ITableRowProvider,ILoadableFromCsv
 		case 3:
 			return state;
 		}
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 	@Override
@@ -219,7 +235,7 @@ public class Car implements ICanBeSaved, ITableRowProvider,ILoadableFromCsv
 	@Override
 	public String toString()
 	{
-		return number + " " + model;
+		return number + " " + model; //$NON-NLS-1$
 	}
 
 	@Override

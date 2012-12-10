@@ -3,6 +3,7 @@
  */
 package motor.depot.model;
 
+import motor.depot.clientserver.server.ClientThread;
 import motor.depot.storages.interfaces.ICanBeSaved;
 
 /**
@@ -51,5 +52,6 @@ public class Dispatcher extends User
 	public long getSerialVersionUID() {
 		return serialVersionUID;
 	}
+
 
 }
