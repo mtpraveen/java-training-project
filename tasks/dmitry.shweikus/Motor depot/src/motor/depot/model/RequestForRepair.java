@@ -3,6 +3,7 @@
  */
 package motor.depot.model;
 
+import motor.depot.clientserver.server.ClientThread;
 import motor.depot.storages.interfaces.ICanBeSaved;
 import motor.depot.storages.interfaces.ITableRowProvider;
 
@@ -67,7 +68,7 @@ public class RequestForRepair implements ICanBeSaved,ITableRowProvider
 	@Override
 	public String getClassId()
 	{
-		return "RequestForRepair";
+		return "RequestForRepair"; //$NON-NLS-1$
 	}
 	@Override
 	public ICanBeSaved newInstance()
@@ -88,11 +89,20 @@ public class RequestForRepair implements ICanBeSaved,ITableRowProvider
 	public String getColName(int col)
 	{
 		switch (col) {
-		case 0: return "Car";
-		case 1: return "Descr.";
-		case 2: return "Driver";
+		case 0: return "Car"; //$NON-NLS-1$
+		case 1: return "Descr."; //$NON-NLS-1$
+		case 2: return "Driver"; //$NON-NLS-1$
 		}
-		return "";
+		return ""; //$NON-NLS-1$
+	}
+	@Override
+	public String getTranslatedColumn(int col, ClientThread thread) {
+		switch (col) {
+		case 0: return thread.getString("Car"); //$NON-NLS-1$
+		case 1: return thread.getString("Descr."); //$NON-NLS-1$
+		case 2: return thread.getString("Driver"); //$NON-NLS-1$
+		}
+		return ""; //$NON-NLS-1$
 	}
 	@Override
 	public String getValue(int col)
@@ -102,7 +112,7 @@ public class RequestForRepair implements ICanBeSaved,ITableRowProvider
 		case 1: return description;
 		case 2: return driver.getLogin();
 		}
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 	@Override
 	public ITableRowProvider getRowProvider()

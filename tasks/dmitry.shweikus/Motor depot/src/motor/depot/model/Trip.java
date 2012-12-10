@@ -3,11 +3,9 @@
  */
 package motor.depot.model;
 
+import motor.depot.clientserver.server.ClientThread;
 import motor.depot.exceptions.CannotChangeAssignedDriverException;
 import motor.depot.model.enums.TripState;
-import motor.depot.storages.interfaces.AbstractItemStateLoader;
-import motor.depot.storages.interfaces.AbstractItemStateSaver;
-import motor.depot.storages.interfaces.AbstractStorage;
 import motor.depot.storages.interfaces.ICanBeSaved;
 import motor.depot.storages.interfaces.ITableRowProvider;
 
@@ -118,7 +116,7 @@ public class Trip implements ICanBeSaved,ITableRowProvider
 	@Override
 	public String getClassId()
 	{
-		return "trip";
+		return "trip"; //$NON-NLS-1$
 	}
 	@Override
 	public ICanBeSaved newInstance()
@@ -139,14 +137,26 @@ public class Trip implements ICanBeSaved,ITableRowProvider
 	public String getColName(int col)
 	{
 		switch (col) {
-		case 0:	return "Start";
-		case 1:	return "Destination";
-		case 2:	return "Descr.";
-		case 3:	return "State";
-		case 4:	return "Car";
-		case 5:	return "Driver";
+		case 0:	return "Start"; //$NON-NLS-1$
+		case 1:	return "Destination"; //$NON-NLS-1$
+		case 2:	return "Descr."; //$NON-NLS-1$
+		case 3:	return "State"; //$NON-NLS-1$
+		case 4:	return "Car"; //$NON-NLS-1$
+		case 5:	return "Driver"; //$NON-NLS-1$
 		}
-		return "";
+		return ""; //$NON-NLS-1$
+	}
+	@Override
+	public String getTranslatedColumn(int col, ClientThread thread) {
+		switch (col) {
+		case 0:	return thread.getString("Start"); //$NON-NLS-1$
+		case 1:	return thread.getString("Destination"); //$NON-NLS-1$
+		case 2:	return thread.getString("Descr."); //$NON-NLS-1$
+		case 3:	return thread.getString("State"); //$NON-NLS-1$
+		case 4:	return thread.getString("Car"); //$NON-NLS-1$
+		case 5:	return thread.getString("Driver"); //$NON-NLS-1$
+		}
+		return ""; //$NON-NLS-1$
 	}
 	@Override
 	public String getValue(int col)
@@ -159,7 +169,7 @@ public class Trip implements ICanBeSaved,ITableRowProvider
 		case 4:	return car.toString();
 		case 5:	return driver.getLogin();
 		}
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 	@Override
 	public ITableRowProvider getRowProvider()

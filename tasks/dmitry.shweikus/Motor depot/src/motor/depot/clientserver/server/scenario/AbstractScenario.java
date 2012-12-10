@@ -101,7 +101,7 @@ public abstract class AbstractScenario
 
 	protected void waitForInput() throws IOException
 	{
-		str("Press <enter> to continue");
+		str(thread.getString("Press_enter_to_continue"));
 		readString();
 	}
 

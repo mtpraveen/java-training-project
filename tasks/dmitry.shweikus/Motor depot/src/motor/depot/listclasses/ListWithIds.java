@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import motor.depot.clientserver.server.ClientThread;
 import motor.depot.clientserver.server.scenario.tables.ITableProvider;
 import motor.depot.storages.csv.utils.CsvSplitter;
 import motor.depot.storages.interfaces.ICanBeSaved;
@@ -64,6 +65,11 @@ public class ListWithIds<T extends ICanBeSaved> extends ArrayList<T>
 			public String getCellValue(int row, int col)
 			{
 				return get(row).getRowProvider().getValue(col);
+			}
+
+			@Override
+			public String getTranslatedColumn(int col, ClientThread thread) {
+				return prototype.getRowProvider().getTranslatedColumn(col, thread);
 			}
 		};
 	}

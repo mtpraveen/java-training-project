@@ -88,7 +88,7 @@ public class TableScenario extends AbstractScenario
 
 	private int getColumnWidth(int col)
 	{
-		int res = tableProvider.getColName(col).length();
+		int res = tableProvider.getTranslatedColumn(col, thread).length();
 		for (int row = 0; row < tableProvider.getRowCount(); row++)
 		{
 			String value = tableProvider.getCellValue(row, col);
@@ -158,7 +158,7 @@ public class TableScenario extends AbstractScenario
 		{
 			if (col > 0)
 				data.append('|');
-			data.append(padding(tableProvider.getColName(col), colWidths[col], ' '));
+			data.append(padding(tableProvider.getTranslatedColumn(col, thread), colWidths[col], ' '));
 		}
 		str(data.toString());
 		str(padding("", Math.min(totalLineWidth, screenLineSize), '-')); //$NON-NLS-1$
