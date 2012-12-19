@@ -1,19 +1,19 @@
 package commands;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class AppointDoctorCommand extends AbstractCommand{
+public class AppointDoctorCommand extends AbstractCommand {
 	private int patientID;
 	private int doctorID;
 	private String message;
-	
-	
+
 	public AppointDoctorCommand() {
 		super.setDeclaration("Appoint doctor to patient");
 	}
-	
+
 	@Override
 	public void sendRequestToServer(DataOutputStream out) throws IOException {
 		out.writeUTF(Commands.APPOINTDOCTOR.name());
@@ -29,11 +29,12 @@ public class AppointDoctorCommand extends AbstractCommand{
 
 	@Override
 	public void processClientRequest(DataInputStream in) throws IOException {
-		patientID=in.readInt();
-		doctorID=in.readInt();
+		patientID = in.readInt();
+		doctorID = in.readInt();
 		this.getServer().setDataLoading(true);
 		this.getServer().waitProcessTermination();
-		message=this.getServer().getHospital().appointDoctor(patientID, doctorID);
+		message = this.getServer().getHospital()
+				.appointDoctor(patientID, doctorID);
 		this.getServer().setDataLoading(false);
 	}
 
@@ -57,7 +58,8 @@ public class AppointDoctorCommand extends AbstractCommand{
 	}
 
 	/**
-	 * @param patientID the patientID to set
+	 * @param patientID
+	 *            the patientID to set
 	 */
 	public void setPatientID(int patientID) {
 		this.patientID = patientID;
@@ -71,10 +73,29 @@ public class AppointDoctorCommand extends AbstractCommand{
 	}
 
 	/**
-	 * @param doctorID the doctorID to set
+	 * @param doctorID
+	 *            the doctorID to set
 	 */
 	public void setDoctorID(int doctorID) {
 		this.doctorID = doctorID;
+	}
+
+	@Override
+	public void setParametrs(DataOutputStream serverOutputStream,
+			BufferedReader consoleInputStream) throws IOException {
+		boolean correct = false;
+		while (!correct) {
+			try {
+				System.out.println("Enter patientID:");
+				this.setPatientID(Integer.valueOf(consoleInputStream.readLine()));
+				System.out.println("Enter doctorID:");
+				this.setDoctorID(Integer.valueOf(consoleInputStream.readLine()));
+				correct = true;
+			} catch (NumberFormatException e) {
+				correct = false;
+				System.out.println("Incorrect number format. Try again.");
+			}
+		}
 	}
 
 }

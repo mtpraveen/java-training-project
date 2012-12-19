@@ -2,16 +2,16 @@ package commands;
 
 import hospital.User;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ChangePasswordCommand extends AbstractCommand{
+public class ChangePasswordCommand extends AbstractCommand {
 	private String password;
 	private boolean isChanged;
-	
-	
+
 	/**
 	 * @return the password
 	 */
@@ -20,7 +20,8 @@ public class ChangePasswordCommand extends AbstractCommand{
 	}
 
 	/**
-	 * @param password the password to set
+	 * @param password
+	 *            the password to set
 	 */
 	public void setPassword(String password) {
 		this.password = password;
@@ -40,14 +41,14 @@ public class ChangePasswordCommand extends AbstractCommand{
 
 	@Override
 	public void processClientRequest(DataInputStream in) throws IOException {
-		password=in.readUTF();
-		String login= this.getClientThread().getClientName();
-		isChanged=false;
-		ArrayList<User> users=this.getServer().getHospital().getUsers();
-		for (int i=0;i<users.size();i++){
-			if(login.equals(users.get(i).getLogin())){
+		password = in.readUTF();
+		String login = this.getClientThread().getClientName();
+		isChanged = false;
+		ArrayList<User> users = this.getServer().getHospital().getUsers();
+		for (int i = 0; i < users.size(); i++) {
+			if (login.equals(users.get(i).getLogin())) {
 				users.get(i).setPassword(password);
-				isChanged=true;
+				isChanged = true;
 				break;
 			}
 		}
@@ -56,7 +57,7 @@ public class ChangePasswordCommand extends AbstractCommand{
 	@Override
 	public void sendResponseToClient(DataOutputStream out) throws IOException {
 		out.writeUTF(Commands.CHANGEPASSWORD.name());
-		if (isChanged){
+		if (isChanged) {
 			out.writeUTF("Password is changed!");
 		} else {
 			out.writeUTF("Changed password error!");
@@ -70,6 +71,13 @@ public class ChangePasswordCommand extends AbstractCommand{
 
 	public ChangePasswordCommand() {
 		super.setDeclaration("Changing your current password");
+	}
+
+	@Override
+	public void setParametrs(DataOutputStream serverOutputStream,
+			BufferedReader consoleInputStream) throws IOException {
+		System.out.println("Enter new password:");
+		this.setPassword(consoleInputStream.readLine());
 	}
 
 }

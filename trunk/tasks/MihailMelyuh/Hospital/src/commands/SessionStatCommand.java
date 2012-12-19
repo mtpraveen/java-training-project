@@ -1,5 +1,6 @@
 package commands;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -46,6 +47,11 @@ public class SessionStatCommand extends AbstractCommand {
 
 	public SessionStatCommand() {
 		super.setDeclaration("Getting information about the open sessions");
+	}
+
+	@Override
+	public void setParametrs(DataOutputStream serverOutputStream,BufferedReader consoleInputStream)  throws IOException {
+		
 	}
 	
 }

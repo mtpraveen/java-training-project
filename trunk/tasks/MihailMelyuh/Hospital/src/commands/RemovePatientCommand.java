@@ -1,5 +1,6 @@
 package commands;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -7,11 +8,11 @@ import java.io.IOException;
 public class RemovePatientCommand extends AbstractCommand {
 	private int patientID;
 	private String message;
-	
-	public RemovePatientCommand(){
+
+	public RemovePatientCommand() {
 		super.setDeclaration("Remove patient by ID");
 	}
-	
+
 	@Override
 	public void sendRequestToServer(DataOutputStream out) throws IOException {
 		out.writeUTF(Commands.REMOVEPATIENT.name());
@@ -26,10 +27,10 @@ public class RemovePatientCommand extends AbstractCommand {
 
 	@Override
 	public void processClientRequest(DataInputStream in) throws IOException {
-		patientID=in.readInt();
+		patientID = in.readInt();
 		this.getServer().setDataLoading(true);
 		this.getServer().waitProcessTermination();
-		message=this.getServer().getHospital().removePatient(patientID);
+		message = this.getServer().getHospital().removePatient(patientID);
 		this.getServer().setDataLoading(false);
 	}
 
@@ -52,10 +53,27 @@ public class RemovePatientCommand extends AbstractCommand {
 	}
 
 	/**
-	 * @param patientID the patientID to set
+	 * @param patientID
+	 *            the patientID to set
 	 */
 	public void setPatientID(int patientID) {
 		this.patientID = patientID;
+	}
+
+	@Override
+	public void setParametrs(DataOutputStream serverOutputStream,
+			BufferedReader consoleInputStream) throws IOException {
+		boolean correct = false;
+		while (!correct) {
+			try {
+				System.out.println("Enter patientID:");
+				this.setPatientID(Integer.valueOf(consoleInputStream.readLine()));
+				correct = true;
+			} catch (NumberFormatException e) {
+				correct = false;
+				System.out.println("Incorrect number format. Try again.");
+			}
+		}
 	}
 
 }

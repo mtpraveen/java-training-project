@@ -1,5 +1,6 @@
 package commands;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -69,6 +70,11 @@ public class ShutdownCommand extends AbstractCommand {
 
 	public ShutdownCommand() {
 		super.setDeclaration("Shutdown");
+	}
+
+	@Override
+	public void setParametrs(DataOutputStream serverOutputStream,BufferedReader consoleInputStream)  throws IOException {
+		
 	}
 	
 }

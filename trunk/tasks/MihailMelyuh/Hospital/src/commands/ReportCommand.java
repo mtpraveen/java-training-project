@@ -1,5 +1,6 @@
 package commands;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -35,6 +36,12 @@ public class ReportCommand extends AbstractCommand{
 
 	public ReportCommand() {
 		super.setDeclaration("Report output to the screen");
+	}
+
+	@Override
+	public void setParametrs(DataOutputStream serverOutputStream,
+			BufferedReader consoleInputStream) throws IOException {
+		
 	}
 
 }

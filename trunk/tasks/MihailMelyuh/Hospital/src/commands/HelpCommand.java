@@ -1,5 +1,6 @@
 package commands;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -115,6 +116,13 @@ public class HelpCommand extends AbstractCommand {
 
 	public HelpCommand() {
 		super.setDeclaration("Help");
+	}
+
+	@Override
+	public void setParametrs(DataOutputStream serverOutputStream,
+			BufferedReader consoleInputStream) throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

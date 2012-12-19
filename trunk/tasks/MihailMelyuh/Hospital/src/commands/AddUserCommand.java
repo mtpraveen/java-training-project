@@ -1,5 +1,6 @@
 package commands;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -63,6 +64,15 @@ public class AddUserCommand extends AbstractCommand {
 
 	public AddUserCommand() {
 		super.setDeclaration("Adding a user to the database");
+	}
+
+	@Override
+	public void setParametrs(DataOutputStream serverOutputStream,
+			BufferedReader consoleInputStream) throws IOException {
+		System.out.println("Enter login:");
+		this.setLogin(consoleInputStream.readLine());
+		System.out.println("Enter password:");
+		this.setPassword(consoleInputStream.readLine());
 	}
 
 }

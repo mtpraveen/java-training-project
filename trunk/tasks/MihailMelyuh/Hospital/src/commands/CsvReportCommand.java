@@ -1,6 +1,7 @@
 package commands;
 
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -80,6 +81,13 @@ public void setFilePath(String filePath) {
 
 	public CsvReportCommand() {
 		super.setDeclaration("Save the report to format the disk Csv");
+	}
+
+	@Override
+	public void setParametrs(DataOutputStream serverOutputStream,BufferedReader consoleInputStream) throws IOException {
+		System.out.println("Input filePath:");
+		this.setFilePath(consoleInputStream
+						.readLine());
 	}
 
 }
