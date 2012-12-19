@@ -1,5 +1,6 @@
 package commands;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -62,6 +63,13 @@ public class AddDataCommand extends AbstractCommand {
 
 	public AddDataCommand() {
 		super.setDeclaration("Adding data from Csv file");
+	}
+
+	@Override
+	public void setParametrs(DataOutputStream serverOutputStream,
+			BufferedReader consoleInputStream) throws IOException {
+		System.out.println("Enter filepath:");
+		this.setFilePath(consoleInputStream.readLine());
 	}
 
 }

@@ -1,5 +1,6 @@
 package commands;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -16,6 +17,8 @@ public interface ICommand {
 	void processClientRequest(DataInputStream in) throws IOException;
 
 	void sendResponseToClient(DataOutputStream out) throws IOException;
+	
+	void setParametrs(DataOutputStream serverOutputStream,BufferedReader consoleInputStream) throws IOException;
 
 	void clearClientRequest(DataInputStream in) throws IOException;
 	

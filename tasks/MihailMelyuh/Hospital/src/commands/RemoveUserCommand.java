@@ -1,5 +1,6 @@
 package commands;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -45,7 +46,7 @@ public class RemoveUserCommand extends AbstractCommand {
 		isRemove = this.getServer().getHospital().removeUser(login);
 		if (isRemove) {
 			for (ClientThreadAtServer t : this.getServer().getThreads()) {
-				ExitCommand cmd=new ExitCommand();
+				ExitCommand cmd = new ExitCommand();
 				if (t.getClientName().equals(login)) {
 					t.addCommand(cmd);
 				}
@@ -72,6 +73,13 @@ public class RemoveUserCommand extends AbstractCommand {
 
 	public RemoveUserCommand() {
 		super.setDeclaration("Removing a user by username");
+	}
+
+	@Override
+	public void setParametrs(DataOutputStream serverOutputStream,
+			BufferedReader consoleInputStream) throws IOException {
+		System.out.println("Enter login:");
+		this.setLogin(consoleInputStream.readLine());
 	}
 
 }

@@ -1,23 +1,22 @@
 package commands;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
 import position.Positions;
 
-public class AppointAssignmentCommand extends AbstractCommand{
+public class AppointAssignmentCommand extends AbstractCommand {
 	private int patientID;
 	private String text;
 	private String position;
 	private int personID;
 	private String message;
-	
-	
+
 	public AppointAssignmentCommand() {
 		super.setDeclaration("Appoint assignment to patient");
 	}
-
 
 	@Override
 	public void sendRequestToServer(DataOutputStream out) throws IOException {
@@ -28,33 +27,33 @@ public class AppointAssignmentCommand extends AbstractCommand{
 		out.writeInt(personID);
 	}
 
-
 	@Override
 	public void processResponseFromServer(DataInputStream in)
 			throws IOException {
 		System.out.println(in.readUTF());
 	}
 
-
 	@Override
 	public void processClientRequest(DataInputStream in) throws IOException {
-		patientID=in.readInt();
-		text=in.readUTF();
-		position=in.readUTF();
-		personID=in.readInt();
+		patientID = in.readInt();
+		text = in.readUTF();
+		position = in.readUTF();
+		personID = in.readInt();
 		this.getServer().setDataLoading(true);
 		this.getServer().waitProcessTermination();
-		message=this.getServer().getHospital().appointAssignment(patientID, text, Positions.valueOf(position), personID);
+		message = this
+				.getServer()
+				.getHospital()
+				.appointAssignment(patientID, text,
+						Positions.valueOf(position), personID);
 		this.getServer().setDataLoading(false);
 	}
-
 
 	@Override
 	public void sendResponseToClient(DataOutputStream out) throws IOException {
 		out.writeUTF(Commands.APPOINTASSIGNMENT.name());
 		out.writeUTF(message);
 	}
-
 
 	@Override
 	public void clearClientRequest(DataInputStream in) throws IOException {
@@ -64,7 +63,6 @@ public class AppointAssignmentCommand extends AbstractCommand{
 		in.readInt();
 	}
 
-
 	/**
 	 * @return the patientID
 	 */
@@ -72,14 +70,13 @@ public class AppointAssignmentCommand extends AbstractCommand{
 		return patientID;
 	}
 
-
 	/**
-	 * @param patientID the patientID to set
+	 * @param patientID
+	 *            the patientID to set
 	 */
 	public void setPatientID(int patientID) {
 		this.patientID = patientID;
 	}
-
 
 	/**
 	 * @return the text
@@ -88,14 +85,13 @@ public class AppointAssignmentCommand extends AbstractCommand{
 		return text;
 	}
 
-
 	/**
-	 * @param text the text to set
+	 * @param text
+	 *            the text to set
 	 */
 	public void setText(String text) {
 		this.text = text;
 	}
-
 
 	/**
 	 * @return the position
@@ -104,14 +100,13 @@ public class AppointAssignmentCommand extends AbstractCommand{
 		return position;
 	}
 
-
 	/**
-	 * @param position the position to set
+	 * @param position
+	 *            the position to set
 	 */
 	public void setPosition(String position) {
 		this.position = position;
 	}
-
 
 	/**
 	 * @return the personID
@@ -120,12 +115,35 @@ public class AppointAssignmentCommand extends AbstractCommand{
 		return personID;
 	}
 
-
 	/**
-	 * @param personID the personID to set
+	 * @param personID
+	 *            the personID to set
 	 */
 	public void setPersonID(int personID) {
 		this.personID = personID;
 	}
-	
+
+	@Override
+	public void setParametrs(DataOutputStream serverOutputStream,
+			BufferedReader consoleInputStream) throws IOException {
+		boolean correct = false;
+		while (!correct) {
+			try {
+				System.out.println("Enter patientID:");
+				this.setPatientID(Integer.valueOf(consoleInputStream.readLine()));
+				System.out.println("Enter assignment:");
+				this.setText(consoleInputStream.readLine());
+				System.out.println("Enter performer(Nurse,Doctor):");
+				this.setPosition(Positions.valueOf(
+						consoleInputStream.readLine()).name());
+				System.out.println("Enter performerID:");
+				this.setPersonID(Integer.valueOf(consoleInputStream.readLine()));
+				correct = true;
+			} catch (IllegalArgumentException e1) {
+				correct = false;
+				System.out.println("Incorrect number format. Try again.");
+			}
+		}
+	}
+
 }

@@ -1,5 +1,6 @@
 package commands;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -48,6 +49,12 @@ public class LoadDataCommand extends AbstractCommand {
 
 	public LoadDataCommand() {
 		super.setDeclaration("Download the data from the database into the system");
+	}
+
+	@Override
+	public void setParametrs(DataOutputStream serverOutputStream,BufferedReader consoleInputStream)  throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
