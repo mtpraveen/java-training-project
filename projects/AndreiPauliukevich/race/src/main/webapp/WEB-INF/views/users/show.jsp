@@ -17,8 +17,11 @@
 						<dt>E-mail:</dt>
 						<dd>${user.email}</dd>
 					</dl>
+
+
+					<c:url var="editUrl" value="/users/edit/${user.id}" />
+					<a href="${editUrl}" class="btn btn-small"><spring:message code="user.edit"  /></a>
+					<br/>&nbsp;
 				</div>
 			</section>
-
-
 <%@include file="../layout/footer.jsp" %>

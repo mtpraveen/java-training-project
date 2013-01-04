@@ -15,7 +15,7 @@
 						    <label>Login:</label>
 						    <form:input path="username" type="text" placeholder="Login..."></form:input>
 						    <label>Password:</label>
-						    <form:input path="password" type="text" ></form:input>
+						    <form:input path="password" type="password" placeholder="*********" ></form:input>
 							<label>Name:</label>
 						    <form:input path="fio" type="text" placeholder="First and Last name"></form:input>
 						    <label>E-mail:</label>
