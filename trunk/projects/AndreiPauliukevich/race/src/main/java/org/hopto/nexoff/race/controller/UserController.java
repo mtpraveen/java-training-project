@@ -1,17 +1,20 @@
 package org.hopto.nexoff.race.controller;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.hopto.nexoff.race.domain.User;
 import org.hopto.nexoff.race.service.UserService;
 import org.hopto.nexoff.race.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/users")
@@ -21,6 +24,8 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private UserValidator userValidator;
+	@Autowired
+    private MessageSource messageSource;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(Model uiModel) {
@@ -44,14 +49,15 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
-	public String saveNew(User user, BindingResult result, Model uiModel) {
+	public String saveNew(User user, BindingResult result, Model uiModel, RedirectAttributes redirectAttrs, Locale locale) {
 		userValidator.validate(user, result);
 		if (result.hasErrors()) {
 			uiModel.addAttribute("user", user);
 			return "users/new";
 		} else {
 			userService.save(user);
-			return "redirect:/";
+			redirectAttrs.addFlashAttribute("message", messageSource.getMessage("user.create.sucsess", null, locale));
+			return "redirect:/races";
 		}
 
 	}

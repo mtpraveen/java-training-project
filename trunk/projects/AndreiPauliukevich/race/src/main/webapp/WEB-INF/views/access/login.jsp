@@ -3,8 +3,11 @@
 			<br/>
 			<sec:authorize access="isAnonymous()">
 		    	<div class="offset2 span8 offset2">
-		    			<br/><br/><hr>
-		    		    
+						<br/><br/>
+						<c:if test="${not empty message}">
+							<div class="alert alert-success">${message}</div>	
+						</c:if>
+		    			<hr>
 		    		    <form class="form-horizontal" action="j_spring_security_check" method="post" >
 		    		    	<div class="control-group">
 		    		    		<label class="control-label" for="inputUsername">Login:</label>

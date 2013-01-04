@@ -2,12 +2,17 @@
 
 
 <section id="data">
-	<div class="span12">
+	<div class="offset1 span10">
+		<c:if test="${not empty message}">
+			<div class="alert alert-success">${message}</div>	
+		</c:if>
+				
 		<center>
 			<em><spring:message code="race.list" /></em>
 		</center>
 	</div>
 	<div class="offset1 span10 offset1">
+
 		<br>
 		<table class="table" id="race">
 			<thead>
