@@ -23,20 +23,33 @@
 			<c:url value="/users/show/" var="userShow" />
 			<c:url value="/logout" var="logout" />
 
-	<div class="container">
-	<br/>
-	<sec:authorize access="isAnonymous()">
-		<div class="offset8 span4">
-			<a class="btn btn-link" href="${login}">Sign In</a>or<a class="btn btn-link" href="${signUp}">Sign Up</a>
-		</div>
-	</sec:authorize>
-	<sec:authorize access="isAuthenticated()">
-	   	<div class="offset8 span4">
-	   		
-			Welcome <a href="${userShow}<sec:authentication property="principal.id" />"><sec:authentication property="principal.username" /></a> 
-			&nbsp;&nbsp;[<a href="${logout}">logout</a>]
-	    </div>
-	</sec:authorize>
+<div class="container">
+<br/>
+<sec:authorize access="isAnonymous()">
+	<div class="offset8 span4">
+		<a class="btn btn-link" href="${login}">Sign In</a>or<a class="btn btn-link" href="${signUp}">Sign Up</a>
+	</div>
+</sec:authorize>
+<sec:authorize access="isAuthenticated()">
+	<div class="span8">
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<c:url value="/users" var="users_url" />
+			<c:url value="/horses" var="horses_url" />
+			<c:url value="/races" var="races_url" />
+				<ul class="nav nav-pills">
+				    <li><a href="${users_url}"><spring:message code="users" /></a></li>
+				    <li><a href="${horses_url}"><spring:message code="horses" /></a></li>
+				    <li><a href="${races_url}"><spring:message code="races" /></a></li>
+			    </ul>
+		</sec:authorize>
+	</div>
+   	<div class="span3">
+		Welcome <a href="${userShow}<sec:authentication property="principal.id" />"><sec:authentication property="principal.username" /></a> 
+		&nbsp;&nbsp;[<a href="${logout}">logout</a>]
+    </div>
+</sec:authorize>
+	
+
 	
 
 

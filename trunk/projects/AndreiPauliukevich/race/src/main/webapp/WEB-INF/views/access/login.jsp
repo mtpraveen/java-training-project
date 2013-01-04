@@ -5,7 +5,7 @@
 		    	<div class="offset2 span8 offset2">
 						<br/><br/>
 						<c:if test="${not empty message}">
-							<div class="alert alert-success">${message}</div>	
+							<div class="alert alert-error">${message}</div>	
 						</c:if>
 		    			<hr>
 		    		    <form class="form-horizontal" action="j_spring_security_check" method="post" >
