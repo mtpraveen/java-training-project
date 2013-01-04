@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -24,9 +23,9 @@ public class AccessController {
 	}
 	
 	@RequestMapping("/denied")
-	public String denied(Model model, @RequestParam(required = false) String message) {
-		model.addAttribute("message", message);
-		return "access/denied";
+	public String denied(RedirectAttributes redirectAttrs, Locale locale) {
+		redirectAttrs.addFlashAttribute("message", messageSource.getMessage("login.denied", null, locale));
+		return "redirect:/races";
 	}
 	
 	@RequestMapping(value = "/failure", method = RequestMethod.GET)

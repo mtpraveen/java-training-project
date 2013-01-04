@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import org.hopto.nexoff.race.domain.User;
 import org.hopto.nexoff.race.service.UserService;
+import org.hopto.nexoff.race.validator.UserEditValidator;
 import org.hopto.nexoff.race.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -24,6 +25,8 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private UserValidator userValidator;
+	@Autowired
+	private UserEditValidator userEditValidator;
 	@Autowired
     private MessageSource messageSource;
 
@@ -71,7 +74,7 @@ public class UserController {
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
 	public String saveEdit(User user, BindingResult result, Model uiModel) {
-		userValidator.validate(user, result);
+		userEditValidator.validate(user, result);
 		if (result.hasErrors()) {
 			uiModel.addAttribute("user", user);
 			return "users/edit";

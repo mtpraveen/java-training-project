@@ -7,7 +7,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
-public class UserValidator implements Validator {
+public class UserEditValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -17,7 +17,6 @@ public class UserValidator implements Validator {
 	@Override
 	public void validate(Object obj, Errors e) {
 		ValidationUtils.rejectIfEmpty(e, "fio", "user.name.empty");
-		ValidationUtils.rejectIfEmpty(e, "username", "user.login.empty");
 		ValidationUtils.rejectIfEmpty(e, "password", "user.pwd.empty");
 		ValidationUtils.rejectIfEmpty(e, "email", "user.email.empty");
 		User user = (User) obj;

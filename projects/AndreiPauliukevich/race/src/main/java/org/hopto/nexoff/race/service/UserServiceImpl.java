@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional(readOnly = true)
 	public User findById(Long id) {
 		User user = em.find(User.class, id);
+		user.setPassword(null);
 		return user;
 	}
 
@@ -57,8 +58,10 @@ public class UserServiceImpl implements UserService {
 			User refreshUser = em.find(User.class, user.getId());
 			refreshUser.setEmail(user.getEmail());
 			refreshUser.setFio(user.getFio());
-			refreshUser.setUsername(user.getUsername());
-			refreshUser.setPassword(user.getPassword().toLowerCase());
+			if(user.getPassword() != null) {
+				refreshUser.setPassword(passwordEncoder.encodePassword(user.getPassword(), refreshUser.getUsername()));
+			}
+			
 		}
 		return user;
 	}
