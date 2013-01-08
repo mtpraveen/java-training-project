@@ -17,4 +17,6 @@ public interface UserService extends UserDetailsService {
 
 	public User loadUserByUsername(String username);
 
+	public Boolean isUniqueUsername(User user);
+
 }

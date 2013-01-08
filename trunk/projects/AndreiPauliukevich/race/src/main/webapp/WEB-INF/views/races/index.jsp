@@ -21,7 +21,9 @@
 					<th><spring:message code="race.startTime" /></th>
 					<th><spring:message code="race.coeff" /></th>
 					<th><spring:message code="race.winner" /></th>
-					<th></th>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<th></th>
+					</sec:authorize>
 				</tr>
 			</thead>
 			<tbody>
@@ -31,18 +33,22 @@
 						<td>${race.startTime}</td>
 						<td>${race.coeff}</td>
 						<td>${race.winner.name}</td>
-						<td><c:url value="/races/edit/${race.id}" var="editRace" />
-							<c:url value="/races/delete/${race.id}" var="deleteRace" /> 
-							<a class="btn-small btn-info" href="${editRace}"><i	class="icon-briefcase"></i></a> 
-							<a class="btn-small btn-danger"	href="${deleteRace}"><i class="icon-remove"></i></a></td>
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<td><c:url value="/races/edit/${race.id}" var="editRace" />
+								<c:url value="/races/delete/${race.id}" var="deleteRace" /> 
+								<a class="btn-small btn-info" href="${editRace}"><i	class="icon-briefcase"></i></a> 
+								<a class="btn-small btn-danger"	href="${deleteRace}"><i class="icon-remove"></i></a>
+							</td>
+						</sec:authorize>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<c:url value="/races/new" var="newRace" />
-		<a href="${newRace}" class="btn "><spring:message code="create"  /></a>
-		<br/>&nbsp;
-		
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<c:url value="/races/new" var="newRace" />
+			<a href="${newRace}" class="btn "><spring:message code="create"  /></a>
+			<br/>&nbsp;
+		</sec:authorize>
 	</div>
 </section>
 

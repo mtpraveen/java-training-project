@@ -77,8 +77,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(readOnly=true)
 	public User loadUserByUsername(String username){
-		User user = em.createNamedQuery("User.findByUsername", User.class).setParameter("username", username).getSingleResult();
+		User user = em.createNamedQuery("User.findByUsernameWithAuthrities", User.class).setParameter("username", username).getSingleResult();
 		return user;
 	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public Boolean isUniqueUsername(User user) {
+		Long l = (Long) em.createNamedQuery("User.isUniqueUsername").setParameter("username", user.getUsername()).getSingleResult();
+		return (l > 0) ? false : true;
+	}
+	
+	
 
 }
