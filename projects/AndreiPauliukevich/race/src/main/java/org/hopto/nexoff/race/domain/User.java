@@ -22,7 +22,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table
-@NamedQueries({ @NamedQuery(name = "User.findAll", query = "select u from User u"), @NamedQuery(name = "User.findByUsername", query = "select u from User u where username = :username") })
+@NamedQueries({ @NamedQuery(name = "User.findAll", query = "select u from User u"), 
+				@NamedQuery(name = "User.findByUsernameWithAuthrities", query = "select u from User u left join fetch u.authorities where u.username = :username"),
+				@NamedQuery(name = "User.isUniqueUsername", query = "select count(u.username) from User u where u.username = :username")
+})
 public class User implements Serializable, UserDetails {
 
 	private static final long serialVersionUID = -718373281831262405L;
@@ -50,16 +53,20 @@ public class User implements Serializable, UserDetails {
 	@OneToMany
 	private List<Order> orders;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.REFRESH)
+	@ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.REFRESH)
 	@JoinTable(name = "USER_AUTHORITIES", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "AUTHORITY_ID") })
 	private List<Authority> authorities;
 
+	@Column(name = "ENABLED")
 	private boolean enabled = true;
 
+	@Column(name = "CREDENTIALSNONEXPIRED")
 	private boolean credentialsNonExpired = true;
 
+	@Column(name = "ACCOUNTNONLOCKED")
 	private boolean accountNonLocked = true;
 
+	@Column(name = "ACCOUNTNONEXPIRED")
 	private boolean accountNonExpired = true;
 
 	public Long getId() {
