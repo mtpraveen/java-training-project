@@ -1,3 +1,4 @@
 /target/*
 /build/*
 /tomcat.5000/*
+.svn
