@@ -3,9 +3,9 @@
 
 <section id="data">
 	<div class="offset1 span8 offset3">
-		<center>
+		<div id="center">
 			<em><spring:message code="horse.list" /></em>
-		</center>
+		</div>
 	</div>
 	<div class="offset3 span6 offset3">
 		<br>

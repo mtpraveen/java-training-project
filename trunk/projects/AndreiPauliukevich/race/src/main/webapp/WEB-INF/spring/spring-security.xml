@@ -25,10 +25,10 @@
 		<security:intercept-url pattern="/users/edit/*" access="hasRole('ROLE_USER')" />
 		<security:intercept-url pattern="/users/show/*" access="hasRole('ROLE_USER')" />  
 		<security:intercept-url pattern="/users/delete/*" access="hasRole('ROLE_USER')" /> 
-		<security:intercept-url pattern="/orders/" access="hasRole('ROLE_USER')" />
-		<security:intercept-url pattern="/orders/new" access="hasRole('ROLE_USER')" />
-		<security:intercept-url pattern="/orders/edit/*" access="hasRole('ROLE_USER')" /> 
-		<security:intercept-url pattern="/orders/delete/*" access="hasRole('ROLE_USER')" /> 
+		<security:intercept-url pattern="/bids/" access="hasRole('ROLE_USER')" />
+		<security:intercept-url pattern="/bids/new/*" access="hasRole('ROLE_USER')" />
+		<security:intercept-url pattern="/bids/edit/*" access="hasRole('ROLE_USER')" /> 
+		<security:intercept-url pattern="/bids/delete/*" access="hasRole('ROLE_USER')" /> 
 		
 		<security:form-login login-page="/login" authentication-failure-url="/failure" default-target-url="/" />
 		<security:access-denied-handler	error-page="/denied" />

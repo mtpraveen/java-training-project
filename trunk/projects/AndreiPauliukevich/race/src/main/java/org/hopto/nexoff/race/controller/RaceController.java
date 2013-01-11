@@ -41,9 +41,8 @@ public class RaceController {
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String getNew(Model uiModel) {
 		Race race = new Race();
-		uiModel.addAttribute("horses", horseService.findAll());
+		race.setHorses(horseService.findAll());
 		uiModel.addAttribute("race", race);
-		
 		return "races/new";
 	}
 
@@ -51,8 +50,9 @@ public class RaceController {
 	public String saveNew(Race race, BindingResult result, Model uiModel) {
 		raceValidator.validate(race, result);
 		if (result.hasErrors()) {
+			race.setHorses(horseService.findAll());
 			uiModel.addAttribute("race", race);
-			uiModel.addAttribute("horses", horseService.findAll());
+			//uiModel.addAttribute("horses", horseService.findAll());
 			return "races/new";
 		} else {
 			raceService.save(race);

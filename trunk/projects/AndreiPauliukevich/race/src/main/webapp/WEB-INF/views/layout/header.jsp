@@ -37,9 +37,9 @@
 			<c:url value="/horses" var="horses_url" />
 			<c:url value="/races" var="races_url" />
 				<ul class="nav nav-pills">
+				    <li><a href="${races_url}"><spring:message code="races" /></a></li>
 				    <li><a href="${users_url}"><spring:message code="users" /></a></li>
 				    <li><a href="${horses_url}"><spring:message code="horses" /></a></li>
-				    <li><a href="${races_url}"><spring:message code="races" /></a></li>
 			    </ul>
 		</sec:authorize>
 	</div>

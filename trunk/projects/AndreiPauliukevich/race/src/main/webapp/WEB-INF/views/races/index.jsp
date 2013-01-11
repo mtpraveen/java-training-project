@@ -7,9 +7,9 @@
 			<div class="alert alert-success">${message}</div>	
 		</c:if>
 				
-		<center>
+		<div id="center">
 			<em><spring:message code="race.list" /></em>
-		</center>
+		</div>
 	</div>
 	<div class="offset1 span10 offset1">
 
@@ -21,6 +21,9 @@
 					<th><spring:message code="race.startTime" /></th>
 					<th><spring:message code="race.coeff" /></th>
 					<th><spring:message code="race.winner" /></th>
+					<sec:authorize access="hasRole('ROLE_USER')">
+					<th></th>
+					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
 						<th></th>
 					</sec:authorize>
@@ -33,6 +36,14 @@
 						<td>${race.startTime}</td>
 						<td>${race.coeff}</td>
 						<td>${race.winner.name}</td>
+						<td>
+							<sec:authorize access="hasRole('ROLE_USER')">
+								<c:url value="/bids/new/${race.id}" var="newBid" />
+								<c:if test="${empty race.winner.name}" >
+									<a class="btn-small btn-info" href="${newBid}">Bind!</a>
+								</c:if>
+							</sec:authorize>
+						</td>
 						<sec:authorize access="hasRole('ROLE_ADMIN')">
 							<td><c:url value="/races/edit/${race.id}" var="editRace" />
 								<c:url value="/races/delete/${race.id}" var="deleteRace" /> 
