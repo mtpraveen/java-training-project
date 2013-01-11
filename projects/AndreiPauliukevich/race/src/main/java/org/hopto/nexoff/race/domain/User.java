@@ -13,9 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -50,12 +50,12 @@ public class User implements Serializable, UserDetails {
 	@Column(name = "MONEY")
 	private double money;
 
-	@OneToMany
-	private List<Order> orders;
-
 	@ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.REFRESH)
 	@JoinTable(name = "USER_AUTHORITIES", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "AUTHORITY_ID") })
 	private List<Authority> authorities;
+	
+	@ManyToOne
+	private Bid bid;
 
 	@Column(name = "ENABLED")
 	private boolean enabled = true;
@@ -101,13 +101,6 @@ public class User implements Serializable, UserDetails {
 		this.money = money;
 	}
 
-	public List<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
 
 	public String getUsername() {
 		return username;
@@ -148,5 +141,15 @@ public class User implements Serializable, UserDetails {
 	public boolean isEnabled() {
 		return enabled;
 	}
+
+	public Bid getBid() {
+		return bid;
+	}
+
+	public void setBid(Bid bid) {
+		this.bid = bid;
+	}
+	
+	
 
 }

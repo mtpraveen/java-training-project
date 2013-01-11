@@ -21,7 +21,7 @@
 				
 				<label><spring:message code="race.horse"  />:</label>
 				<form:select path="horses" >
-					<form:options items="${horses}" itemLabel="name" itemValue="id" />
+					<form:options items="${race.horses}" itemLabel="name" itemValue="id" />
 				</form:select>
 					
 				<br>

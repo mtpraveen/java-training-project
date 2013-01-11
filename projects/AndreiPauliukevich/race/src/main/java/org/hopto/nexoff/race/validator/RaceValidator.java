@@ -16,9 +16,9 @@ public class RaceValidator implements Validator {
 	
 	@Override
 	public void validate(Object obj, Errors e) {
-		ValidationUtils.rejectIfEmpty(e, "startTime", "race.startTime.empty");
-		ValidationUtils.rejectIfEmpty(e, "coeff", "race.coeff.empty");
-		ValidationUtils.rejectIfEmpty(e, "horses", "race.horses.empty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(e, "startTime", "race.startTime.empty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(e, "coeff", "race.coeff.empty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(e, "horses", "race.horses.empty");
 		Race race = (Race) obj; 
 		if ( race.getHorses() != null && race.getHorses().size() < 2){
 			e.rejectValue("horses", "race.horses.tooSmall");
