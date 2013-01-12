@@ -45,6 +45,6 @@
     </security:authentication-manager>
 
 	<bean id="userService" class="org.hopto.nexoff.race.service.UserServiceImpl" />
-	<bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+	<bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" />
 
 </beans>

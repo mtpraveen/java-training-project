@@ -9,7 +9,6 @@ import org.hopto.nexoff.race.domain.Bid;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.BindingResult;
 
 @Transactional
 @Service("orderService")
