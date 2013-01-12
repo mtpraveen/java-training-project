@@ -16,9 +16,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.travel.db.ApplicationException;
 import com.travel.enums.TransportKind;
 import com.travel.enums.TravelKind;
+import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.TourShedule;
 import com.travel.pojo.Client;
 import com.travel.pojo.Order;
@@ -50,10 +50,10 @@ public class OrderDaoTest
 
 	/**
 	 * Test method for {@link com.travel.dao.BaseDao#update(com.travel.pojo.BaseEntity)}.
-	 * @throws ApplicationException 
+	 * @throws DbSqlException 
 	 */
 	@Test
-	public void testUpdate() throws ApplicationException
+	public void testUpdate() throws DbSqlException
 	{
 		User user = userDao.createUser("test", "manager1", "123", false);
 		Client client = clientDao.create("ivan", "ivanov", "", "", "", "", "--");

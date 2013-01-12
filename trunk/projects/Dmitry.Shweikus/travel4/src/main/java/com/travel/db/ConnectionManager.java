@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import com.travel.exceptions.DbSqlException;
+
 public class ConnectionManager
 {
 	private static ConnectionManager INSTANCE = new ConnectionManager();
@@ -21,7 +23,7 @@ public class ConnectionManager
 		return INSTANCE;
 	}
 
-	public Connection getConnection() throws ApplicationException
+	public Connection getConnection() throws DbSqlException
 	{
 		try
 		{
@@ -32,11 +34,11 @@ public class ConnectionManager
 		} catch (SQLException e)
 		{
 			e.printStackTrace();
-			throw new ApplicationException("Can't establish connection to database!");
+			throw new DbSqlException("Can't establish connection to database!");
 		} catch (ClassNotFoundException e)
 		{
 			e.printStackTrace();
-			throw new ApplicationException("Database driver is not found!");
+			throw new DbSqlException("Database driver is not found!");
 		}
 		return conn;
 	}

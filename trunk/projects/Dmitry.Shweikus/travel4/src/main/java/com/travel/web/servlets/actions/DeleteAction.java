@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,11 +14,13 @@ import com.travel.dao.BaseDao;
 import com.travel.dao.OrderDao;
 import com.travel.dao.PaymentDao;
 import com.travel.dao.TourSheduleDao;
-import com.travel.db.ApplicationException;
-import com.travel.web.beans.DataProviderBean;
-import com.travel.web.exceptions.DeleteException;
-import com.travel.web.exceptions.InvalidRequest;
-import com.travel.web.utils.DaoDescription;
+import com.travel.dao.utils.SqlConstrainBuilder;
+import com.travel.dao.utils.SelectSqlExecutor;
+import com.travel.db.ConnectionManager;
+import com.travel.exceptions.DbSqlException;
+import com.travel.exceptions.DeleteException;
+import com.travel.exceptions.InvalidRequest;
+import com.travel.web.utils.ServicesContainer;
 import com.travel.web.utils.TravelConsts;
 
 /**
@@ -107,11 +108,11 @@ public class DeleteAction extends AbstractAction
     }
 	@Override
 	public void process(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, InvalidRequest, ApplicationException, DeleteException
+			throws IOException, InvalidRequest, DbSqlException, DeleteException
 	{
 		if (getPathParams().size() < 3)
 			throw new InvalidRequest("Invalid delete params count : " + getPathParams().size());
-		DaoDescription daoDescription = TravelConsts.getDaoDescription(getPathParams().get(1),getUser());
+		ServicesContainer daoDescription = TravelConsts.getDaoDescription(getPathParams().get(1),getUser());
 		if (daoDescription == null)
 			throw new InvalidRequest("Invalid table : " + getPathParams().get(1));
 		EntityDeleter deleter = getDeleter(request);
@@ -119,11 +120,10 @@ public class DeleteAction extends AbstractAction
 		BaseDao dao = daoDescription.getDao();
 		for (BaseDao detail : deleter.getDetailDao())
 		{
-			DataProviderBean dataProviderBean = new DataProviderBean();
-			dataProviderBean.setDao(detail);
-			dataProviderBean.setMasterDao(dao);
-			dataProviderBean.setMasterId(id);
-			if (dataProviderBean.getDetailRecords().size() > 0)
+			SqlConstrainBuilder constrainBuilder = new SqlConstrainBuilder();
+			constrainBuilder.addConstrainWithId(dao, detail, id);
+			SelectSqlExecutor sql = new SelectSqlExecutor(ConnectionManager.getInstance().getConnection());
+			if (sql.executeQuery(detail, constrainBuilder.build(), null).size() > 0)
 				throw new DeleteException("Item has child items in table " + detail.getTableName());
 		}
 		dao.delete(id);

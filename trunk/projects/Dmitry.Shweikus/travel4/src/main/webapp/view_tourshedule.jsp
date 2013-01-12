@@ -25,14 +25,10 @@
 				<th>Finished</th>
 				<th>&nbsp;</th>
 			</tr>
-			<jsp:useBean id="orders" class="com.travel.web.beans.OrdersProviderBean"/>
-			<c:set target="${orders}" property="masterId" value="${entityid}"/>
-			<c:forEach items="${orders.recordsForTourShedule}" var="tableitem">
-				<c:set var="order" value="${tableitem.entitys[0]}" />
-				<c:set var="tour" value="${tableitem.entitys[1]}" />
-				<c:set var="shedule" value="${tableitem.entitys[2]}" />
-				<c:set var="user" value="${tableitem.entitys[3]}" />
-				<c:set var="client" value="${tableitem.entitys[4]}" />
+			<c:forEach items="${orders}" var="tableitem">
+				<c:set var="order" value="${tableitem.order}" />
+				<c:set var="user" value="${tableitem.user}" />
+				<c:set var="client" value="${tableitem.client}" />
 				<tr>
 					<td>${order.date}</td>
 					<td>${client.firstName} ${client.lastName}</td>

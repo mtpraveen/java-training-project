@@ -9,7 +9,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.travel.db.ApplicationException;
+import java.util.List;
+import java.util.ArrayList;
+
+import com.travel.dao.utils.SqlConstrainBuilder;
+import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.Order;
 import com.travel.pojo.Payment;
 
@@ -56,8 +60,15 @@ public class PaymentDao extends BaseDao<Payment>
 		ps.setDate(3, obj.getDate());
 	}
 
-	public Payment create(Order order, BigDecimal amount, Date date) throws ApplicationException
+	public Payment create(Order order, BigDecimal amount, Date date) throws DbSqlException
 	{
 		return createConcrete(new Object[] { order.getId(), amount, date });
+	}
+	
+	public List<Payment> findOrdersPayments(long orderId) throws DbSqlException
+	{
+		SqlConstrainBuilder constrainBuilder = new SqlConstrainBuilder();
+		constrainBuilder.addConstrainWithId(new OrderDao(), new PaymentDao(), orderId);
+		return findAllWithCondition(constrainBuilder.build(), null);
 	}
 }

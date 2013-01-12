@@ -11,10 +11,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.travel.dao.utils.SqlQueryDaoFacade;
-import com.travel.dao.utils.SqlQueryDaoFacade.SqlQueryDaoFacadeResultItem;
-import com.travel.db.ApplicationException;
+import com.travel.dao.utils.SelectSqlExecutor;
+import com.travel.dao.utils.SelectSqlExecutor.SqlQueryDaoFacadeResultItem;
 import com.travel.db.ConnectionManager;
+import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.BaseEntity;
 
 /**
@@ -39,7 +39,7 @@ public abstract class BaseDao<T extends BaseEntity>
 	{
 		return getTableName() + ".id";
 	}
-	public Connection getConnection() throws ApplicationException
+	public Connection getConnection() throws DbSqlException
 	{
 		return ConnectionManager.getInstance().getConnection();
 	}
@@ -105,7 +105,7 @@ public abstract class BaseDao<T extends BaseEntity>
 	//===================================
 	//===================================
 	//===================================
-	private BaseEntity createBaseModel(Object[] values) throws ApplicationException
+	private BaseEntity createBaseModel(Object[] values) throws DbSqlException
 	{
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -128,7 +128,7 @@ public abstract class BaseDao<T extends BaseEntity>
 			}
 
 		} catch (SQLException e) {
-			throw new ApplicationException(
+			throw new DbSqlException(
 					"Can't create record in table " + getTableName() + " due to malformed SQL statement!");
 		} finally {
 			try {
@@ -144,7 +144,7 @@ public abstract class BaseDao<T extends BaseEntity>
 		}
 		return null;
 	}
-	private T createFromObject(T base) throws ApplicationException
+	private T createFromObject(T base) throws DbSqlException
 	{
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -164,7 +164,7 @@ public abstract class BaseDao<T extends BaseEntity>
 			}
 
 		} catch (SQLException e) {
-			throw new ApplicationException(
+			throw new DbSqlException(
 					"Can't create record in table " + getTableName() + " due to malformed SQL statement!");
 		} finally {
 			try {
@@ -181,7 +181,7 @@ public abstract class BaseDao<T extends BaseEntity>
 		return null;
 	}
 	
-	protected List<T> findAllWithCondition(String condition,List params) throws ApplicationException
+	protected List<T> findAllWithCondition(String condition,List params) throws DbSqlException
 	{
 		String sqlStatement = buildSelectSqlStatement();
 		if(condition != null)
@@ -194,7 +194,7 @@ public abstract class BaseDao<T extends BaseEntity>
 				sqlStatement += condition;
 			}
 		List<T> result=new ArrayList<T>();
-		SqlQueryDaoFacade daoFacade = new SqlQueryDaoFacade(ConnectionManager.getInstance().getConnection());
+		SelectSqlExecutor daoFacade = new SelectSqlExecutor(ConnectionManager.getInstance().getConnection());
 		List<SqlQueryDaoFacadeResultItem> tmp = daoFacade.executeQuery(this, condition, params);
 		for (SqlQueryDaoFacadeResultItem sqlQueryDaoFacadeResultItem : tmp)
 		{
@@ -204,7 +204,7 @@ public abstract class BaseDao<T extends BaseEntity>
 		return result;
 	}
 
-	public boolean update(T obj) throws ApplicationException
+	public boolean update(T obj) throws DbSqlException
 	{
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -215,7 +215,7 @@ public abstract class BaseDao<T extends BaseEntity>
 			ps.setLong(getColumnNames().length+1, obj.getId());
 			return ps.executeUpdate() != 0;
 		} catch (SQLException e) {
-			throw new ApplicationException(
+			throw new DbSqlException(
 					"Can't update record from table " + getTableName() + " due to malformed SQL statement!");
 		} finally {
 			try {
@@ -229,7 +229,7 @@ public abstract class BaseDao<T extends BaseEntity>
 		}
 	}
 	
-	private boolean deleteAllWithCondion(String condition) throws ApplicationException
+	private boolean deleteAllWithCondion(String condition) throws DbSqlException
 	{
 		String sqlStatement = buildDeleteSqlStatement(); 
 		if(condition != null)
@@ -249,7 +249,7 @@ public abstract class BaseDao<T extends BaseEntity>
 			int res = ps.executeUpdate();
 			return res != 0;
 		} catch (SQLException e) {
-			throw new ApplicationException(
+			throw new DbSqlException(
 					"Can't delete record from table " + getTableName() + " due to malformed SQL statement!");
 		} finally {
 			try {
@@ -270,17 +270,17 @@ public abstract class BaseDao<T extends BaseEntity>
 	//===================================
 	//===================================
 	@SuppressWarnings("unchecked")
-	protected T createConcrete(Object[] values) throws ApplicationException
+	protected T createConcrete(Object[] values) throws DbSqlException
 	{
 		return (T)createBaseModel(values);
 	}
-	public T create(T entity) throws ApplicationException
+	public T create(T entity) throws DbSqlException
 	{
 		return createFromObject(entity);
 	}
 
 	
-	public T findById(long l) throws ApplicationException
+	public T findById(long l) throws DbSqlException
 	{
 		List<T> res = findAllWithCondition("id = " + l,null);
 		if (res.size() == 0)
@@ -288,11 +288,11 @@ public abstract class BaseDao<T extends BaseEntity>
 		else
 			return res.get(0);
 	}
-	public boolean delete(long l) throws ApplicationException
+	public boolean delete(long l) throws DbSqlException
 	{
 		return deleteAllWithCondion("id = " + l);
 	}
-	public boolean delete(T obj) throws ApplicationException
+	public boolean delete(T obj) throws DbSqlException
 	{
 		if (obj != null)
 			return deleteAllWithCondion("id = " + obj.getId());
@@ -300,12 +300,12 @@ public abstract class BaseDao<T extends BaseEntity>
 			return false;
 	}
 
-	public boolean deleteAll() throws ApplicationException
+	public boolean deleteAll() throws DbSqlException
 	{
 		return deleteAllWithCondion("");
 	}
 	
-	public List<T> findAll() throws ApplicationException
+	public List<T> findAll() throws DbSqlException
 	{
 		return findAllWithCondition("",null);
 	}

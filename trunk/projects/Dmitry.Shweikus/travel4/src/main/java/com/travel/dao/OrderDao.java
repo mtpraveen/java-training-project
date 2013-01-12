@@ -9,10 +9,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.travel.db.ApplicationException;
-import com.travel.pojo.TourShedule;
+import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.Client;
 import com.travel.pojo.Order;
+import com.travel.pojo.TourShedule;
 import com.travel.pojo.User;
 
 /**
@@ -72,10 +72,9 @@ public class OrderDao extends BaseDao<Order>
 
 	public Order create(Client client, TourShedule arrivalShedule, User user, Date date,
 			int count, BigDecimal total_price, String description, boolean finished,
-			Date finish_date) throws ApplicationException
+			Date finish_date) throws DbSqlException
 	{
 		return createConcrete(new Object[] { client.getId(), arrivalShedule.getId(), user.getId(),
 				date, count, total_price, description, finished, finish_date });
 	}
-
 }

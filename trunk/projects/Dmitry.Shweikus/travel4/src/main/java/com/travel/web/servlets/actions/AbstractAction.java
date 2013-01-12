@@ -9,11 +9,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.travel.db.ApplicationException;
+import com.travel.exceptions.DbSqlException;
+import com.travel.exceptions.DeleteException;
+import com.travel.exceptions.InvalidRequest;
+import com.travel.exceptions.SaveException;
 import com.travel.pojo.User;
-import com.travel.web.exceptions.DeleteException;
-import com.travel.web.exceptions.InvalidRequest;
-import com.travel.web.exceptions.SaveException;
 
 /**
  * @author dima
@@ -24,7 +24,7 @@ public abstract class AbstractAction
 	private boolean redirected = false;	
 	private List<String> pathParams = null;
 	private User user;
-	public abstract void process(HttpServletRequest request,HttpServletResponse response) throws IOException, InvalidRequest,ApplicationException, DeleteException, SaveException;
+	public abstract void process(HttpServletRequest request,HttpServletResponse response) throws IOException, InvalidRequest,DbSqlException, DeleteException, SaveException;
 	public String getJspTemplate()
 	{
 		return "";

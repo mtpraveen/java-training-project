@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.travel.db.ApplicationException;
+import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.Client;
 
 public class ClientDaoTest
@@ -14,12 +14,12 @@ public class ClientDaoTest
 	ClientDao dao = new ClientDao();
 	@Before
 	@After
-	public void setUp() throws ApplicationException
+	public void setUp() throws DbSqlException
 	{
 		dao.deleteAll();
 	}
 	@Test
-	public void testUpdate() throws ApplicationException
+	public void testUpdate() throws DbSqlException
 	{
 		Client client1 = dao.create("Ivan", "Ivanov", "AB01", "INN001", "", "", "-");
 		Client client2 = dao.create("Petr", "Petrov", "AB02", "INN002", "", "", "--");

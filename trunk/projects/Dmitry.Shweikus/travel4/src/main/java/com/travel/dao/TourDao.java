@@ -7,9 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.travel.db.ApplicationException;
 import com.travel.enums.TransportKind;
 import com.travel.enums.TravelKind;
+import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.Tour;
 
 /**
@@ -64,7 +64,7 @@ public class TourDao extends BaseDao<Tour>
 
 	public Tour create(String name, TransportKind transport_kind, TravelKind travel_kind,
 			String description, String required_documents, int days_count)
-			throws ApplicationException
+			throws DbSqlException
 	{
 		return createConcrete(new Object[] { name, transport_kind.toString(),
 				travel_kind.toString(), description, required_documents, days_count });

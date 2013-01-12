@@ -12,7 +12,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.travel.db.ApplicationException;
+import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.User;
 
 /**
@@ -35,10 +35,10 @@ public class UserDaoTest
 
 	/**
 	 * Test method for {@link com.travel.dao.BaseDao#update(com.travel.pojo.BaseEntity)}.
-	 * @throws ApplicationException 
+	 * @throws DbSqlException 
 	 */
 	@Test
-	public void testUpdate() throws ApplicationException
+	public void testUpdate() throws DbSqlException
 	{
 		User user  = dao.createUser("main administrator", "admin", "123", true);
 		User user1 = dao.createUser("user", "user", "123", false);
@@ -64,10 +64,10 @@ public class UserDaoTest
 
 	/**
 	 * Test method for {@link com.travel.dao.BaseDao#delete(int)}.
-	 * @throws ApplicationException 
+	 * @throws DbSqlException 
 	 */
 	@Test
-	public void testDelete() throws ApplicationException
+	public void testDelete() throws DbSqlException
 	{
 		User user  = dao.createUser("main administrator", "admin", "123", true);
 		User user1 = dao.createUser("user", "user", "123", false);
@@ -90,10 +90,10 @@ public class UserDaoTest
 
 	/**
 	 * Test method for {@link com.travel.dao.BaseDao#findById(long)}.
-	 * @throws ApplicationException 
+	 * @throws DbSqlException 
 	 */
 	@Test
-	public void testFindById() throws ApplicationException 
+	public void testFindById() throws DbSqlException 
 	{
 		User user = dao.createUser("main administrator", "admin", "123", true);
 		assertNotNull(user);

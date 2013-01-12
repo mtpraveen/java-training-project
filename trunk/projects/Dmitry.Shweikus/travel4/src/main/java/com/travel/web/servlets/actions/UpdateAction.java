@@ -13,9 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.travel.dao.BaseDao;
-import com.travel.db.ApplicationException;
 import com.travel.enums.TransportKind;
 import com.travel.enums.TravelKind;
+import com.travel.exceptions.DbSqlException;
+import com.travel.exceptions.SaveException;
 import com.travel.pojo.BaseEntity;
 import com.travel.pojo.Client;
 import com.travel.pojo.Discount;
@@ -24,8 +25,7 @@ import com.travel.pojo.Payment;
 import com.travel.pojo.Tour;
 import com.travel.pojo.TourShedule;
 import com.travel.pojo.User;
-import com.travel.web.exceptions.SaveException;
-import com.travel.web.utils.DaoDescription;
+import com.travel.web.utils.ServicesContainer;
 import com.travel.web.utils.TravelConsts;
 import com.travel.web.utils.TravelSecurity;
 
@@ -132,11 +132,6 @@ public class UpdateAction extends AbstractAction
 					discount.setPercent(getInt("percent"));
 					discount.setThreshold(getDouble("threshold"));
 					return true;
-				}
-				@Override
-				public String getRedirectUrl() throws SaveException
-				{
-		    		return TravelConsts.makeCommand("show", "discounts");
 				}
 			};
 		case TravelConsts.ORDERS_TABLE:
@@ -266,11 +261,11 @@ public class UpdateAction extends AbstractAction
     }
 
     @Override
-	public void process(HttpServletRequest request, HttpServletResponse response) throws SaveException, IOException, ApplicationException
+	public void process(HttpServletRequest request, HttpServletResponse response) throws SaveException, IOException, DbSqlException
 	{
 		if (getPathParams().size() < 1) 
 			throw new SaveException("Invalid request part count : " + getPathParams().size());
-    	DaoDescription daoDescription = TravelConsts.getDaoDescription(request.getParameter("table"),getUser());
+    	ServicesContainer daoDescription = TravelConsts.getDaoDescription(request.getParameter("table"),getUser());
     	if (daoDescription == null)
     		throw new SaveException("Unknow table " + request.getParameter("table"));
     	EntitySaver entitySaver = getSaver(request);

@@ -4,6 +4,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Hyper travel</title>
+<c:if test="${! empty usedatepicker}">
+	<link rel="stylesheet" href="jquery/jquery-ui.css" />
+	<script src="jquery/jquery-1.8.3.js"></script>
+	<script src="jquery/jquery-ui.js"></script>
+	<link rel="stylesheet" href="jquery/style.css" />
+</c:if>
 </head>
 <body>
 	<table border="0">

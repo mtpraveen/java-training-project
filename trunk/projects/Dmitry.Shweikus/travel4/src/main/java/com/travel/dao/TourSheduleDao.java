@@ -8,8 +8,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
-import com.travel.db.ApplicationException;
+import com.travel.dao.extenders.TourSheduleDaoExtender;
+import com.travel.dao.utils.SqlConstrainBuilder;
+import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.TourShedule;
 import com.travel.pojo.Tour;
 
@@ -60,9 +63,16 @@ public class TourSheduleDao extends BaseDao<TourShedule>
 		ps.setInt(4, obj.getCount());
 	}
 	
-	public TourShedule create(Tour tour, Date date, BigDecimal price, int count) throws ApplicationException
+	public TourShedule create(Tour tour, Date date, BigDecimal price, int count) throws DbSqlException
 	{
 		return createConcrete(new Object[]{tour.getId(), date, price, count});
+	}
+	
+	public List<TourShedule> findTourShedules(long tourId) throws DbSqlException
+	{
+		SqlConstrainBuilder constrainBuilder = new SqlConstrainBuilder();
+		constrainBuilder.addConstrainWithId(new TourDao(), new TourSheduleDao(), tourId);
+		return findAllWithCondition(constrainBuilder.build(), null);
 	}
 
 }

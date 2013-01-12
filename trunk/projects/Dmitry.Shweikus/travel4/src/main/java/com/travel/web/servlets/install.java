@@ -22,9 +22,9 @@ import com.travel.dao.PaymentDao;
 import com.travel.dao.TourDao;
 import com.travel.dao.TourProgramDao;
 import com.travel.dao.UserDao;
-import com.travel.db.ApplicationException;
 import com.travel.enums.TransportKind;
 import com.travel.enums.TravelKind;
+import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.Payment;
 import com.travel.pojo.TourShedule;
 import com.travel.pojo.Client;
@@ -66,7 +66,7 @@ public class install extends HttpServlet {
 			{
 				clearDataBase();
 				execInstall(response.getWriter());
-			} catch (ApplicationException e)
+			} catch (DbSqlException e)
 			{
 				throw new ServletException(e.getMessage());
 			}
@@ -81,7 +81,7 @@ public class install extends HttpServlet {
     {
     	return true;
     }
-    private void clearDataBase() throws ApplicationException
+    private void clearDataBase() throws DbSqlException
     {
     	tourProgramDao.deleteAll();
     	paymentDao.deleteAll();
@@ -100,7 +100,7 @@ public class install extends HttpServlet {
     {
     	writer.println(object.toString() + " <br/>");
     }
-    private void execInstall(PrintWriter writer) throws ApplicationException
+    private void execInstall(PrintWriter writer) throws DbSqlException
     {
     	//==============================================
     	//==============================================

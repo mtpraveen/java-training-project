@@ -28,12 +28,6 @@ not
 </c:if>
 <br />
 <br />
-<jsp:useBean id="dao" class="com.travel.dao.OrderDao" />
-<jsp:useBean id="paymentsDao" class="com.travel.dao.PaymentDao" />
-<jsp:useBean id="paymentProvider" class="com.travel.web.beans.DataProviderBean" />
-<c:set target="${paymentProvider}" property="dao" value="${paymentsDao}"/>
-<c:set target="${paymentProvider}" property="masterDao" value="${dao}"/>
-<c:set target="${paymentProvider}" property="masterId" value="${entityid}"/>
 <h3>Payments</h3>
 <table border="1">
 	<tr>
@@ -43,8 +37,7 @@ not
 			<th>&nbsp;</th>
 		</c:if>	
 	</tr>
-	<c:forEach items="${paymentProvider.detailRecords}" var="item">
-		<c:set var="payment" value="${item.entitys[0]}"/>
+	<c:forEach items="${payments}" var="payment">
 		<tr>
 			<td>${payment.date}</td>
 			<td>${payment.amount}</td>

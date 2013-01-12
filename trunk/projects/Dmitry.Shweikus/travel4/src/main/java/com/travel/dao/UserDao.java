@@ -9,8 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.travel.dao.utils.SqlQueryDaoFacade.SqlQueryDaoFacadeResultItem;
-import com.travel.db.ApplicationException;
+import com.travel.dao.utils.SelectSqlExecutor.SqlQueryDaoFacadeResultItem;
+import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.User;
 
 /**
@@ -56,13 +56,13 @@ public class UserDao extends BaseDao<User>
 		ps.setBoolean(4, obj.isAdmin());
 	}
 	
-	public User createUser(String name, String login, String password, boolean admin) throws ApplicationException
+	public User createUser(String name, String login, String password, boolean admin) throws DbSqlException
 	{
 		Object[] data = new Object[]{name, login, password, admin};
 		return createConcrete(data);
 	}
 	
-	public User findUserByLoginAndPassword(String login, String password) throws ApplicationException
+	public User findUserByLoginAndPassword(String login, String password) throws DbSqlException
 	{
 		String condition = "WHERE (login = ?) and (password = ?)";
 		List params = new ArrayList();

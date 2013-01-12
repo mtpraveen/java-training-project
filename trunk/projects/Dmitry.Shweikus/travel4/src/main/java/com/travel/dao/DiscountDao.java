@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.travel.db.ApplicationException;
+import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.Discount;
 
 /**
@@ -53,7 +53,7 @@ public class DiscountDao extends BaseDao<Discount>
 		ps.setBoolean(3, obj.isActive());
 	}
 	
-	public Discount create(double threshold, int percent, boolean active) throws ApplicationException
+	public Discount create(double threshold, int percent, boolean active) throws DbSqlException
 	{
 		return createConcrete(new Object[]{threshold,percent,active});
 	}

@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.travel.db.ApplicationException;
+import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.Tour;
 import com.travel.pojo.TourProgram;
 
@@ -55,7 +55,7 @@ public class TourProgramDao extends BaseDao<TourProgram>
 		ps.setInt(4, obj.getLastDayNumber());
 	}
 	
-	public TourProgram create(Tour tour,int day_number, String description, int last_day_number) throws ApplicationException
+	public TourProgram create(Tour tour,int day_number, String description, int last_day_number) throws DbSqlException
 	{
 		return createConcrete(new Object[]{tour.getId(),day_number,description,last_day_number});
 	}
