@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.jasper.tagplugins.jstl.core.ForEach;
 
+import com.travel.exceptions.InvalidRequest;
 import com.travel.pojo.User;
-import com.travel.web.exceptions.InvalidRequest;
 import com.travel.web.servlets.actions.AbstractAction;
 import com.travel.web.servlets.actions.DefaultAction;
 import com.travel.web.servlets.actions.DeleteAction;
@@ -52,7 +52,7 @@ public class RequestDispatcher
 			case "save" :  action = new UpdateAction(); break;	
 			case "delete":  action = new DeleteAction(); break;	
 			default:
-				throw new InvalidRequest();
+				throw new InvalidRequest("Invalid request : \"" + request.getServletPath() + "\"");
 			}
 		//================
 		action.setPathParams(pathParams);

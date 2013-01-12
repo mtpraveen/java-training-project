@@ -13,9 +13,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.travel.db.ApplicationException;
 import com.travel.enums.TransportKind;
 import com.travel.enums.TravelKind;
+import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.Tour;
 import com.travel.pojo.TourProgram;
 
@@ -41,10 +41,10 @@ public class TourProgramDaoTest
 
 	/**
 	 * Test method for {@link com.travel.dao.BaseDao#update(com.travel.pojo.BaseEntity)}.
-	 * @throws ApplicationException 
+	 * @throws DbSqlException 
 	 */
 	@Test
-	public void testUpdate() throws ApplicationException
+	public void testUpdate() throws DbSqlException
 	{
 		Tour tour = tourDao.create("-", TransportKind.TRAIN, TravelKind.REST, "-", "--", 1);
 		TourProgram tourProgram1  = dao.create(tour, 1, "first day", 0);

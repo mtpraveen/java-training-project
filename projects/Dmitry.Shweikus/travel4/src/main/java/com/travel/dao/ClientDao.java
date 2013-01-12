@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.travel.db.ApplicationException;
+import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.Client;
 
 /**
@@ -59,7 +59,7 @@ public class ClientDao extends BaseDao<Client>
 		ps.setString(6, obj.getDocument4());
 		ps.setString(7, obj.getDescription());
 	}
-	public Client create(String firstname, String lastname, String document1, String document2, String document3, String document4, String description) throws ApplicationException
+	public Client create(String firstname, String lastname, String document1, String document2, String document3, String document4, String description) throws DbSqlException
 	{
 		return createConcrete(new Object[]{firstname,lastname,document1,document2,document3,document4,description});
 	}

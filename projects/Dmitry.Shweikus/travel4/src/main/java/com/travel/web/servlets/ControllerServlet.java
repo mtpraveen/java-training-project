@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.travel.dao.UserDao;
-import com.travel.db.ApplicationException;
+import com.travel.exceptions.DbSqlException;
+import com.travel.exceptions.DeleteException;
+import com.travel.exceptions.InvalidRequest;
+import com.travel.exceptions.SaveException;
 import com.travel.pojo.User;
-import com.travel.web.exceptions.DeleteException;
-import com.travel.web.exceptions.InvalidRequest;
-import com.travel.web.exceptions.SaveException;
 import com.travel.web.servlets.actions.AbstractAction;
 import com.travel.web.servlets.dispatcher.RequestDispatcher;
 
@@ -31,7 +31,7 @@ public class ControllerServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	private User LoadUser(HttpServletRequest request, HttpServletResponse response)
+	private User loadUser(HttpServletRequest request, HttpServletResponse response)
 	{
 		User user = null;
 		if(request.getSession(false) != null)
@@ -71,7 +71,7 @@ public class ControllerServlet extends HttpServlet {
 							cookie.setMaxAge(0);
 							response.addCookie(cookie);
 						}
-					} catch (ApplicationException e)
+					} catch (DbSqlException e)
 					{
 						//do nothing here
 					}
@@ -92,7 +92,7 @@ public class ControllerServlet extends HttpServlet {
 		AbstractAction action;
 		try
 		{
-			action = dispatcher.getAction(request, response,LoadUser(request, response));
+			action = dispatcher.getAction(request, response,loadUser(request, response));
 			action.process(request, response);
 			if (!action.isRedirected())
 			{
@@ -100,8 +100,8 @@ public class ControllerServlet extends HttpServlet {
 				if(template.equals(""))
 					template = "error.jsp";
 				request.getRequestDispatcher("/" + template).forward(request, response);
-			}	
-		} catch (InvalidRequest |ApplicationException|DeleteException|SaveException e)
+			}
+		} catch (InvalidRequest |DbSqlException|DeleteException|SaveException e)
 		{
 			throw new ServletException(e);
 		}

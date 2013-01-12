@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.travel.db.ApplicationException;
+import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.Discount;
 
 /**
@@ -32,7 +32,7 @@ public class DiscountDaoTest
 	}
 
 	@Test
-	public void testUpdate() throws ApplicationException
+	public void testUpdate() throws DbSqlException
 	{
 		Discount discount1 = dao.create(6000, 5, true); 
 		Discount discount2 = dao.create(12000, 7, true); 

@@ -6,5 +6,9 @@
 		<name>page</name>
 		<tag-class>com.travel.web.tags.MainLayoutTag</tag-class>
 		<body-content>scriptless</body-content>
+		<attribute>
+			<name>usedatepicker</name>
+			<required>false</required>
+		</attribute>
 	</tag>
 </taglib>

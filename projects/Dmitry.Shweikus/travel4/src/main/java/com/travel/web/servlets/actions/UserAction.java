@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.travel.dao.UserDao;
-import com.travel.db.ApplicationException;
+import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.User;
 import com.travel.web.utils.TravelSecurity;
 
@@ -21,7 +21,7 @@ import com.travel.web.utils.TravelSecurity;
 public class UserAction extends AbstractAction
 {
 	@Override
-	public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ApplicationException 
+	public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, DbSqlException 
 	{
 		Cookie cookie;
 		switch (getPathParams().get(0)) {

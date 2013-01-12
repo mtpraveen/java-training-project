@@ -15,13 +15,13 @@ import com.travel.dao.TourDao;
 import com.travel.dao.TourSheduleDao;
 import com.travel.dao.UserDao;
 import com.travel.pojo.User;
-import com.travel.web.my.services.ClientService;
-import com.travel.web.my.services.DiscountService;
-import com.travel.web.my.services.OrderService;
-import com.travel.web.my.services.PaymentService;
-import com.travel.web.my.services.TourService;
-import com.travel.web.my.services.TourSheduleService;
-import com.travel.web.my.services.UserService;
+import com.travel.services.ClientService;
+import com.travel.services.DiscountService;
+import com.travel.services.OrderService;
+import com.travel.services.PaymentService;
+import com.travel.services.TourService;
+import com.travel.services.TourSheduleService;
+import com.travel.services.UserService;
 
 
 /**
@@ -67,17 +67,17 @@ public class TravelConsts
 		else
 			return null; 
 	}
-	public static DaoDescription getDaoDescription(String tableName, User user)
+	public static ServicesContainer getDaoDescription(String tableName, User user)
 	{
 		tableName = findTableName(tableName);
 		switch (tableName) {
-		case CLIENTS_TABLE:	  return new DaoDescription(new ClientService(),tableName, user);
-		case DISCOUNTS_TABLE: return new DaoDescription(new DiscountService(),tableName, user);
-		case ORDERS_TABLE:	  return new DaoDescription(new OrderService(),tableName, user);
-		case PAYMENTS_TABLE:  return new DaoDescription(new PaymentService(),tableName, user);
-		case SHEDULES_TABLE:  return new DaoDescription(new TourSheduleService(),tableName, user);
-		case TOURS_TABLE:	  return new DaoDescription(new TourService(),tableName, user);
-		case USERS_TABLE:	  return new DaoDescription(new UserService(),tableName, user);
+		case CLIENTS_TABLE:	  return new ServicesContainer(new ClientService(),tableName, user);
+		case DISCOUNTS_TABLE: return new ServicesContainer(new DiscountService(),tableName, user);
+		case ORDERS_TABLE:	  return new ServicesContainer(new OrderService(),tableName, user);
+		case PAYMENTS_TABLE:  return new ServicesContainer(new PaymentService(),tableName, user);
+		case SHEDULES_TABLE:  return new ServicesContainer(new TourSheduleService(),tableName, user);
+		case TOURS_TABLE:	  return new ServicesContainer(new TourService(),tableName, user);
+		case USERS_TABLE:	  return new ServicesContainer(new UserService(),tableName, user);
 		}
 		return null;
 	}

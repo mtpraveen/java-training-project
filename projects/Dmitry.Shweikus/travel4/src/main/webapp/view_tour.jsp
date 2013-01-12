@@ -13,12 +13,6 @@
 	<my:FieldCaption>Documents:</my:FieldCaption>
 	${tour.requiredDocuments}<br />
 	
-	<jsp:useBean id="toursheduledao" class="com.travel.dao.TourSheduleDao" />
-	<jsp:useBean id="dao" class="com.travel.dao.TourDao" />
-	<jsp:useBean id="provider" class="com.travel.web.beans.DataProviderBean" />
-	<c:set target="${provider}" property="dao" value="${toursheduledao}"/>
-	<c:set target="${provider}" property="masterDao" value="${dao}"/>
-	<c:set target="${provider}" property="masterId" value="${entityid}"/>
 	<h3>Tours schedule</h3>
 	<table border="1">
 		<tr>
@@ -27,8 +21,7 @@
 			<th>Count</th>
 			<th>&nbsp;</th>
 		</tr>
-		<c:forEach items="${provider.detailRecords}" var="detailRecord">
-			<c:set var="tourshedule" value="${detailRecord.entitys[0]}" />
+		<c:forEach items="${shedules}" var="tourshedule">
 			<tr>
 				<td>${tourshedule.date}</td>
 				<td>${tourshedule.price}</td>

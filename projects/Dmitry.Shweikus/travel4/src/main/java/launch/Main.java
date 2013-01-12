@@ -4,7 +4,10 @@ import java.io.File;
 import org.apache.catalina.startup.Tomcat;
 
 public class Main {
-
+	/*
+	 * This is default application runner for heroku applications
+	 * DO NOT CHANGE IT
+	 */
     public static void main(String[] args) throws Exception {
 
         String webappDirLocation = "src/main/webapp/";

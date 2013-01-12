@@ -9,9 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.travel.db.ApplicationException;
 import com.travel.enums.TransportKind;
 import com.travel.enums.TravelKind;
+import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.Tour;
 
 /**
@@ -29,7 +29,7 @@ public class TourDaoTest
 
 	@Test
 	@After
-	public void testUpdate() throws ApplicationException
+	public void testUpdate() throws DbSqlException
 	{
 		Tour tour1 = dao.create("t1", TransportKind.BUS, TravelKind.REST, "-", "none", 1);
 		Tour tour2 = dao.create("t2", TransportKind.AVIA, TravelKind.SHOPPING, "-", "none", 2);

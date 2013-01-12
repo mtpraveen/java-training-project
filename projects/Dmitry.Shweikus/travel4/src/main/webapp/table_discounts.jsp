@@ -21,6 +21,7 @@
 						test="${!discount.active}">No</c:if></td>
 				<c:if test="${loggeduser.admin}">
 					<td>
+						<my:Exec action="view" id="${discount.id}" table="discounts" /><br />
 						<my:Exec action="edit" id="${discount.id}" table="discounts" /><br />
 						<my:Exec action="delete" id="${discount.id}" table="discounts" /><br />
 					</td>
