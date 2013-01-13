@@ -128,8 +128,7 @@ public abstract class BaseDao<T extends BaseEntity>
 			}
 
 		} catch (SQLException e) {
-			throw new DbSqlException(
-					"Can't create record in table " + getTableName() + " due to malformed SQL statement!");
+			throw new DbSqlException(e);
 		} finally {
 			try {
 				if (rs != null)
@@ -164,8 +163,7 @@ public abstract class BaseDao<T extends BaseEntity>
 			}
 
 		} catch (SQLException e) {
-			throw new DbSqlException(
-					"Can't create record in table " + getTableName() + " due to malformed SQL statement!");
+			throw new DbSqlException(e);
 		} finally {
 			try {
 				if (rs != null)
@@ -215,8 +213,7 @@ public abstract class BaseDao<T extends BaseEntity>
 			ps.setLong(getColumnNames().length+1, obj.getId());
 			return ps.executeUpdate() != 0;
 		} catch (SQLException e) {
-			throw new DbSqlException(
-					"Can't update record from table " + getTableName() + " due to malformed SQL statement!");
+			throw new DbSqlException(e);
 		} finally {
 			try {
 				if (rs != null)
@@ -249,8 +246,7 @@ public abstract class BaseDao<T extends BaseEntity>
 			int res = ps.executeUpdate();
 			return res != 0;
 		} catch (SQLException e) {
-			throw new DbSqlException(
-					"Can't delete record from table " + getTableName() + " due to malformed SQL statement!");
+			throw new DbSqlException(e);
 		} finally {
 			try {
 				if (rs != null)

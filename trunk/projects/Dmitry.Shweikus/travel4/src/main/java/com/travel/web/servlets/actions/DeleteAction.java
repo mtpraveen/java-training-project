@@ -112,7 +112,7 @@ public class DeleteAction extends AbstractAction
 	{
 		if (getPathParams().size() < 3)
 			throw new InvalidRequest("Invalid delete params count : " + getPathParams().size());
-		ServicesContainer daoDescription = TravelConsts.getDaoDescription(getPathParams().get(1),getUser());
+		ServicesContainer daoDescription = TravelConsts.getServiceContainer(getPathParams().get(1),getUser());
 		if (daoDescription == null)
 			throw new InvalidRequest("Invalid table : " + getPathParams().get(1));
 		EntityDeleter deleter = getDeleter(request);

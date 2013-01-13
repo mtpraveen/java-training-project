@@ -28,31 +28,29 @@ public class OrderService extends MyAbstractWebService<OrderDao>
 	}
 	
 	@Override
-	public void setShowItems(HttpServletRequest request) throws DbSqlException
+	public void setParamsForTableView(HttpServletRequest request) throws DbSqlException
 	{
 		OrdersDaoExtender ordersDaoExtender = new OrdersDaoExtender();
 		request.setAttribute("items", ordersDaoExtender.findAll());
 	}
 
 	@Override
-	protected Object getViewItemById(long id) throws DbSqlException
+	protected Object findItemById(long id) throws DbSqlException
 	{
 		OrdersDaoExtender ordersDaoExtender = new OrdersDaoExtender();
 		return ordersDaoExtender.findById(id);
 	}
 	
 	@Override
-	public void setEditParams(HttpServletRequest request) throws DbSqlException
+	public void setParamsForEditItem(HttpServletRequest request) throws DbSqlException
 	{
-		super.setEditParams(request);
+		super.setParamsForEditItem(request);
 		request.setAttribute("user", request.getAttribute("seluser"));		
 	}
 	@Override
-	public void setNewItem(HttpServletRequest request, String sItemId) throws DbSqlException
+	public void setParamsForNewItem(HttpServletRequest request) throws DbSqlException
 	{
-		super.setNewItem(request, sItemId);
-		long masterId = Long.parseLong(sItemId);
-		request.setAttribute("masterId", masterId);
+		super.setParamsForNewItem(request);
 
 		CalendarWrapper calendarWrapper = new CalendarWrapper();
 		OrdersExtender orderExtender = new OrdersExtender();
@@ -62,7 +60,8 @@ public class OrderService extends MyAbstractWebService<OrderDao>
 		order.setDate(calendarWrapper.getDate());
 
 		orderExtender.setOrder(order);
-		orderExtender.setClient(clientDao.findById(masterId));
+		orderExtender.setClient(clientDao.findById(getMasterIdParamFromRequest(request)));
+		System.out.println(getServicesContainer().getUser());
 		orderExtender.setUser(getServicesContainer().getUser());
 		
 		request.setAttribute("order", orderExtender);
@@ -72,7 +71,7 @@ public class OrderService extends MyAbstractWebService<OrderDao>
 	}
 	
 	@Override
-	public void setViewDetailItems(HttpServletRequest request) throws DbSqlException
+	public void loadDetailItemsForSingleView(HttpServletRequest request) throws DbSqlException
 	{
 		OrdersExtender order = (OrdersExtender) request.getAttribute("order");
 		PaymentDao paymentDao = new PaymentDao();

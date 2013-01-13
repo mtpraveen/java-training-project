@@ -22,7 +22,7 @@ public class ClientService extends MyAbstractWebService<ClientDao>
 		return new ClientDao();
 	}
 	@Override
-	public void setViewDetailItems(HttpServletRequest request) throws DbSqlException
+	public void loadDetailItemsForSingleView(HttpServletRequest request) throws DbSqlException
 	{
 		Client client = (Client) request.getAttribute("client");
 		OrdersDaoExtender ordersDaoExtender = new OrdersDaoExtender();

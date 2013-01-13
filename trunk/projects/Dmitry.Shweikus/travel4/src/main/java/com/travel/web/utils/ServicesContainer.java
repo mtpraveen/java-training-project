@@ -22,7 +22,7 @@ public class ServicesContainer
 		this.service = service;
 		this.tableName = tableName;
 		this.user = user;
-		service.setDaoDescription(this);
+		service.setServiceContainer(this);
 	}
 
 	public BaseDao getDao()

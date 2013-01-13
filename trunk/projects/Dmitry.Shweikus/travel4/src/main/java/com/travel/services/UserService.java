@@ -17,7 +17,7 @@ public class UserService extends MyAbstractWebService<UserDao>
 		return new UserDao();
 	}
 	@Override
-	protected String getViewItemParamName()
+	protected String getParamNameForSingleItemJsp()
 	{
 		return "seluser";
 	}

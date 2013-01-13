@@ -25,22 +25,22 @@ public class TourSheduleService extends MyAbstractWebService<TourSheduleDao>
 		return new TourSheduleDao();
 	}
 	@Override
-	protected String getViewItemParamName()
+	protected String getParamNameForSingleItemJsp()
 	{
 		return "tourShedule";
 	}
 	@Override
-	public void setViewEditItem(HttpServletRequest request, String sItemId) throws DbSqlException
+	public void setParamsForSingleView(HttpServletRequest request, String sItemId) throws DbSqlException
 	{
-		super.setViewEditItem(request, sItemId);
-		TourShedule tourShedule = (TourShedule) request.getAttribute(getViewItemParamName());
+		super.setParamsForSingleView(request, sItemId);
+		TourShedule tourShedule = (TourShedule) request.getAttribute(getParamNameForSingleItemJsp());
 		TourDao tourDao = new TourDao();
 		Tour tour = tourDao.findById(tourShedule.getTourId());
 		request.setAttribute("tour", tour);
 	}
 	
 	@Override
-	public void setViewDetailItems(HttpServletRequest request) throws DbSqlException
+	public void loadDetailItemsForSingleView(HttpServletRequest request) throws DbSqlException
 	{
 		TourShedule shedule = (TourShedule) request.getAttribute("tourShedule");
 		OrdersDaoExtender ordersDaoExtender = new OrdersDaoExtender();

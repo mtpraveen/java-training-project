@@ -23,7 +23,7 @@ public class TourService extends MyAbstractWebService<TourDao>
 	}
 	
 	@Override
-	public void setViewDetailItems(HttpServletRequest request) throws DbSqlException
+	public void loadDetailItemsForSingleView(HttpServletRequest request) throws DbSqlException
 	{
 		Tour tour = (Tour) request.getAttribute("tour");
 		TourSheduleDao tourSheduleDao = new TourSheduleDao();

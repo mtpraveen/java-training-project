@@ -69,18 +69,31 @@ public class UserAction extends AbstractAction
 					request.setAttribute("loggeduser", user);
 					
 					Cookie cookieLogin = new Cookie("login", user.getLogin());
-					cookieLogin.setMaxAge(60*60*24*365);
+					cookieLogin.setMaxAge(60*60*24*63);
 					//cookieLogin.setSecure(true);
 					response.addCookie(cookieLogin);
 					Cookie cookiePassword = new Cookie("password", user.getPassword());
 					//cookiePassword.setSecure(true);
-					cookiePassword.setMaxAge(60*60*24*365);
+					cookiePassword.setMaxAge(60*60*24*63);
 					response.addCookie(cookiePassword);
 					
 					sendRedirect("index",response);
 					//request.getRequestDispatcher("index.jsp").forward(request, response);
 				}
 			}
+			else if(request.getMethod().equalsIgnoreCase("GET"))
+			{
+				Cookie[] cookies = request.getCookies();
+				if(cookies != null)
+					for (Cookie cookie2 : cookies)
+					{
+						if ("login".equalsIgnoreCase(cookie2.getName()))
+						{
+							request.setAttribute("login", cookie2.getValue());
+						}
+					}
+			}
+				
 			break;
 		default:
 			break;
