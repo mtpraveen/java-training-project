@@ -7,7 +7,7 @@
 		<tag-class>com.travel.web.tags.MainLayoutTag</tag-class>
 		<body-content>scriptless</body-content>
 		<attribute>
-			<name>usedatepicker</name>
+			<name>editor</name>
 			<required>false</required>
 		</attribute>
 	</tag>

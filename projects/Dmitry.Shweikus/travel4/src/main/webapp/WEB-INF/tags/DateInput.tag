@@ -4,6 +4,7 @@
 <%@ attribute name="date" required="false" rtexprvalue="true" type="java.sql.Date"%>
 <%@ attribute name="name" required="true" rtexprvalue="true"%>
 <%@ attribute name="id" required="true" rtexprvalue="true"%>
+<%@ attribute name="required" required="false" rtexprvalue="true"%>
 <script>
   $(function() {
     $( "#${id}" ).datepicker();
@@ -13,5 +14,13 @@
 	</c:if>
   });
 </script>
-<input type="text" id="${id}" value="${date}" name="${name}"/>
+<c:choose>
+	<c:when test="${empty required}">
+		<c:set value="dateISO" var="inputClass"/>
+	</c:when>
+	<c:otherwise>
+		<c:set value="dateISO required" var="inputClass"/>
+	</c:otherwise>	
+</c:choose>
+<input type="text" id="${id}" value="${date}" name="${name}" class="${inputClass}"/>
 

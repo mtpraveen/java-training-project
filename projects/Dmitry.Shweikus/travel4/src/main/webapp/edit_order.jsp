@@ -3,13 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="x" uri="/WEB-INF/simple.tld"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
-<x:page usedatepicker="1">
-<form action='<my:Save/>' method="post">
+<x:page editor="1">
+<form action='<my:Save/>' method="post" class="cmxform" id="commentForm">
 	<input type="hidden" value="${entityid}" name="id"/>
 	<input type="hidden" value="orders" name="table"/>
 	<c:if test="${isNew}"><input type="hidden" name="masterId" value="${masterId}"/></c:if>
-	<my:FieldCaption>Date:</my:FieldCaption>
-	<my:DateInput name="date" date="${order.order.date}" id="orderdate"/>
+	<my:FieldCaption>Date: *</my:FieldCaption>
+	<my:DateInput name="date" date="${order.order.date}" id="orderdate" required="1"/>
 	<my:FieldCaption>Tour:</my:FieldCaption>
 
 	<c:if test="${!isNew}">${order.shedule.date} ${order.tour.name}</c:if>
@@ -23,10 +23,10 @@
 
 	<my:FieldCaption>Client:</my:FieldCaption>
 	${order.client.firstName} ${order.client.lastName}
-	<my:FieldCaption>Count:</my:FieldCaption>
-	<input type="text" name="count" value="${order.order.count}">
-	<my:FieldCaption>Price:</my:FieldCaption>
-	<input type="text" name="totalPrice" value="${order.order.totalPrice}">
+	<my:FieldCaption>Count: *</my:FieldCaption>
+	<input type="text" name="count" value="${order.order.count}" class="required digits" min="1">
+	<my:FieldCaption>Price: *</my:FieldCaption>
+	<input type="text" name="totalPrice" value="${order.order.totalPrice}" class="required number" min="0">
 	<my:FieldCaption>Manager:</my:FieldCaption>
 	${order.user.name}
 	<my:FieldCaption>Description:</my:FieldCaption>

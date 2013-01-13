@@ -4,11 +4,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Hyper travel</title>
-<c:if test="${! empty usedatepicker}">
+<link rel="stylesheet" href="jquery/style.css" />
+<c:if test="${! empty editor}">
 	<link rel="stylesheet" href="jquery/jquery-ui.css" />
 	<script src="jquery/jquery-1.8.3.js"></script>
 	<script src="jquery/jquery-ui.js"></script>
-	<link rel="stylesheet" href="jquery/style.css" />
+	<script src="jquery/jquery.validate.js"></script>
+	<style type="text/css">
+		label { width: 10em; float: left; }
+		label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
+		input.error { border: 2px solid #F00; }
+		.submit { margin-left: 12em; }
+	</style>
+  <script>
+  $(document).ready(function(){
+    $("#commentForm").validate();
+  });
+  </script>
 </c:if>
 </head>
 <body>
