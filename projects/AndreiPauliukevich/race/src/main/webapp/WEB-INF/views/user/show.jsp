@@ -15,7 +15,7 @@
 						<dt>Money:</dt>
 						<dd>${user.money}</dd>
 					</dl>
-					<c:url var="editUrl" value="/users/edit/${user.id}" />
+					<c:url var="editUrl" value="/user/edit/${user.id}" />
 					<a href="${editUrl}" class="btn btn-small"><spring:message code="user.edit"  /></a>
 					<br/>&nbsp;
 				</div>

@@ -1,8 +1,8 @@
 <%@include file="../layout/header.jsp"%>
 
 <section id="data">
-	<c:url var="editUrl" value="/races/edit/${race.id}" />
-	<c:url var="cancel" value="/races/" />
+	<c:url var="editUrl" value="/race/edit/${race.id}" />
+	<c:url var="cancel" value="/race/" />
 	<form:form commandName="race" method="post" action="${editUrl}">
 		<form:errors path="startTime" cssClass="alert offset3 span6 " element="div" />
 		<form:errors path="coeff" cssClass="alert offset3 span6 " element="div" />

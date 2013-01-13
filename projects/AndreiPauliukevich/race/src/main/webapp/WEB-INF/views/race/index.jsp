@@ -38,17 +38,18 @@
 						<td>${race.winner.name}</td>
 						<td>
 							<sec:authorize access="hasRole('ROLE_USER')">
-								<c:url value="/bids/new/${race.id}" var="newBid" />
+								<c:url value="/bid/new/${race.id}" var="newBid" />
 								<c:if test="${empty race.winner.name}" >
 									<a class="btn-small btn-info" href="${newBid}">Bind!</a>
 								</c:if>
 							</sec:authorize>
 						</td>
 						<sec:authorize access="hasRole('ROLE_ADMIN')">
-							<td><c:url value="/races/edit/${race.id}" var="editRace" />
-								<c:url value="/races/delete/${race.id}" var="deleteRace" /> 
-								<a class="btn-small btn-info" href="${editRace}"><i	class="icon-briefcase"></i></a> 
-								<a class="btn-small btn-danger"	href="${deleteRace}"><i class="icon-remove"></i></a>
+							<td>
+								<c:url value="/race/edit/${race.id}" var="editRace" />
+								<c:url value="/race/delete/${race.id}" var="deleteRace" /> 
+								<a class="btn-small btn-info" href="${editRace}"><i	class="icon-briefcase" title="<spring:message code="race.finish"/>"></i></a>
+								<a class="btn-small btn-danger"	href="${deleteRace}"><i class="icon-remove" title="<spring:message code="race.delete"/>"></i></a>
 							</td>
 						</sec:authorize>
 					</tr>
@@ -56,7 +57,7 @@
 			</tbody>
 		</table>
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
-			<c:url value="/races/new" var="newRace" />
+			<c:url value="/race/new" var="newRace" />
 			<a href="${newRace}" class="btn "><spring:message code="create"  /></a>
 			<br/>&nbsp;
 		</sec:authorize>

@@ -10,9 +10,11 @@ public interface HorseService {
 	
 	public Horse findById(Long id);
 	
-	public Horse save(Horse horse);
-	
 	public void delete(Horse horse);
+
+	public Horse update(Horse horse);
+
+	public Horse create(Horse horse);
 	
 	
 }

@@ -11,13 +11,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table
-@NamedQuery(name = "Bid.findAll", query = "select b from Bid b")
+@NamedQueries({
+		@NamedQuery(name = "Bid.findAll", query = "select b from Bid b where b.user = :user"),
+		@NamedQuery(name = "Bid.winBids", query = "select b from Bid b where race = :race and horse = :horse")
+})
 public class Bid implements Serializable {
 
 	private static final long serialVersionUID = -3863544571118455782L;
@@ -36,9 +40,12 @@ public class Bid implements Serializable {
 	@OneToOne(fetch=FetchType.EAGER)
 	private Horse horse;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinTable(name="USER_BIDS",joinColumns=@JoinColumn(name="BID_ID"),inverseJoinColumns=@JoinColumn(name="USER_ID"))
 	private User user;
+	
+	@Column(name="WIN")
+	private Boolean isWin;
 
 	public Long getId() {
 		return id;
@@ -80,6 +87,15 @@ public class Bid implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	
+	public Boolean getIsWin() {
+		return isWin;
+	}
+
+	public void setIsWin(Boolean isWin) {
+		this.isWin = isWin;
+	}
 
 	@Override
 	public int hashCode() {
@@ -88,6 +104,7 @@ public class Bid implements Serializable {
 		result = prime * result + ((amount == null) ? 0 : amount.hashCode());
 		result = prime * result + ((horse == null) ? 0 : horse.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((isWin == null) ? 0 : isWin.hashCode());
 		result = prime * result + ((race == null) ? 0 : race.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
@@ -116,6 +133,11 @@ public class Bid implements Serializable {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		if (isWin == null) {
+			if (other.isWin != null)
+				return false;
+		} else if (!isWin.equals(other.isWin))
 			return false;
 		if (race == null) {
 			if (other.race != null)

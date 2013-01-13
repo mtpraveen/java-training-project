@@ -22,8 +22,8 @@
 					<tr>
 						<td>${horse.id}</td>
 						<td>${horse.name}</td>
-						<td><c:url value="/horses/edit/${horse.id}" var="editHorse" />
-							<c:url value="/horses/delete/${horse.id}" var="deleteHorse" /> <a
+						<td><c:url value="/horse/edit/${horse.id}" var="editHorse" />
+							<c:url value="/horse/delete/${horse.id}" var="deleteHorse" /> <a
 							class="btn-small btn-info" href="${editHorse}"><i
 								class="icon-edit"></i></a> <a class="btn-small btn-danger"
 							href="${deleteHorse}"><i class="icon-remove"></i></a></td>
@@ -31,7 +31,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<c:url value="/horses/new" var="newHorse" />
+		<c:url value="/horse/new" var="newHorse" />
 	</div>
 </section>
 

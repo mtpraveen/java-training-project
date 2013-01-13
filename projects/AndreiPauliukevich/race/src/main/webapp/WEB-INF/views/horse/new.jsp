@@ -1,5 +1,5 @@
 		<div class="offset3 span6 offset3">
-			<c:url var="saveUrl" value="/horses/new" />
+			<c:url var="saveUrl" value="/horse/new" />
 			<form:form modelAttribute="horse" method="post" action="${saveUrl}" class="form-inline"  >
 				<form:errors path="name" cssClass="alert" element="div" />
 				<fieldset>

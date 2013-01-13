@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.hopto.nexoff.race.domain.Race;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,9 @@ public class RaceServiceImpl implements RaceService {
 
 	@PersistenceContext
 	private EntityManager em;
+	
+	@Autowired
+	private BidService bidService;
 
 	@Transactional(readOnly=true)
 	@Override
@@ -42,21 +46,21 @@ public class RaceServiceImpl implements RaceService {
 	}
 
 	@Override
-	public Race save(Race race) {
-		if (race.getId() == null){
-			em.persist(race);
-		}
-		else{
-			Race refreshRace = em.find(Race.class, race.getId());
-			refreshRace.setWinner(race.getWinner());
-		}
+	public Race close(Race race) {
+		Race refreshRace = em.find(Race.class, race.getId());
+		refreshRace.setWinner(race.getWinner());
+		bidService.setWinBids(race, refreshRace.getWinner());
+		return race;
+	}
 			
+	@Override
+	public Race create(Race race) {
+		em.persist(race);
 		return race;
 	}
 	
 	@Override
 	public void delete(Race race) {
-		System.out.println(race);
 		Race mergeRace = em.merge(race);
 		em.remove(mergeRace);
 	}

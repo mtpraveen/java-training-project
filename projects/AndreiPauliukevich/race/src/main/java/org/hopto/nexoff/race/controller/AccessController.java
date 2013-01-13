@@ -25,7 +25,7 @@ public class AccessController {
 	@RequestMapping("/denied")
 	public String denied(RedirectAttributes redirectAttrs, Locale locale) {
 		redirectAttrs.addFlashAttribute("message", messageSource.getMessage("login.denied", null, locale));
-		return "redirect:/races";
+		return "redirect:/race";
 	}
 	
 	@RequestMapping(value = "/failure", method = RequestMethod.GET)

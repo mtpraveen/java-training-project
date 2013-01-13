@@ -2,7 +2,7 @@
 
 	    	<section id="data" >
 				<div class="offset3 span6 offset3">
-				<c:url var="saveUrl" value="/users/edit/${user.id}" />
+				<c:url var="saveUrl" value="/user/edit/${user.id}" />
 					<form:form modelAttribute="user" method="post" action="${saveUrl}">
 						<form:errors path="username" cssClass="alert" element="div"/>
 						<form:errors path="password" cssClass="alert" element="div"/>

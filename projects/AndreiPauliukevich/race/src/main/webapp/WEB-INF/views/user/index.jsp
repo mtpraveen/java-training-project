@@ -22,9 +22,9 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${users}" var="user">
-							<c:url value="/users/edit/${user.id}" var="editUser" /> 
-							<c:url value="/users/delete/${user.id}" var="deleteUser" />
-							<c:url value="/users/show/${user.id}" var="showUser" /> 
+							<c:url value="/user/edit/${user.id}" var="editUser" /> 
+							<c:url value="/user/delete/${user.id}" var="deleteUser" />
+							<c:url value="/user/show/${user.id}" var="showUser" /> 
 							<tr>
 								<td>${user.id}</td>
 								<td><a href=${showUser}>${user.username}</a></td>

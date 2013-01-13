@@ -19,8 +19,8 @@
 <body>
 
 			<c:url value="/login" var="login" />
-			<c:url value="/users/new" var="signUp" />
-			<c:url value="/users/show/" var="userShow" />
+			<c:url value="/user/new" var="signUp" />
+			<c:url value="/user/show/" var="userShow" />
 			<c:url value="/logout" var="logout" />
 
 <div class="container">
@@ -32,16 +32,20 @@
 </sec:authorize>
 <sec:authorize access="isAuthenticated()">
 	<div class="span8">
-		<sec:authorize access="hasRole('ROLE_ADMIN')">
-			<c:url value="/users" var="users_url" />
-			<c:url value="/horses" var="horses_url" />
-			<c:url value="/races" var="races_url" />
-				<ul class="nav nav-pills">
-				    <li><a href="${races_url}"><spring:message code="races" /></a></li>
-				    <li><a href="${users_url}"><spring:message code="users" /></a></li>
-				    <li><a href="${horses_url}"><spring:message code="horses" /></a></li>
-			    </ul>
-		</sec:authorize>
+		<ul class="nav nav-pills">
+			<c:url value="/race" var="races_url" />
+			<li><a href="${races_url}"><spring:message code="races" /></a></li>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<c:url value="/user" var="users_url" />
+				<c:url value="/horse" var="horses_url" />
+			    <li><a href="${users_url}"><spring:message code="users" /></a></li>
+			    <li><a href="${horses_url}"><spring:message code="horses" /></a></li>
+			</sec:authorize>
+			<sec:authorize access="hasRole('ROLE_USER')">
+				<c:url value="/bid" var="bids_url" />
+			    <li><a href="${bids_url}"><spring:message code="bids" /></a></li>
+			</sec:authorize>
+	    </ul>
 	</div>
    	<div class="span3">
 		Welcome <a href="${userShow}<sec:authentication property="principal.id" />"><sec:authentication property="principal.username" /></a> 

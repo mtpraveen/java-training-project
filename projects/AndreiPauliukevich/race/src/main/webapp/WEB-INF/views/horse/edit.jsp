@@ -2,7 +2,7 @@
 
 <section id="data">
 	<div class="offset3 span6 offset3">
-		<c:url var="saveUrl" value="/horses/edit/${horse.id}" />
+		<c:url var="saveUrl" value="/horse/edit/${horse.id}" />
 		<form:form modelAttribute="horse" method="post" action="${saveUrl}">
 			<form:errors path="name" cssClass="alert" element="div" />
 			<fieldset>

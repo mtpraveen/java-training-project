@@ -10,7 +10,7 @@ public class HomeController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String index() {
-		return "redirect:/races";
+		return "redirect:/race";
 	}
 
 }

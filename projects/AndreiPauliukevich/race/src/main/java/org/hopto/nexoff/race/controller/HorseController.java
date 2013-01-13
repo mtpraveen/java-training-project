@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/horses")
+@RequestMapping("/horse")
 
 public class HorseController {
 
@@ -31,7 +31,7 @@ public class HorseController {
 		Horse horse = new Horse();
 		uiModel.addAttribute("horses", horses);
 		uiModel.addAttribute("horse", horse);
-		return "/horses/index";
+		return "/horse/index";
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -40,10 +40,10 @@ public class HorseController {
 		horseValidator.validate(horse, result);
 		if (result.hasErrors()) {
 			uiModel.addAttribute("horse", horse);
-			return "/horses/index";
+			return "/horse/index";
 		} else {
-			horseService.save(horse);
-			return "redirect:/horses/";
+			horseService.create(horse);
+			return "redirect:/horse/";
 		}
 	}
 
@@ -52,7 +52,7 @@ public class HorseController {
 	public String getEdit(@PathVariable("id") Long id, Model uiModel) {
 		Horse horse = horseService.findById(id);
 		uiModel.addAttribute("horse", horse);
-		return "horses/edit";
+		return "horse/edit";
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -61,10 +61,10 @@ public class HorseController {
 		horseValidator.validate(horse, result);
 		if (result.hasErrors()) {
 			uiModel.addAttribute("horse", horse);
-			return "horses/edit";
+			return "horse/edit";
 		} else {
-			horseService.save(horse);
-			return "redirect:/horses/";
+			horseService.update(horse);
+			return "redirect:/horse/";
 		}
 	}
 
@@ -73,7 +73,7 @@ public class HorseController {
 	public String delete(@PathVariable("id") Long id) {
 		Horse horse = horseService.findById(id);
 		horseService.delete(horse);
-		return "redirect:/horses/";
+		return "redirect:/horse/";
 	}
 
 }

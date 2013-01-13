@@ -17,10 +17,10 @@ public class UserEditValidator implements Validator {
 	@Override
 	public void validate(Object obj, Errors e) {
 		ValidationUtils.rejectIfEmptyOrWhitespace(e, "fio", "user.name.empty");
-		ValidationUtils.rejectIfEmptyOrWhitespace(e, "password", "user.pwd.empty");
+/*		ValidationUtils.rejectIfEmptyOrWhitespace(e, "password", "user.pwd.empty");*/
 		ValidationUtils.rejectIfEmptyOrWhitespace(e, "email", "user.email.empty");
 		User user = (User) obj;
-		if (user.getPassword().length() > 20 || user.getPassword().length() < 5){
+		if (user.getPassword() != "" && (user.getPassword().length() > 20 || user.getPassword().length() < 5)){
 			e.rejectValue("password", "user.pwd.wrong");
 		} 
 	}

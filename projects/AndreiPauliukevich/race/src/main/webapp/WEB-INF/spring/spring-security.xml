@@ -15,24 +15,25 @@
 		<security:intercept-url pattern="/logout" access="permitAll" />
 		<security:intercept-url pattern="/denied" access="hasRole('ROLE_USER')" />
 		<security:intercept-url pattern="/"	access="permitAll" />
- 		<security:intercept-url pattern="/races/" access="permitAll" />
-		<security:intercept-url pattern="/races/new" access="hasRole('ROLE_ADMIN')" />
-		<security:intercept-url pattern="/races/edit/*" access="hasRole('ROLE_ADMIN')" />
-		<security:intercept-url pattern="/races/dlelete/*" access="hasRole('ROLE_ADMIN')" />
-		<security:intercept-url pattern="/horses/**" access="hasRole('ROLE_ADMIN')" />
-		<security:intercept-url pattern="/users/" access="hasRole('ROLE_ADMIN')" />
-		<security:intercept-url pattern="/users/new" access="permitAll" />
-		<security:intercept-url pattern="/users/edit/*" access="hasRole('ROLE_USER')" />
-		<security:intercept-url pattern="/users/show/*" access="hasRole('ROLE_USER')" />  
-		<security:intercept-url pattern="/users/delete/*" access="hasRole('ROLE_USER')" /> 
-		<security:intercept-url pattern="/bids/" access="hasRole('ROLE_USER')" />
-		<security:intercept-url pattern="/bids/new/*" access="hasRole('ROLE_USER')" />
-		<security:intercept-url pattern="/bids/edit/*" access="hasRole('ROLE_USER')" /> 
-		<security:intercept-url pattern="/bids/delete/*" access="hasRole('ROLE_USER')" /> 
+ 		<security:intercept-url pattern="/race/" access="permitAll" />
+		<security:intercept-url pattern="/race/new" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/race/edit/*" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/race/dlelete/*" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/horse/**" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/user/" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/user/new" access="permitAll" />
+		<security:intercept-url pattern="/user/edit/*" access="hasRole('ROLE_USER')" />
+		<security:intercept-url pattern="/user/show/*" access="hasRole('ROLE_USER')" />  
+		<security:intercept-url pattern="/user/delete/*" access="hasRole('ROLE_USER')" /> 
+		<security:intercept-url pattern="/bid/*" access="hasRole('ROLE_USER')" />
+		<security:intercept-url pattern="/bid/listall" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/bid/new/*" access="hasRole('ROLE_USER')" />
+		<security:intercept-url pattern="/bid/edit/*" access="hasRole('ROLE_USER')" /> 
+		<security:intercept-url pattern="/bid/delete/*" access="hasRole('ROLE_USER')" /> 
 		
 		<security:form-login login-page="/login" authentication-failure-url="/failure" default-target-url="/" />
 		<security:access-denied-handler	error-page="/denied" />
-		<security:logout invalidate-session="true" logout-success-url="/races" logout-url="/logout" />
+		<security:logout invalidate-session="true" logout-success-url="/race" logout-url="/logout" />
 		
 	</security:http>
 
