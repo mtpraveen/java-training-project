@@ -18,7 +18,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  */
 public class MainLayoutTag extends SimpleTagSupport
 {
-	private String usedatepicker;
+	private String editor;
 	
 	@Override
 	public void doTag() throws JspException, IOException
@@ -30,8 +30,8 @@ public class MainLayoutTag extends SimpleTagSupport
 		try
 		{
 			request.setAttribute("travel_content", sw.toString());
-			if (usedatepicker != null)
-				request.setAttribute("usedatepicker", usedatepicker);
+			if (editor != null)
+				request.setAttribute("editor", editor);
 			request.getRequestDispatcher("template.jsp").include(request, pageContext.getResponse());
 		} catch (ServletException e)
 		{
@@ -43,8 +43,8 @@ public class MainLayoutTag extends SimpleTagSupport
 	/**
 	 * @param usedatepicker the usedatepicker to set
 	 */
-	public void setUsedatepicker(String usedatepicker)
+	public void seteditor(String editor)
 	{
-		this.usedatepicker = usedatepicker;
+		this.editor = editor;
 	}
 }
