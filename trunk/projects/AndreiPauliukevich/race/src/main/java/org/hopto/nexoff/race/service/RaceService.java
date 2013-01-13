@@ -9,11 +9,13 @@ public interface RaceService {
 	
 	public Race findById(Long id);
 	
-	public Race save(Race race);
-	
 	public void delete(Race race);
 
 	public Race findByIdFetch(Long id);
+
+	public Race close(Race race);
+
+	public Race create(Race race);
 
 
 }

@@ -23,7 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table
 @NamedQueries({ @NamedQuery(name = "User.findAll", query = "select u from User u"), 
 				@NamedQuery(name = "User.findByUsernameWithAuthrities", query = "select u from User u left join fetch u.authorities where u.username = :username"),
-				@NamedQuery(name = "User.isUniqueUsername", query = "select count(u.username) from User u where u.username = :username")
+				@NamedQuery(name = "User.isUniqueUsername", query = "select count(u.username) from User u where u.username = :username"),
 })
 public class User implements Serializable, UserDetails {
 
@@ -53,9 +53,9 @@ public class User implements Serializable, UserDetails {
 	@JoinTable(name = "USER_AUTHORITIES", joinColumns =  @JoinColumn(name = "USER_ID") , inverseJoinColumns =  @JoinColumn(name = "AUTHORITY_ID") )
 	private List<Authority> authorities;
 	
-	@OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.REMOVE)
+	@OneToMany(fetch = FetchType.LAZY,cascade=CascadeType.REMOVE)
 	@JoinTable(name="USER_BIDS", joinColumns= @JoinColumn(name="USER_ID"), inverseJoinColumns= @JoinColumn(name="BID_ID"))
-	private List<Bid> bid;
+	private List<Bid> bids;
 
 	@Column(name = "ENABLED")
 	private boolean enabled = true;
@@ -142,12 +142,12 @@ public class User implements Serializable, UserDetails {
 		return enabled;
 	}
 
-	public List<Bid> getBid() {
-		return bid;
+	public List<Bid> getBids() {
+		return bids;
 	}
 
-	public void setBid(List<Bid> bid) {
-		this.bid = bid;
+	public void setBids(List<Bid> bids) {
+		this.bids = bids;
 	}
 
 	@Override
@@ -157,7 +157,7 @@ public class User implements Serializable, UserDetails {
 		result = prime * result + (accountNonExpired ? 1231 : 1237);
 		result = prime * result + (accountNonLocked ? 1231 : 1237);
 		result = prime * result + ((authorities == null) ? 0 : authorities.hashCode());
-		result = prime * result + ((bid == null) ? 0 : bid.hashCode());
+		result = prime * result + ((bids == null) ? 0 : bids.hashCode());
 		result = prime * result + (credentialsNonExpired ? 1231 : 1237);
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + (enabled ? 1231 : 1237);
@@ -189,10 +189,10 @@ public class User implements Serializable, UserDetails {
 				return false;
 		} else if (!authorities.equals(other.authorities))
 			return false;
-		if (bid == null) {
-			if (other.bid != null)
+		if (bids == null) {
+			if (other.bids != null)
 				return false;
-		} else if (!bid.equals(other.bid))
+		} else if (!bids.equals(other.bids))
 			return false;
 		if (credentialsNonExpired != other.credentialsNonExpired)
 			return false;
@@ -228,8 +228,6 @@ public class User implements Serializable, UserDetails {
 		return true;
 	}
 
-	
-	
-	
 
+	
 }

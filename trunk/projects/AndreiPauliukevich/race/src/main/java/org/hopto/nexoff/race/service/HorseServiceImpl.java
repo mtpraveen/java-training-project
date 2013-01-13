@@ -33,11 +33,14 @@ public class HorseServiceImpl implements HorseService {
 	}
 
 	@Override
-	public Horse save(Horse horse) {
-		if (horse.getId() == null)
-			em.persist(horse);
-		else
-			em.merge(horse);
+	public Horse update(Horse horse) {
+		em.merge(horse);
+		return horse;
+	}
+	
+	@Override
+	public Horse create(Horse horse){
+		em.persist(horse);
 		return horse;
 	}
 

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/races")
+@RequestMapping("/race")
 public class RaceController {
 
 	@Autowired
@@ -28,64 +28,59 @@ public class RaceController {
 	@Autowired
 	private RaceEditValidator raceEditValidator;
 
-	/*		System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-			System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());*/
+	/*System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());*/
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(Model uiModel) {
 		List<Race> races = raceService.findAll();
 		uiModel.addAttribute("races", races);
-		return "/races/index";
+		return "/race/index";
 	}
 
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String getNew(Model uiModel) {
 		Race race = new Race();
-		race.setHorses(horseService.findAll());
+		uiModel.addAttribute("horses", horseService.findAll());
 		uiModel.addAttribute("race", race);
-		return "races/new";
+		return "race/new";
 	}
 
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public String saveNew(Race race, BindingResult result, Model uiModel) {
 		raceValidator.validate(race, result);
 		if (result.hasErrors()) {
-			race.setHorses(horseService.findAll());
+			uiModel.addAttribute("horses", horseService.findAll());
 			uiModel.addAttribute("race", race);
-			//uiModel.addAttribute("horses", horseService.findAll());
-			return "races/new";
+			return "race/new";
 		} else {
-			raceService.save(race);
-			return "redirect:/races/";
+			raceService.create(race);
+			return "redirect:/race/";
 		}
 	}
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable("id") Long id) {
 		raceService.delete(raceService.findById(id));
-		return "redirect:/races/";
+		return "redirect:/race/";
 	}
 	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String getEdit(@PathVariable("id") Long id, Model uiModel) {
 		Race race = raceService.findByIdFetch(id);
 		uiModel.addAttribute("race", race);
-		return "races/edit";
+		return "race/edit";
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
 	public String saveEdit(Race race, BindingResult result, Model uiModel) {
 		if (result.hasErrors()) {
 			uiModel.addAttribute("race", race);
-			return "races/edit";
+			return "race/edit";
 		} else {
-			raceService.save(race);
-			return "redirect:/races/";
+			raceService.close(race);
+			return "redirect:/race/";
 		}
 
 	}
 	
-
-	
-
 }

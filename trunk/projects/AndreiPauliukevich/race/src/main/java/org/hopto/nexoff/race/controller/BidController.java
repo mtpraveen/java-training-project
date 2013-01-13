@@ -3,12 +3,11 @@ package org.hopto.nexoff.race.controller;
 import java.util.List;
 
 import org.hopto.nexoff.race.domain.Bid;
-import org.hopto.nexoff.race.domain.Horse;
 import org.hopto.nexoff.race.domain.Race;
+import org.hopto.nexoff.race.domain.User;
 import org.hopto.nexoff.race.service.BidService;
 import org.hopto.nexoff.race.service.HorseService;
 import org.hopto.nexoff.race.service.RaceService;
-import org.hopto.nexoff.race.service.UserService;
 import org.hopto.nexoff.race.validator.BidValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/bids")
+@RequestMapping("/bid")
 public class BidController {
 
 	@Autowired
@@ -28,41 +27,42 @@ public class BidController {
 	@Autowired
 	private RaceService raceService;
 	@Autowired
-	private UserService userService;
-	@Autowired
 	private HorseService horseService;
 	@Autowired
 	private BidValidator bidValidator;
 	
+	@RequestMapping(method = RequestMethod.GET)
+	public String index(Model uiModel) {
+		List<Bid> bids = bidService.findAll((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		uiModel.addAttribute("bids", bids);
+		return "bid/index";
+	}
+
 	@RequestMapping(value = "/new/{id}", method = RequestMethod.GET)
 	public String getNew(@PathVariable("id") Long id, Model uiModel) {
 		Bid bid = new Bid();
 		Race race = raceService.findByIdFetch(id);
-		bid.setRace(race);
-		List<Horse> horses = race.getHorses();
- 		uiModel.addAttribute("bid", bid);
- 		uiModel.addAttribute("horses", horses);
-		return "bids/new";
+		uiModel.addAttribute("race", race);
+		uiModel.addAttribute("bid", bid);
+ 		uiModel.addAttribute("horses", race.getHorses());
+		return "bid/new";
 	}
 
-	@RequestMapping(value = "/new/{id}", method = RequestMethod.POST)
-	public String saveNew(@PathVariable("id") Long id, Bid bid, BindingResult result, Model uiModel) {
+	@RequestMapping(value = "/new/{race_id}", method = RequestMethod.POST)
+	public String saveNew(@PathVariable("race_id") Long race_id, Bid bid, BindingResult result, Model uiModel) {
+		bid.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		bid.setRace(raceService.findByIdFetch(race_id));
 		bidValidator.validate(bid, result);
 		if(result.hasErrors()){
-			Race race = raceService.findByIdFetch(id);
-			bid.setRace(race);
-			List<Horse> horses = race.getHorses();
+			uiModel.addAttribute("race", raceService.findByIdFetch(race_id));
 	 		uiModel.addAttribute("bid", bid);
-	 		uiModel.addAttribute("horses", horses);
-	 		return "bids/new";
+	 		uiModel.addAttribute("horses", raceService.findByIdFetch(race_id).getHorses());
+			return "bid/new";
 		} else {
-			bid.setRace(raceService.findById(id));
-			bid.setUser(userService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
 			bidService.save(bid);
-			return "redirect:/races";			
+			return "redirect:/race";
 		}
 
 	}
-	
-	
+
 }

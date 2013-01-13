@@ -2,7 +2,7 @@
 
 <section id="data">
 	
-		<c:url var="saveUrl" value="/races/new" />
+		<c:url var="saveUrl" value="/race/new" />
 		
 		<form:form commandName="race" method="post" action="${saveUrl}">
 			<form:errors path="startTime" cssClass="alert offset3 span6 " element="div" />
@@ -21,7 +21,7 @@
 				
 				<label><spring:message code="race.horse"  />:</label>
 				<form:select path="horses" >
-					<form:options items="${race.horses}" itemLabel="name" itemValue="id" />
+					<form:options items="${horses}" itemLabel="name" itemValue="id" />
 				</form:select>
 					
 				<br>

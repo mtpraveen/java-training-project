@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
 	@Autowired
@@ -34,21 +34,21 @@ public class UserController {
 	public String index(Model uiModel) {
 		List<User> users = userService.findAll();
 		uiModel.addAttribute("users", users);
-		return "users/index";
+		return "user/index";
 	}
 
 	@RequestMapping(value = "/show/{id}", method = RequestMethod.GET)
 	public String show(@PathVariable("id") Long id, Model uiModel) {
 		User user = userService.findById(id);
 		uiModel.addAttribute("user", user);
-		return "users/show";
+		return "user/show";
 	}
 
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String getNew(Model uiModel) {
 		User user = new User();
 		uiModel.addAttribute("user", user);
-		return "users/new";
+		return "user/new";
 	}
 
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
@@ -56,11 +56,11 @@ public class UserController {
 		userValidator.validate(user, result);
 		if (result.hasErrors()) {
 			uiModel.addAttribute("user", user);
-			return "users/new";
+			return "user/new";
 		} else {
-			userService.save(user);
+			userService.create(user);
 			redirectAttrs.addFlashAttribute("message", messageSource.getMessage("user.create.sucsess", null, locale));
-			return "redirect:/races";
+			return "redirect:/race";
 		}
 
 	}
@@ -69,7 +69,7 @@ public class UserController {
 	public String getEdit(@PathVariable("id") Long id, Model uiModel) {
 		User user = userService.findById(id);
 		uiModel.addAttribute("user", user);
-		return "users/edit";
+		return "user/edit";
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
@@ -77,10 +77,10 @@ public class UserController {
 		userEditValidator.validate(user, result);
 		if (result.hasErrors()) {
 			uiModel.addAttribute("user", user);
-			return "users/edit";
+			return "user/edit";
 		} else {
-			userService.save(user);
-			return "redirect:/users/show/" + user.getId().toString();
+			userService.update(user);
+			return "redirect:/user/show/" + user.getId().toString();
 		}
 
 	}
@@ -89,7 +89,7 @@ public class UserController {
 	public String delete(@PathVariable("id") Long id) {
 		User user = userService.findById(id);
 		userService.delete(user);
-		return "redirect:/users/";
+		return "redirect:/user/";
 	}
 
 }
