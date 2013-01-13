@@ -19,39 +19,46 @@ import com.travel.web.utils.TravelConsts;
 public abstract class MyAbstractWebService<T extends BaseDao>
 {
 	abstract public T createDao();
-	private ServicesContainer servicesDescription;
-	public void setShowItems(HttpServletRequest request) throws DbSqlException
+	private ServicesContainer servicesContainer;
+	public void setParamsForTableView(HttpServletRequest request) throws DbSqlException
 	{
 		request.setAttribute("items", createDao().findAll());
 	}
-	protected Object getViewItemById(long id) throws DbSqlException
+	protected Object findItemById(long id) throws DbSqlException
 	{
 		return createDao().findById(id);
 	}
-	protected String getViewItemParamName()
+	protected String getParamNameForSingleItemJsp()
 	{
-		return TravelConsts.evalSingleItem(servicesDescription.getTableName());
+		return TravelConsts.evalSingleItem(servicesContainer.getTableName());
 	}
-	public void setViewEditItem(HttpServletRequest request, String sItemId) throws DbSqlException
+	public void setParamsForSingleView(HttpServletRequest request, String sItemId) throws DbSqlException
 	{
-		String paramName = getViewItemParamName();
+		String paramName = getParamNameForSingleItemJsp();
 		long id = Long.parseLong(sItemId);
-		request.setAttribute(paramName, getViewItemById(id));
+		request.setAttribute(paramName, findItemById(id));
 		request.setAttribute("entityid", id);
 	}
-	public void setViewDetailItems(HttpServletRequest request)throws DbSqlException
+	public void loadDetailItemsForSingleView(HttpServletRequest request)throws DbSqlException
 	{
 		//by default item has no detail items 
 	}
-	public void setNewItem(HttpServletRequest request, String sItemId) throws DbSqlException
+	protected long getMasterIdParamFromRequest(HttpServletRequest request)
 	{
-		long id = Long.parseLong(sItemId);
-		request.setAttribute(getViewItemParamName(), createDao().newEntity());
+		String sMasterId = request.getParameter("masterId");
+		if (sMasterId == null)
+			return 0;
+		else
+			return Long.parseLong(sMasterId);
+	}
+	public void setParamsForNewItem(HttpServletRequest request) throws DbSqlException
+	{
+		request.setAttribute(getParamNameForSingleItemJsp(), createDao().newEntity());
 		request.setAttribute("isNew", true);
-		request.setAttribute("masterId", id);
+		request.setAttribute("masterId", getMasterIdParamFromRequest(request));
 		request.setAttribute("entityid", -1);
 	}
-	public void setEditParams(HttpServletRequest request) throws DbSqlException
+	public void setParamsForEditItem(HttpServletRequest request) throws DbSqlException
 	{
 		request.setAttribute("isNew", false);
 	}
@@ -60,13 +67,13 @@ public abstract class MyAbstractWebService<T extends BaseDao>
 	 */
 	public ServicesContainer getServicesContainer()
 	{
-		return servicesDescription;
+		return servicesContainer;
 	}
 	/**
 	 * @param daoDescription the daoDescription to set
 	 */
-	public void setDaoDescription(ServicesContainer daoDescription)
+	public void setServiceContainer(ServicesContainer servicesContainer)
 	{
-		this.servicesDescription = daoDescription;
+		this.servicesContainer = servicesContainer;
 	}
 }

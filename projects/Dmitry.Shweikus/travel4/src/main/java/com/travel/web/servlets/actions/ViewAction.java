@@ -33,32 +33,32 @@ public class ViewAction extends AbstractAction
 		tableName = TravelConsts.findTableName(getPathParams().get(1));
 		if(tableName == null)
 			throw new InvalidRequest("Invalid table name " + tableName);
-		ServicesContainer daoDescription = TravelConsts.getDaoDescription(tableName,getUser());
+		ServicesContainer container = TravelConsts.getServiceContainer(tableName,getUser());
 		jspActionTable = TravelConsts.evalSingleItem(tableName);
 		jspActionPrefix = getPathParams().get(0);
 		switch (getPathParams().get(0)) {
 		case "view":
 			if (getPathParams().size() < 3)
 				throw new InvalidRequest("Invalid params count : " + getPathParams().size());
-			daoDescription.getService().setViewEditItem(request, getPathParams().get(2));
-			daoDescription.getService().setViewDetailItems(request);
+			container.getService().setParamsForSingleView(request, getPathParams().get(2));
+			container.getService().loadDetailItemsForSingleView(request);
 			break;
 		case "edit": 
 			if (getPathParams().size() < 3)
 				throw new InvalidRequest("Invalid params count : " + getPathParams().size());
-			daoDescription.getService().setViewEditItem(request, getPathParams().get(2));
-			daoDescription.getService().setEditParams(request);
+			container.getService().setParamsForSingleView(request, getPathParams().get(2));
+			container.getService().setParamsForEditItem(request);
 			break;
 		case "new": 
 			jspActionPrefix = "edit";
-			if (getPathParams().size() < 3)
+			if (getPathParams().size() < 2)
 				throw new InvalidRequest("Invalid params count : " + getPathParams().size());
-			daoDescription.getService().setNewItem(request, getPathParams().get(2));
+			container.getService().setParamsForNewItem(request);
 			break;
 		case "show": 
 			jspActionPrefix = "table";
 			jspActionTable = tableName;
-			daoDescription.getService().setShowItems(request);
+			container.getService().setParamsForTableView(request);
 			break;
 		}
 	}

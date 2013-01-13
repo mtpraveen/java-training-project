@@ -6,14 +6,6 @@ package com.travel.web.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.travel.dao.BaseDao;
-import com.travel.dao.ClientDao;
-import com.travel.dao.DiscountDao;
-import com.travel.dao.OrderDao;
-import com.travel.dao.PaymentDao;
-import com.travel.dao.TourDao;
-import com.travel.dao.TourSheduleDao;
-import com.travel.dao.UserDao;
 import com.travel.pojo.User;
 import com.travel.services.ClientService;
 import com.travel.services.DiscountService;
@@ -67,7 +59,7 @@ public class TravelConsts
 		else
 			return null; 
 	}
-	public static ServicesContainer getDaoDescription(String tableName, User user)
+	public static ServicesContainer getServiceContainer(String tableName, User user)
 	{
 		tableName = findTableName(tableName);
 		switch (tableName) {
@@ -88,5 +80,12 @@ public class TravelConsts
 	public static String makeCommand(String part1,String part2,String part3)
 	{
 		return part1 + "-" + part2 + "-" + part3;
+	}
+	public static String htmlEscape(String s)
+	{
+		if (s == null)
+			return null;
+		//return Entities.HTML40.escape(s);
+		return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
 	}
 }

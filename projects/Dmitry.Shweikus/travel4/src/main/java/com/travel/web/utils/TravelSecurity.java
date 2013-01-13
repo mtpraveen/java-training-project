@@ -14,15 +14,15 @@ import java.security.NoSuchAlgorithmException;
  */
 public class TravelSecurity
 {
-	public static String hashPassword(String password)
+	private static String md5(String s)
 	{
 		MessageDigest messageDigest;
-		String hashtext = password;
+		String hashtext = s;
 		try
 		{
 			messageDigest = MessageDigest.getInstance("MD5");
 			messageDigest.reset();
-			messageDigest.update(password.getBytes(Charset.forName("UTF8")));
+			messageDigest.update(s.getBytes(Charset.forName("UTF8")));
 			final byte[] resultByte = messageDigest.digest();
 			BigInteger bigInt = new BigInteger(1, resultByte);
 			hashtext = bigInt.toString(16);
@@ -37,5 +37,11 @@ public class TravelSecurity
 		}
 		//System.out.println("password " + password + " -> [" + hashtext + "]");
 		return hashtext;
+		
+	}
+	public static String hashPassword(String source)
+	{
+		String tmp = "386" + md5(source) + "1E2C6188709B" + md5(source) + "D1160674";
+		return md5(tmp);
 	}
 }

@@ -54,7 +54,8 @@ public class UpdateAction extends AbstractAction
     	{
     		if(request.getParameter(paramName) == null)
     			throw new SaveException("Param " + paramName + " not found");
-    		return request.getParameter(paramName);
+    		String s = request.getParameter(paramName);
+    		return TravelConsts.htmlEscape(s);
     	}
     	public int getInt(String paramName) throws SaveException
     	{
@@ -265,7 +266,7 @@ public class UpdateAction extends AbstractAction
 	{
 		if (getPathParams().size() < 1) 
 			throw new SaveException("Invalid request part count : " + getPathParams().size());
-    	ServicesContainer daoDescription = TravelConsts.getDaoDescription(request.getParameter("table"),getUser());
+    	ServicesContainer daoDescription = TravelConsts.getServiceContainer(request.getParameter("table"),getUser());
     	if (daoDescription == null)
     		throw new SaveException("Unknow table " + request.getParameter("table"));
     	EntitySaver entitySaver = getSaver(request);
