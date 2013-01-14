@@ -7,7 +7,7 @@
 <script>
 function onTourChange()
 {
-	count = document.forms["commentForm"]["count"].value;
+	var count = document.forms["commentForm"]["count"].value;
 	document.forms["commentForm"]["totalPrice"].value = getPrice()*count;
 }
 </script>
@@ -29,12 +29,16 @@ function onTourChange()
 			<script>
 				function getPrice()
 				{
-					price = 0;
-					sheduleId = document.forms["commentForm"]["sheduleId"].value;
+					var sheduleId = document.forms["commentForm"]["sheduleId"].value;
+					var prices = [];
 					<c:forEach items="${shedules}" var="tourSheduleItem">
-					if(sheduleId == ${tourSheduleItem.shedule.id}) price = ${tourSheduleItem.shedule.price};
+					prices[${tourSheduleItem.shedule.id}] = ${tourSheduleItem.shedule.price}; 
 					</c:forEach>
-					return price;
+					var price = prices[sheduleId];
+					if (price == null)
+						return 0;
+					else
+						return price;
 				}
 			</script>
 		</c:when>

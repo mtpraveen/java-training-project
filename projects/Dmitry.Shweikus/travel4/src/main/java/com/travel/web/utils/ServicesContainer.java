@@ -25,11 +25,6 @@ public class ServicesContainer
 		service.setServiceContainer(this);
 	}
 
-	public BaseDao getDao()
-	{
-		return service.createDao();
-	}
-
 	/**
 	 * @return the service
 	 */
@@ -52,5 +47,12 @@ public class ServicesContainer
 	public User getUser()
 	{
 		return user;
+	}
+	
+	public boolean isUserAdmin()
+	{
+		if (user != null)
+			return user.isAdmin();
+		return false;
 	}
 }

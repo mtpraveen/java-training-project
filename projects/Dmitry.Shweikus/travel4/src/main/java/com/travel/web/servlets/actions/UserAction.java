@@ -105,4 +105,16 @@ public class UserAction extends AbstractAction
 	{
 		return "login.jsp";
 	}
+
+	@Override
+	public boolean userHasRights()
+	{
+		return true;
+	}
+
+	@Override
+	public void initParams(HttpServletRequest request, HttpServletResponse response)
+	{
+		
+	}
 }

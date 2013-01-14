@@ -12,6 +12,7 @@ import com.travel.dao.extenders.OrdersExtender;
 import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.Tour;
 import com.travel.pojo.TourShedule;
+import com.travel.web.utils.CrudAction;
 
 /**
  * @author dima
@@ -45,5 +46,18 @@ public class TourSheduleService extends MyAbstractWebService<TourSheduleDao>
 		TourShedule shedule = (TourShedule) request.getAttribute("tourShedule");
 		OrdersDaoExtender ordersDaoExtender = new OrdersDaoExtender();
 		request.setAttribute("orders", ordersDaoExtender.findSheduleOrders(shedule.getId()));
+	}
+
+	@Override
+	public boolean hasRights(CrudAction crudAction)
+	{
+		switch (crudAction) {
+		case CREATE: return getServicesContainer().isUserAdmin();
+		case DELETE: return getServicesContainer().isUserAdmin();
+		case UPDATE: return getServicesContainer().isUserAdmin();
+		case READ: return true;
+		default:
+			return true;
+		}
 	}
 }

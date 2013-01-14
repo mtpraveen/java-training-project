@@ -25,10 +25,10 @@ public abstract class AbstractAction
 	private List<String> pathParams = null;
 	private User user;
 	public abstract void process(HttpServletRequest request,HttpServletResponse response) throws IOException, InvalidRequest,DbSqlException, DeleteException, SaveException;
-	public String getJspTemplate()
-	{
-		return "";
-	}
+	public abstract boolean userHasRights(); 
+	public abstract String getJspTemplate();
+	public abstract void initParams(HttpServletRequest request, HttpServletResponse response) throws InvalidRequest;
+	
 	protected void sendRedirect(String path,HttpServletResponse response) throws IOException
 	{
 		redirected = true;

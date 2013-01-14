@@ -33,7 +33,7 @@
 				</td>
 				<td>
 					<my:Exec action="view" id="${item.order.id}" table="orders" /><br />
-					<c:if test="${loggeduser.admin || loggeduser == user }">
+					<c:if test="${loggeduser.admin || loggeduser == item.user }">
 						<my:Exec action="edit" id="${item.order.id}" table="orders" /><br />
 						<my:Exec action="delete" id="${item.order.id}" table="orders" /><br />
 					</c:if>
