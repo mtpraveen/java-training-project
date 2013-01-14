@@ -33,7 +33,7 @@ not
 	<tr>
 		<th>Date</th>
 		<th>Amount</th>
-		<c:if test="${loggeduser.admin || loggeduser == user }">
+		<c:if test="${loggeduser.admin || loggeduser == order.user }">
 			<th>&nbsp;</th>
 		</c:if>	
 	</tr>
@@ -41,7 +41,7 @@ not
 		<tr>
 			<td>${payment.date}</td>
 			<td>${payment.amount}</td>
-			<c:if test="${loggeduser.admin || loggeduser == user }">
+			<c:if test="${loggeduser.admin || loggeduser == order.user }">
 				<td>
 					<my:Exec action="edit" id="${payment.id}" table="payments" /><br />
 					<my:Exec action="delete" id="${payment.id}" table="payments" /><br />
@@ -50,7 +50,7 @@ not
 		</tr>
 	</c:forEach>
 </table>
-<c:if test="${loggeduser.admin || loggeduser == user }">
+<c:if test="${loggeduser.admin || loggeduser == order.user }">
 	<br />
 	<my:Create table="payments" masterId="${entityid}">Create new payment</my:Create>
 </c:if>	

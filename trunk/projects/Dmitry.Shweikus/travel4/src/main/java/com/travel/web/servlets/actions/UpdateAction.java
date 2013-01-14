@@ -16,6 +16,7 @@ import com.travel.dao.BaseDao;
 import com.travel.enums.TransportKind;
 import com.travel.enums.TravelKind;
 import com.travel.exceptions.DbSqlException;
+import com.travel.exceptions.InvalidRequest;
 import com.travel.exceptions.SaveException;
 import com.travel.pojo.BaseEntity;
 import com.travel.pojo.Client;
@@ -25,6 +26,7 @@ import com.travel.pojo.Payment;
 import com.travel.pojo.Tour;
 import com.travel.pojo.TourShedule;
 import com.travel.pojo.User;
+import com.travel.web.utils.CrudAction;
 import com.travel.web.utils.ServicesContainer;
 import com.travel.web.utils.TravelConsts;
 import com.travel.web.utils.TravelSecurity;
@@ -36,7 +38,9 @@ import com.travel.web.utils.TravelSecurity;
 public class UpdateAction extends AbstractAction
 {
 
-    private abstract class EntitySaver
+    private ServicesContainer servicesContainer;
+
+	private abstract class EntitySaver
     {    	
     	HttpServletRequest request;
     	BaseEntity entity;
@@ -245,9 +249,6 @@ public class UpdateAction extends AbstractAction
 					}
 					return true;
 				}
-				/* (non-Javadoc)
-				 * @see com.travel.web.servlets.SaveServlet.EntitySaver#setNewFields()
-				 */
 				@Override
 				public boolean setNewFields() throws SaveException
 				{
@@ -265,13 +266,8 @@ public class UpdateAction extends AbstractAction
     @Override
 	public void process(HttpServletRequest request, HttpServletResponse response) throws SaveException, IOException, DbSqlException
 	{
-		if (getPathParams().size() < 1) 
-			throw new SaveException("Invalid request part count : " + getPathParams().size());
-    	ServicesContainer daoDescription = TravelConsts.getServiceContainer(request.getParameter("table"),getUser());
-    	if (daoDescription == null)
-    		throw new SaveException("Unknow table " + request.getParameter("table"));
     	EntitySaver entitySaver = getSaver(request);
-    	entitySaver.dao = daoDescription.getDao();
+    	entitySaver.dao = servicesContainer.getService().createDao();
 		entitySaver.request = request;
 		BaseDao dao = entitySaver.dao;
 		String sId = request.getParameter("id");
@@ -296,4 +292,25 @@ public class UpdateAction extends AbstractAction
 		sendRedirect(entitySaver.getRedirectUrl(),response);
 	}
 
+	@Override
+	public boolean userHasRights()
+	{
+		return servicesContainer.getService().hasRights(CrudAction.UPDATE);
+	}
+
+	@Override
+	public String getJspTemplate()
+	{
+		return "";
+	}
+
+	@Override
+	public void initParams(HttpServletRequest request, HttpServletResponse response) throws InvalidRequest
+	{
+		if (getPathParams().size() < 1) 
+			throw new InvalidRequest("Invalid request part count : " + getPathParams().size());
+    	servicesContainer = TravelConsts.getServiceContainer(request.getParameter("table"),getUser());
+    	if (servicesContainer == null)
+    		throw new InvalidRequest("Unknow table " + request.getParameter("table"));
+	}
 }

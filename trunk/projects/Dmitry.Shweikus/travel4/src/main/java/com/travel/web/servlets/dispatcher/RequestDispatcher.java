@@ -14,6 +14,8 @@ import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import com.travel.exceptions.InvalidRequest;
 import com.travel.pojo.User;
 import com.travel.web.servlets.actions.AbstractAction;
+import com.travel.web.servlets.actions.ActionNames;
+import com.travel.web.servlets.actions.AutentificationRequiredAction;
 import com.travel.web.servlets.actions.DefaultAction;
 import com.travel.web.servlets.actions.DeleteAction;
 import com.travel.web.servlets.actions.UpdateAction;
@@ -42,20 +44,27 @@ public class RequestDispatcher
 			action = new DefaultAction();
 		else
 			switch (pathParams.get(0)) {
-			case "index" :  action = new DefaultAction(); break;
-			case "login" :  action = new UserAction(); break;
-			case "logout": action = new UserAction(); break;
-			case "view"  :  action = new ViewAction(); break;	
-			case "edit"  :  action = new ViewAction(); break;	
-			case "show"  :  action = new ViewAction(); break;	
-			case "new"   :  action = new ViewAction(); break;	
-			case "save" :  action = new UpdateAction(); break;	
-			case "delete":  action = new DeleteAction(); break;	
+			case ActionNames.INDEX :  action = new DefaultAction(); break;
+			case ActionNames.LOGIN :  action = new UserAction(); break;
+			case ActionNames.LOGOUT: action = new UserAction(); break;
+			case ActionNames.VIEW  :  action = new ViewAction(); break;	
+			case ActionNames.EDIT  :  action = new ViewAction(); break;	
+			case ActionNames.SHOW  :  action = new ViewAction(); break;	
+			case ActionNames.NEW   :  action = new ViewAction(); break;	
+			case ActionNames.SAVE :  action = new UpdateAction(); break;	
+			case ActionNames.DELETE:  action = new DeleteAction(); break;	
 			default:
 				throw new InvalidRequest("Invalid request : \"" + request.getServletPath() + "\"");
 			}
 		//================
 		action.setPathParams(pathParams);
+		action.setUser(user);
+		return action;
+	}
+	public AbstractAction getAutentificationRequiredAction(HttpServletRequest request, HttpServletResponse response,User user) throws InvalidRequest
+	{
+		AbstractAction action = new AutentificationRequiredAction();
+		action.setPathParams(new ArrayList<String>());
 		action.setUser(user);
 		return action;
 	}

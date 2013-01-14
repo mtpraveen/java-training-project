@@ -20,6 +20,7 @@ import com.travel.db.ConnectionManager;
 import com.travel.exceptions.DbSqlException;
 import com.travel.exceptions.DeleteException;
 import com.travel.exceptions.InvalidRequest;
+import com.travel.web.utils.CrudAction;
 import com.travel.web.utils.ServicesContainer;
 import com.travel.web.utils.TravelConsts;
 
@@ -29,7 +30,7 @@ import com.travel.web.utils.TravelConsts;
  */
 public class DeleteAction extends AbstractAction
 {
-
+	ServicesContainer servicesContainer;
     private abstract class EntityDeleter
     {
     	protected BaseDao getSingleDetailDao()
@@ -110,14 +111,11 @@ public class DeleteAction extends AbstractAction
 	public void process(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, InvalidRequest, DbSqlException, DeleteException
 	{
-		if (getPathParams().size() < 3)
-			throw new InvalidRequest("Invalid delete params count : " + getPathParams().size());
-		ServicesContainer daoDescription = TravelConsts.getServiceContainer(getPathParams().get(1),getUser());
-		if (daoDescription == null)
+		if (servicesContainer == null)
 			throw new InvalidRequest("Invalid table : " + getPathParams().get(1));
 		EntityDeleter deleter = getDeleter(request);
 		long id = Long.parseLong(getPathParams().get(2));
-		BaseDao dao = daoDescription.getDao();
+		BaseDao dao = servicesContainer.getService().createDao();
 		for (BaseDao detail : deleter.getDetailDao())
 		{
 			SqlConstrainBuilder constrainBuilder = new SqlConstrainBuilder();
@@ -128,6 +126,24 @@ public class DeleteAction extends AbstractAction
 		}
 		dao.delete(id);
 		sendRedirect("index",response);
+	}
+
+	@Override
+	public boolean userHasRights()
+	{
+		return servicesContainer.getService().hasRights(CrudAction.DELETE);
+	}
+	@Override
+	public String getJspTemplate()
+	{
+		return "";
+	}
+	@Override
+	public void initParams(HttpServletRequest request, HttpServletResponse response) throws InvalidRequest
+	{
+		if (getPathParams().size() < 3)
+			throw new InvalidRequest("Invalid delete params count : " + getPathParams().size());
+		servicesContainer = TravelConsts.getServiceContainer(getPathParams().get(1),getUser());
 	}
 
 }

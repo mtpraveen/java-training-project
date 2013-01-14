@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.travel.dao.BaseDao;
 import com.travel.exceptions.DbSqlException;
+import com.travel.web.utils.CrudAction;
 import com.travel.web.utils.ServicesContainer;
 import com.travel.web.utils.TravelConsts;
 
@@ -20,6 +21,7 @@ public abstract class MyAbstractWebService<T extends BaseDao>
 {
 	abstract public T createDao();
 	private ServicesContainer servicesContainer;
+	public abstract boolean hasRights(CrudAction crudAction);
 	public void setParamsForTableView(HttpServletRequest request) throws DbSqlException
 	{
 		request.setAttribute("items", createDao().findAll());

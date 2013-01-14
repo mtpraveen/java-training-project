@@ -15,7 +15,7 @@ create table users (
    	login varchar(80) not null,
    	password varchar(80) not null,
 	admin boolean not null
-) ;
+) charset = "UTF8" engine = innodb;
 create table clients (
 	id INT AUTO_INCREMENT PRIMARY KEY,
    	firstname varchar(30) not null,
@@ -25,7 +25,7 @@ create table clients (
    	document3 varchar(80) not null,
    	document4 varchar(80) not null,
    	description text not null
-) ;
+) charset = "UTF8" engine = innodb;
 create table discounts (
 	id INT AUTO_INCREMENT PRIMARY KEY,
    	threshold decimal(18,2) not null,
@@ -34,7 +34,7 @@ create table discounts (
 
 	CHECK (percent > 0),
 	CHECK (threshold > 0)
-) ;
+) charset = "UTF8" engine = innodb;
 create table tours (
 	id INT AUTO_INCREMENT PRIMARY KEY,
    	name varchar(120) not null,
@@ -45,7 +45,7 @@ create table tours (
 	days_count int not null,
 	
 	CHECK(daysCount > 0) 
-) ;
+) charset = "UTF8" engine = innodb;
 create table tourshedules (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	id_tour INT NOT NULL REFERENCES tours(id),
@@ -55,7 +55,7 @@ create table tourshedules (
 
 	CHECK (count > 0),
 	CHECK (price > 0)
-) ;
+) charset = "UTF8" engine = innodb;
 create table orders (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	id_client int not null REFERENCES clients(id),
@@ -70,7 +70,7 @@ create table orders (
 
 	CHECK (total_price > 0),
 	CHECK (count > 0)
-) ;
+) charset = "UTF8" engine = innodb;
 
 create table payments (
 	id INT AUTO_INCREMENT PRIMARY KEY,
@@ -79,7 +79,7 @@ create table payments (
 	date date not null,
 
 	CHECK (amount > 0)
-) ;
+) charset = "UTF8" engine = innodb;
 
 create table tour_programs (
 	id INT AUTO_INCREMENT PRIMARY KEY,
@@ -91,7 +91,7 @@ create table tour_programs (
 	CHECK (day_number > 0),
 	CHECK (last_day_number >= 0),
 	UNIQUE(id_tour,day_number)
-) ;
+) charset = "UTF8" engine = innodb;
 
 describe users;
 describe clients;

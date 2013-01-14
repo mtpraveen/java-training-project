@@ -25,4 +25,15 @@ public class DefaultAction extends AbstractAction
 	{
 		return "default.jsp";
 	}
+
+	@Override
+	public boolean userHasRights()
+	{
+		return true;
+	}
+	@Override
+	public void initParams(HttpServletRequest request, HttpServletResponse response)
+	{
+		
+	}
 }

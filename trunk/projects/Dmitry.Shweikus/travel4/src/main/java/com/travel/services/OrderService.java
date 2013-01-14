@@ -14,6 +14,7 @@ import com.travel.dao.extenders.TourSheduleDaoExtender;
 import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.Order;
 import com.travel.web.beans.CalendarWrapper;
+import com.travel.web.utils.CrudAction;
 
 /**
  * @author dima
@@ -76,5 +77,12 @@ public class OrderService extends MyAbstractWebService<OrderDao>
 		OrdersExtender order = (OrdersExtender) request.getAttribute("order");
 		PaymentDao paymentDao = new PaymentDao();
 		request.setAttribute("payments", paymentDao.findOrdersPayments(order.getOrder().getId()));
+	}
+
+	@Override
+	public boolean hasRights(CrudAction crudAction)
+	{
+		//TODO : check here order owner
+		return getServicesContainer().getUser() != null;
 	}
 }

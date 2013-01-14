@@ -93,7 +93,14 @@ public class ControllerServlet extends HttpServlet {
 		AbstractAction action;
 		try
 		{
-			action = dispatcher.getAction(request, response,loadUser(request, response));
+			User user = loadUser(request, response);
+			action = dispatcher.getAction(request, response,user);
+			action.initParams(request, response);
+			if (!action.userHasRights())
+			{
+				action = dispatcher.getAutentificationRequiredAction(request, response, user);
+				action.initParams(request, response);
+			}	
 			action.process(request, response);
 			if (!action.isRedirected())
 			{
