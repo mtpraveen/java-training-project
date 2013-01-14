@@ -126,6 +126,9 @@ public class install extends HttpServlet {
     	Client client1 = clientDao.create("John", "Smith", "AB123456789", "d1", "", "", "<b>client1</b>");
     	Client client2 = clientDao.create("Piter", "Pan",  "AB999999999", "d2", "", "", "client2");
     	Client client3 = clientDao.create("David", "O'Reylly", "AB77777777", "d3", "", "", "client3");
+    	//WARNING NON-ASCI SYMBOLS FOR TESTING DATABASE ENCODING
+    	char c = 0x424;
+    	Client client4 = clientDao.create("name", "fam", "AB77777777",String.valueOf(c), "", "", "client3");
     	//==============================================
     	//==============================================
     	createTableCaption(writer, tourDao.getTableName());
