@@ -9,6 +9,7 @@ import org.hopto.nexoff.race.validator.UserEditValidator;
 import org.hopto.nexoff.race.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,7 +30,7 @@ public class UserController {
 	private UserEditValidator userEditValidator;
 	@Autowired
     private MessageSource messageSource;
-
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(Model uiModel) {
 		List<User> users = userService.findAll();
@@ -39,6 +40,9 @@ public class UserController {
 
 	@RequestMapping(value = "/show/{id}", method = RequestMethod.GET)
 	public String show(@PathVariable("id") Long id, Model uiModel) {
+		if (getCurrentUser().getId() != id){
+			return "redirect:/race";
+		}
 		User user = userService.findById(id);
 		uiModel.addAttribute("user", user);
 		return "user/show";
@@ -67,13 +71,19 @@ public class UserController {
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String getEdit(@PathVariable("id") Long id, Model uiModel) {
+		if (getCurrentUser().getId() != id){
+			return "redirect:/race";
+		}
 		User user = userService.findById(id);
 		uiModel.addAttribute("user", user);
 		return "user/edit";
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public String saveEdit(User user, BindingResult result, Model uiModel) {
+	public String saveEdit(@PathVariable("id") Long id, User user, BindingResult result, Model uiModel) {
+		if (getCurrentUser().getId() != id){
+			return "redirect:/race";
+		}
 		userEditValidator.validate(user, result);
 		if (result.hasErrors()) {
 			uiModel.addAttribute("user", user);
@@ -87,9 +97,16 @@ public class UserController {
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable("id") Long id) {
+		if (getCurrentUser().getId() != id){
+			return "redirect:/race";
+		}
 		User user = userService.findById(id);
 		userService.delete(user);
 		return "redirect:/user/";
+	}
+	
+	public User getCurrentUser() {
+		return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 
 }
