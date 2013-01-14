@@ -55,6 +55,7 @@ public class UpdateAction extends AbstractAction
     		if(request.getParameter(paramName) == null)
     			throw new SaveException("Param " + paramName + " not found");
     		String s = request.getParameter(paramName);
+    		System.out.println(paramName + " = " + s);
     		return TravelConsts.htmlEscape(s);
     	}
     	public int getInt(String paramName) throws SaveException

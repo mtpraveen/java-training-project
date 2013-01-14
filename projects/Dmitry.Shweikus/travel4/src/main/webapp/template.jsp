@@ -2,7 +2,7 @@
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Hyper travel</title>
 <link rel="stylesheet" href="jquery/style.css" />
 <c:if test="${! empty editor}">

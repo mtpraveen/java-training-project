@@ -100,7 +100,6 @@ public class SelectSqlExecutor
 		try {
 			sql = buildSql(daoList, conditions);
 			System.out.println(sql);
-			System.out.println(params.size());
 			st = connection.prepareStatement(sql);
 			for(int i = 0;i<params.size();i++)
 				st.setObject(i+1, params.get(i));

@@ -52,9 +52,8 @@ public class ConnectionManager
 			dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
 			String username = dbUri.getUserInfo().split(":")[0];
 			String password = dbUri.getUserInfo().split(":")[1];
-			String dbUrl = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
+			String dbUrl = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath() +  "?encoding=UTF-8&useUnicode=true&characterEncoding=UTF-8&reconnect=true";
 			//String dbUrl = "jdbc:mysql://localhost" + dbUri.getPath();
-
 			return DriverManager.getConnection(dbUrl, username, password);
 		} catch (URISyntaxException e)
 		{
