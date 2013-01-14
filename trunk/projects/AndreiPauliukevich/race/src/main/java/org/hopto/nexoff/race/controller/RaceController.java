@@ -28,8 +28,6 @@ public class RaceController {
 	@Autowired
 	private RaceEditValidator raceEditValidator;
 
-	/*System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());*/
-	
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(Model uiModel) {
 		List<Race> races = raceService.findAll();

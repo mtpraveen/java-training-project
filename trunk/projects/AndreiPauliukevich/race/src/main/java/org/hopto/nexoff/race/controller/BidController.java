@@ -33,7 +33,7 @@ public class BidController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(Model uiModel) {
-		List<Bid> bids = bidService.findAll((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		List<Bid> bids = bidService.findAll(getCurrentUser());
 		uiModel.addAttribute("bids", bids);
 		return "bid/index";
 	}
@@ -50,7 +50,7 @@ public class BidController {
 
 	@RequestMapping(value = "/new/{race_id}", method = RequestMethod.POST)
 	public String saveNew(@PathVariable("race_id") Long race_id, Bid bid, BindingResult result, Model uiModel) {
-		bid.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		bid.setUser(getCurrentUser());
 		bid.setRace(raceService.findByIdFetch(race_id));
 		bidValidator.validate(bid, result);
 		if(result.hasErrors()){
@@ -63,6 +63,10 @@ public class BidController {
 			return "redirect:/race";
 		}
 
+	}
+	
+	public User getCurrentUser() {
+		return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 
 }
