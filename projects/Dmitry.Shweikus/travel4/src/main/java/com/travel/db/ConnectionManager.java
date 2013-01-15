@@ -3,74 +3,69 @@ package com.travel.db;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Locale;
-import java.util.ResourceBundle;
+
+import org.apache.tomcat.jdbc.pool.DataSource;
+import org.apache.tomcat.jdbc.pool.PoolProperties;
 
 import com.travel.exceptions.DbSqlException;
 
 public class ConnectionManager
 {
 	private static ConnectionManager INSTANCE = new ConnectionManager();
-	private Connection conn;
-
-	private ConnectionManager() {
-	}
+	private static DataSource dataSource = null;
 
 	public static ConnectionManager getInstance()
 	{
 		return INSTANCE;
 	}
-
-	public Connection getConnection() throws DbSqlException
+	private static DataSource getDataSource() throws ClassNotFoundException, URISyntaxException
 	{
-		try
+		if (dataSource == null)
 		{
-			if (conn == null || (conn != null && conn.isClosed()))
-			{
-				conn = makeConnection();
-			}
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-			throw new DbSqlException("Can't establish connection to database!");
-		} catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
-			throw new DbSqlException("Database driver is not found!");
-		}
-		return conn;
-	}
+			String className = "org.gjt.mm.mysql.Driver";
+			
+			//is this string really required?
+			Class.forName(className);
 
-	private Connection makeConnection() throws ClassNotFoundException, SQLException
-	{
-		Class.forName("org.gjt.mm.mysql.Driver");
-		URI dbUri;
-		try
-		{
+			URI dbUri;
 			dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
 			String username = dbUri.getUserInfo().split(":")[0];
 			String password = dbUri.getUserInfo().split(":")[1];
-			String dbUrl = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath() +  "?encoding=UTF-8&useUnicode=true&characterEncoding=UTF-8&reconnect=true";
-			//String dbUrl = "jdbc:mysql://localhost" + dbUri.getPath();
-			return DriverManager.getConnection(dbUrl, username, password);
-		} catch (URISyntaxException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
+			String dbUrl = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
+			dbUrl += "?encoding=UTF-8&useUnicode=true&characterEncoding=UTF-8&reconnect=true";
+			
+			PoolProperties p = new PoolProperties();
+	        p.setUrl(dbUrl);
+	        p.setDriverClassName(className);
+	        p.setUsername(username);
+	        p.setPassword(password);
+	        p.setTestWhileIdle(false);
+	        p.setTestOnBorrow(true);
+	        p.setValidationQuery("SELECT 1");
+	        p.setTestOnReturn(false);
+	        p.setMaxActive(4);
+	        p.setInitialSize(3);
 
-	@Override
-	protected void finalize() throws Throwable
-	{
-		if (conn != null)
-		{
-			conn.close();
+	        dataSource = new DataSource();
+	        dataSource.setPoolProperties(p); 
 		}
-		super.finalize();
+		return dataSource;
+	}
+	public static Connection getConnection() throws DbSqlException 
+	{
+		try {
+			return getDataSource().getConnection();
+		} catch (ClassNotFoundException e) {
+			//throw new DbSqlException("Database driver is not found!");
+			throw new DbSqlException(e);
+		} catch (SQLException e) {
+			//throw new DbSqlException("Can't establish connection to database!");
+			throw new DbSqlException(e);
+		} catch (URISyntaxException e) {
+			//throw new DbSqlException("Environment variable not found CLEARDB_DATABASE_URL!");
+			throw new DbSqlException(e);
+		}
 	}
 
 }
