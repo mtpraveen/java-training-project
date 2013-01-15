@@ -110,9 +110,10 @@ public abstract class BaseDao<T extends BaseEntity>
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Statement st = null;
+		Connection conn = null;
 		String query = buildInsertSqlStatement(); 
 		try {
-			Connection conn = ConnectionManager.getInstance().getConnection();
+			conn = ConnectionManager.getInstance().getConnection();
 			ps = conn.prepareStatement(query);
 			for(int i = 0;i<values.length;i++)
 			{
@@ -137,6 +138,8 @@ public abstract class BaseDao<T extends BaseEntity>
 					st.close();
 				if (ps != null)
 					ps.close();
+				if (conn != null)
+					conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -148,9 +151,10 @@ public abstract class BaseDao<T extends BaseEntity>
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Statement st = null;
+		Connection conn = null;
 		String query = buildInsertSqlStatement(); 
 		try {
-			Connection conn = ConnectionManager.getInstance().getConnection();
+			conn = ConnectionManager.getInstance().getConnection();
 			ps = conn.prepareStatement(query);
 			saveDataToPreparedStatement(base, ps);
 			int res = ps.executeUpdate();
@@ -172,6 +176,8 @@ public abstract class BaseDao<T extends BaseEntity>
 					st.close();
 				if (ps != null)
 					ps.close();
+				if (conn != null)
+					conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -206,8 +212,9 @@ public abstract class BaseDao<T extends BaseEntity>
 	{
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		Connection conn = null; 
 		try {
-			Connection conn = ConnectionManager.getInstance().getConnection();
+			conn = ConnectionManager.getInstance().getConnection();
 			ps = conn.prepareStatement(buildUpdateSqlStatement());
 			saveDataToPreparedStatement(obj, ps);
 			ps.setLong(getColumnNames().length+1, obj.getId());
@@ -220,6 +227,8 @@ public abstract class BaseDao<T extends BaseEntity>
 					rs.close();
 				if (ps != null)
 					ps.close();
+				if (conn != null)
+					conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -240,8 +249,9 @@ public abstract class BaseDao<T extends BaseEntity>
 			}
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		Connection conn = null;
 		try {
-			Connection conn = ConnectionManager.getInstance().getConnection();
+			conn = ConnectionManager.getInstance().getConnection();
 			ps = conn.prepareStatement(sqlStatement);
 			int res = ps.executeUpdate();
 			return res != 0;
@@ -253,6 +263,8 @@ public abstract class BaseDao<T extends BaseEntity>
 					rs.close();
 				if (ps != null)
 					ps.close();
+				if (conn != null)
+					conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

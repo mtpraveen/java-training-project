@@ -126,6 +126,8 @@ public class SelectSqlExecutor
 					rs.close();
 				if (st != null)
 					st.close();
+				if (connection != null)
+					connection.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
