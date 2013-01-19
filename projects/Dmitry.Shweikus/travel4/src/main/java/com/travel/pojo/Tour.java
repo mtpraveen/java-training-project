@@ -3,8 +3,10 @@
  */
 package com.travel.pojo;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.travel.enums.TransportKind;
 import com.travel.enums.TravelKind;
@@ -15,11 +17,20 @@ import com.travel.enums.TravelKind;
  */
 public class Tour extends BaseEntity
 {
+	@NotNull
+	@Length(min=3, max=120)
 	private String name;
+	@NotNull
 	private TravelKind travelKind;
+	@NotNull
 	private TransportKind transportKind;
+	@NotNull
+	@Length(min=3)
 	private String description;
+	@NotNull
+	@Length(min=3)
 	private String requiredDocuments;
+	@Min(value=1)
 	private int daysCount;
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()

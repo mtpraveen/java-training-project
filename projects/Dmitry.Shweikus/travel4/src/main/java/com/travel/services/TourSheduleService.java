@@ -8,11 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import com.travel.dao.TourDao;
 import com.travel.dao.TourSheduleDao;
 import com.travel.dao.extenders.OrdersDaoExtender;
-import com.travel.dao.extenders.OrdersExtender;
 import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.Tour;
 import com.travel.pojo.TourShedule;
-import com.travel.web.utils.CrudAction;
+import com.travel.web.enums.CrudAction;
 
 /**
  * @author dima

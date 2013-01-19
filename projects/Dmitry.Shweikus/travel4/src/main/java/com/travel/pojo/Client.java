@@ -3,14 +3,24 @@
  */
 package com.travel.pojo;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * @author dima
  * client of our travel agency 
  */
 public class Client extends BaseEntity
 {
+	@NotBlank
+	@Size(min=3, max=30)
 	private String firstName;
+	@NotBlank
+	@Size(min=3, max=30)
 	private String lastName;
+	@NotBlank
+	@Size(min=3, max=30)
 	private String document1;
 	private String document2;
 	private String document3;

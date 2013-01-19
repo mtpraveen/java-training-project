@@ -9,8 +9,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
-
 import com.travel.exceptions.InvalidRequest;
 import com.travel.pojo.User;
 import com.travel.web.servlets.actions.AbstractAction;
@@ -18,6 +16,7 @@ import com.travel.web.servlets.actions.ActionNames;
 import com.travel.web.servlets.actions.AutentificationRequiredAction;
 import com.travel.web.servlets.actions.DefaultAction;
 import com.travel.web.servlets.actions.DeleteAction;
+import com.travel.web.servlets.actions.LocaleAction;
 import com.travel.web.servlets.actions.UpdateAction;
 import com.travel.web.servlets.actions.UserAction;
 import com.travel.web.servlets.actions.ViewAction;
@@ -28,16 +27,10 @@ import com.travel.web.servlets.actions.ViewAction;
  */
 public class RequestDispatcher
 {
-	public AbstractAction getAction(HttpServletRequest request, HttpServletResponse response,User user) throws InvalidRequest
+	public AbstractAction getAction(List<String> urlPathParams,HttpServletRequest request, HttpServletResponse response,User user) throws InvalidRequest
 	{
-		System.out.println("REQUEST: " + request.getServletPath());
 		List<String> pathParams = new ArrayList<>();
-		for (String string : request.getServletPath().split("-"))
-		{
-			string = string.replace("/", "");
-			if(!"".equals(string))
-				pathParams.add(string);
-		}
+		pathParams.addAll(urlPathParams);
 		//================
 		AbstractAction action;
 		if (pathParams.size() == 0)
@@ -53,6 +46,7 @@ public class RequestDispatcher
 			case ActionNames.NEW   :  action = new ViewAction(); break;	
 			case ActionNames.SAVE :  action = new UpdateAction(); break;	
 			case ActionNames.DELETE:  action = new DeleteAction(); break;	
+			case ActionNames.LOCALE:  action = new LocaleAction(); break;	
 			default:
 				throw new InvalidRequest("Invalid request : \"" + request.getServletPath() + "\"");
 			}
@@ -60,6 +54,18 @@ public class RequestDispatcher
 		action.setPathParams(pathParams);
 		action.setUser(user);
 		return action;
+	}
+	public AbstractAction getAction(HttpServletRequest request, HttpServletResponse response,User user) throws InvalidRequest
+	{
+		//System.out.println("REQUEST: " + request.getServletPath());
+		List<String> pathParams = new ArrayList<>();
+		for (String string : request.getServletPath().split("-"))
+		{
+			string = string.replace("/", "");
+			if(!"".equals(string))
+				pathParams.add(string);
+		}
+		return getAction(pathParams,request,response,user);
 	}
 	public AbstractAction getAutentificationRequiredAction(HttpServletRequest request, HttpServletResponse response,User user) throws InvalidRequest
 	{

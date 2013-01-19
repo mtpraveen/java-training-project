@@ -2,35 +2,31 @@ package com.travel.web.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Date;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.travel.dao.TourSheduleDao;
-import com.travel.dao.BaseDao;
 import com.travel.dao.ClientDao;
 import com.travel.dao.DiscountDao;
 import com.travel.dao.OrderDao;
 import com.travel.dao.PaymentDao;
 import com.travel.dao.TourDao;
-import com.travel.dao.TourProgramDao;
+import com.travel.dao.TourSheduleDao;
 import com.travel.dao.UserDao;
 import com.travel.enums.TransportKind;
 import com.travel.enums.TravelKind;
 import com.travel.exceptions.DbSqlException;
-import com.travel.pojo.Payment;
-import com.travel.pojo.TourShedule;
 import com.travel.pojo.Client;
 import com.travel.pojo.Discount;
 import com.travel.pojo.Order;
+import com.travel.pojo.Payment;
 import com.travel.pojo.Tour;
+import com.travel.pojo.TourShedule;
 import com.travel.pojo.User;
 import com.travel.web.utils.TravelSecurity;
 
@@ -47,7 +43,6 @@ public class install extends HttpServlet {
 	private OrderDao orderDao = new OrderDao();
 	private PaymentDao paymentDao = new PaymentDao();
 	private TourDao tourDao = new TourDao();
-	private TourProgramDao tourProgramDao = new TourProgramDao();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -81,9 +76,9 @@ public class install extends HttpServlet {
     {
     	return true;
     }
+    
     private void clearDataBase() throws DbSqlException
     {
-    	tourProgramDao.deleteAll();
     	paymentDao.deleteAll();
     	orderDao.deleteAll();
     	arrivalSheduleDao.deleteAll();
@@ -123,7 +118,7 @@ public class install extends HttpServlet {
     	//==============================================
     	//==============================================
     	createTableCaption(writer, clientDao.getTableName());
-    	Client client1 = clientDao.create("John", "Smith", "AB123456789", "d1", "", "", "<b>client1</b>");
+    	Client client1 = clientDao.create("John", "Smith", "AB123456789", "d1", "", "", "client1");
     	Client client2 = clientDao.create("Piter", "Pan",  "AB999999999", "d2", "", "", "client2");
     	Client client3 = clientDao.create("David", "O'Reylly", "AB77777777", "d3", "", "", "client3");
     	//WARNING NON-ASCI SYMBOLS FOR TESTING DATABASE ENCODING

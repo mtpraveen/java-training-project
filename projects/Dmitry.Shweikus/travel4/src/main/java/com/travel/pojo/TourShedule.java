@@ -6,6 +6,9 @@ package com.travel.pojo;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 /**
  * @author dima
  * tour has at least one ArrivalShedule
@@ -13,8 +16,12 @@ import java.sql.Date;
 public class TourShedule extends BaseEntity
 {
 	private long tourId;
+	@NotNull
 	private Date date;
+	@NotNull
+	@Min(value=0)
 	private BigDecimal price;
+	@Min(value=1)
 	private int count;
 	/**
 	 * @return the tourId

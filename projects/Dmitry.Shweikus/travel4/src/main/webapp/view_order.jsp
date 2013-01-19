@@ -29,7 +29,7 @@ not
 <br />
 <br />
 <h3>Payments</h3>
-<table border="1">
+<table class="mytable">
 	<tr>
 		<th>Date</th>
 		<th>Amount</th>
@@ -43,8 +43,14 @@ not
 			<td>${payment.amount}</td>
 			<c:if test="${loggeduser.admin || loggeduser == order.user }">
 				<td>
-					<my:Exec action="edit" id="${payment.id}" table="payments" /><br />
-					<my:Exec action="delete" id="${payment.id}" table="payments" /><br />
+					<ul>
+						<li>
+							<my:Exec action="edit" id="${payment.id}" table="payments" />
+						</li>
+						<li>
+							<my:Exec action="delete" id="${payment.id}" table="payments" />
+						</li>
+					</ul>
 				</td>
 			</c:if>		
 		</tr>
@@ -52,7 +58,7 @@ not
 </table>
 <c:if test="${loggeduser.admin || loggeduser == order.user }">
 	<br />
-	<my:Create table="payments" masterId="${entityid}">Create new payment</my:Create>
+	<my:Create table="payments" masterId="${entityid}">create_new_payment</my:Create>
 </c:if>	
 
 </x:page>

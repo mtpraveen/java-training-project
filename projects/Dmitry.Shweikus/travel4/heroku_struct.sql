@@ -1,7 +1,6 @@
 -- DROP DATABASE IF EXISTS heroku_e314c3e5a6773c1;
 -- CREATE DATABASE heroku_e314c3e5a6773c1;
 -- USE heroku_e314c3e5a6773c1;
-DROP TABLE IF EXISTS tour_programs;
 DROP TABLE IF EXISTS payments;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS tourshedules;
@@ -81,18 +80,6 @@ create table payments (
 	CHECK (amount > 0)
 ) charset = "UTF8" engine = innodb;
 
-create table tour_programs (
-	id INT AUTO_INCREMENT PRIMARY KEY,
-	id_tour int not null references tours(id),
-	day_number int not null,
-	description text not null,
-	last_day_number int not null,
-
-	CHECK (day_number > 0),
-	CHECK (last_day_number >= 0),
-	UNIQUE(id_tour,day_number)
-) charset = "UTF8" engine = innodb;
-
 describe users;
 describe clients;
 describe discounts;
@@ -100,7 +87,6 @@ describe tours;
 describe tourshedules;
 describe orders;
 describe payments;
-describe tour_programs;
 
 
 

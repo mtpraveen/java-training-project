@@ -10,9 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.tomcat.util.buf.StringCache;
-import org.apache.tomcat.util.log.SystemLogHandler;
-
 import com.travel.dao.BaseDao;
 import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.BaseEntity;
@@ -99,7 +96,7 @@ public class SelectSqlExecutor
 		String sql = "";
 		try {
 			sql = buildSql(daoList, conditions);
-			System.out.println(sql);
+			//System.out.println(sql);
 			st = connection.prepareStatement(sql);
 			for(int i = 0;i<params.size();i++)
 				st.setObject(i+1, params.get(i));

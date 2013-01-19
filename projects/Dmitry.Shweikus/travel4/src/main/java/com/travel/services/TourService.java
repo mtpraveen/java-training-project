@@ -9,7 +9,7 @@ import com.travel.dao.TourDao;
 import com.travel.dao.TourSheduleDao;
 import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.Tour;
-import com.travel.web.utils.CrudAction;
+import com.travel.web.enums.CrudAction;
 
 /**
  * @author dima

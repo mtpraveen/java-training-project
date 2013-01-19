@@ -3,13 +3,12 @@
  */
 package com.travel.services;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import com.travel.dao.BaseDao;
 import com.travel.exceptions.DbSqlException;
-import com.travel.web.utils.CrudAction;
+import com.travel.exceptions.DeleteException;
+import com.travel.web.enums.CrudAction;
 import com.travel.web.utils.ServicesContainer;
 import com.travel.web.utils.TravelConsts;
 
@@ -55,10 +54,13 @@ public abstract class MyAbstractWebService<T extends BaseDao>
 	}
 	public void setParamsForNewItem(HttpServletRequest request) throws DbSqlException
 	{
+		long clientId = getMasterIdParamFromRequest(request);
 		request.setAttribute(getParamNameForSingleItemJsp(), createDao().newEntity());
 		request.setAttribute("isNew", true);
-		request.setAttribute("masterId", getMasterIdParamFromRequest(request));
+		request.setAttribute("masterId", clientId);
 		request.setAttribute("entityid", -1);
+		
+		
 	}
 	public void setParamsForEditItem(HttpServletRequest request) throws DbSqlException
 	{
@@ -77,5 +79,9 @@ public abstract class MyAbstractWebService<T extends BaseDao>
 	public void setServiceContainer(ServicesContainer servicesContainer)
 	{
 		this.servicesContainer = servicesContainer;
+	}
+	public void checkCanDeleteRecord(long id) throws DeleteException
+	{
+		//do nothing
 	}
 }

@@ -3,6 +3,10 @@
  */
 package com.travel.pojo;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
 /**
  * @author dima
  * main class for users : managers and administrators. 
@@ -10,8 +14,14 @@ package com.travel.pojo;
  */
 public class User extends BaseEntity
 {
+	@NotNull
+	@Length(min=3, max=80)
 	private String name = "";
+	@NotNull
+	@Length(min=3, max=80)
 	private String login = "";
+	@NotNull
+	@Length(min=3, max=80)
 	private String password = "";
 	private boolean admin = false;
 	

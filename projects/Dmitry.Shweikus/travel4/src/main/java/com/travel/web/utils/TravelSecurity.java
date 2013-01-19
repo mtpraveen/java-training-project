@@ -5,9 +5,8 @@ package com.travel.web.utils;
 
 import java.math.BigInteger;
 import java.nio.charset.Charset;
-import java.security.*;
-
-import com.travel.pojo.User;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * @author dima

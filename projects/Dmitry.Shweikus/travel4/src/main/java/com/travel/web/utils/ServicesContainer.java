@@ -3,7 +3,6 @@
  */
 package com.travel.web.utils;
 
-import com.travel.dao.BaseDao;
 import com.travel.pojo.User;
 import com.travel.services.MyAbstractWebService;
 

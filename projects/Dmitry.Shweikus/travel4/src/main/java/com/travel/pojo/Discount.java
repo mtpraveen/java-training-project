@@ -3,6 +3,12 @@
  */
 package com.travel.pojo;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
+
 
 /**
  * @author dima
@@ -10,7 +16,9 @@ package com.travel.pojo;
  */
 public class Discount extends BaseEntity
 {
+	@Min(value=0)
 	private double threshold;
+	@Range(min=0, max=100)
 	private int percent;
 	private boolean active;
 	/* (non-Javadoc)

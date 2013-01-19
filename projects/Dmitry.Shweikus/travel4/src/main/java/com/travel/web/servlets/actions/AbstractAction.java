@@ -14,6 +14,7 @@ import com.travel.exceptions.DeleteException;
 import com.travel.exceptions.InvalidRequest;
 import com.travel.exceptions.SaveException;
 import com.travel.pojo.User;
+import com.travel.web.enums.RequestMethod;
 
 /**
  * @author dima
@@ -69,4 +70,9 @@ public abstract class AbstractAction
 	{
 		this.user = user;
 	}
+	/**
+	 * @param requestMethod
+	 * @return
+	 */
+	public abstract boolean canProcessMethod(RequestMethod requestMethod);
 }
