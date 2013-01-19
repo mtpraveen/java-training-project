@@ -8,8 +8,6 @@
 	${seluser.name}
 	<my:FieldCaption>Login:</my:FieldCaption>
 	${seluser.login}
-	<my:FieldCaption>Password hash:</my:FieldCaption>
-	${seluser.password}
 	<my:FieldCaption>Admin:</my:FieldCaption>
 	<c:if test="${seluser.admin}">Yes</c:if>
 	<c:if test="${!seluser.admin}">No</c:if>

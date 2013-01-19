@@ -1,8 +1,9 @@
 package com.travel.web.servlets;
 
 import java.io.IOException;
+import java.util.Locale;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import com.travel.exceptions.DeleteException;
 import com.travel.exceptions.InvalidRequest;
 import com.travel.exceptions.SaveException;
 import com.travel.pojo.User;
+import com.travel.web.enums.RequestMethod;
 import com.travel.web.servlets.actions.AbstractAction;
 import com.travel.web.servlets.dispatcher.RequestDispatcher;
 
@@ -22,7 +24,7 @@ import com.travel.web.servlets.dispatcher.RequestDispatcher;
  */
 public class ControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private static final String bundleName="i18n.messages";   
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -83,11 +85,45 @@ public class ControllerServlet extends HttpServlet {
 		}
 		return user;
 	}
-
-    /**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void loadBundleName(HttpServletRequest request)
+	{
+		String bundle = bundleName;
+		String foundedLocale = null;
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null)
+			for (Cookie cookie : cookies)
+			{
+				if (cookie.getName().equals("locale"))
+					foundedLocale = cookie.getValue(); 
+			}
+		if (foundedLocale == null)
+		{
+			Locale locale = request.getLocale();
+			if(locale != null)
+			{
+				if(locale.toString().indexOf("en")!=-1)
+				{
+					foundedLocale = "en";					
+				}
+				else if(locale.toString().indexOf("ru")!=-1)
+				{
+					foundedLocale = "ru";					
+				}
+			}
+		}
+		switch (foundedLocale.toLowerCase()) {
+		case "ru":
+			bundle += "_ru";
+			break;
+		case "en":
+			bundle += "_en";
+			break;
+		}
+		request.setAttribute("bundle", bundle);
+	}
+	
+	private void execute(HttpServletRequest request, HttpServletResponse response, RequestMethod requestMethod) throws ServletException, IOException {
+		loadBundleName(request);
 		request.setCharacterEncoding("utf-8");
 		RequestDispatcher dispatcher = new RequestDispatcher();
 		AbstractAction action;
@@ -101,6 +137,10 @@ public class ControllerServlet extends HttpServlet {
 				action = dispatcher.getAutentificationRequiredAction(request, response, user);
 				action.initParams(request, response);
 			}	
+			if (!action.canProcessMethod(requestMethod))
+			{
+				throw new InvalidRequest("Invalid request method " + requestMethod);
+			}
 			action.process(request, response);
 			if (!action.isRedirected())
 			{
@@ -111,15 +151,25 @@ public class ControllerServlet extends HttpServlet {
 			}
 		} catch (InvalidRequest |DbSqlException|DeleteException|SaveException e)
 		{
+			String template = "error.jsp";
+			request.setAttribute("errorMessage", e.getMessage());
+			request.getRequestDispatcher("/" + template).forward(request, response);
 			throw new ServletException(e);
 		}
+	}
+	
+    /**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		execute(request, response, RequestMethod.GET);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		execute(request, response, RequestMethod.POST);
 	}
 
 }

@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.travel.dao.utils.SelectSqlExecutor.SqlQueryDaoFacadeResultItem;
 import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.User;
 

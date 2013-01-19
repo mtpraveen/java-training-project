@@ -10,11 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.travel.dao.extenders.TourSheduleDaoExtender;
 import com.travel.dao.utils.SqlConstrainBuilder;
 import com.travel.exceptions.DbSqlException;
-import com.travel.pojo.TourShedule;
 import com.travel.pojo.Tour;
+import com.travel.pojo.TourShedule;
 
 /**
  * @author dima

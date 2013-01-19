@@ -47,6 +47,21 @@
 		    <artifactId>tomcat-jdbc</artifactId>
 		    <version>7.0.20</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.3.1.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.logging</groupId>
+			<artifactId>jboss-logging</artifactId>
+			<version>3.1.0.CR1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>embeddedTomcatSample</finalName>

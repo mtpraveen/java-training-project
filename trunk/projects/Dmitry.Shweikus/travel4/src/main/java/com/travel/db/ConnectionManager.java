@@ -19,15 +19,12 @@ public class ConnectionManager
 	{
 		return INSTANCE;
 	}
-	private static DataSource getDataSource() throws ClassNotFoundException, URISyntaxException
+	private static DataSource getDataSource() throws ClassNotFoundException, URISyntaxException, DbSqlException
 	{
 		if (dataSource == null)
 		{
 			String className = "org.gjt.mm.mysql.Driver";
 			
-			//is this string really required?
-			Class.forName(className);
-
 			URI dbUri;
 			dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
 			String username = dbUri.getUserInfo().split(":")[0];
@@ -46,9 +43,21 @@ public class ConnectionManager
 	        p.setTestOnReturn(false);
 	        p.setMaxActive(4);
 	        p.setInitialSize(3);
-
+	        p.setMaxWait(10000);
+	        p.setRemoveAbandonedTimeout(60);
+	        p.setMinEvictableIdleTimeMillis(30000);
+	        p.setMinIdle(3);
+            p.setLogAbandoned(true);
+	        p.setRemoveAbandoned(true);
+	        p.setJdbcInterceptors(
+	            "org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;"+
+	            "org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer");
 	        dataSource = new DataSource();
 	        dataSource.setPoolProperties(p); 
+	        
+	        //if you have an ClassNotFoundException here, then put mysql-connector-java-5.1.19-bin.jar into
+	        //%tomcat%/lib directory. This is needed only if you run application from eclipse.
+	        //With maven in tomcatEmbedded you don't need do it.
 		}
 		return dataSource;
 	}

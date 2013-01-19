@@ -3,14 +3,13 @@
  */
 package com.travel.web.servlets.actions;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.travel.exceptions.DbSqlException;
 import com.travel.exceptions.InvalidRequest;
-import com.travel.web.utils.CrudAction;
+import com.travel.web.enums.CrudAction;
+import com.travel.web.enums.RequestMethod;
 import com.travel.web.utils.ServicesContainer;
 import com.travel.web.utils.TravelConsts;
 
@@ -90,5 +89,16 @@ public class ViewAction extends AbstractAction
 			crudAction = CrudAction.READ;
 			break;
 		}
+	}
+	/* (non-Javadoc)
+	 * @see com.travel.web.servlets.actions.AbstractAction#canProcessMethod(com.travel.web.enums.RequestMethod)
+	 */
+	@Override
+	public boolean canProcessMethod(RequestMethod requestMethod)
+	{
+		if (crudAction == CrudAction.CREATE)
+			return requestMethod == RequestMethod.POST;
+		else
+			return requestMethod == RequestMethod.GET;
 	}
 }

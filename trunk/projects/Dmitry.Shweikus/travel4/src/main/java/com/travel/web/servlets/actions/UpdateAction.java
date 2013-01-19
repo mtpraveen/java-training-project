@@ -6,11 +6,17 @@ package com.travel.web.servlets.actions;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
 
 import com.travel.dao.BaseDao;
 import com.travel.enums.TransportKind;
@@ -26,98 +32,101 @@ import com.travel.pojo.Payment;
 import com.travel.pojo.Tour;
 import com.travel.pojo.TourShedule;
 import com.travel.pojo.User;
-import com.travel.web.utils.CrudAction;
+import com.travel.web.enums.CrudAction;
+import com.travel.web.enums.RequestMethod;
 import com.travel.web.utils.ServicesContainer;
 import com.travel.web.utils.TravelConsts;
 import com.travel.web.utils.TravelSecurity;
 
 /**
  * @author dima
- *
+ * 
  */
 public class UpdateAction extends AbstractAction
 {
 
-    private ServicesContainer servicesContainer;
+	private ServicesContainer servicesContainer;
+	private String pathOnError;
 
 	private abstract class EntitySaver
-    {    	
-    	HttpServletRequest request;
-    	BaseEntity entity;
-    	BaseDao dao;
-    	public abstract boolean setFields() throws SaveException;
-    	public boolean setNewFields() throws SaveException
-    	{
-    		return false;
-    	}
-    	public long getMasterId() throws SaveException
-    	{
-    		return getLong("masterId");
-    	}
-    	public String getString(String paramName) throws SaveException
-    	{
-    		if(request.getParameter(paramName) == null)
-    			throw new SaveException("Param " + paramName + " not found");
-    		String s = request.getParameter(paramName);
-    		System.out.println(paramName + " = " + s);
-    		return TravelConsts.htmlEscape(s);
-    	}
-    	public int getInt(String paramName) throws SaveException
-    	{
-    		return Integer.parseInt(getString(paramName));
-    	}
-    	public Date getDate(String paramName) throws SaveException
-    	{
-    		String sDate = request.getParameter(paramName);
-    		if ("".equals(sDate))
-    			return null;
-    		else if(sDate != null)
-    			return Date.valueOf(sDate);
-    		else
-    		{
-    			String sY = getString(paramName + "__y");
-    			String sM = getString(paramName + "__m");
-    			String sD = getString(paramName + "__d");
-    			if(sY.equals("") || sM.equals("") || sD.equals(""))
-        			return null;
-    			else
-    			{
-    				Calendar calendar = GregorianCalendar.getInstance();
-    				calendar.set(Integer.parseInt(sY), Integer.parseInt(sM)-1, Integer.parseInt(sD));
-    				return new Date(calendar.getTimeInMillis());
-    			}
-    		}
-    	}
-    	public long getLong(String paramName) throws SaveException
-    	{
-    		return Long.parseLong(getString(paramName));
-    	}
-    	public BigDecimal getBigDecimal(String paramName) throws SaveException
-    	{
-    		return new BigDecimal(getString(paramName));
-    	}
-    	public boolean getBool(String paramName)
-    	{
-    		return request.getParameter(paramName) != null;
-    	}
-    	public double getDouble(String paramName) throws SaveException
-    	{
-    		return Double.parseDouble(getString(paramName));
-    	}
-    	public String getRedirectUrl() throws SaveException
-    	{
-    		return TravelConsts.makeCommand("view", getString("table"), String.valueOf(entity.getId()));
-    	}
-    }
-    private EntitySaver getSaver(HttpServletRequest request)
-    {
-    	switch (request.getParameter("table")) {
+	{
+		HttpServletRequest request;
+		BaseEntity entity;
+		BaseDao dao;
+
+		public abstract boolean setFields() throws SaveException;
+
+		public boolean setNewFields() throws SaveException
+		{
+			return false;
+		}
+
+		public long getMasterId() throws SaveException
+		{
+			return getLong("masterId");
+		}
+
+		public String getString(String paramName) throws SaveException
+		{
+			if (request.getParameter(paramName) == null)
+				throw new SaveException("Param " + paramName + " not found");
+			String s = request.getParameter(paramName);
+			System.out.println(paramName + " = " + s);
+			return TravelConsts.htmlEscape(s);
+		}
+
+		public int getInt(String paramName) throws SaveException
+		{
+			return Integer.parseInt(getString(paramName));
+		}
+
+		public Date getDate(String paramName) throws SaveException
+		{
+			String sDate = request.getParameter(paramName);
+			if ("".equals(sDate))
+				return null;
+			else if (sDate == null)
+				return null;
+			else
+				return Date.valueOf(sDate);
+		}
+
+		public long getLong(String paramName) throws SaveException
+		{
+			return Long.parseLong(getString(paramName));
+		}
+
+		public BigDecimal getBigDecimal(String paramName) throws SaveException
+		{
+			return new BigDecimal(getString(paramName));
+		}
+
+		public boolean getBool(String paramName)
+		{
+			return request.getParameter(paramName) != null;
+		}
+
+		public double getDouble(String paramName) throws SaveException
+		{
+			return Double.parseDouble(getString(paramName));
+		}
+
+		public String getRedirectUrl() throws SaveException
+		{
+			return TravelConsts.makeCommand("view", getString("table"),
+					String.valueOf(entity.getId()));
+		}
+	}
+
+	private EntitySaver getSaver(HttpServletRequest request)
+	{
+		switch (request.getParameter("table")) {
 		case TravelConsts.CLIENTS_TABLE:
 			return new EntitySaver() {
 				@Override
 				public boolean setFields() throws SaveException
 				{
-					Client client = (Client)entity;
+					Client client = (Client) entity;
 					client.setFirstName(getString("firstName"));
 					client.setLastName(getString("lastName"));
 					client.setDescription(getString("description"));
@@ -133,7 +142,7 @@ public class UpdateAction extends AbstractAction
 				@Override
 				public boolean setFields() throws SaveException
 				{
-					Discount discount = (Discount)entity;
+					Discount discount = (Discount) entity;
 					discount.setActive(getBool("active"));
 					discount.setPercent(getInt("percent"));
 					discount.setThreshold(getDouble("threshold"));
@@ -145,52 +154,57 @@ public class UpdateAction extends AbstractAction
 				@Override
 				public boolean setFields() throws SaveException
 				{
-					Order order = (Order)entity;
-					//order.setArrivalId(arrivalId)
-					//order.setClientId(clientId)
-					order.setCount(getInt("count"));
-					order.setDate(getDate("date"));
-					order.setDescription(getString("description"));
+					Order order = (Order) entity;
+					// order.setArrivalId(arrivalId)
+					// order.setClientId(clientId)
 					order.setFinished(getBool("finished"));
 					order.setFinishedDate(getDate("finishedDate"));
-					order.setTotalPrice(getBigDecimal("totalPrice"));
-					//order.setUserId(userId)
+					// order.setUserId(userId)
 					return true;
 				}
+
 				@Override
 				public boolean setNewFields() throws SaveException
 				{
-					Order order = (Order)entity;
+					Order order = (Order) entity;
 					order.setArrivalId(getLong("sheduleId"));
 					order.setClientId(getMasterId());
 					User user = (User) request.getAttribute("loggeduser");
 					order.setUserId(user.getId());
+
+					order.setCount(getInt("count"));
+					order.setDate(getDate("date"));
+					order.setTotalPrice(getBigDecimal("totalPrice"));
+					order.setDescription(getString("description"));
 					return true;
 				}
-				
+
 			};
 		case TravelConsts.PAYMENTS_TABLE:
 			return new EntitySaver() {
 				@Override
 				public boolean setFields() throws SaveException
 				{
-					Payment payment = (Payment)entity;
+					Payment payment = (Payment) entity;
 					payment.setAmount(getBigDecimal("amount"));
 					payment.setDate(getDate("date"));
-					//payment.setOrderId(orderId)
+					// payment.setOrderId(orderId)
 					return true;
 				}
+
 				@Override
 				public boolean setNewFields() throws SaveException
 				{
-					Payment payment = (Payment)entity;
+					Payment payment = (Payment) entity;
 					payment.setOrderId(getMasterId());
 					return true;
 				}
+
 				@Override
 				public String getRedirectUrl() throws SaveException
 				{
-		    		return TravelConsts.makeCommand("view", "orders", String.valueOf(((Payment)entity).getOrderId()));
+					return TravelConsts.makeCommand("view", "orders",
+							String.valueOf(((Payment) entity).getOrderId()));
 				}
 			};
 		case TravelConsts.SHEDULES_TABLE:
@@ -202,9 +216,10 @@ public class UpdateAction extends AbstractAction
 					shedule.setCount(getInt("count"));
 					shedule.setDate(getDate("date"));
 					shedule.setPrice(getBigDecimal("price"));
-					//shedule.setTourId(tourId)
+					// shedule.setTourId(tourId)
 					return true;
 				}
+
 				@Override
 				public boolean setNewFields() throws SaveException
 				{
@@ -213,12 +228,12 @@ public class UpdateAction extends AbstractAction
 					return true;
 				}
 			};
-		case TravelConsts.TOURS_TABLE :
+		case TravelConsts.TOURS_TABLE:
 			return new EntitySaver() {
 				@Override
 				public boolean setFields() throws SaveException
 				{
-					Tour tour = (Tour)entity;
+					Tour tour = (Tour) entity;
 					tour.setDaysCount(getInt("daysCount"));
 					tour.setDescription(getString("description"));
 					tour.setName(getString("name"));
@@ -228,7 +243,7 @@ public class UpdateAction extends AbstractAction
 					return true;
 				}
 			};
-		case TravelConsts.USERS_TABLE :
+		case TravelConsts.USERS_TABLE:
 			return new EntitySaver() {
 				@Override
 				public boolean setFields() throws SaveException
@@ -239,16 +254,17 @@ public class UpdateAction extends AbstractAction
 					user.setLogin(getString("login"));
 					String password = getString("password");
 					String confirmpassword = getString("confirmpassword");
-					//user.setPassword(confirmpassword)
+					// user.setPassword(confirmpassword)
 					if (!password.equals(""))
 					{
-						if(password.equals(confirmpassword))
+						if (password.equals(confirmpassword))
 							user.setPassword(TravelSecurity.hashPassword(password));
 						else
 							throw new SaveException("Passwords not match");
 					}
 					return true;
 				}
+
 				@Override
 				public boolean setNewFields() throws SaveException
 				{
@@ -261,9 +277,28 @@ public class UpdateAction extends AbstractAction
 		default:
 			return null;
 		}
-    }
-
-    @Override
+	}
+	
+	private void validate(BaseEntity baseEntity) throws SaveException
+	{
+		ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
+	    Validator validator = vf.getValidator();
+		Set<ConstraintViolation<BaseEntity>> constraintViolations = validator.validate(baseEntity);
+		if(constraintViolations.size() > 0)
+		{
+			StringBuilder builder = new StringBuilder();
+			List<String> list = new ArrayList<>();
+		    for (ConstraintViolation<BaseEntity> cv : constraintViolations)
+		    {
+		    	builder.append(String.format(
+		    			"Error in : property: [%s], value: [%s], message: [%s]",
+		    			cv.getPropertyPath(), cv.getInvalidValue(), cv.getMessage()));
+		    	builder.append("<br/>");
+		    }
+		    throw new SaveException(builder.toString());
+		}
+	}
+	@Override
 	public void process(HttpServletRequest request, HttpServletResponse response) throws SaveException, IOException, DbSqlException
 	{
     	EntitySaver entitySaver = getSaver(request);
@@ -279,6 +314,7 @@ public class UpdateAction extends AbstractAction
 			entitySaver.entity = entity;
 			entitySaver.setFields();
 			entitySaver.setNewFields();
+			validate(entitySaver.entity);
 			entitySaver.entity = dao.create(entity);
 		}
 		else
@@ -287,9 +323,10 @@ public class UpdateAction extends AbstractAction
 			entity = dao.findById(id);
 			entitySaver.entity = entity;
 			entitySaver.setFields();
+			validate(entitySaver.entity);
 			dao.update(entity);
 		}
-		sendRedirect(entitySaver.getRedirectUrl(),response);
+        sendRedirect(entitySaver.getRedirectUrl(),response);
 	}
 
 	@Override
@@ -305,12 +342,23 @@ public class UpdateAction extends AbstractAction
 	}
 
 	@Override
-	public void initParams(HttpServletRequest request, HttpServletResponse response) throws InvalidRequest
+	public void initParams(HttpServletRequest request, HttpServletResponse response)
+			throws InvalidRequest
 	{
-		if (getPathParams().size() < 1) 
+		if (getPathParams().size() < 1)
 			throw new InvalidRequest("Invalid request part count : " + getPathParams().size());
-    	servicesContainer = TravelConsts.getServiceContainer(request.getParameter("table"),getUser());
-    	if (servicesContainer == null)
-    		throw new InvalidRequest("Unknow table " + request.getParameter("table"));
+		servicesContainer = TravelConsts.getServiceContainer(request.getParameter("table"),
+				getUser());
+		if (servicesContainer == null)
+			throw new InvalidRequest("Unknow table " + request.getParameter("table"));
+	}
+
+	/* (non-Javadoc)
+	 * @see com.travel.web.servlets.actions.AbstractAction#canProcessMethod(com.travel.web.enums.RequestMethod)
+	 */
+	@Override
+	public boolean canProcessMethod(RequestMethod requestMethod)
+	{
+		return requestMethod == RequestMethod.POST;
 	}
 }

@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="x" uri="../WEB-INF/simple.tld"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<fmt:setBundle basename="${bundle}"/>
 <x:page>
 	<my:FieldCaption>Name:</my:FieldCaption>
 	${tour.name}
@@ -14,7 +16,7 @@
 	${tour.requiredDocuments}<br />
 	
 	<h3>Tours schedule</h3>
-	<table border="1">
+	<table class="mytable">
 		<tr>
 			<th>Date</th>
 			<th>Price</th>
@@ -27,17 +29,25 @@
 				<td>${tourshedule.price}</td>
 				<td>${tourshedule.count}</td>
 				<td>
-					<my:Exec action="view" id="${tourshedule.id}" table="tourshedules" /><br />
-					<c:if test="${!empty loggeduser}"><c:if test="${loggeduser.admin}">
-						<my:Exec action="edit" id="${tourshedule.id}" table="tourshedules" /><br />
-						<my:Exec action="delete" id="${tourshedule.id}" table="tourshedules" /><br />
-					</c:if></c:if>
+					<ul>
+						<li>
+							<my:Exec action="view" id="${tourshedule.id}" table="tourshedules" />
+						</li>
+							<c:if test="${!empty loggeduser}"><c:if test="${loggeduser.admin}">
+								<li>
+									<my:Exec action="edit" id="${tourshedule.id}" table="tourshedules" />
+								</li>
+								<li>
+									<my:Exec action="delete" id="${tourshedule.id}" table="tourshedules" />
+								</li>
+							</c:if></c:if>
+					</ul>		
 				</td>	
 				
 			</tr>
 		</c:forEach>
 	</table>
 	<c:if test="${!empty loggeduser}"><c:if test="${loggeduser.admin}">
-	<my:Create table="tourshedules" masterId="${entityid}">Create new tour schedule</my:Create>
+	<my:Create table="tourshedules" masterId="${entityid}">сreate_new_tour_schedule</my:Create>
 	</c:if></c:if>	
 </x:page>

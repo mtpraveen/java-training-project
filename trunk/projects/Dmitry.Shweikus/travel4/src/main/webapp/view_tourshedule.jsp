@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="x" uri="../WEB-INF/simple.tld"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<fmt:setBundle basename="${bundle}"/>
 <x:page>
 	<my:FieldCaption>Tour:</my:FieldCaption>
 	${tour.name} 
@@ -15,7 +17,7 @@
 
 	<c:if test="${!empty loggeduser}">
 		<h3>Orders for this shedule</h3>
-		<table border="1">
+		<table class="mytable">
 			<tr>
 				<th>Date</th>
 				<th>Client</th>
@@ -44,11 +46,19 @@
 						</c:if>
 					</td>
 					<td>
-						<my:Exec action="view" id="${order.id}" table="orders" /><br />
-						<c:if test="${loggeduser.admin || loggeduser == user}">
-							<my:Exec action="edit" id="${order.id}" table="orders" /><br />
-							<my:Exec action="delete" id="${order.id}" table="orders" /><br />
-						</c:if>
+						<ul>
+							<li>
+								<my:Exec action="view" id="${order.id}" table="orders" />
+							</li>
+								<c:if test="${loggeduser.admin || loggeduser == user}">
+									<li>
+										<my:Exec action="edit" id="${order.id}" table="orders" />
+									</li>
+									<li>
+										<my:Exec action="delete" id="${order.id}" table="orders" />
+									</li>
+								</c:if>
+						</ul>
 					</td>	
 				</tr>
 			</c:forEach>

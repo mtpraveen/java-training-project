@@ -12,13 +12,13 @@
 	<my:FieldCaption>Last name: *</my:FieldCaption>
 	<input type="text" name="lastName" value="${client.lastName}" class="required" minlength="3"> 
 	<my:FieldCaption>Documents 1: *</my:FieldCaption>
-	<input type="text" name="document1" value="${client.document1}" class="required" minlength="3"> 
+	<input type="text" name="document1" value="${client.document1}" class="required" minlength="3">
 	<my:FieldCaption>Documents 2:</my:FieldCaption>
-	<input type="text" name="document2" value="${client.document2}"> 
+	<input type="text" name="document2" value="${client.document2}">
 	<my:FieldCaption>Documents 3:</my:FieldCaption>
-	<input type="text" name="document3" value="${client.document3}"> 
+	<input type="text" name="document3" value="${client.document3}">
 	<my:FieldCaption>Documents 4:</my:FieldCaption>
-	<input type="text" name="document4" value="${client.document4}"> 
+	<input type="text" name="document4" value="${client.document4}">
 	<my:FieldCaption>Description:</my:FieldCaption>
 	<input type="text" name="description" value="${client.description}">
 	<br> 

@@ -4,7 +4,7 @@
 package com.travel.services;
 
 import com.travel.dao.DiscountDao;
-import com.travel.web.utils.CrudAction;
+import com.travel.web.enums.CrudAction;
 
 /**
  * @author dima

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.travel.dao.UserDao;
 import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.User;
+import com.travel.web.enums.RequestMethod;
 import com.travel.web.utils.TravelSecurity;
 
 /**
@@ -116,5 +117,14 @@ public class UserAction extends AbstractAction
 	public void initParams(HttpServletRequest request, HttpServletResponse response)
 	{
 		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.travel.web.servlets.actions.AbstractAction#canProcessMethod(com.travel.web.enums.RequestMethod)
+	 */
+	@Override
+	public boolean canProcessMethod(RequestMethod requestMethod)
+	{
+		return true;
 	}
 }

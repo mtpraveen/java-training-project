@@ -6,6 +6,9 @@ package com.travel.pojo;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 /**
  * @author dima
  *
@@ -13,7 +16,10 @@ import java.sql.Date;
 public class Payment extends BaseEntity
 {
 	private long orderId;
+	@NotNull
+	@Min(value=0)
 	private BigDecimal amount;
+	@NotNull
 	private Date date;
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()

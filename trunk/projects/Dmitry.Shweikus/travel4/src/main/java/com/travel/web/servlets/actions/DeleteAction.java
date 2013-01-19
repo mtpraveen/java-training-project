@@ -20,7 +20,8 @@ import com.travel.db.ConnectionManager;
 import com.travel.exceptions.DbSqlException;
 import com.travel.exceptions.DeleteException;
 import com.travel.exceptions.InvalidRequest;
-import com.travel.web.utils.CrudAction;
+import com.travel.web.enums.CrudAction;
+import com.travel.web.enums.RequestMethod;
 import com.travel.web.utils.ServicesContainer;
 import com.travel.web.utils.TravelConsts;
 
@@ -124,6 +125,7 @@ public class DeleteAction extends AbstractAction
 			if (sql.executeQuery(detail, constrainBuilder.build(), null).size() > 0)
 				throw new DeleteException("Item has child items in table " + detail.getTableName());
 		}
+		servicesContainer.getService().checkCanDeleteRecord(id);
 		dao.delete(id);
 		sendRedirect("index",response);
 	}
@@ -144,6 +146,12 @@ public class DeleteAction extends AbstractAction
 		if (getPathParams().size() < 3)
 			throw new InvalidRequest("Invalid delete params count : " + getPathParams().size());
 		servicesContainer = TravelConsts.getServiceContainer(getPathParams().get(1),getUser());
+	}
+
+	@Override
+	public boolean canProcessMethod(RequestMethod requestMethod)
+	{
+		return requestMethod == RequestMethod.GET;
 	}
 
 }

@@ -12,6 +12,7 @@ import com.travel.exceptions.DbSqlException;
 import com.travel.exceptions.DeleteException;
 import com.travel.exceptions.InvalidRequest;
 import com.travel.exceptions.SaveException;
+import com.travel.web.enums.RequestMethod;
 
 /**
  * @author dima
@@ -43,6 +44,12 @@ public class AutentificationRequiredAction extends AbstractAction
 	public void initParams(HttpServletRequest request, HttpServletResponse response)
 	{
 		
+	}
+
+	@Override
+	public boolean canProcessMethod(RequestMethod requestMethod)
+	{
+		return true;
 	}
 
 }

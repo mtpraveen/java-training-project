@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.travel.web.utils;
+package com.travel.web.enums;
 
 /**
  * @author dima

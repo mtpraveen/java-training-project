@@ -3,12 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="x" uri="WEB-INF/simple.tld"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<fmt:setBundle basename="${bundle}"/>
 <x:page>
-	<table border="1">
+	<table class="mytable">
 		<tr>
-			<th>Name</th>
-			<th>Documents</th>
-			<th>Description</th>
+			<th><fmt:message key="name"/></th>
+			<th><fmt:message key="documents"/></th>
+			<th><fmt:message key="description"/></th>
 			<th>&nbsp;</th>
 		</tr>
 		<c:forEach items="${items}" var="client">
@@ -22,13 +24,21 @@
 				</td>
 				<td>${client.description}</td>
 				<td>
-					<my:Exec action="view" id="${client.id}" table="clients" /><br />
-					<my:Exec action="edit" id="${client.id}" table="clients" /><br />
-					<my:Exec action="delete" id="${client.id}" table="clients" /><br />
+					<ul>
+						<li>
+							<my:Exec action="view" id="${client.id}" table="clients" />
+						</li>	
+						<li>
+							<my:Exec action="edit" id="${client.id}" table="clients" />
+						</li>	
+						<li>
+							<my:Exec action="delete" id="${client.id}" table="clients" />
+						</li>	
+					</ul>
 				</td>	
 			</tr>
 		</c:forEach>
 	</table>
 	<br />
-	<my:Create table="clients">Create new client</my:Create>
+	<my:Create table="clients">create_new_client</my:Create>
 </x:page>

@@ -17,5 +17,6 @@ public class ActionNames
 	public static final String EDIT = "edit";	
 	public static final String NEW = "new"; 
 	public static final String SAVE = "save";
-	public static final String DELETE = "delete";	
+	public static final String DELETE = "delete";
+	public static final String LOCALE = "language";	
 }

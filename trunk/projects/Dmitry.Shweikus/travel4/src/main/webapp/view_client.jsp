@@ -14,7 +14,7 @@
 	<my:FieldCaption>Description:</my:FieldCaption>
 	${client.description}<br />
 	<h3>Client orders</h3>
-	<table border="1">
+	<table class="mytable">
 		<tr>
 			<th>Date</th>
 			<th>Tour</th>
@@ -44,14 +44,22 @@
 					</c:if>
 				</td>
 				<td>
-					<my:Exec action="view" id="${order.id}" table="orders" /><br />
+					<ul>
+						<li>
+							<my:Exec action="view" id="${order.id}" table="orders" />
+						</li>	
 					<c:if test="${loggeduser.admin || loggeduser == user}">
-						<my:Exec action="edit" id="${order.id}" table="orders" /><br />
-						<my:Exec action="delete" id="${order.id}" table="orders" /><br />
+						<li>
+							<my:Exec action="edit" id="${order.id}" table="orders" />
+						</li>	
+						<li>
+							<my:Exec action="delete" id="${order.id}" table="orders" />
+						</li>	
 					</c:if>
+					</ul>
 				</td>	
 			</tr>
 		</c:forEach>
 	</table>
-	<my:Create table="orders" masterId="${entityid}">Create new order</my:Create>
+	<my:Create table="orders" masterId="${entityid}">create_new_order</my:Create>
 </x:page>

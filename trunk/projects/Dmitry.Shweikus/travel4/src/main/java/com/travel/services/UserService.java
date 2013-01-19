@@ -4,7 +4,8 @@
 package com.travel.services;
 
 import com.travel.dao.UserDao;
-import com.travel.web.utils.CrudAction;
+import com.travel.exceptions.DeleteException;
+import com.travel.web.enums.CrudAction;
 
 /**
  * @author dima
@@ -29,5 +30,15 @@ public class UserService extends MyAbstractWebService<UserDao>
 	public boolean hasRights(CrudAction crudAction)
 	{
 		return getServicesContainer().isUserAdmin();
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.travel.services.MyAbstractWebService#checkCanDeleteRecord(long)
+	 */
+	@Override
+	public void checkCanDeleteRecord(long id) throws DeleteException
+	{
+		if (id == getServicesContainer().getUser().getId())
+			throw new DeleteException("You cannot delete self");
 	}
 }

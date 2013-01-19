@@ -8,6 +8,8 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.travel.web.enums.RequestMethod;
+
 /**
  * @author dima
  *
@@ -35,5 +37,10 @@ public class DefaultAction extends AbstractAction
 	public void initParams(HttpServletRequest request, HttpServletResponse response)
 	{
 		
+	}
+	@Override
+	public boolean canProcessMethod(RequestMethod requestMethod)
+	{
+		return true;
 	}
 }
