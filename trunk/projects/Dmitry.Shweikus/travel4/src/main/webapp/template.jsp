@@ -40,11 +40,11 @@ function confirmDelete()
 				<fmt:param value="${loggeduser.name}"/>
 			</fmt:message> 
 			<c:url value="logout" var="logoutUrl" />
-			<a href="${logoutUrl}"><fmt:message key="logout"/></a>
+			<a href="${logoutUrl}" id="logout"><fmt:message key="logout"/></a>
 		</c:if> 
 		<c:if test="${empty loggeduser}">
 			<c:url value="login" var="loginUrl" />
-			<a href="${loginUrl}"><fmt:message key="login"/></a>
+			<a href="${loginUrl}" id="login"><fmt:message key="login"/></a>
 		</c:if>
 		&nbsp;
 		<c:url value="language-en" var="langurl" />
