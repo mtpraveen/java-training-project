@@ -9,13 +9,16 @@ import com.travel.dao.ClientDao;
 import com.travel.dao.DiscountDao;
 import com.travel.dao.OrderDao;
 import com.travel.dao.PaymentDao;
+import com.travel.dao.TourSheduleDao;
 import com.travel.dao.extenders.OrdersDaoExtender;
 import com.travel.dao.extenders.OrdersExtender;
 import com.travel.dao.extenders.TourSheduleDaoExtender;
 import com.travel.exceptions.DbSqlException;
+import com.travel.exceptions.SaveException;
 import com.travel.pojo.Client;
 import com.travel.pojo.Discount;
 import com.travel.pojo.Order;
+import com.travel.pojo.TourShedule;
 import com.travel.web.beans.CalendarWrapper;
 import com.travel.web.enums.CrudAction;
 
@@ -23,7 +26,7 @@ import com.travel.web.enums.CrudAction;
  * @author dima
  *
  */
-public class OrderService extends MyAbstractWebService<OrderDao>
+public class OrderService extends MyAbstractWebService<Order>
 {
 	@Override
 	public OrderDao createDao()
@@ -105,7 +108,21 @@ public class OrderService extends MyAbstractWebService<OrderDao>
 	@Override
 	public boolean hasRights(CrudAction crudAction)
 	{
-		//TODO : check here order owner
 		return getServicesContainer().getUser() != null;
+	}
+	
+	@Override
+	public void validateNewItem(Order item) throws SaveException, DbSqlException
+	{
+		OrderDao orderDao = new OrderDao();
+		TourSheduleDao sheduleDao = new TourSheduleDao();
+		TourShedule shedule = sheduleDao.findById(item.getArrivalId());
+		int totalCount = 0;
+		for (Order order : orderDao.findOrdersByShedule(shedule.getId()))
+		{
+			totalCount += order.getCount();
+		}
+		if (item.getCount() > shedule.getCount() - totalCount)
+			throw new SaveException("Invalid count : " + item.getCount() + " > " + (shedule.getCount() - totalCount));
 	}
 }

@@ -73,4 +73,11 @@ public class UserDao extends BaseDao<User>
 		}
 		return null;
 	}
+	public List<User> findUsersByLogin(String login) throws DbSqlException
+	{
+		String condition = "WHERE (login = ?)";
+		List<Object> params = new ArrayList<>();
+		params.add(login);
+		return  findAllWithCondition(condition, params);
+	}
 }

@@ -124,12 +124,10 @@ public class UserAction extends AbstractAction
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see com.travel.web.servlets.actions.AbstractAction#canProcessMethod(com.travel.web.enums.RequestMethod)
-	 */
 	@Override
 	public boolean canProcessMethod(RequestMethod requestMethod)
 	{
 		return true;
 	}
+
 }

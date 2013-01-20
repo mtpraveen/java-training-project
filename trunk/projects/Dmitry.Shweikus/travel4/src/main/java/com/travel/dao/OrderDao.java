@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.Client;
@@ -76,5 +77,11 @@ public class OrderDao extends BaseDao<Order>
 	{
 		return createConcrete(new Object[] { client.getId(), arrivalShedule.getId(), user.getId(),
 				date, count, total_price, description, finished, finish_date });
+	}
+	
+	public List<Order> findOrdersByShedule(long sheduleId) throws DbSqlException
+	{
+		String condition = "(id_tourshedule = " + String.valueOf(sheduleId) + ")";
+		return findAllWithCondition(condition, null);
 	}
 }
