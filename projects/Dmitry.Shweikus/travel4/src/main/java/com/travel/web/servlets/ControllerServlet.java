@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import com.travel.dao.UserDao;
 import com.travel.exceptions.DbSqlException;
 import com.travel.exceptions.DeleteException;
@@ -24,13 +27,22 @@ import com.travel.web.servlets.dispatcher.RequestDispatcher;
  */
 public class ControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private static final String bundleName="i18n.messages";   
+    private static final String bundleName="i18n.messages";
+	private static final Logger LOGGER = Logger.getLogger(ControllerServlet.class);
+
+
     /**
      * @see HttpServlet#HttpServlet()
      */
     public ControllerServlet() {
         super();
-        // TODO Auto-generated constructor stub
+    }
+    
+    @Override
+    public void init() throws ServletException
+    {
+    	super.init();
+        LOGGER.info("Server started");
     }
 
 	private User loadUser(HttpServletRequest request, HttpServletResponse response)
@@ -154,6 +166,10 @@ public class ControllerServlet extends HttpServlet {
 			String template = "error.jsp";
 			request.setAttribute("errorMessage", e.getMessage());
 			request.getRequestDispatcher("/" + template).forward(request, response);
+			LOGGER.error("Standard error : ", e);
+		}
+		catch (Exception e) {
+			LOGGER.error("Unknown error : ", e);
 			throw new ServletException(e);
 		}
 	}

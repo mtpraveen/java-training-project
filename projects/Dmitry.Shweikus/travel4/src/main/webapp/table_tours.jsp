@@ -40,6 +40,6 @@
 	</table>
 	<c:if test="${!empty loggeduser}"><c:if test="${loggeduser.admin}">
 		<br />
-		<my:Create table="tours">сreate_new_tour</my:Create>
+		<my:Create table="tours">create_new_tour</my:Create>
 	</c:if></c:if>	
 </x:page>

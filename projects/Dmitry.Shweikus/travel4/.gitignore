@@ -2,3 +2,4 @@
 /build/*
 /tomcat.5000/*
 .svn
+/application.log

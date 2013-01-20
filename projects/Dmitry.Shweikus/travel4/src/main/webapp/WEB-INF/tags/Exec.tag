@@ -17,7 +17,7 @@
 </c:if>
 <c:if test="${action == 'show'}">
 	<c:url value="show-${table}" var="editurl"/>
-	<a href="${editurl}"><fmt:message key="${label}"/></a>
+	<a href="${editurl}" id="${label}"><fmt:message key="${label}"/></a>
 </c:if>
 <c:if test="${action == 'delete'}">
 	<c:url value="delete-${table}-${id}" var="editurl"/>

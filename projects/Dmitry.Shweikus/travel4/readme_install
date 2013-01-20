@@ -1,0 +1,9 @@
+1)Create environment variable CLEARDB_DATABASE_URL with url to mysql e.g.
+mysql://root:root@localhost/heroku_e314c3e5a6773c1?reconnect=true
+real url for amazon database cloud stored in file db-url.rar
+
+[optional]2)Create environment variable PORT with value 5000. Default applicaton port is 8080
+
+3)if you have an ClassNotFoundException for mysql driver, then put mysql-connector-java-5.1.19-bin.jar into
+%tomcat%/lib directory. This is needed only if you run application from eclipse.
+With maven in tomcatEmbedded you don't need do it.

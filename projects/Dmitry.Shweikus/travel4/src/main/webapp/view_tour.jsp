@@ -48,6 +48,6 @@
 		</c:forEach>
 	</table>
 	<c:if test="${!empty loggeduser}"><c:if test="${loggeduser.admin}">
-	<my:Create table="tourshedules" masterId="${entityid}">сreate_new_tour_schedule</my:Create>
+	<my:Create table="tourshedules" masterId="${entityid}">create_new_tour_schedule</my:Create>
 	</c:if></c:if>	
 </x:page>

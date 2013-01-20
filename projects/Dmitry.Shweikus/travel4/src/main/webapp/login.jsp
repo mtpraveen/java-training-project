@@ -8,7 +8,10 @@
 	</c:if>
 	<c:url value="login" var="loginUrl"/>
 	<FORM action="${loginUrl}" method="post">
-		Login <BR /> <INPUT type="text" name="login" value="${login}"/> <BR /> Password <BR />
-		<INPUT type="password" name="password" /><BR /> <INPUT type="submit" />
+		Login <BR /> 
+		<INPUT type="text" name="login" value="${login}"/> <BR /> 
+		Password <BR />
+		<INPUT type="password" name="password" /><BR /> 
+		<INPUT type="submit" />
 	</FORM>
 </x:page>

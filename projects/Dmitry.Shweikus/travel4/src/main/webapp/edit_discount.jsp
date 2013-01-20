@@ -8,9 +8,9 @@
 	<input type="hidden" value="${entityid}" name="id"/>
 	<input type="hidden" value="discounts" name="table"/>
 	<my:FieldCaption>Threshold: *</my:FieldCaption>
-	<input type="text" name="threshold" value="${discount.threshold}" class="required number" min="0">
+	<input type="text" name="threshold" id="threshold" value="${discount.threshold}" class="required number" min="0">
 	<my:FieldCaption>Percent: *</my:FieldCaption>
-	<input type="text" name="percent" value="${discount.percent}" class="required digits" min="0" max="100">
+	<input type="text" name="percent" id="percent" value="${discount.percent}" class="required digits" min="0" max="100">
 	<br/><input type="checkbox" name="active" value="on" <c:if test="${discount.active}">checked</c:if>> Active <br />
 	<input type="submit">
 </form>

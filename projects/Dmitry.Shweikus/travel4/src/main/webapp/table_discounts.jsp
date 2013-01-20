@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <fmt:setBundle basename="${bundle}"/>
 <x:page>
-	<table class="mytable">
+	<table class="mytable" id="discountstable">
 		<tr>
 			<th><fmt:message key="threshold"/></th>
 			<th><fmt:message key="percent"/></th>
@@ -41,6 +41,6 @@
 	</table>
 	<c:if test="${loggeduser.admin}">
 		<br />
-		<my:Create table="discounts">сreate_new_discount</my:Create>
+		<my:Create table="discounts">create_new_discount</my:Create>
 	</c:if>	
 </x:page>

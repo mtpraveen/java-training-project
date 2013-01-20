@@ -9,6 +9,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.travel.dao.UserDao;
 import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.User;
@@ -21,6 +23,7 @@ import com.travel.web.utils.TravelSecurity;
  */
 public class UserAction extends AbstractAction
 {
+	private static final Logger LOGGER = Logger.getLogger(UserAction.class);
 	@Override
 	public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, DbSqlException 
 	{
@@ -44,8 +47,8 @@ public class UserAction extends AbstractAction
 			if(request.getMethod().equalsIgnoreCase("POST"))
 			{
 				String login = request.getParameter("login");
-				String password = request.getParameter("password");
-				password = TravelSecurity.hashPassword(password);
+				String passwordRaw = request.getParameter("password");
+				String password = TravelSecurity.hashPassword(passwordRaw);
 				UserDao dao = new UserDao();
 				User user = dao.findUserByLoginAndPassword(login, password);
 				if (user == null)
@@ -63,6 +66,7 @@ public class UserAction extends AbstractAction
 					response.addCookie(cookie);
 
 					request.setAttribute("err", "Invalid password or login.");
+					LOGGER.info("Invalid password or login [" + login + "],[" + password + "][" + passwordRaw + "]");
 				}
 				else
 				{
@@ -80,6 +84,7 @@ public class UserAction extends AbstractAction
 					
 					sendRedirect("index",response);
 					//request.getRequestDispatcher("index.jsp").forward(request, response);
+					LOGGER.info("Successfull login [" + login + "]");
 				}
 			}
 			else if(request.getMethod().equalsIgnoreCase("GET"))
