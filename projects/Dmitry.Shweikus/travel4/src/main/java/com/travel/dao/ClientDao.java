@@ -6,6 +6,8 @@ package com.travel.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.Client;
@@ -62,5 +64,13 @@ public class ClientDao extends BaseDao<Client>
 	public Client create(String firstname, String lastname, String document1, String document2, String document3, String document4, String description) throws DbSqlException
 	{
 		return createConcrete(new Object[]{firstname,lastname,document1,document2,document3,document4,description});
+	}
+	public List<Client> findByName(String firstName,String lastName) throws DbSqlException
+	{
+		String condition = "(firstname = ?) AND (lastname = ?)";
+		List<Object> params = new ArrayList<>();
+		params.add(firstName);
+		params.add(lastName);
+		return findAllWithCondition(condition, params);
 	}
 }

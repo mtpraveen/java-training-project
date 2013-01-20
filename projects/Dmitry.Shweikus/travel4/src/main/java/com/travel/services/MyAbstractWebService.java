@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.travel.dao.BaseDao;
 import com.travel.exceptions.DbSqlException;
 import com.travel.exceptions.DeleteException;
+import com.travel.exceptions.SaveException;
+import com.travel.pojo.BaseEntity;
 import com.travel.web.enums.CrudAction;
 import com.travel.web.utils.ServicesContainer;
 import com.travel.web.utils.TravelConsts;
@@ -16,9 +18,9 @@ import com.travel.web.utils.TravelConsts;
  * @author dima
  *
  */
-public abstract class MyAbstractWebService<T extends BaseDao>
+public abstract class MyAbstractWebService<T extends BaseEntity>
 {
-	abstract public T createDao();
+	abstract public BaseDao<? extends T> createDao();
 	private ServicesContainer servicesContainer;
 	public abstract boolean hasRights(CrudAction crudAction);
 	public void setParamsForTableView(HttpServletRequest request) throws DbSqlException
@@ -82,6 +84,14 @@ public abstract class MyAbstractWebService<T extends BaseDao>
 	}
 	public void checkCanDeleteRecord(long id) throws DeleteException
 	{
-		//do nothing
+		//default do nothing 
+	}
+	public void validateNewItem(T item) throws SaveException, DbSqlException
+	{
+		//default do nothing 
+	}
+	public void validateSavedItem(T item) throws DbSqlException, SaveException
+	{
+		//default do nothing 
 	}
 }

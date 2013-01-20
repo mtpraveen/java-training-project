@@ -315,6 +315,7 @@ public class UpdateAction extends AbstractAction
 			entitySaver.setFields();
 			entitySaver.setNewFields();
 			validate(entitySaver.entity);
+			servicesContainer.getService().validateNewItem(entitySaver.entity);
 			entitySaver.entity = dao.create(entity);
 		}
 		else
@@ -324,6 +325,7 @@ public class UpdateAction extends AbstractAction
 			entitySaver.entity = entity;
 			entitySaver.setFields();
 			validate(entitySaver.entity);
+			servicesContainer.getService().validateSavedItem(entitySaver.entity);
 			dao.update(entity);
 		}
         sendRedirect(entitySaver.getRedirectUrl(),response);

@@ -15,7 +15,7 @@ import com.travel.web.enums.CrudAction;
  * @author dima
  *
  */
-public class TourService extends MyAbstractWebService<TourDao>
+public class TourService extends MyAbstractWebService<Tour>
 {
 	@Override
 	public TourDao createDao()

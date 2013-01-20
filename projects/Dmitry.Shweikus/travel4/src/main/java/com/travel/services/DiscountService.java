@@ -4,13 +4,14 @@
 package com.travel.services;
 
 import com.travel.dao.DiscountDao;
+import com.travel.pojo.Discount;
 import com.travel.web.enums.CrudAction;
 
 /**
  * @author dima
  *
  */
-public class DiscountService extends MyAbstractWebService<DiscountDao>
+public class DiscountService extends MyAbstractWebService<Discount>
 {
 	@Override
 	public DiscountDao createDao()
