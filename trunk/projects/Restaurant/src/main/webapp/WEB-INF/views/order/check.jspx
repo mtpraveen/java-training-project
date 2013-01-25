@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:form="http://www.springframework.org/tags/form" version="2.0">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:message code="label_dish_name" var="labelDishName" />
+	<spring:message code="label_dish_cost" var="labelDishCost" />
+	<spring:message code="label_order_total_cost" var="totalCost" />
+	<spring:message code="label_order_address" var="address" />
+	<spring:message code="label_order_information" var="information" />
+	<spring:message code="label_check" var="checkLabel" />
+	<spring:message code="label_delete_order" var="deleteOrder" />
+	<spring:url value="/order/delete" var="urlDeleteOrder"></spring:url>
+
+	<div id="check">
+		<c:if test="${not empty message}">
+			<div id="message" class="${message.type}">${message.message}</div>
+		</c:if>
+		<form:form modelAttribute="order" id="createUserForm">
+			<h1>${checkLabel }</h1>
+			<c:if test="${not empty order.dishes}">
+
+				<table>
+					<thead>
+						<tr>
+							<th>${labelDishName}</th>
+							<th>${labelDishCost}</th>
+						</tr>
+					</thead>
+					<c:forEach items="${order.dishes}" var="dish">
+						<tr>
+							<td>${dish.nameDish}</td>
+							<td>${dish.cost}</td>
+						</tr>
+					</c:forEach>
+				</table>
+				${totalCost } ${order.cost}
+				<p />
+				${address } ${order.adress}
+				<p />
+				${information }
+				<p />
+			</c:if>
+			<input type="button" class="button" value="${deleteOrder }"
+					onclick="location.href='${urlDeleteOrder }/${order.id}'" />
+		</form:form>
+	</div>
+
+</div>
