@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:form="http://www.springframework.org/tags/form" version="2.0">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:message code="label_login" var="labelLogin" />
+	<spring:message code="label_password" var="labelPassword" />
+	<spring:message code="label_name" var="labelName" />
+	<spring:message code="label_surname" var="labelSurname" />
+	<spring:message code="label_telephone" var="labelTel" />
+	<spring:message code="label_adress" var="labelAdress" />
+	<spring:message code="label_card_number" var="labelCard" />
+	<spring:message code="label_save" var="saveButton" />
+	<spring:message code="Label_change_password" var="changePassword" />
+	<spring:message code="login_is_busy" var="loginIsBusy" />
+	<spring:message code="login_is_not_busy" var="loginIsNotBusy" />
+	<spring:message code="label_create_user" var="labelCreateUser" />
+	<spring:message code="validation_login_size" var="irregularLogin" />
+	<spring:message code="validation_password_size" var="irregularPassword" />
+	<spring:message code="validation_surname_size" var="irregularSurname" />
+	<spring:message code="validation_name_size" var="irregularName" />
+	<spring:message code="validation_telephone" var="irregularTelephone" />
+	
+	
+	<spring:url value="/user/changepassword" var="userChangePassword" />
+
+	<script language="javascript" type="text/javascript">
+		var request = new XMLHttpRequest();
+
+		function callServer() {
+			var login = document.getElementById("userlogin").value;
+			var url = "http://localhost:8080/webproject/user/create/checklogin";
+			request.open("POST", url, true);
+			request.onreadystatechange = updatePage;
+			request.send(login);
+		}
+
+		function updatePage() {
+			if (request.readyState == 4) {
+				if (request.status == 200) {
+					var checkResult = document.getElementById("checkResult");
+					var button = document.getElementById("saveButton");
+					if (request.responseText.toString()=="1".toString()) {
+						checkResult.value = "${loginIsBusy}";
+						checkResult.style.color = "red";
+						button.disabled=true;
+					}
+					else {
+						checkResult.value = "${loginIsNotBusy}";	
+						checkResult.style.color = "green";
+						button.disabled=false;
+					}
+				}
+			}
+		}
+	</script>
+	<body onload="document.getElementById('userlogin').focus()">
+	<div id="createUser">
+	
+		<form:form modelAttribute="user" id="createUserForm" name="createUserForm" method="post">
+			<c:if test="${not empty message}">
+				<div id="message" class="${message.type}">${message.message}</div>
+			</c:if>
+			<h1>${labelCreateUser }</h1>
+			<label>${labelLogin}:*</label>
+			<form:input path="login" id="userlogin" name="userlogin"
+				onChange="callServer(); isLengthBetween(this, 3, 20, 'errorLogin', '${irregularLogin}')" />
+			<input type="text" id="checkResult" style="border: 1px solid white"
+				readonly="readonly" />
+			<div>
+				<form:errors path="login" cssClass="error" id="formError"></form:errors>
+			</div>
+			<p ALIGN="left" id="errorLogin"></p>
+			<p />
+			<label>${labelPassword}:*</label>
+			<form:input type="password" path="password" onChange="isLengthBetween(this, 6, 20, 'errorPassword', '${irregularPassword}')"/>
+			<div>
+				<form:errors path="password" cssClass="error"></form:errors>
+			</div>
+			<p ALIGN="left" id="errorPassword"></p>
+			<p />
+			<label>${labelName}:*</label>
+			<form:input path="name" onChange="isLengthBetween(this, 2, 40, 'errorName', '${irregularName}')"/>
+			<div>
+				<form:errors path="name" cssClass="error"></form:errors>
+			</div>
+			<p ALIGN="left" id="errorName"></p>
+			<p />
+			<label>${labelSurname}:*</label>
+			<form:input path="surname"  onChange="isLengthBetween(this, 2, 40, 'errorSurname', '${irregularSurname}')"/>
+			<div>
+				<form:errors path="surname" cssClass="error" />
+			</div>
+			<p ALIGN="left" id="errorSurname"></p>
+			<p />
+			<label>${labelTel}:*</label>
+			<form:input path="telephone" />
+			<div>
+				<form:errors path="telephone" cssClass="error"></form:errors>
+			</div>
+			<p ALIGN="left" id="errorTelephone"></p>
+			<p />
+			<label>${labelAdress}:</label>
+			<form:textarea cols="30" rows="2" path="adress"/>
+			<div>
+				<form:errors path="adress" cssClass="error"></form:errors>
+			</div>
+			<p />
+			<label>${labelCard}:</label>
+			<form:input path="cardNumber"/>
+			<div>
+				<form:errors path="cardNumber" cssClass="error"></form:errors>
+			</div>
+			<p />
+			<button type="submit" id="saveButton">${saveButton }</button>
+		</form:form>
+		
+	</div>
+	</body>
+</div>
