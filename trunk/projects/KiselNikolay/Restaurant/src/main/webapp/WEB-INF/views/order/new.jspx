@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:form="http://www.springframework.org/tags/form" version="2.0">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:message code="label_dish_name" var="labelDishName" />
+	<spring:message code="label_dish_ingredients"
+		var="labelDishIngredients" />
+	<spring:message code="label_dish_cost" var="labelDishCost" />
+	<spring:message code="label_dish_list" var="labelDishList" />
+	<spring:message code="label_title_new_order" var="TitleOrder" />
+	<spring:message code="label_order_date" var="labelOrderDate" />
+	<spring:message code="label_order_hour" var="labelOrderHour" />
+	<spring:message code="label_button_order" var="MakeOrder" />
+	<spring:message code="label_adress" var="labelAdress" />
+	<spring:message code="label_card_number" var="labelCard" />
+	<spring:message code="label_total_price" var="labelTotalPrice" />
+	<spring:message code="typeMismatch.dishes.date" var="irregularFormatDate" />
+	<spring:message code="validation.date.Future.message" var="dateInThePast" />
+	<spring:message code="validation.adress.NotNull.message" var="addressNotNull" />
+	<spring:message code="validation.cardNumber.NotNull.message" var="cardNumberNotNull" />
+	<spring:message code="validation.cardNumber.Size.message" var="cardNumberIrregularSize"></spring:message>
+	
+	
+	
+	<spring:url value="/dishes" var="showDish" />
+
+	<script type="text/javascript">
+		$(function() {
+			$('#date').datepicker({
+				dateFormat : 'yy-mm-dd',
+				changeYear : true
+			});
+		});
+	</script>
+
+	<script language="javascript" type="text/javascript">
+		//<![CDATA[   
+		var totalPrice=0;
+
+		function calculatePrice(price, nameDish) {
+			var dishes= document.newOrderForm.nameDishes;
+			var i=0;
+			while (dishes[i].value != nameDish) {
+				i++;
+			}
+			if (dishes[i].checked)
+				totalPrice = totalPrice + Number(price);
+			else
+				totalPrice = totalPrice - Number(price);
+			document.getElementById("totalPrice").value = totalPrice;
+		}
+		
+		
+		//]]>
+	</script>
+
+	<c:if test="${not empty message}">
+		<div id="message" class="${message.type}">${message.message}</div>
+	</c:if>
+	<h1>${TitleOrder}</h1>
+	<div id="newOrder">
+		<form:form modelAttribute="dishes" id="newOrderForm" name="newOrderForm" method="post">
+			<c:if test="${not empty alldishes}">
+				<c:forEach items="${sections}" var="section">
+					<p />
+					<p />
+					<b><font size="3" face="Verdana" >${section.nameSection}</font></b>
+					<table>
+						<thead>
+							<tr>
+								<th>${labelDishName}</th>
+								<th>${labelDishIngredients}</th>
+								<th>${labelDishCost}</th>
+								<th>${MakeOrder }</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${alldishes}" var="dish">
+								<c:if test="${dish.section==section}">
+									<tr>
+										<td><a href="${showDish}/${dish.nameDish}" />${dish.nameDish}</td>
+										<td>${dish.ingredients}</td>
+										<td>${dish.cost}</td>
+										<td width="5" height="3"><form:checkbox path="nameDishes" id="nameDishes" name="nameDishes"
+												value="${dish.nameDish}" label="" onChange="calculatePrice('${dish.cost}', '${dish.nameDish }');" /></td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</tbody>
+					</table>
+				</c:forEach>
+				<p />
+				<label>${labelTotalPrice }</label>
+				<input type="text" id="totalPrice" style="border: 1px solid white;color:#0000ff" 
+					readonly="readonly" />
+				<p />
+				<label>${labelOrderDate}:*</label>
+				<form:input path="date" id="date" onChange="isDate(this, 'errorDate', '${irregularFormatDate}', '${dateInThePast}')"/>
+				<div>
+					<form:errors path="date" cssClass="error"></form:errors>
+				</div>
+				<P ALIGN="left" id="errorDate"></P>
+				<p />
+				<label>${labelOrderHour }:*</label>
+				<form:select path="hour" items="${hours }"/>
+				<!-- <form:input path="hour" /> -->
+				<div>
+					<form:errors path="hour" cssClass="error"></form:errors>
+				</div>
+				<p />
+				<label>${labelAdress }:*</label>
+				<form:textarea cols="30" rows="2" path="adress" onChange="isNotNull(this, 'errorAddress', '${addressNotNull}')"/>
+				<div>
+					<form:errors path="adress" cssClass="error"></form:errors>
+				</div>
+				<P ALIGN="left" id="errorAddress"></P>
+				<p />
+				<label>${labelCard }:*</label>
+				<form:input path="cardNumber" onChange="isLengthBetween(this, 5, 40, 'errorCardNumber', '${cardNumberIrregularSize }')"/>
+				<div>
+					<form:errors path="cardNumber" cssClass="error"></form:errors>
+				</div>
+				<P ALIGN="left" id="errorCardNumber"></P>
+				<p />
+			</c:if>
+			<!-- <form:input path="nameDish" />-->
+			<button type="submit">${MakeOrder }</button>
+		</form:form>
+	</div>
+</div>
