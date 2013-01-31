@@ -44,7 +44,8 @@ public class LoginServlet extends HttpServlet {
 		try {
 			UserManager.doLogin(request, response);
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
+			request.setAttribute("errormessage", e.getMessage());
+			request.getRequestDispatcher("/errorPage").forward(request, response);
 			e.printStackTrace();
 		}
 		request.getRequestDispatcher("index.jsp").forward(request, response);

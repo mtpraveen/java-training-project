@@ -23,7 +23,7 @@
 	<c:if test="${empty role}">
 		<jsp:forward page="/index.jsp">
 			<jsp:param value="Please log in!" name="err"/>
-		</jsp:forward>
+		</jsp:forward>	
 	</c:if>
 	<fmt:setLocale value="${currentLanguage }" />
 	<fmt:setBundle basename="text" />

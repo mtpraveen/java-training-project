@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="/WEB-INF/tags/security.tld" prefix="sec"%>
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -33,7 +34,6 @@
 			<c:if test="${!empty err}"> ${err} <br></c:if>
 				<c:if test="${!empty param.err}"> ${param.err} <br>
 			</c:if>
-
 			<form action="LoginServlet" method="post" name="LoginForm">
 				<fmt:message key="LOGIN" />
 				<br> <input type="text" name="usersLogin"><br>
