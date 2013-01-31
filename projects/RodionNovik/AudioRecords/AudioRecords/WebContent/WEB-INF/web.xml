@@ -9,20 +9,10 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  <jsp-config>
-    <taglib>
-      <taglib-uri>/WEB-INF/security.tld</taglib-uri>
-      <taglib-location>/WEB-INF/security.tld</taglib-location>
-    </taglib>
-  </jsp-config>
-  <security-role>
-    <role-name>admin</role-name>
-  </security-role>
-  <security-role>
-    <role-name>user</role-name>
-  </security-role>
+
+
   <servlet>
-    <display-name>LoginServlet</display-name>
+    <display-name>Login</display-name>
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>com.epam.servlets.LoginServlet</servlet-class>
   </servlet>
@@ -75,8 +65,9 @@
     <servlet-name>LogOutServlet</servlet-name>
     <url-pattern>/LogOut</url-pattern>
   </servlet-mapping>
+  
   <error-page>
     <error-code>404</error-code>
-    <location>/errorPage.jsp</location>
+    <location>/error404Page.jsp</location>
   </error-page>
 </web-app>

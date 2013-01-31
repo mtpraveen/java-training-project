@@ -12,12 +12,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class DataManager {
+	private static Connection con;
+	private static Statement st;
+	
+	static {
+		try {
+			Class.forName("org.gjt.mm.mysql.Driver");
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost/myprojectdb", "root", "1234");
+			st = con.createStatement();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public static void getAllRecords(HttpServletRequest request,
 			HttpServletResponse response) throws ClassNotFoundException, SQLException, IOException {
-		Class.forName("org.gjt.mm.mysql.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost/myprojectdb", "root", "1234"); 
-		Statement st = con.createStatement();
 		ResultSet rs = st.executeQuery("SELECT * FROM records");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
@@ -31,9 +43,6 @@ public class DataManager {
 
 	public static void searchRecords(HttpServletRequest request,
 			HttpServletResponse response) throws ClassNotFoundException, SQLException, IOException {
-		Class.forName("org.gjt.mm.mysql.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost/myprojectdb", "root", "1234"); 
-		Statement st = con.createStatement();
 		int n=0;
 		String query="SELECT * FROM records";
 		if(!request.getParameterValues("searchingName")[0].equals(""))
@@ -92,7 +101,6 @@ public class DataManager {
 		}
 		out.print("</table>");
 */
-		// start
 		ResultSet rs = st.executeQuery(query);
 		String resultStr="";
 		resultStr+="<table width=\"70%\" border=\"1\">";
@@ -104,15 +112,10 @@ public class DataManager {
 		}
 		resultStr+="</table>";
 		request.setAttribute("df", resultStr);
-		
-		//end
 	}
 
 	public static void MakeAnAssessment(String recordId,
 			String usersAssessment, String login) throws ClassNotFoundException, SQLException {
-		Class.forName("org.gjt.mm.mysql.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost/myprojectdb", "root", "1234"); 
-		Statement st = con.createStatement();
 		st.executeUpdate("INSERT INTO assessments (Login, idRecord, assessment) VALUES (\""+login+"\",\""+recordId+"\",\""+usersAssessment+"\")");	
 	}
 

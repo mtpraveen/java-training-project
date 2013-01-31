@@ -14,6 +14,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class UserManager {
+	private static Connection con;
+	private static Statement st;
+	
+	static {
+		try {
+			Class.forName("org.gjt.mm.mysql.Driver");
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost/myprojectdb", "root", "1234");
+			st = con.createStatement();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 		
 	public static void doLogin(HttpServletRequest request,
 			HttpServletResponse response) throws ClassNotFoundException,
@@ -21,11 +36,7 @@ public class UserManager {
 		String usersLogin = request.getParameterValues("usersLogin")[0];
 		String usersPassword = cipherPassword(request.getParameterValues("usersPassword")[0]);
 		if (usersLogin!=null && usersPassword!=null
-				&& isUserExist(usersLogin, usersPassword)) {
-			Class.forName("org.gjt.mm.mysql.Driver");
-			Connection con = DriverManager.getConnection(
-					"jdbc:mysql://localhost/myprojectdb", "root", "1234");
-			Statement st = con.createStatement();
+				&& isUserExist(usersLogin, usersPassword)) {		
 			ResultSet rs = st.executeQuery("SELECT Type FROM users WHERE Login=\""
 				+ usersLogin + "\" AND Password=\"" + usersPassword + "\"");
 			String role="";
@@ -47,10 +58,6 @@ public class UserManager {
 		String password = request.getParameterValues("usersPassword")[0];
 		if (password.equals(request.getParameterValues("passwordConfirm")[0])
 				&& !password.equals("")) {
-			Class.forName("org.gjt.mm.mysql.Driver");
-			Connection con = DriverManager.getConnection(
-					"jdbc:mysql://localhost/myprojectdb", "root", "1234");
-			Statement st = con.createStatement();
 			password = cipherPassword(password);
 			st.executeUpdate("INSERT INTO users (Login,Password,Type) VALUES (\""
 					+ login + "\",\"" + password + "\"" + ",\"user\")");
@@ -69,10 +76,6 @@ public class UserManager {
 	public static boolean isUserExist(String usersLogin, String usersPassword)
 			throws ClassNotFoundException, SQLException {
 		int count = 0;
-		Class.forName("org.gjt.mm.mysql.Driver");
-		Connection con = DriverManager.getConnection(
-				"jdbc:mysql://localhost/myprojectdb", "root", "1234");
-		Statement st = con.createStatement();
 		ResultSet rs = st.executeQuery("SELECT * FROM users WHERE Login=\""
 				+ usersLogin + "\" AND Password=\"" + usersPassword + "\"");
 		while (rs.next()) {
