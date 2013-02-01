@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.travel.exceptions.DbSqlException;
+import com.travel.pojo.Client;
 import com.travel.pojo.Discount;
 
 /**
@@ -30,30 +31,17 @@ public class DiscountDao extends BaseDao<Discount>
 	}
 
 	@Override
-	public Discount newEntity()
+	public Class<Discount> getEntityClass()
 	{
-		return new Discount();
+		return Discount.class;
 	}
 
-	@Override
-	public void readDataFromResultSet(Discount obj, ResultSet rs) throws SQLException
-	{
-		obj.setThreshold(rs.getDouble(getColumn(0)));
-		obj.setPercent(rs.getInt(getColumn(1)));
-		obj.setActive(rs.getBoolean(getColumn(2)));
-	}
-
-	@Override
-	public void saveDataToPreparedStatement(Discount obj, PreparedStatement ps)
-			throws SQLException
-	{
-		ps.setDouble(1, obj.getThreshold());
-		ps.setInt(2, obj.getPercent());
-		ps.setBoolean(3, obj.isActive());
-	}
-	
 	public Discount create(double threshold, int percent, boolean active) throws DbSqlException
 	{
-		return createConcrete(new Object[]{threshold,percent,active});
+		Discount discount = new Discount();
+		discount.setActive(active);
+		discount.setPercent(percent);
+		discount.setThreshold(threshold);
+		return create(discount);
 	}
 }

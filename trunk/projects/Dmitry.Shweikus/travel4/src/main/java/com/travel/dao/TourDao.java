@@ -6,10 +6,18 @@ package com.travel.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+
+import com.travel.db.ConnectionManager;
 import com.travel.enums.TransportKind;
 import com.travel.enums.TravelKind;
 import com.travel.exceptions.DbSqlException;
+import com.travel.pojo.Client;
 import com.travel.pojo.Tour;
 
 /**
@@ -18,8 +26,8 @@ import com.travel.pojo.Tour;
  */
 public class TourDao extends BaseDao<Tour>
 {
-	private final String[] columns = new String[] { "name", "transport_kind", "travel_kind",
-			"description", "required_documents", "days_count" };
+	private final String[] columns = new String[] { "name", "transportKind", "travelKind",
+			"description", "requiredDocuments", "daysCount" };
 
 	@Override
 	public String getTableName()
@@ -33,41 +41,32 @@ public class TourDao extends BaseDao<Tour>
 		return columns;
 	}
 
-	@Override
-	public Tour newEntity()
-	{
-		return new Tour();
-	}
-
-	@Override
-	public void readDataFromResultSet(Tour obj, ResultSet rs) throws SQLException
-	{
-		obj.setName(rs.getString(getColumn(0)));
-		obj.setTransportKind(TransportKind.valueOf(rs.getString(getColumn(1))));
-		obj.setTravelKind(TravelKind.valueOf(rs.getString(getColumn(2))));
-		obj.setDescription(rs.getString(getColumn(3)));
-		obj.setRequiredDocuments(rs.getString(getColumn(4)));
-		obj.setDaysCount(rs.getInt(getColumn(5)));
-
-	}
-
-	@Override
-	public void saveDataToPreparedStatement(Tour obj, PreparedStatement ps) throws SQLException
-	{
-		ps.setString(1, obj.getName());
-		ps.setString(2, obj.getTransportKind().toString());
-		ps.setString(3, obj.getTravelKind().toString());
-		ps.setString(4, obj.getDescription());
-		ps.setString(5, obj.getRequiredDocuments());
-		ps.setInt(6, obj.getDaysCount());
-	}
-
 	public Tour create(String name, TransportKind transport_kind, TravelKind travel_kind,
 			String description, String required_documents, int days_count)
 			throws DbSqlException
 	{
-		return createConcrete(new Object[] { name, transport_kind.toString(),
-				travel_kind.toString(), description, required_documents, days_count });
+		Tour tour = new Tour();
+		tour.setDaysCount(days_count);
+		tour.setDescription(description);
+		tour.setName(name);
+		tour.setRequiredDocuments(required_documents);
+		tour.setTransportKind(transport_kind);
+		tour.setTravelKind(travel_kind);
+		return create(tour);
+	}
+	
+	public List<Tour> findByName(String name) throws DbSqlException
+	{
+		Session session = ConnectionManager.getHibernateSession();
+		Criteria criteria = session.createCriteria(Tour.class);
+		criteria.add(Restrictions.eq("name", name));
+		return criteria.list();
+	}
+
+	@Override
+	public Class<Tour> getEntityClass()
+	{
+		return Tour.class;
 	}
 
 }

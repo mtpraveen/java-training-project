@@ -3,9 +3,20 @@
  */
 package com.travel.pojo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -13,12 +24,26 @@ import javax.validation.constraints.NotNull;
  * @author dima
  *
  */
-public class Payment extends BaseEntity
+@Entity
+@Table(name="payments")
+@NamedQueries(value = { @NamedQuery(name = "Payment.findByOrderId", 
+						  query = "SELECT x FROM Payment x WHERE x.order.id = :id"),
+						@NamedQuery(name = "Payment.findClientTotalPayments", 
+						  query = "SELECT SUM(x.amount) FROM Payment x WHERE x.order.client.id = :id") })
+public class Payment extends BaseEntity implements Serializable
 {
-	private long orderId;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="orderId")
+	@NotNull
+	private Order order;
 	@NotNull
 	@Min(value=0)
-	private BigDecimal amount;
+	private double amount;
 	@NotNull
 	private Date date;
 	/* (non-Javadoc)
@@ -29,9 +54,11 @@ public class Payment extends BaseEntity
 	{
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((amount == null) ? 0 : amount.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(amount);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + (int) (orderId ^ (orderId >>> 32));
+		result = prime * result + ((order == null) ? 0 : order.hashCode());
 		return result;
 	}
 	/* (non-Javadoc)
@@ -44,15 +71,10 @@ public class Payment extends BaseEntity
 			return true;
 		if (!super.equals(obj))
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Payment))
 			return false;
 		Payment other = (Payment) obj;
-		if (amount == null)
-		{
-			if (other.amount != null)
-				return false;
-		}
-		else if (!amount.equals(other.amount))
+		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
 			return false;
 		if (date == null)
 		{
@@ -61,37 +83,14 @@ public class Payment extends BaseEntity
 		}
 		else if (!date.equals(other.date))
 			return false;
-		if (orderId != other.orderId)
+		if (order == null)
+		{
+			if (other.order != null)
+				return false;
+		}
+		else if (!order.equals(other.order))
 			return false;
 		return true;
-	}
-	/**
-	 * @return the orderId
-	 */
-	public long getOrderId()
-	{
-		return orderId;
-	}
-	/**
-	 * @param orderId the orderId to set
-	 */
-	public void setOrderId(long orderId)
-	{
-		this.orderId = orderId;
-	}
-	/**
-	 * @return the amount
-	 */
-	public BigDecimal getAmount()
-	{
-		return amount;
-	}
-	/**
-	 * @param amount the amount to set
-	 */
-	public void setAmount(BigDecimal amount)
-	{
-		this.amount = amount;
 	}
 	/**
 	 * @return the date
@@ -106,5 +105,33 @@ public class Payment extends BaseEntity
 	public void setDate(Date date)
 	{
 		this.date = date;
+	}
+	/**
+	 * @return the order
+	 */
+	public Order getOrder()
+	{
+		return order;
+	}
+	/**
+	 * @param order the order to set
+	 */
+	public void setOrder(Order order)
+	{
+		this.order = order;
+	}
+	/**
+	 * @return the amount
+	 */
+	public double getAmount()
+	{
+		return amount;
+	}
+	/**
+	 * @param amount the amount to set
+	 */
+	public void setAmount(double amount)
+	{
+		this.amount = amount;
 	}
 }

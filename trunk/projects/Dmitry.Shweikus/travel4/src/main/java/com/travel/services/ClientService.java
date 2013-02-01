@@ -6,12 +6,10 @@ package com.travel.services;
 import javax.servlet.http.HttpServletRequest;
 
 import com.travel.dao.ClientDao;
-import com.travel.dao.UserDao;
-import com.travel.dao.extenders.OrdersDaoExtender;
+import com.travel.dao.OrderDao;
 import com.travel.exceptions.DbSqlException;
 import com.travel.exceptions.SaveException;
 import com.travel.pojo.Client;
-import com.travel.pojo.User;
 import com.travel.web.enums.CrudAction;
 
 /**
@@ -29,8 +27,7 @@ public class ClientService extends MyAbstractWebService<Client>
 	public void loadDetailItemsForSingleView(HttpServletRequest request) throws DbSqlException
 	{
 		Client client = (Client) request.getAttribute("client");
-		OrdersDaoExtender ordersDaoExtender = new OrdersDaoExtender();
-		request.setAttribute("orders", ordersDaoExtender.findClientOrders(client.getId()));
+		request.setAttribute("orders", new OrderDao().findOrdersByClient(client.getId()));
 	}
 	@Override
 	public boolean hasRights(CrudAction crudAction)

@@ -3,19 +3,27 @@
  */
 package com.travel.web.jwebunit;
 
-import static net.sourceforge.jwebunit.junit.JWebUnit.*;
-
-import javax.swing.text.StyledEditorKit.ItalicAction;
-
-import net.sourceforge.jwebunit.api.IElement;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertElementPresent;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertLinkPresent;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTableRowCountEquals;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTitleEquals;
+import static net.sourceforge.jwebunit.junit.JWebUnit.beginAt;
+import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
+import static net.sourceforge.jwebunit.junit.JWebUnit.getTable;
+import static net.sourceforge.jwebunit.junit.JWebUnit.setBaseUrl;
+import static net.sourceforge.jwebunit.junit.JWebUnit.setTextField;
+import static net.sourceforge.jwebunit.junit.JWebUnit.submit;
 import net.sourceforge.jwebunit.html.Table;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
 /**
  * @author dima
  *
  */
+//Because this test is very slow it is temporary disabled 
 public class TravelWebUnitTest
 {
 
@@ -24,13 +32,12 @@ public class TravelWebUnitTest
     public void prepare() {
         setBaseUrl("http://localhost:8080/travel4");
     }
-
     @Test
     public void testLogin() {
     	//recreating database
         beginAt("/install");
         //
-        beginAt("/language-en");
+        beginAt("/language/en");
         beginAt("/index");
         assertTitleEquals("Hyper travel");
         clickLink("login");
@@ -43,7 +50,7 @@ public class TravelWebUnitTest
         assertElementPresent("discountstable");
         Table table = getTable("discountstable");
         int rowsCount = table.getRowCount();
-        submit();
+        clickLink("createNewItemLink");
         //creating new discount
         setTextField("threshold", "7000");
         setTextField("percent","22");

@@ -14,9 +14,6 @@ import com.travel.dao.BaseDao;
 import com.travel.dao.OrderDao;
 import com.travel.dao.PaymentDao;
 import com.travel.dao.TourSheduleDao;
-import com.travel.dao.utils.SqlConstrainBuilder;
-import com.travel.dao.utils.SelectSqlExecutor;
-import com.travel.db.ConnectionManager;
 import com.travel.exceptions.DbSqlException;
 import com.travel.exceptions.DeleteException;
 import com.travel.exceptions.InvalidRequest;
@@ -117,17 +114,17 @@ public class DeleteAction extends AbstractAction
 		EntityDeleter deleter = getDeleter(request);
 		long id = Long.parseLong(getPathParams().get(2));
 		BaseDao dao = servicesContainer.getService().createDao();
-		for (BaseDao detail : deleter.getDetailDao())
-		{
-			SqlConstrainBuilder constrainBuilder = new SqlConstrainBuilder();
-			constrainBuilder.addConstrainWithId(dao, detail, id);
-			SelectSqlExecutor sql = new SelectSqlExecutor(ConnectionManager.getInstance().getConnection());
-			if (sql.executeQuery(detail, constrainBuilder.build(), null).size() > 0)
-				throw new DeleteException("Item has child items in table " + detail.getTableName());
-		}
 		servicesContainer.getService().checkCanDeleteRecord(id);
-		dao.delete(id);
-		sendRedirect("index",response);
+		try
+		{
+			dao.delete(id);
+		}
+		catch(Exception e)
+		{
+			throw new DeleteException("Cannot delete item. Item has childs in other tables");
+		}
+		
+		sendRedirect("index",request, response);
 	}
 
 	@Override

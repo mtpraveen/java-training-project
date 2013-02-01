@@ -3,9 +3,19 @@
  */
 package com.travel.pojo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -13,30 +23,27 @@ import javax.validation.constraints.NotNull;
  * @author dima
  * tour has at least one ArrivalShedule
  */
-public class TourShedule extends BaseEntity
+@Entity
+@Table(name="tourshedules")
+@NamedQueries(value = { @NamedQuery(name = "tourShedule.findByTourId", 
+						 query = "SELECT x FROM TourShedule x WHERE x.tour.id = :id") })
+public class TourShedule extends BaseEntity implements Serializable
 {
-	private long tourId;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="tourId")
+	@NotNull
+	private Tour tour;
 	@NotNull
 	private Date date;
 	@NotNull
 	@Min(value=0)
-	private BigDecimal price;
+	private double price;
 	@Min(value=1)
 	private int count;
-	/**
-	 * @return the tourId
-	 */
-	public long getTourId()
-	{
-		return tourId;
-	}
-	/**
-	 * @param tourId the tourId to set
-	 */
-	public void setTourId(long tourId)
-	{
-		this.tourId = tourId;
-	}
 	/**
 	 * @return the date
 	 */
@@ -50,20 +57,6 @@ public class TourShedule extends BaseEntity
 	public void setDate(Date date)
 	{
 		this.date = date;
-	}
-	/**
-	 * @return the price
-	 */
-	public BigDecimal getPrice()
-	{
-		return price;
-	}
-	/**
-	 * @param price the price to set
-	 */
-	public void setPrice(BigDecimal price)
-	{
-		this.price = price;
 	}
 	/**
 	 * @return the count
@@ -89,8 +82,10 @@ public class TourShedule extends BaseEntity
 		int result = super.hashCode();
 		result = prime * result + count;
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + ((price == null) ? 0 : price.hashCode());
-		result = prime * result + (int) (tourId ^ (tourId >>> 32));
+		long temp;
+		temp = Double.doubleToLongBits(price);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((tour == null) ? 0 : tour.hashCode());
 		return result;
 	}
 	/* (non-Javadoc)
@@ -103,7 +98,7 @@ public class TourShedule extends BaseEntity
 			return true;
 		if (!super.equals(obj))
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof TourShedule))
 			return false;
 		TourShedule other = (TourShedule) obj;
 		if (count != other.count)
@@ -115,15 +110,43 @@ public class TourShedule extends BaseEntity
 		}
 		else if (!date.equals(other.date))
 			return false;
-		if (price == null)
+		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
+			return false;
+		if (tour == null)
 		{
-			if (other.price != null)
+			if (other.tour != null)
 				return false;
 		}
-		else if (!price.equals(other.price))
-			return false;
-		if (tourId != other.tourId)
+		else if (!tour.equals(other.tour))
 			return false;
 		return true;
+	}
+	/**
+	 * @return the tour
+	 */
+	public Tour getTour()
+	{
+		return tour;
+	}
+	/**
+	 * @param tour the tour to set
+	 */
+	public void setTour(Tour tour)
+	{
+		this.tour = tour;
+	}
+	/**
+	 * @return the price
+	 */
+	public double getPrice()
+	{
+		return price;
+	}
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(double price)
+	{
+		this.price = price;
 	}
 }

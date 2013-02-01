@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import com.travel.dao.UserDao;
+import com.travel.db.ConnectionManager;
 import com.travel.exceptions.DbSqlException;
 import com.travel.exceptions.DeleteException;
 import com.travel.exceptions.InvalidRequest;
@@ -135,42 +136,49 @@ public class ControllerServlet extends HttpServlet {
 	}
 	
 	private void execute(HttpServletRequest request, HttpServletResponse response, RequestMethod requestMethod) throws ServletException, IOException {
-		loadBundleName(request);
-		request.setCharacterEncoding("utf-8");
-		RequestDispatcher dispatcher = new RequestDispatcher();
-		AbstractAction action;
 		try
 		{
-			User user = loadUser(request, response);
-			action = dispatcher.getAction(request, response,user);
-			action.initParams(request, response);
-			if (!action.userHasRights())
+			loadBundleName(request);
+			request.setCharacterEncoding("utf-8");
+			RequestDispatcher dispatcher = new RequestDispatcher();
+			AbstractAction action;
+			try
 			{
-				action = dispatcher.getAutentificationRequiredAction(request, response, user);
+				User user = loadUser(request, response);
+				action = dispatcher.getAction(request, response,user);
 				action.initParams(request, response);
-			}	
-			if (!action.canProcessMethod(requestMethod))
+				if (!action.userHasRights())
+				{
+					action = dispatcher.getAutentificationRequiredAction(request, response, user);
+					action.initParams(request, response);
+				}	
+				if (!action.canProcessMethod(requestMethod))
+				{
+					throw new InvalidRequest("Invalid request method " + requestMethod);
+				}
+				action.process(request, response);
+				if (action.hasJsp())
+				{
+					String template = action.getJspTemplate();
+					if(template.equals(""))
+						template = "error.jsp";
+					request.getRequestDispatcher("/WEB-INF/jsp/" + template).forward(request, response);
+				}
+			} catch (InvalidRequest |DbSqlException|DeleteException|SaveException e)
 			{
-				throw new InvalidRequest("Invalid request method " + requestMethod);
+				String template = "error.jsp";
+				request.setAttribute("errorMessage", e.getMessage());
+				request.getRequestDispatcher("/WEB-INF/jsp/" + template).forward(request, response);
+				LOGGER.error("Standard error : ", e);
 			}
-			action.process(request, response);
-			if (!action.isRedirected())
-			{
-				String template = action.getJspTemplate();
-				if(template.equals(""))
-					template = "error.jsp";
-				request.getRequestDispatcher("/" + template).forward(request, response);
+			catch (Exception e) {
+				LOGGER.error("Unknown error : ", e);
+				throw new ServletException(e);
 			}
-		} catch (InvalidRequest |DbSqlException|DeleteException|SaveException e)
-		{
-			String template = "error.jsp";
-			request.setAttribute("errorMessage", e.getMessage());
-			request.getRequestDispatcher("/" + template).forward(request, response);
-			LOGGER.error("Standard error : ", e);
 		}
-		catch (Exception e) {
-			LOGGER.error("Unknown error : ", e);
-			throw new ServletException(e);
+		finally
+		{
+	    	ConnectionManager.closeSession();
 		}
 	}
 	

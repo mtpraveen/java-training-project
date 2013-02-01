@@ -46,8 +46,14 @@ public class LocaleAction extends AbstractAction
 		}
 		Cookie cookie = new Cookie("locale", localeCode);
 		cookie.setMaxAge(60*60*24*365);
+		//setPath because by default coocki is writed to /travel4/langauage
+		String path = request.getContextPath();
+		if ("".equals(path))
+			path = "/";
+		cookie.setPath(path);
 		response.addCookie(cookie);
-		sendRedirect("index", response);
+		redirected = true;
+		sendRedirect("index", request, response);
 	}
 
 	@Override

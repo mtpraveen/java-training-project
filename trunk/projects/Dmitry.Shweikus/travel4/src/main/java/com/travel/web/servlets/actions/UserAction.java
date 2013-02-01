@@ -41,7 +41,7 @@ public class UserAction extends AbstractAction
 			cookie = new Cookie("password", "");
 			cookie.setMaxAge(0);
 			response.addCookie(cookie);
-			sendRedirect("index", response);
+			sendRedirect("index", request, response);
 			break;
 		case "login":
 			if(request.getMethod().equalsIgnoreCase("POST"))
@@ -82,7 +82,7 @@ public class UserAction extends AbstractAction
 					cookiePassword.setMaxAge(60*60*24*63);
 					response.addCookie(cookiePassword);
 					
-					sendRedirect("index",response);
+					sendRedirect("index",request, response);
 					//request.getRequestDispatcher("index.jsp").forward(request, response);
 					LOGGER.info("Successfull login [" + login + "]");
 				}

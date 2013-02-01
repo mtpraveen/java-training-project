@@ -10,15 +10,11 @@ import com.travel.dao.DiscountDao;
 import com.travel.dao.OrderDao;
 import com.travel.dao.PaymentDao;
 import com.travel.dao.TourSheduleDao;
-import com.travel.dao.extenders.OrdersDaoExtender;
-import com.travel.dao.extenders.OrdersExtender;
-import com.travel.dao.extenders.TourSheduleDaoExtender;
 import com.travel.exceptions.DbSqlException;
 import com.travel.exceptions.SaveException;
 import com.travel.pojo.Client;
 import com.travel.pojo.Discount;
 import com.travel.pojo.Order;
-import com.travel.pojo.TourShedule;
 import com.travel.web.beans.CalendarWrapper;
 import com.travel.web.enums.CrudAction;
 
@@ -35,20 +31,6 @@ public class OrderService extends MyAbstractWebService<Order>
 	}
 	
 	@Override
-	public void setParamsForTableView(HttpServletRequest request) throws DbSqlException
-	{
-		OrdersDaoExtender ordersDaoExtender = new OrdersDaoExtender();
-		request.setAttribute("items", ordersDaoExtender.findAll());
-	}
-
-	@Override
-	protected Object findItemById(long id) throws DbSqlException
-	{
-		OrdersDaoExtender ordersDaoExtender = new OrdersDaoExtender();
-		return ordersDaoExtender.findById(id);
-	}
-	
-	@Override
 	public void setParamsForEditItem(HttpServletRequest request) throws DbSqlException
 	{
 		super.setParamsForEditItem(request);
@@ -60,26 +42,20 @@ public class OrderService extends MyAbstractWebService<Order>
 		super.setParamsForNewItem(request);
 
 		CalendarWrapper calendarWrapper = new CalendarWrapper();
-		OrdersExtender orderExtender = new OrdersExtender();
 		ClientDao clientDao = new ClientDao();
+		Client client = clientDao.findById(getMasterIdParamFromRequest(request)); 
 		
 		Order order = new Order();
 		order.setDate(calendarWrapper.getDate());
-
-		Client client = clientDao.findById(getMasterIdParamFromRequest(request)); 
-		orderExtender.setOrder(order);
-		orderExtender.setClient(client);
-		orderExtender.setUser(getServicesContainer().getUser());
+		order.setClient(client);
+		order.setUser(getServicesContainer().getUser());
 		
-		request.setAttribute("order", orderExtender);
-		
-		TourSheduleDaoExtender sheduleDaoExtender = new TourSheduleDaoExtender();
-		request.setAttribute("shedules", sheduleDaoExtender.findAll());
+		request.setAttribute("order", order);
+		request.setAttribute("shedules", new TourSheduleDao().findAll());
 		
 		if (client!=null)
 		{
-			PaymentDao paymentDao = new PaymentDao();
-			double totalPayments = paymentDao.findClientTotalPayments(client.getId());
+			double totalPayments = new PaymentDao().findClientTotalPayments(client.getId());
 			int discountPercent = 0;
 			if (totalPayments > 0)
 			{
@@ -100,9 +76,9 @@ public class OrderService extends MyAbstractWebService<Order>
 	@Override
 	public void loadDetailItemsForSingleView(HttpServletRequest request) throws DbSqlException
 	{
-		OrdersExtender order = (OrdersExtender) request.getAttribute("order");
+		Order order = (Order) request.getAttribute("order");
 		PaymentDao paymentDao = new PaymentDao();
-		request.setAttribute("payments", paymentDao.findOrdersPayments(order.getOrder().getId()));
+		request.setAttribute("payments", paymentDao.findOrdersPayments(order.getId()));
 	}
 
 	@Override
@@ -116,13 +92,12 @@ public class OrderService extends MyAbstractWebService<Order>
 	{
 		OrderDao orderDao = new OrderDao();
 		TourSheduleDao sheduleDao = new TourSheduleDao();
-		TourShedule shedule = sheduleDao.findById(item.getArrivalId());
 		int totalCount = 0;
-		for (Order order : orderDao.findOrdersByShedule(shedule.getId()))
+		for (Order order : orderDao.findOrdersByShedule(item.getTourShedule().getId()))
 		{
 			totalCount += order.getCount();
 		}
-		if (item.getCount() > shedule.getCount() - totalCount)
-			throw new SaveException("Invalid count : " + item.getCount() + " > " + (shedule.getCount() - totalCount));
+		if (item.getCount() > item.getTourShedule().getCount() - totalCount)
+			throw new SaveException("Invalid count : " + item.getCount() + " > " + (item.getTourShedule().getCount() - totalCount));
 	}
 }

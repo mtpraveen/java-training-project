@@ -9,7 +9,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+
+import com.travel.db.ConnectionManager;
 import com.travel.exceptions.DbSqlException;
+import com.travel.pojo.Tour;
 import com.travel.pojo.User;
 
 /**
@@ -26,58 +32,44 @@ public class UserDao extends BaseDao<User>
 	}
 
 	@Override
-	public User newEntity()
-	{
-		return new User();
-	}
-
-	@Override
 	public String[] getColumnNames()
 	{
 		return columns;
 	}
 
-	@Override
-	public void readDataFromResultSet(User obj, ResultSet rs) throws SQLException
+	public User createUser(String name, String login, String password, boolean admin) 
 	{
-		obj.setName(rs.getString(getColumn(0)));
-		obj.setLogin(rs.getString(getColumn(1)));
-		obj.setPassword(rs.getString(getColumn(2)));
-		obj.setAdmin(rs.getBoolean(getColumn(3)));
-	}
-
-	@Override
-	public void saveDataToPreparedStatement(User obj, PreparedStatement ps) throws SQLException
-	{
-		ps.setString(1, obj.getName());
-		ps.setString(2, obj.getLogin());
-		ps.setString(3, obj.getPassword());
-		ps.setBoolean(4, obj.isAdmin());
-	}
-	
-	public User createUser(String name, String login, String password, boolean admin) throws DbSqlException
-	{
-		Object[] data = new Object[]{name, login, password, admin};
-		return createConcrete(data);
+		User user = new User();
+		user.setAdmin(admin);
+		user.setLogin(login);
+		user.setName(name);
+		user.setPassword(password);
+		return create(user);
 	}
 	
 	public User findUserByLoginAndPassword(String login, String password) throws DbSqlException
 	{
-		String condition = "WHERE (login = ?) and (password = ?)";
-		List params = new ArrayList();
-		params.add(login);
-		params.add(password);
-		for (User user : findAllWithCondition(condition, params))
-		{
-			return user;
-		}
-		return null;
+		Session session = ConnectionManager.getHibernateSession();
+		Criteria criteria = session.createCriteria(User.class);
+		criteria.add(Restrictions.eq("login", login));
+		criteria.add(Restrictions.eq("password", password));
+		List<User> users = criteria.list();
+		if(users.size() == 0)
+			return null;
+		else
+			return users.get(0);
 	}
 	public List<User> findUsersByLogin(String login) throws DbSqlException
 	{
-		String condition = "WHERE (login = ?)";
-		List<Object> params = new ArrayList<>();
-		params.add(login);
-		return  findAllWithCondition(condition, params);
+		Session session = ConnectionManager.getHibernateSession();
+		Criteria criteria = session.createCriteria(User.class);
+		criteria.add(Restrictions.eq("login", login));
+		return criteria.list();
+	}
+
+	@Override
+	public Class<User> getEntityClass()
+	{
+		return User.class;
 	}
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+<persistence-unit name="persistenceUnit">
+        <!-- 
+        org.eclipse.persistence.jpa.PersistenceProvider
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+         -->
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <properties>
+			<property name="hibernate.connection.driver_class" value="org.gjt.mm.mysql.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+            <!-- value="create" to build a new database on each run; value="update" to modify an existing database; value="create-drop" means the same as "create" but also drops tables when Hibernate closes; value="validate" makes no changes to the database -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.connection.charSet" value="utf8"/>
+			<property name="hibernate.connection.characterEncoding" value="utf8" />
+            
+            <!-- these properties will be overwritten by env variable CLEARDB_DATABASE_URL  -->
+	        <property name="hibernate.connection.url" value="jdbc:mysql://localhost/travel?reconnect=true" />
+	        <property name="hibernate.connection.username" value="root123"/>
+    	    <property name="hibernate.connection.password" value="root12345"/>
+    	    <!--  -->
+    	    
+	        <property name="hibernate.connection.pool_size" value="3"/>
+	        <property name="hibernate.show_sql" value="true"/>
+	        <property name="connection.pool_size" value="3"/>
+	        </properties>
+    </persistence-unit>
+</persistence>

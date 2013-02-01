@@ -47,12 +47,12 @@ public class PaymentService extends MyAbstractWebService<Payment>
 		PaymentDao paymentDao = new PaymentDao();
 		OrderDao orderDao = new OrderDao();
 		Order order = orderDao.findById(id);
-		BigDecimal totalPayd = new BigDecimal(0);
+		double totalPayd = 0;
 		for (Payment payment : paymentDao.findOrdersPayments(order.getId()))
 		{
-			totalPayd = totalPayd.add(payment.getAmount());
+			totalPayd += payment.getAmount();
 		}
-		BigDecimal pay = order.getTotalPrice().subtract(totalPayd);
+		double pay = order.getTotalPrice() - totalPayd;
 		CalendarWrapper wrapper = new CalendarWrapper();
 		Payment payment = (Payment) request.getAttribute(getParamNameForSingleItemJsp());
 		payment.setAmount(pay);

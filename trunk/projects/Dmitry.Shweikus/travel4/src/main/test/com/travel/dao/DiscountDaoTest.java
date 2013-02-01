@@ -28,7 +28,7 @@ public class DiscountDaoTest
 	@After
 	public void setUp() throws Exception
 	{
-		dao.deleteAll();
+		TestDatabaseDeleter.clearDatabase();
 	}
 
 	@Test
@@ -42,13 +42,13 @@ public class DiscountDaoTest
 		assertNotNull(discount21);
 		
 		discount2.setThreshold(15000);
-		assertTrue(dao.update(discount2));
+		dao.update(discount2);
 		Discount discount2b = dao.findById(discount2.getId());
 		
 		assertEquals(discount2, discount2b);
 		assertFalse(discount21.equals(discount2b));
 		
-		assertTrue(dao.delete(discount1));
+		dao.delete(discount1);
 		assertNull(dao.findById(discount1.getId()));
 	}
 

@@ -52,8 +52,7 @@ public class ViewAction extends AbstractAction
 			container.getService().setParamsForNewItem(request);
 			break;
 		case ActionNames.SHOW: 
-			jspActionPrefix = "table";
-			jspActionTable = tableName;
+			jspActionPrefix = "tables";
 			container.getService().setParamsForTableView(request);
 			break;
 		}
@@ -61,7 +60,7 @@ public class ViewAction extends AbstractAction
 	@Override
 	public String getJspTemplate()
 	{
-		return jspActionPrefix + "_" + jspActionTable + ".jsp";
+		return jspActionPrefix + "\\" + jspActionTable + ".jsp";
 	}
 	@Override
 	public boolean userHasRights()

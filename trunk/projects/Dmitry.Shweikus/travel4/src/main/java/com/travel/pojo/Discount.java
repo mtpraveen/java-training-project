@@ -3,10 +3,14 @@
  */
 package com.travel.pojo;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
+import java.io.Serializable;
 
-import org.hibernate.validator.constraints.NotBlank;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Min;
+
 import org.hibernate.validator.constraints.Range;
 
 
@@ -14,8 +18,14 @@ import org.hibernate.validator.constraints.Range;
  * @author dima
  *
  */
-public class Discount extends BaseEntity
+@Entity
+@Table(name="discounts")
+public class Discount extends BaseEntity implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Min(value=0)
 	private double threshold;
 	@Range(min=0, max=100)
@@ -46,7 +56,7 @@ public class Discount extends BaseEntity
 			return true;
 		if (!super.equals(obj))
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Discount))
 			return false;
 		Discount other = (Discount) obj;
 		if (active != other.active)
