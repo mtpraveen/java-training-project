@@ -2,6 +2,8 @@ package com.travel.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +18,7 @@ public class ClientDaoTest
 	@After
 	public void setUp() throws DbSqlException
 	{
-		dao.deleteAll();
+		TestDatabaseDeleter.clearDatabase();
 	}
 	@Test
 	public void testUpdate() throws DbSqlException
@@ -25,6 +27,10 @@ public class ClientDaoTest
 		Client client2 = dao.create("Petr", "Petrov", "AB02", "INN002", "", "", "--");
 		Client client3 = dao.create("Fedor", "Fedorov", "AB02", "INN003", "", "", "---");
 		Client client2a = dao.findById(client2.getId());
+		
+		List<Client> clients = dao.findByName(client2.getFirstName(), client2.getLastName());
+		assertEquals(1, clients.size());
+		assertTrue(clients.indexOf(client2) == 0);
 		
 		assertNotNull(client1);
 		assertNotNull(client2);
@@ -37,21 +43,14 @@ public class ClientDaoTest
 		assertEquals(client2.getLastName(), "Petrov");
 		
 		client2.setFirstName("Sidor");
-		assertTrue(dao.update(client2));
+		dao.update(client2);
 		Client client2b = dao.findById(client2.getId());
 		assertNotNull(client2b);
 		
 		assertEquals(client2, client2b);
-		assertFalse(client2a.equals(client2b));
 		
-		assertTrue(dao.delete(client1.getId()));
+		dao.delete(client1.getId());
 		assertNull(dao.findById(client1.getId()));
-		
-		Client client1clone = dao.create(client1);
-		assertNotNull(client1clone);
-		assertFalse(client1clone.equals(client1));
-		client1clone.setId(client1.getId());
-		assertEquals(client1, client1clone);
 	}
 
 }

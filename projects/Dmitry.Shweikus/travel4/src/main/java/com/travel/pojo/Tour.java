@@ -3,6 +3,16 @@
  */
 package com.travel.pojo;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -15,14 +25,23 @@ import com.travel.enums.TravelKind;
  * @author dima
  *
  */
-public class Tour extends BaseEntity
+@Entity
+@Table(name="tours")
+public class Tour extends BaseEntity implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@NotNull
 	@Length(min=3, max=120)
+	@Column(unique=true)
 	private String name;
 	@NotNull
+	@Enumerated(EnumType.STRING)
 	private TravelKind travelKind;
 	@NotNull
+	@Enumerated(EnumType.STRING)
 	private TransportKind transportKind;
 	@NotNull
 	@Length(min=3)
@@ -58,7 +77,7 @@ public class Tour extends BaseEntity
 			return true;
 		if (!super.equals(obj))
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Tour))
 			return false;
 		Tour other = (Tour) obj;
 		if (daysCount != other.daysCount)

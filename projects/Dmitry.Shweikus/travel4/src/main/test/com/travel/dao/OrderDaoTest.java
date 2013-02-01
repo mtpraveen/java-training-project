@@ -41,11 +41,7 @@ public class OrderDaoTest
 	@After
 	public void setUp() throws Exception
 	{
-		orderDao.deleteAll();
-		arrivalSheduleDao.deleteAll();
-		tourDao.deleteAll();
-		clientDao.deleteAll();
-		userDao.deleteAll();
+		TestDatabaseDeleter.clearDatabase();
 	}
 
 	/**
@@ -56,24 +52,20 @@ public class OrderDaoTest
 	public void testUpdate() throws DbSqlException
 	{
 		User user = userDao.createUser("test", "manager1", "123", false);
-		Client client = clientDao.create("ivan", "ivanov", "", "", "", "", "--");
-		Tour tour = tourDao.create("-", TransportKind.TRAIN, TravelKind.REST, "-", "--", 1);
+		Client client = clientDao.create("ivan", "ivanov", "123", "", "", "", "---");
+		Tour tour = tourDao.create("-----", TransportKind.TRAIN, TravelKind.REST, "----", "---", 1);
 		@SuppressWarnings("deprecation")
 		Date date = new Date(2012-1900,11, 9);
-		TourShedule arrivalShedule = arrivalSheduleDao.create(tour, date, BigDecimal.valueOf(700), 20);
-		Order order = orderDao.create(client, arrivalShedule, user, date, 2, BigDecimal.valueOf(700*2), "-", false, null);
+		TourShedule arrivalShedule = arrivalSheduleDao.create(tour, date, 700, 20);
+		Order order = orderDao.create(client, arrivalShedule, user, date, 2, 700*2, "-", false, null);
 		Order order1 = orderDao.findById(order.getId());
 		
 		assertNotNull(order);
-		assertEquals(client.getId(), order.getClientId());
+		assertEquals(client.getId(), order.getClient().getId());
 		assertNull(order.getFinishedDate());
 		
 		order.setFinishedDate(date);
-		assertTrue(orderDao.update(order));
-		
-		Order order2 = orderDao.findById(order.getId());
-		assertEquals(order, order2);
-		assertFalse(order1.equals(order2));
+		orderDao.update(order);
 	}
 
 }

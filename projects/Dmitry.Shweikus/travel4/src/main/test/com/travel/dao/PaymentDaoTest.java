@@ -41,12 +41,7 @@ public class PaymentDaoTest
 	@After
 	public void setUp() throws Exception
 	{
-		orderDao.deleteAll();
-		arrivalSheduleDao.deleteAll();
-		tourDao.deleteAll();
-		clientDao.deleteAll();
-		userDao.deleteAll();
-		paymentDao.deleteAll();
+		TestDatabaseDeleter.clearDatabase();
 	}
 
 	/**
@@ -57,16 +52,16 @@ public class PaymentDaoTest
 	public void testUpdate() throws DbSqlException
 	{
 		User user = userDao.createUser("test", "manager1", "123", false);
-		Client client = clientDao.create("ivan", "ivanov", "", "", "", "", "--");
-		Tour tour = tourDao.create("-", TransportKind.TRAIN, TravelKind.REST, "-", "--", 1);
+		Client client = clientDao.create("ivan", "ivanov", "123", "", "", "", "---");
+		Tour tour = tourDao.create("tour1", TransportKind.TRAIN, TravelKind.REST, "----", "---", 1);
 		@SuppressWarnings("deprecation")
 		Date date = new Date(2012-1900, 11, 9);
-		TourShedule arrivalShedule = arrivalSheduleDao.create(tour, date, BigDecimal.valueOf(700), 20);
-		Order order = orderDao.create(client, arrivalShedule, user, date, 2, BigDecimal.valueOf(700*2), "-", false, null);
-		Payment payment = paymentDao.create(order, BigDecimal.valueOf(700.00), date);
+		TourShedule arrivalShedule = arrivalSheduleDao.create(tour, date, 700, 20);
+		Order order = orderDao.create(client, arrivalShedule, user, date, 2, 700*2, "-", false, null);
+		Payment payment = paymentDao.create(order, 700.0, date);
 		assertNotNull(payment);
-		assertEquals(order.getId(), payment.getOrderId());
-		assertEquals(700, payment.getAmount().intValue());
+		assertEquals(order, payment.getOrder());
+		assertEquals(700, payment.getAmount());
 		assertEquals(date, payment.getDate());
 		
 		//assertTrue(paymentDao.delete(payment));

@@ -3,12 +3,19 @@
  */
 package com.travel.pojo;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 /**
  * @author dima
  *
  */
-public class BaseEntity
+@MappedSuperclass
+public abstract class BaseEntity
 {
+	@Id
+	@GeneratedValue
 	private long id;
 
 	/**
@@ -49,12 +56,11 @@ public class BaseEntity
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof BaseEntity))
 			return false;
 		BaseEntity other = (BaseEntity) obj;
-		if (id != other.id)
+		if (id != other.getId())
 			return false;
 		return true;
 	}
-	
 }

@@ -18,6 +18,7 @@ import com.travel.dao.PaymentDao;
 import com.travel.dao.TourDao;
 import com.travel.dao.TourSheduleDao;
 import com.travel.dao.UserDao;
+import com.travel.db.ConnectionManager;
 import com.travel.enums.TransportKind;
 import com.travel.enums.TravelKind;
 import com.travel.exceptions.DbSqlException;
@@ -134,27 +135,27 @@ public class install extends HttpServlet {
     	//==============================================
     	//==============================================    	
     	createTableCaption(writer, arrivalSheduleDao.getTableName());
-    	TourShedule arrivalShedule1  = arrivalSheduleDao.create(tour1, new Date(2013 - 1900, 0, 2),  BigDecimal.valueOf(200), 15);
-    	TourShedule arrivalShedule21 = arrivalSheduleDao.create(tour2, new Date(2013 - 1900, 1, 5),  BigDecimal.valueOf(70), 15);
-    	TourShedule arrivalShedule22 = arrivalSheduleDao.create(tour2, new Date(2013 - 1900, 2, 7),  BigDecimal.valueOf(75), 15);
-    	TourShedule arrivalShedule31 = arrivalSheduleDao.create(tour3, new Date(2013 - 1900, 3, 25), BigDecimal.valueOf(100), 15);
-    	TourShedule arrivalShedule32 = arrivalSheduleDao.create(tour3, new Date(2013 - 1900, 4, 7),  BigDecimal.valueOf(110), 14);
-    	TourShedule arrivalShedule33 = arrivalSheduleDao.create(tour3, new Date(2013 - 1900, 5, 7),  BigDecimal.valueOf(120), 15);
-    	TourShedule arrivalShedule4  = arrivalSheduleDao.create(tour4, new Date(2013 - 1900, 5, 7),  BigDecimal.valueOf(50), 15);
+    	TourShedule arrivalShedule1  = arrivalSheduleDao.create(tour1, new Date(2013 - 1900, 0, 2),  200, 15);
+    	TourShedule arrivalShedule21 = arrivalSheduleDao.create(tour2, new Date(2013 - 1900, 1, 5),  70, 15);
+    	TourShedule arrivalShedule22 = arrivalSheduleDao.create(tour2, new Date(2013 - 1900, 2, 7),  (75), 15);
+    	TourShedule arrivalShedule31 = arrivalSheduleDao.create(tour3, new Date(2013 - 1900, 3, 25), (100), 15);
+    	TourShedule arrivalShedule32 = arrivalSheduleDao.create(tour3, new Date(2013 - 1900, 4, 7),  (110), 14);
+    	TourShedule arrivalShedule33 = arrivalSheduleDao.create(tour3, new Date(2013 - 1900, 5, 7),  (120), 15);
+    	TourShedule arrivalShedule4  = arrivalSheduleDao.create(tour4, new Date(2013 - 1900, 5, 7),  (50), 15);
 
     	//==============================================
     	//==============================================
     	BigDecimal two = BigDecimal.valueOf(2);
     	BigDecimal three = BigDecimal.valueOf(3);
     	createTableCaption(writer, orderDao.getTableName());
-    	Order order11 = orderDao.create(client1, arrivalShedule1, manager1, new Date(2012 - 1900,11,30), 2, arrivalShedule1.getPrice().multiply(two), "", false, null);
-    	Order order12 = orderDao.create(client1, arrivalShedule21, manager1, new Date(2012 - 1900,11,30), 2, arrivalShedule21.getPrice().multiply(two), "", false, null);
-    	Order order13 = orderDao.create(client1, arrivalShedule32, manager2, new Date(2012 - 1900,11,30), 3, arrivalShedule32.getPrice().multiply(three), "", false, null);
+    	Order order11 = orderDao.create(client1, arrivalShedule1, manager1, new Date(2012 - 1900,11,30), 2, arrivalShedule1.getPrice()*2, "", false, null);
+    	Order order12 = orderDao.create(client1, arrivalShedule21, manager1, new Date(2012 - 1900,11,30), 2, arrivalShedule21.getPrice()*2, "", false, null);
+    	Order order13 = orderDao.create(client1, arrivalShedule32, manager2, new Date(2012 - 1900,11,30), 3, arrivalShedule32.getPrice()*3, "", false, null);
     	
-    	Order order21 = orderDao.create(client2, arrivalShedule22, manager1, new Date(2012 - 1900,11,30), 1, arrivalShedule22.getPrice().multiply(BigDecimal.ONE), "", false, null);
-    	Order order22 = orderDao.create(client2, arrivalShedule31, manager1, new Date(2012 - 1900,11,30), 2, arrivalShedule31.getPrice().multiply(two), "", false, null);
+    	Order order21 = orderDao.create(client2, arrivalShedule22, manager1, new Date(2012 - 1900,11,30), 1, arrivalShedule22.getPrice(), "", false, null);
+    	Order order22 = orderDao.create(client2, arrivalShedule31, manager1, new Date(2012 - 1900,11,30), 2, arrivalShedule31.getPrice()*2, "", false, null);
 
-    	Order order3 = orderDao.create(client3, arrivalShedule4, manager2, new Date(2012 - 1900,11,30), 1, arrivalShedule4.getPrice().multiply(BigDecimal.ONE), "", false, null);
+    	Order order3 = orderDao.create(client3, arrivalShedule4, manager2, new Date(2012 - 1900,11,30), 1, arrivalShedule4.getPrice(), "", false, null);
     	//==============================================
     	//==============================================
     	createTableCaption(writer, paymentDao.getTableName());
@@ -162,9 +163,10 @@ public class install extends HttpServlet {
     	Payment payment11 = paymentDao.create(order11, order11.getTotalPrice(), nowDate);
     	Payment payment13 = paymentDao.create(order13, order13.getTotalPrice(), nowDate);
 
-    	Payment payment21_1 = paymentDao.create(order21, order21.getTotalPrice().divide(two, MathContext.UNLIMITED), nowDate);
-    	Payment payment21_2 = paymentDao.create(order21, order21.getTotalPrice().divide(two, MathContext.UNLIMITED), nowDate);
+    	Payment payment21_1 = paymentDao.create(order21, order21.getTotalPrice()/2,  nowDate);
+    	Payment payment21_2 = paymentDao.create(order21, order21.getTotalPrice()/2,  nowDate);
     	
     	Payment payment3 = paymentDao.create(order3, order3.getTotalPrice(), nowDate);
+    	ConnectionManager.closeSession();
     }
 }

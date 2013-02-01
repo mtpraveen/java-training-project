@@ -18,23 +18,37 @@ import com.travel.web.enums.RequestMethod;
 
 /**
  * @author dima
- *
+ * 
  */
 public abstract class AbstractAction
 {
-	private boolean redirected = false;	
+	protected boolean redirected = false;
 	private List<String> pathParams = null;
 	private User user;
-	public abstract void process(HttpServletRequest request,HttpServletResponse response) throws IOException, InvalidRequest,DbSqlException, DeleteException, SaveException;
-	public abstract boolean userHasRights(); 
+
+	public abstract void process(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, InvalidRequest, DbSqlException, DeleteException, SaveException;
+
+	public abstract boolean userHasRights();
+
 	public abstract String getJspTemplate();
-	public abstract void initParams(HttpServletRequest request, HttpServletResponse response) throws InvalidRequest;
-	
-	protected void sendRedirect(String path,HttpServletResponse response) throws IOException
+
+	public abstract void initParams(HttpServletRequest request, HttpServletResponse response)
+			throws InvalidRequest;
+
+	protected void sendRedirect(String path, HttpServletRequest request,
+			HttpServletResponse response) throws IOException
 	{
 		redirected = true;
-		response.sendRedirect(path);
+		String url = request.getContextPath() + "/" + response.encodeRedirectURL(path);
+		response.sendRedirect(url);
 	}
+
+	public boolean hasJsp()
+	{
+		return !redirected;
+	}
+
 	/**
 	 * @return the pathParams
 	 */
@@ -42,13 +56,16 @@ public abstract class AbstractAction
 	{
 		return pathParams;
 	}
+
 	/**
-	 * @param pathParams the pathParams to set
+	 * @param pathParams
+	 *            the pathParams to set
 	 */
 	public void setPathParams(List<String> pathParams)
 	{
 		this.pathParams = pathParams;
 	}
+
 	/**
 	 * @return the redirected
 	 */
@@ -56,6 +73,7 @@ public abstract class AbstractAction
 	{
 		return redirected;
 	}
+
 	/**
 	 * @return the user
 	 */
@@ -63,13 +81,16 @@ public abstract class AbstractAction
 	{
 		return user;
 	}
+
 	/**
-	 * @param user the user to set
+	 * @param user
+	 *            the user to set
 	 */
 	public void setUser(User user)
 	{
 		this.user = user;
 	}
+
 	/**
 	 * @param requestMethod
 	 * @return

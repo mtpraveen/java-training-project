@@ -2,79 +2,76 @@ package com.travel.db;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.apache.tomcat.jdbc.pool.DataSource;
-import org.apache.tomcat.jdbc.pool.PoolProperties;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
-import com.travel.exceptions.DbSqlException;
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
 
 public class ConnectionManager
 {
-	private static ConnectionManager INSTANCE = new ConnectionManager();
-	private static DataSource dataSource = null;
-
-	public static ConnectionManager getInstance()
+	private final static Logger LOGGER = Logger.getLogger(ConnectionManager.class);
+	private static EntityManagerFactory entityManagerFactory = null;
+	private static ThreadLocal<EntityManager> LocalStorage = new ThreadLocal<>();
+	
+	private ConnectionManager(){}
+	
+	//public static synchronized Session getHibernateSession()
+	public static  Session getHibernateSession()
 	{
-		return INSTANCE;
+		return (Session) getEntityManager().getDelegate();
 	}
-	private static DataSource getDataSource() throws ClassNotFoundException, URISyntaxException, DbSqlException
+	public static  void closeSession()
 	{
-		if (dataSource == null)
+		EntityManager em = LocalStorage.get();
+		if (em != null)
 		{
-			String className = "org.gjt.mm.mysql.Driver";
-			
-			URI dbUri;
-			dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
-			String username = dbUri.getUserInfo().split(":")[0];
-			String password = dbUri.getUserInfo().split(":")[1];
-			String dbUrl = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
-			dbUrl += "?encoding=UTF-8&useUnicode=true&characterEncoding=UTF-8&reconnect=true";
-			
-			PoolProperties p = new PoolProperties();
-	        p.setUrl(dbUrl);
-	        p.setDriverClassName(className);
-	        p.setUsername(username);
-	        p.setPassword(password);
-	        p.setTestWhileIdle(false);
-	        p.setTestOnBorrow(true);
-	        p.setValidationQuery("SELECT 1");
-	        p.setTestOnReturn(false);
-	        p.setMaxActive(4);
-	        p.setInitialSize(3);
-	        p.setMaxWait(10000);
-	        p.setRemoveAbandonedTimeout(60);
-	        p.setMinEvictableIdleTimeMillis(30000);
-	        p.setMinIdle(3);
-            p.setLogAbandoned(true);
-	        p.setRemoveAbandoned(true);
-	        p.setJdbcInterceptors(
-	            "org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;"+
-	            "org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer");
-	        dataSource = new DataSource();
-	        dataSource.setPoolProperties(p); 
-	        
-	        //if you have an ClassNotFoundException here, then put mysql-connector-java-5.1.19-bin.jar into
-	        //%tomcat%/lib directory. This is needed only if you run application from eclipse.
-	        //With maven in tomcatEmbedded you don't need do it.
+			//em.close();
+			LocalStorage.set(null);
 		}
-		return dataSource;
 	}
-	public static Connection getConnection() throws DbSqlException 
+	public static synchronized EntityManagerFactory getEntityManagerFactory()
 	{
-		try {
-			return getDataSource().getConnection();
-		} catch (ClassNotFoundException e) {
-			//throw new DbSqlException("Database driver is not found!");
-			throw new DbSqlException(e);
-		} catch (SQLException e) {
-			//throw new DbSqlException("Can't establish connection to database!");
-			throw new DbSqlException(e);
-		} catch (URISyntaxException e) {
-			//throw new DbSqlException("Environment variable not found CLEARDB_DATABASE_URL!");
-			throw new DbSqlException(e);
+		if (entityManagerFactory == null)
+		{
+			Map<String, Object> configOverrides = new HashMap<String, Object>();
+			String dbUrl = System.getenv("CLEARDB_DATABASE_URL");
+			if(dbUrl != null)
+			{
+				URI dbUri;
+				try
+				{
+					dbUri = new URI(dbUrl);
+					String username = dbUri.getUserInfo().split(":")[0];
+					String password = dbUri.getUserInfo().split(":")[1];
+					String jdbcUrl = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath() + "?reconnect=true&autoReconnect=true";
+			        configOverrides.put("hibernate.connection.username", username);    
+			        configOverrides.put("hibernate.connection.password", password);    
+			        configOverrides.put("hibernate.connection.url", jdbcUrl);    
+				} catch (URISyntaxException e)
+				{
+					LOGGER.error("Invalid CLEARDB_DATABASE_URL : " + dbUrl + " using default persistence.xml configuration", e);
+				}
+			}
+			else
+				LOGGER.info("Env value CLEARDB_DATABASE_URL not found using default persistence.xml configuration");
+			entityManagerFactory = Persistence.createEntityManagerFactory("persistenceUnit",configOverrides);
 		}
+                return entityManagerFactory;
 	}
-
+	
+	public static  EntityManager getEntityManager()
+	{
+		EntityManager em = LocalStorage.get();
+		if (em == null)
+		{
+			em = getEntityManagerFactory().createEntityManager();
+			LocalStorage.set(em);
+		}
+		return em;
+	}
 }

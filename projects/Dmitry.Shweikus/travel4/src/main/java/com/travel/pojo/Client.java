@@ -3,16 +3,27 @@
  */
 package com.travel.pojo;
 
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @author dima
  * client of our travel agency 
  */
-public class Client extends BaseEntity
+@Entity
+@Table(name="clients")
+public class Client extends BaseEntity implements Serializable
 {
+	private static final long serialVersionUID = 1L;
 	@NotBlank
 	@Size(min=3, max=30)
 	private String firstName;
@@ -22,9 +33,13 @@ public class Client extends BaseEntity
 	@NotBlank
 	@Size(min=3, max=30)
 	private String document1;
+	@NotNull
 	private String document2;
+	@NotNull
 	private String document3;
+	@NotNull
 	private String document4;
+	@NotNull
 	private String description;
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -53,7 +68,7 @@ public class Client extends BaseEntity
 			return true;
 		if (!super.equals(obj))
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Client))
 			return false;
 		Client other = (Client) obj;
 		if (description == null)

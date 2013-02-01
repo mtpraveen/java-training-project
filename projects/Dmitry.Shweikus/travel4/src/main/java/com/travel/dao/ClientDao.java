@@ -9,6 +9,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
+
+import com.travel.db.ConnectionManager;
 import com.travel.exceptions.DbSqlException;
 import com.travel.pojo.Client;
 
@@ -31,46 +42,30 @@ public class ClientDao extends BaseDao<Client>
 		return columns;
 	}
 
-	@Override
-	public Client newEntity()
-	{
-		return new Client();
-	}
-
-	@Override
-	public void readDataFromResultSet(Client obj, ResultSet rs) throws SQLException
-	{
-		obj.setFirstName(rs.getString(getColumn(0)));
-		obj.setLastName(rs.getString(getColumn(1)));
-		obj.setDocument1(rs.getString(getColumn(2)));
-		obj.setDocument2(rs.getString(getColumn(3)));
-		obj.setDocument3(rs.getString(getColumn(4)));
-		obj.setDocument4(rs.getString(getColumn(5)));
-		obj.setDescription(rs.getString(getColumn(6)));
-	}
-
-	@Override
-	public void saveDataToPreparedStatement(Client obj, PreparedStatement ps)
-			throws SQLException
-	{
-		ps.setString(1, obj.getFirstName());
-		ps.setString(2, obj.getLastName());
-		ps.setString(3, obj.getDocument1());
-		ps.setString(4, obj.getDocument2());
-		ps.setString(5, obj.getDocument3());
-		ps.setString(6, obj.getDocument4());
-		ps.setString(7, obj.getDescription());
-	}
 	public Client create(String firstname, String lastname, String document1, String document2, String document3, String document4, String description) throws DbSqlException
 	{
-		return createConcrete(new Object[]{firstname,lastname,document1,document2,document3,document4,description});
+		Client client = new Client();
+		client.setFirstName(firstname);
+		client.setLastName(lastname);
+		client.setDocument1(document1);
+		client.setDocument2(document2);
+		client.setDocument3(document3);
+		client.setDocument4(document4);
+		client.setDescription(description);
+		return create(client);
 	}
-	public List<Client> findByName(String firstName,String lastName) throws DbSqlException
+	public List<Client> findByName(String firstName,String lastName)
 	{
-		String condition = "(firstname = ?) AND (lastname = ?)";
-		List<Object> params = new ArrayList<>();
-		params.add(firstName);
-		params.add(lastName);
-		return findAllWithCondition(condition, params);
+		Session session = ConnectionManager.getHibernateSession();
+		Criteria criteria = session.createCriteria(Client.class);
+		criteria.add(Restrictions.eq("firstName", firstName));
+		criteria.add(Restrictions.eq("lastName", lastName));
+		return criteria.list();
+	}
+
+	@Override
+	public Class<Client> getEntityClass()
+	{
+		return Client.class;
 	}
 }

@@ -32,7 +32,7 @@ public class MainLayoutTag extends SimpleTagSupport
 			request.setAttribute("travel_content", sw.toString());
 			if (editor != null)
 				request.setAttribute("editor", editor);
-			request.getRequestDispatcher("template.jsp").include(request, pageContext.getResponse());
+			request.getRequestDispatcher("/WEB-INF/jsp/template.jsp").include(request, pageContext.getResponse());
 		} catch (ServletException e)
 		{
 			throw new JspException(e.getMessage());

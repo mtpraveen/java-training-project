@@ -3,6 +3,13 @@
  */
 package com.travel.pojo;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
@@ -12,13 +19,21 @@ import org.hibernate.validator.constraints.Length;
  * main class for users : managers and administrators. 
  *  
  */
-public class User extends BaseEntity
+@Entity
+@Table(name="users")
+public class User extends BaseEntity implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@NotNull
 	@Length(min=3, max=80)
+	@Column(unique=true)
 	private String name = "";
 	@NotNull
 	@Length(min=3, max=80)
+	@Column(unique=true)
 	private String login = "";
 	@NotNull
 	@Length(min=3, max=80)
@@ -50,7 +65,7 @@ public class User extends BaseEntity
 			return true;
 		if (!super.equals(obj))
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof User))
 			return false;
 		User other = (User) obj;
 		if (admin != other.admin)

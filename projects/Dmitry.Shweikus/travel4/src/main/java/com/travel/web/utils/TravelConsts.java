@@ -75,11 +75,11 @@ public class TravelConsts
 	}
 	public static String makeCommand(String part1,String part2)
 	{
-		return part1 + "-" + part2;
+		return part1 + "/" + part2;
 	}
 	public static String makeCommand(String part1,String part2,String part3)
 	{
-		return part1 + "-" + part2 + "-" + part3;
+		return part1 + "/" + part2 + "/" + part3;
 	}
 	public static String htmlEscape(String s)
 	{

@@ -13,6 +13,7 @@ import com.travel.exceptions.InvalidRequest;
 import com.travel.pojo.User;
 import com.travel.web.servlets.actions.AbstractAction;
 import com.travel.web.servlets.actions.ActionNames;
+import com.travel.web.servlets.actions.AjaxAction;
 import com.travel.web.servlets.actions.AutentificationRequiredAction;
 import com.travel.web.servlets.actions.DefaultAction;
 import com.travel.web.servlets.actions.DeleteAction;
@@ -46,7 +47,8 @@ public class RequestDispatcher
 			case ActionNames.NEW   :  action = new ViewAction(); break;	
 			case ActionNames.SAVE :  action = new UpdateAction(); break;	
 			case ActionNames.DELETE:  action = new DeleteAction(); break;	
-			case ActionNames.LOCALE:  action = new LocaleAction(); break;	
+			case ActionNames.LOCALE:  action = new LocaleAction(); break;
+			case ActionNames.AJAX  :  action = new AjaxAction();break;
 			default:
 				throw new InvalidRequest("Invalid request : \"" + request.getServletPath() + "\"");
 			}
@@ -59,9 +61,8 @@ public class RequestDispatcher
 	{
 		//System.out.println("REQUEST: " + request.getServletPath());
 		List<String> pathParams = new ArrayList<>();
-		for (String string : request.getServletPath().split("-"))
+		for (String string : request.getServletPath().split("/"))
 		{
-			string = string.replace("/", "");
 			if(!"".equals(string))
 				pathParams.add(string);
 		}

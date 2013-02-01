@@ -30,7 +30,7 @@ public class UserDaoTest
 	@After
 	public void setUp() throws Exception
 	{
-		dao.deleteAll();
+		TestDatabaseDeleter.clearDatabase();
 	}
 
 	/**
@@ -41,7 +41,10 @@ public class UserDaoTest
 	public void testUpdate() throws DbSqlException
 	{
 		User user  = dao.createUser("main administrator", "admin", "123", true);
-		User user1 = dao.createUser("user", "user", "123", false);
+		User user1 = dao.findUserByLoginAndPassword(user.getLogin(), user.getPassword());
+		assertNotNull(user1);
+		assertEquals(user, user1);
+		user1 = dao.createUser("user", "user", "123", false);
 		User user2 = dao.createUser("user2", "user2", "123", false);
 		assertNotNull(user);
 		assertNotNull(user1);
@@ -55,11 +58,11 @@ public class UserDaoTest
 		user1.setName("User1b");
 		user1.setPassword("1234");
 		
-		assertTrue(dao.update(user1));
+		dao.update(user1);
 		
 		assertEquals(user, dao.findById(user.getId()));
 		assertEquals(user1, dao.findById(user1.getId()));
-		assertEquals(user2, dao.findById(user2.getId()));
+		assertEquals(user2, dao.findById(user2.getId()));		
 	}
 
 	/**
@@ -76,16 +79,20 @@ public class UserDaoTest
 		assertNotNull(user1);
 		assertNotNull(user2);
 		
-		assertTrue(dao.delete(user1.getId()));
+		dao.delete(user1.getId());
 		
 		assertNotNull(dao.findById(user.getId()));
 		assertNull(dao.findById(user1.getId()));
 		assertNotNull(dao.findById(user2.getId()));
 		
-		assertTrue(dao.deleteAll());
-		assertNull(dao.findById(user.getId()));
-		assertNull(dao.findById(user1.getId()));
-		assertNull(dao.findById(user2.getId()));
+		dao.deleteAll();
+		assertEquals(dao.findAll().size(), 0);
+	}
+	@Test
+	public void testFindAll() throws DbSqlException
+	{
+		dao.deleteAll();
+		assertEquals(dao.findAll().size(), 0);
 	}
 
 	/**

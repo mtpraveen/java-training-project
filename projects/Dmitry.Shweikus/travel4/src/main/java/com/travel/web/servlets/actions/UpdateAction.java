@@ -19,6 +19,11 @@ import javax.validation.ValidatorFactory;
 
 
 import com.travel.dao.BaseDao;
+import com.travel.dao.ClientDao;
+import com.travel.dao.OrderDao;
+import com.travel.dao.TourDao;
+import com.travel.dao.TourSheduleDao;
+import com.travel.dao.UserDao;
 import com.travel.enums.TransportKind;
 import com.travel.enums.TravelKind;
 import com.travel.exceptions.DbSqlException;
@@ -71,7 +76,6 @@ public class UpdateAction extends AbstractAction
 			if (request.getParameter(paramName) == null)
 				throw new SaveException("Param " + paramName + " not found");
 			String s = request.getParameter(paramName);
-			System.out.println(paramName + " = " + s);
 			return TravelConsts.htmlEscape(s);
 		}
 
@@ -94,11 +98,6 @@ public class UpdateAction extends AbstractAction
 		public long getLong(String paramName) throws SaveException
 		{
 			return Long.parseLong(getString(paramName));
-		}
-
-		public BigDecimal getBigDecimal(String paramName) throws SaveException
-		{
-			return new BigDecimal(getString(paramName));
 		}
 
 		public boolean getBool(String paramName)
@@ -167,14 +166,14 @@ public class UpdateAction extends AbstractAction
 				public boolean setNewFields() throws SaveException
 				{
 					Order order = (Order) entity;
-					order.setArrivalId(getLong("sheduleId"));
-					order.setClientId(getMasterId());
+					order.setTourShedule(new TourSheduleDao().findById(getLong("sheduleId")));
+					order.setClient(new ClientDao().findById(getMasterId()));
 					User user = (User) request.getAttribute("loggeduser");
-					order.setUserId(user.getId());
+					order.setUser(user);
 
 					order.setCount(getInt("count"));
 					order.setDate(getDate("date"));
-					order.setTotalPrice(getBigDecimal("totalPrice"));
+					order.setTotalPrice(getDouble("totalPrice"));
 					order.setDescription(getString("description"));
 					return true;
 				}
@@ -186,7 +185,7 @@ public class UpdateAction extends AbstractAction
 				public boolean setFields() throws SaveException
 				{
 					Payment payment = (Payment) entity;
-					payment.setAmount(getBigDecimal("amount"));
+					payment.setAmount(getDouble("amount"));
 					payment.setDate(getDate("date"));
 					// payment.setOrderId(orderId)
 					return true;
@@ -195,16 +194,17 @@ public class UpdateAction extends AbstractAction
 				@Override
 				public boolean setNewFields() throws SaveException
 				{
+					OrderDao orderDao = new OrderDao();
 					Payment payment = (Payment) entity;
-					payment.setOrderId(getMasterId());
+					payment.setOrder(orderDao.findById(getMasterId()));
 					return true;
 				}
 
 				@Override
 				public String getRedirectUrl() throws SaveException
 				{
-					return TravelConsts.makeCommand("view", "orders",
-							String.valueOf(((Payment) entity).getOrderId()));
+					return "/" + TravelConsts.makeCommand("view", "orders",
+							String.valueOf(((Payment) entity).getOrder().getId()));
 				}
 			};
 		case TravelConsts.SHEDULES_TABLE:
@@ -215,7 +215,7 @@ public class UpdateAction extends AbstractAction
 					TourShedule shedule = (TourShedule) entity;
 					shedule.setCount(getInt("count"));
 					shedule.setDate(getDate("date"));
-					shedule.setPrice(getBigDecimal("price"));
+					shedule.setPrice(getDouble("price"));
 					// shedule.setTourId(tourId)
 					return true;
 				}
@@ -224,7 +224,7 @@ public class UpdateAction extends AbstractAction
 				public boolean setNewFields() throws SaveException
 				{
 					TourShedule shedule = (TourShedule) entity;
-					shedule.setTourId(getMasterId());
+					shedule.setTour(new TourDao().findById(getMasterId()));
 					return true;
 				}
 			};
@@ -328,7 +328,7 @@ public class UpdateAction extends AbstractAction
 			servicesContainer.getService().validateSavedItem(entitySaver.entity);
 			dao.update(entity);
 		}
-        sendRedirect(entitySaver.getRedirectUrl(),response);
+        sendRedirect(entitySaver.getRedirectUrl(),request, response);
 	}
 
 	@Override
@@ -355,9 +355,6 @@ public class UpdateAction extends AbstractAction
 			throw new InvalidRequest("Unknow table " + request.getParameter("table"));
 	}
 
-	/* (non-Javadoc)
-	 * @see com.travel.web.servlets.actions.AbstractAction#canProcessMethod(com.travel.web.enums.RequestMethod)
-	 */
 	@Override
 	public boolean canProcessMethod(RequestMethod requestMethod)
 	{
