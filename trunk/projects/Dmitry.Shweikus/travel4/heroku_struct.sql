@@ -37,17 +37,17 @@ create table discounts (
 create table tours (
 	id INT AUTO_INCREMENT PRIMARY KEY,
    	name varchar(120) not null,
-	transport_kind enum('BUS','AVIA','TRAIN'),
-	travel_kind enum('REST','TOUR','SHOPPING'),
+	transportKind enum('BUS','AVIA','TRAIN'),
+	travelKind enum('REST','TOUR','SHOPPING'),
 	description text not null,
-	required_documents text not null,
-	days_count int not null,
+	requiredDocuments text not null,
+	daysCount int not null,
 	
 	CHECK(daysCount > 0) 
 ) charset = "UTF8" engine = innodb;
 create table tourshedules (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	id_tour INT NOT NULL REFERENCES tours(id),
+	tourId INT NOT NULL REFERENCES tours(id),
 	date date NOT NULL,
 	price decimal(18,2) NOT NULL,
 	count int NOT NULL,
@@ -57,15 +57,15 @@ create table tourshedules (
 ) charset = "UTF8" engine = innodb;
 create table orders (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	id_client int not null REFERENCES clients(id),
-	id_tourshedule int not null REFERENCES tourshedules(id),
-	id_user int not null REFERENCES users(id), 
+	clientId int not null REFERENCES clients(id),
+	tourSheduleId int not null REFERENCES tourshedules(id),
+	userId int not null REFERENCES users(id), 
 	date date not null,
 	count int not null,
-	total_price decimal(18,2) not null,
+	totalPrice decimal(18,2) not null,
 	description text not null, 
 	finished boolean not null,
-	finish_date date,
+	finishDate date,
 
 	CHECK (total_price > 0),
 	CHECK (count > 0)
@@ -73,7 +73,7 @@ create table orders (
 
 create table payments (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	id_order int not null REFERENCES orders(id),
+	orderId int not null REFERENCES orders(id),
 	amount decimal(18,2) not null,
 	date date not null,
 
