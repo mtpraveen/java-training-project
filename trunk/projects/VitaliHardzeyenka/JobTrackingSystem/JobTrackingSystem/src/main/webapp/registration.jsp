@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=Cp1251" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF8" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
@@ -9,7 +9,7 @@
 <fmt:setBundle basename="jspMessages" var="lang"/>
 
 <title><fmt:message key="registration.page.title" bundle="${lang}"/></title>
-<meta http-equiv="content-type" content="text/html;charset=iso-8859-2" />
+<meta http-equiv="content-type" content="text/html;charset=UTF8" />
 <link rel="stylesheet" href="images/style.css" type="text/css" />
 <style type="text/css">
 table {

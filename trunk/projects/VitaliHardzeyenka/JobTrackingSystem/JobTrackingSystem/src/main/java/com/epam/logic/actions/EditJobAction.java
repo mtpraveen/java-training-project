@@ -71,14 +71,13 @@ public class EditJobAction extends AbstractAction {
 
 				job = new Job(name, description, percents, beginDate, endDate, status, priority, worker, manager);
 				if (job != null) {
-					connection = (Connection) dataBaseWriter.createConnection("localhost:3306", "job_tracking_system", "root", "root");
 					query = String.format("UPDATE jobs SET name='%s', description='%s', begin_date='%s', end_date='%s', percents='%s', " +
 							"status_id='%s', priority_id='%s', worker_id='%s', manager_id='%s' WHERE job_id='%s';", 
 							name, description, new SimpleDateFormat("yyyy-MM-dd").format(beginDate), 
 							new SimpleDateFormat("yyyy-MM-dd").format(endDate), percents, status.getStatusId(), 
 							priority.getPriorityId(), worker.getId(), manager.getId(), id);
 
-					dataBaseWriter.update(connection, query);			
+					dataBaseWriter.update(query);			
 				}
 			} catch (ParseException exception) {
 				logger.getExceptionTextFileLogger().error(exception);

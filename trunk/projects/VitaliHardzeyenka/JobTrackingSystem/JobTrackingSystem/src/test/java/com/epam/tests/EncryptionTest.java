@@ -8,6 +8,7 @@ import org.junit.Test;
 //import junit.framework.TestSuite;
 
 import com.epam.logic.Encryption;
+import com.epam.logic.Resource;
 
 public class EncryptionTest {
 
