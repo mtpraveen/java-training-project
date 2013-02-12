@@ -45,25 +45,22 @@ public abstract class AbstractAction {
 	 */
 	protected ResultSet find(String tableName, String fieldName, String fieldValue) {
 		DataBaseReader dataBaseReader = new DataBaseReader();
-		Connection connection = (Connection) dataBaseReader.createConnection("localhost:3306", "job_tracking_system", "root", "root");
 		String query = null;
 		ResultSet resultSet = null;
 
-		if (connection != null) {
-			try {
-				query = String.format("SELECT * FROM %s WHERE %s = '%s';", tableName, fieldName, fieldValue);
-				resultSet = (ResultSet) dataBaseReader.select(connection, query);
-				if (resultSet != null) {
-					if (resultSet.next()) {
-						resultSet.beforeFirst();
-						return resultSet;
-					}
-				} else {
-					return null;
+		try {
+			query = String.format("SELECT * FROM %s WHERE %s = '%s';", tableName, fieldName, fieldValue);
+			resultSet = (ResultSet) dataBaseReader.select(query);
+			if (resultSet != null) {
+				if (resultSet.next()) {
+					resultSet.beforeFirst();
+					return resultSet;
 				}
-			} catch (SQLException exception) {
-				logger.getExceptionTextFileLogger().error(exception);
+			} else {
+				return null;
 			}
+		} catch (SQLException exception) {
+			logger.getExceptionTextFileLogger().error(exception);
 		}
 		
 		return null;
@@ -77,23 +74,20 @@ public abstract class AbstractAction {
 	 */
 	protected ResultSet find(String tableName, Object ... values) {
 		DataBaseReader dataBaseReader = new DataBaseReader();
-		Connection connection = (Connection) dataBaseReader.createConnection("localhost:3306", "job_tracking_system", "root", "root");
 		ResultSet resultSet = null;
 
-		if (connection != null) {
-			try {
-				resultSet = (ResultSet) dataBaseReader.select(connection, tableName, values);
-				if (resultSet != null) {
-					if (resultSet.next()) {
-						resultSet.beforeFirst();
-						return resultSet;
-					}
-				} else {
-					return null;
+		try {
+			resultSet = (ResultSet) dataBaseReader.select(tableName, values);
+			if (resultSet != null) {
+				if (resultSet.next()) {
+					resultSet.beforeFirst();
+					return resultSet;
 				}
-			} catch (SQLException exception) {
-				logger.getExceptionTextFileLogger().error(exception);
+			} else {
+				return null;
 			}
+		} catch (SQLException exception) {
+			logger.getExceptionTextFileLogger().error(exception);
 		}
 		
 		return null;

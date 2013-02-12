@@ -14,19 +14,18 @@ public class DataBaseReader extends DataBaseOpener {
 
     /**
      * Selection all elements of string by the conditions.
-     * @param connection - data base connection.
      * @param fieldsConditions - first half of this list is the fields names, the second one - the conditions.
      * For example: ("field1", "field2", condition1, condition2) means (field1 = condition1, field2 = condition2)
      * @return - return the set of query result operation.
      */
-    public ResultSet select(Connection connection, String tableName, Object ... fieldsConditions) throws SQLException {
+    public ResultSet select(String tableName, Object ... fieldsConditions) throws SQLException {
         PreparedStatement select = null;
         String selectQuery = null;
         ResultSet resultSet = null;
         int fieldsConditionsNamesEnd = fieldsConditions.length / 2;
 
         try {
-            connection.setAutoCommit(false); 
+            super.connection.setAutoCommit(false); 
 
             // Create the request.
             selectQuery = String.format("SELECT * FROM %s WHERE ", tableName);
@@ -41,22 +40,22 @@ public class DataBaseReader extends DataBaseOpener {
             selectQuery = selectQuery.concat(";");
 
             // Fill the conditions.
-            select = connection.prepareStatement(selectQuery);
+            select = super.connection.prepareStatement(selectQuery);
             for (int i = fieldsConditionsNamesEnd, j = 0; i < fieldsConditions.length; i++, j++) {
                 select.setObject(j + 1, fieldsConditions[i]);
             }
 
             // Execute query.
             resultSet = select.executeQuery();
-            connection.commit();
+            super.connection.commit();
 
             return resultSet;
         } catch (SQLException exception) {
         	logger.getExceptionTextFileLogger().error(exception);
-            if (connection != null) {
+            if (super.connection != null) {
                 try {
                 	logger.getExceptionTextFileLogger().info("Transaction is being rolled back");
-                    connection.rollback();
+                	super.connection.rollback();
                     if (select != null) {
                     	select.close();
                     }
@@ -68,21 +67,20 @@ public class DataBaseReader extends DataBaseOpener {
 
             return null;
         } finally {        	
-            connection.setAutoCommit(true);
+        	super.connection.setAutoCommit(true);
         }
     }
     
     /**
      * Selection elements from data base by the request.
-     * @param connection - connection to the data base.
      * @param request - full request.
      * @return result set of request.
      */
-    public ResultSet select(Connection connection, String request) {
+    public ResultSet select(String request) {
     	ResultSet resultSet = null;
     	try {
             Statement statement;
-            statement = connection.createStatement();
+            statement = super.connection.createStatement();
 
             resultSet = statement.executeQuery(request);
 
@@ -90,10 +88,10 @@ public class DataBaseReader extends DataBaseOpener {
         }  catch (SQLException exception) {
         	logger.getExceptionTextFileLogger().error("Can`t select from the database." + exception);
 
-            if (connection != null) {
+            if (super.connection != null) {
                 try {
                 	logger.getExceptionTextFileLogger().info("Transaction is being rolled back");
-                    connection.rollback();
+                	super.connection.rollback();
                 } catch(SQLException e) {
                 	logger.getExceptionTextFileLogger().error(e);
                 }
@@ -102,7 +100,7 @@ public class DataBaseReader extends DataBaseOpener {
             return null;
         } finally {        	
             try {
-				connection.setAutoCommit(true);
+            	super.connection.setAutoCommit(true);
 			} catch (SQLException e) {
 				logger.getExceptionTextFileLogger().error(e);
 			}

@@ -64,7 +64,6 @@ public class RegistrationAction extends AbstractAction {
 	 */
 	private boolean saveNewUser(String login, String name, String surname, String password, String email, String position) {
 		DataBaseWriter dataBaseWriter = new DataBaseWriter();
-		Connection connection = (Connection) dataBaseWriter.createConnection("localhost:3306", "job_tracking_system", "root", "root");
 		ResultSet resultSet = (ResultSet) find("positions", "position", position);
 		int positionId = 0;
 		User user = null;
@@ -74,24 +73,16 @@ public class RegistrationAction extends AbstractAction {
 				while (resultSet.next()) {
 					positionId = (int) resultSet.getObject(Position.POSITION_ID);
 
-					if (connection != null) {
-						user = new User(login, name, surname, password, email, createPositionById(positionId));
+					user = new User(login, name, surname, password, email, createPositionById(positionId));
 
-						// Add new record into data base.
-						if (user != null) {
-							return dataBaseWriter.insert(connection, "users", login, name, surname, password, email, positionId);
-						}
+					// Add new record into data base.
+					if (user != null) {
+						return dataBaseWriter.insert("users", login, name, surname, password, email, positionId);
 					}
 				}
 			}
 		} catch (SQLException exception) {
 			logger.getExceptionTextFileLogger().error(exception);
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException exception) {
-				logger.getExceptionTextFileLogger().error(exception);
-			}
 		}
 
 		return false;

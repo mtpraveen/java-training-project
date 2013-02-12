@@ -1,5 +1,7 @@
 package com.epam.logic.actions;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,7 +37,6 @@ public class AddJobAction extends AbstractAction {
 	 * has been created by values form form on web page.
 	 */
 	public String perform(HttpServletRequest request, HttpServletResponse response) {
-		Connection connection = null;
 		DataBaseWriter dataBaseWriter = new DataBaseWriter();
 		Job job = null;
 		
@@ -56,20 +57,13 @@ public class AddJobAction extends AbstractAction {
 				job = new Job(name, description, percents, beginDate, endDate, status, priority, worker, manager);
 
 				if (job != null) {
-					connection = (Connection) dataBaseWriter.createConnection("localhost:3306", "job_tracking_system", "root", "root");
-					dataBaseWriter.insert(connection, "Jobs", name, description, percents, beginDate, endDate, 
+					dataBaseWriter.insert("Jobs", name, description, percents, beginDate, endDate, 
 							status.getStatusId(), priority.getPriorityId(), worker.getId(), manager.getId());
 				}
 			} catch (SQLException exception) {
 				logger.getExceptionTextFileLogger().error(exception);
 			} catch (ParseException exception) {
 				logger.getExceptionTextFileLogger().error(exception);
-			} finally {
-				try {
-					connection.close();
-				} catch (SQLException exception) {
-					logger.getExceptionTextFileLogger().error(exception);
-				}
 			}
 
 			return "/addJob.jsp";

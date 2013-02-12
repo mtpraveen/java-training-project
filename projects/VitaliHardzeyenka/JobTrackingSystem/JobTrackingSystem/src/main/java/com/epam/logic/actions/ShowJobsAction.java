@@ -110,27 +110,22 @@ public class ShowJobsAction extends AbstractAction {
 	 */
 	public ResultSet searchJobs(int workerId) {
 		DataBaseReader dataBaseReader = new DataBaseReader();
-		Connection connection = (Connection) dataBaseReader.createConnection("localhost:3306", "job_tracking_system", "root", "root");
 		ResultSet resultSet = null;
 		String query = null;
 
-		if (connection != null) {
-			try {
-				query = "SELECT jobs.* FROM jobs WHERE jobs.worker_id='" + workerId + "';";
-				resultSet = (ResultSet) dataBaseReader.select(connection, query);
-				if (resultSet != null) {
-					if (resultSet.next()) {
-						resultSet.beforeFirst();
-						return resultSet;
-					}
-				} else {
-					return null;
+		try {
+			query = "SELECT jobs.* FROM jobs WHERE jobs.worker_id='" + workerId + "';";
+			resultSet = (ResultSet) dataBaseReader.select(query);
+			if (resultSet != null) {
+				if (resultSet.next()) {
+					resultSet.beforeFirst();
+					return resultSet;
 				}
-			} catch (SQLException exception) {
-				logger.getExceptionTextFileLogger().error("ShowJobsAction.searchJobs(); Line: 155. " + exception);
-			} finally {
-				// TODO close connection
+			} else {
+				return null;
 			}
+		} catch (SQLException exception) {
+			logger.getExceptionTextFileLogger().error("ShowJobsAction.searchJobs(); Line: 155. " + exception);
 		}
 
 		return null;
