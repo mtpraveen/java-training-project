@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +18,6 @@ import com.epam.logic.model.Job;
 import com.epam.logic.model.Priority;
 import com.epam.logic.model.Status;
 import com.epam.logic.model.User;
-import com.mysql.jdbc.Connection;
 
 /**
  * @author EXHUMLOKI
@@ -37,8 +38,6 @@ public class EditJobAction extends AbstractAction {
 	public String perform(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		DataBaseWriter dataBaseWriter = new DataBaseWriter();
-		Connection connection = null;
-		String query = null;
 		Job job = null;
 		ResultSet resultSet = null;
 		
@@ -51,9 +50,9 @@ public class EditJobAction extends AbstractAction {
 					job = createJobById(id);
 				}
 			} catch (SQLException e) {
+				// TODO 
 				e.printStackTrace();
 			}
-			
 			session.setAttribute("job", job);
 			return "/editJob.jsp";
 		} else { // update record in data base
@@ -69,26 +68,23 @@ public class EditJobAction extends AbstractAction {
 				User worker = createUserById(Integer.valueOf(request.getParameter("worker")));
 				User manager = createUserById(Integer.valueOf(request.getParameter("manager")));
 
-				job = new Job(name, description, percents, beginDate, endDate, status, priority, worker, manager);
-				if (job != null) {
-					query = String.format("UPDATE jobs SET name='%s', description='%s', begin_date='%s', end_date='%s', percents='%s', " +
-							"status_id='%s', priority_id='%s', worker_id='%s', manager_id='%s' WHERE job_id='%s';", 
-							name, description, new SimpleDateFormat("yyyy-MM-dd").format(beginDate), 
-							new SimpleDateFormat("yyyy-MM-dd").format(endDate), percents, status.getStatusId(), 
-							priority.getPriorityId(), worker.getId(), manager.getId(), id);
-
-					dataBaseWriter.update(query);			
-				}
+				
+				Map<String, Object> conditions = new HashMap<>();
+				conditions.put("name", name);
+				conditions.put("description", description);
+				conditions.put("begin_date", new SimpleDateFormat("yyyy-MM-dd").format(beginDate));
+				conditions.put("end_date", new SimpleDateFormat("yyyy-MM-dd").format(endDate));
+				conditions.put("percents", percents);
+				conditions.put("status_id", status.getStatusId());
+				conditions.put("priority_id", priority.getPriorityId());
+				conditions.put("worker_id", worker.getId());
+				conditions.put("manager_id", manager.getId());
+				
+				Map<String, Object> whereCon = new HashMap<>();
+				whereCon.put("job_id", id);
+				dataBaseWriter.update("jobs", conditions, whereCon);			
 			} catch (ParseException exception) {
 				logger.getExceptionTextFileLogger().error(exception);
-			} finally {
-				if (connection != null) {
-					try {
-						connection.close();
-					} catch (SQLException exception) {
-						logger.getExceptionTextFileLogger().error(exception);
-					}
-				}
 			}
 			
 			return "/managerHomePage.jsp"; // TODO find need jsp 

@@ -1,23 +1,19 @@
 package com.epam.logic.actions;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.epam.logic.Logger;
 import com.epam.logic.database.DataBaseWriter;
-import com.epam.logic.model.Job;
 import com.epam.logic.model.Priority;
 import com.epam.logic.model.Status;
 import com.epam.logic.model.User;
-import com.mysql.jdbc.Connection;
 
 /**
  * @author Gordeenko_XP
@@ -38,7 +34,6 @@ public class AddJobAction extends AbstractAction {
 	 */
 	public String perform(HttpServletRequest request, HttpServletResponse response) {
 		DataBaseWriter dataBaseWriter = new DataBaseWriter();
-		Job job = null;
 		
 		if (request.getParameter("insert").equals("false")) {
 			return "/addJob.jsp";
@@ -54,15 +49,9 @@ public class AddJobAction extends AbstractAction {
 				User worker = createUserById(Integer.valueOf(request.getParameter("worker")));
 				User manager = createUserById(Integer.valueOf(request.getParameter("manager")));
 
-				job = new Job(name, description, percents, beginDate, endDate, status, priority, worker, manager);
-
-				if (job != null) {
-					dataBaseWriter.insert("Jobs", name, description, percents, beginDate, endDate, 
-							status.getStatusId(), priority.getPriorityId(), worker.getId(), manager.getId());
-				}
-			} catch (SQLException exception) {
-				logger.getExceptionTextFileLogger().error(exception);
-			} catch (ParseException exception) {
+				dataBaseWriter.insert("Jobs", name, description, percents, beginDate, endDate, 
+									status.getStatusId(), priority.getPriorityId(), worker.getId(), manager.getId());
+			} catch (SQLException | ParseException | ClassNotFoundException exception) {
 				logger.getExceptionTextFileLogger().error(exception);
 			}
 

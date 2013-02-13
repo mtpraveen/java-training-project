@@ -16,12 +16,22 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+import com.epam.logic.Logger;
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
+/**
+ * @author EXHUMLOKI
+ * Class describe exemplar of data base connection and
+ * all might actions with it.
+ * Objects of this class will be situate in ConnectionsPool.
+ * All actions from ConnectionsPool applicable for this object.  
+ * Major states of connection: inUse, isClosed.
+ */
 public class ConnectionFromPool implements java.sql.Connection {
 	
-	private java.sql.Connection connection;
+	Logger logger = new Logger(org.apache.log4j.Logger.getLogger(ConnectionFromPool.class.getName()));
+	private java.sql.Connection connection; // sql connection to data base 
 	private boolean inUse; // if this connection use right now
 	private long timeOpened; // time of last connection opening
 	private long timeClosed; // time of last connection closing
@@ -58,10 +68,15 @@ public class ConnectionFromPool implements java.sql.Connection {
 		this.timeClosed = timeClosed;
 	}
 
-	/*
-	 * Constructor
+	/**
+	 * Costructor.
+	 * @param connection - sql connection to data base.
+	 * When new connection just has been created, state
+	 * inUse must be false.
+	 * @throws SQLException
 	 */
-	public ConnectionFromPool(java.sql.Connection connection) throws SQLException {
+	public ConnectionFromPool(java.sql.Connection connection) 
+			throws SQLException {
 		this.connection = connection;
 		this.inUse = false;
 		this.connection.setAutoCommit(false);
@@ -78,9 +93,19 @@ public class ConnectionFromPool implements java.sql.Connection {
 		if (this.inUse) {
 			return false;
 		} else {
-			this.inUse = true;
-			this.timeOpened = System.currentTimeMillis();
-			return true;
+			try {
+				if (!this.connection.isClosed() && 
+					(this.connection.getWarnings() == null)) {
+					this.inUse = true;
+					this.timeOpened = System.currentTimeMillis();
+					return true;
+				} else {
+					return false;
+				}
+			} catch (SQLException e) {
+				logger.getExceptionTextFileLogger().error(e);
+				return false;
+			}
 		}
 	}
 	
@@ -95,6 +120,7 @@ public class ConnectionFromPool implements java.sql.Connection {
 		} catch (SQLException e) { }
 	}
 
+	@Override
 	/**
 	 * If connection in use right now try to close it,
 	 * set the last time of closing. 
