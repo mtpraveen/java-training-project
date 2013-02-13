@@ -81,7 +81,7 @@ public class RegistrationAction extends AbstractAction {
 					}
 				}
 			}
-		} catch (SQLException exception) {
+		} catch (SQLException | ClassNotFoundException exception) {
 			logger.getExceptionTextFileLogger().error(exception);
 		}
 
