@@ -10,6 +10,7 @@ import org.junit.Ignore;
 
 public class ManagerViewWorkersTest {
 
+	@Ignore
 	@Before
 	public void prepare() {
 		setBaseUrl("http://localhost:8080/JobTrackingSystem");
