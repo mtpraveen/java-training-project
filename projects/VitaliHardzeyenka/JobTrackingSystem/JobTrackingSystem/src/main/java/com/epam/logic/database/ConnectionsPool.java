@@ -2,7 +2,7 @@ package com.epam.logic.database;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.epam.logic.Logger;
 
@@ -20,8 +20,8 @@ public class ConnectionsPool {
 
 	Logger logger = new Logger(org.apache.log4j.Logger.getLogger(ConnectionsPool.class.getName()));
 
-	private static ConnectionsPool INSTANCE = null; 
-	private ArrayList<ConnectionFromPool> connections;
+	private static ConnectionsPool INSTANCE = null;
+	private CopyOnWriteArrayList<ConnectionFromPool> connections;
 	private String driverName;
 	private String url;
 	private String username;
@@ -36,7 +36,7 @@ public class ConnectionsPool {
 		this.driverName = driverName;
 		this.username = username;
 		this.password = password;
-		this.connections = new ArrayList<>();
+		this.connections = new CopyOnWriteArrayList<>();
 		cleaningInterval = 10 * 000; // 10 seconds interval for cleaning
 		maxIdleTime = 10 * 000; // 10 seconds interval for idle connection
 		draining = false; // if true - pool is empty; false otherwise
@@ -60,36 +60,34 @@ public class ConnectionsPool {
 				throw new SQLException("Connections poll was drained.");
 			}
 
-			// Try reusing an existing connection.
-			synchronized (connections) {
-				ConnectionFromPool connectionFomPool = null;
+			// Try reusing an existing connection.		
+			ConnectionFromPool connectionFomPool = null;
 
-				for (ConnectionFromPool conn : this.connections) {
-					connectionFomPool = conn;
+			for (ConnectionFromPool conn : this.connections) {
+				connectionFomPool = conn;
 
-					if (connectionFomPool.use()) {
-						return connectionFomPool;
-					} else {
-						boolean isHealthy = true;
+				if (connectionFomPool.use()) {
+					return connectionFomPool.getConnection();
+				} else {
+					boolean isHealthy = true;
 
-						try {
-							if (connectionFomPool.isClosed() && connectionFomPool.getWarnings() != null) {
-								isHealthy = false;
-							}
-						} catch (SQLException e) {
+					try {
+						if (connectionFomPool.isClosed() && connectionFomPool.getWarnings() != null) {
 							isHealthy = false;
-							logger.getExceptionTextFileLogger().error(e);
 						}
+					} catch (SQLException e) {
+						isHealthy = false;
+						logger.getExceptionTextFileLogger().error(e);
+					}
 
-						if (isHealthy) {
-							return connectionFomPool;
-						} else {
-							connectionFomPool.expire();
-							connections.remove(connectionFomPool);
-						}
+					if (isHealthy) {
+						return connectionFomPool.getConnection();
+					} else {
+						connectionFomPool.expire();
+						connections.remove(connectionFomPool);
 					}
 				}
-			}
+			}			
 
 			com.epam.logic.database.ConnectionFromPool connectionFromPool = null;
 			try {
@@ -98,19 +96,19 @@ public class ConnectionsPool {
 				connectionFromPool = new ConnectionFromPool(sqlConnection);
 				connectionFromPool.use();
 
-				synchronized (connections) {
-					this.connections.add(connectionFromPool);
+				
+				this.connections.add(connectionFromPool);
 
-					if (this.poolCleaner == null) {
-						this.poolCleaner = new PoolCleaner(cleaningInterval);
-						this.poolCleaner.start();
-					}
+				if (this.poolCleaner == null) {
+					this.poolCleaner = new PoolCleaner(cleaningInterval);
+					this.poolCleaner.start();
 				}
+				
 			} catch (SQLException e) {
 				logger.getExceptionTextFileLogger().error(e);
 			}  
 
-			return connectionFromPool;
+			return connectionFromPool.getConnection();
 		} catch(SQLException | ClassNotFoundException e) {
 			return null;
 		}
@@ -123,16 +121,14 @@ public class ConnectionsPool {
 		ConnectionFromPool connection = null;
 		long maxIdleDeadLine = System.currentTimeMillis() - this.maxIdleTime;
 
-		synchronized (connections) {
-			for (int i = this.connections.size() - 1; i >= 0; i--) {
-				connection = connections.get(i); 
+		for (int i = this.connections.size() - 1; i >= 0; i--) {
+			connection = connections.get(i); 
 
-				if (!connection.isInUse() && 
+			if (!connection.isInUse() && 
 					(connection.getTimeClosed() < maxIdleDeadLine)) {
-					connection.expire();
-					connections.remove(i);
-				}
-			}			
+				connection.expire();
+				connections.remove(i);
+			}
 		}
 
 		// Stop the PoolCleaner if the pool is empty.
@@ -179,7 +175,7 @@ public class ConnectionsPool {
 			synchronized (this) {
 				this.interrupt();
 			}
-		}		
+		}
 	}
 
 }

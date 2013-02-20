@@ -15,6 +15,7 @@ import org.junit.Test;
 
 public class RegistrationTest {
 	
+	@Ignore
 	@Before
 	public void prepare() {
         setBaseUrl("http://localhost:8080/JobTrackingSystem");

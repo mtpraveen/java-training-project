@@ -14,6 +14,7 @@ import org.junit.Test;
 
 public class LogOnTest {
 	
+	@Ignore
 	@Before
 	public void prepare() {
         setBaseUrl("http://localhost:8080/JobTrackingSystem");
