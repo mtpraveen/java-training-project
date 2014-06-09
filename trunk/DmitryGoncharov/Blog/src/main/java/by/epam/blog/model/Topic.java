@@ -45,7 +45,7 @@ public class Topic implements Serializable{
 	
 	//private List<String> tags = new ArrayList<String>();
 	
-	@OneToMany(mappedBy = "topic", cascade = CascadeType.ALL,fetch=FetchType.EAGER,orphanRemoval=true)
+	@OneToMany(mappedBy = "topic", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	@OrderBy("id")
 	private Set<Comment> comments;
 	

@@ -32,10 +32,10 @@ public class Blog implements Serializable{
 	@Column(name = "blog_name")
 	private String name;
 	
-	@OneToOne(mappedBy = "blog",orphanRemoval=true)
+	@OneToOne(mappedBy = "blog")
 	private User user;
 	
-	@OneToMany(mappedBy = "blog",fetch=FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy = "blog",fetch=FetchType.EAGER)
 	@OrderBy("id")
 	//@javax.persistence.OrderBy("caption, text")
 	private Set <Topic> topics;
